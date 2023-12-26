@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import ResponsiveApBar from "./ResponsiveAppBar";
 
 const BREAK_POINT = "1200px";
 
@@ -28,7 +27,6 @@ const Paragraph = styled.div`
 const Home = () => {
   return (
     <MainContainer>
-      <ResponsiveApBar />
       <ContentContainer>
         <PageTitle>Meet Chenyu Zhang</PageTitle>
         <Paragraph>Hello there,</Paragraph>
