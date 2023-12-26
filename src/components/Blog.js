@@ -26,7 +26,7 @@ const Blog = () => {
     <MainContainer>
       <ResponsiveApBar />
       <ContentContainer>
-        <PageTitle>Blog</PageTitle>
+        <PageTitle>Mind's Canvas</PageTitle>
         coming soon...
       </ContentContainer>
     </MainContainer>
