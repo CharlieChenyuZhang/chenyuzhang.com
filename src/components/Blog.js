@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import ResponsiveApBar from "./ResponsiveAppBar";
 
 const BREAK_POINT = "1200px";
 
@@ -24,7 +23,6 @@ const PageTitle = styled.div`
 const Blog = () => {
   return (
     <MainContainer>
-      <ResponsiveApBar />
       <ContentContainer>
         <PageTitle>Mind's Canvas</PageTitle>
         coming soon...

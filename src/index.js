@@ -4,21 +4,33 @@ import "./index.css";
 import Home from "./components/Home";
 import Blog from "./components/Blog";
 import Music from "./components/Music";
+import ResponsiveApBar from "./components/ResponsiveAppBar";
+import Footer from "./components/Footer";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+const elementConstructor = (Component) => {
+  return (
+    <>
+      <ResponsiveApBar />
+      {Component}
+      <Footer />
+    </>
+  );
+};
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: elementConstructor(<Home />),
   },
   {
     path: "/blog",
-    element: <Blog />,
+    element: elementConstructor(<Blog />),
   },
   {
     path: "/music",
-    element: <Music />,
+    element: elementConstructor(<Music />),
   },
 ]);
 

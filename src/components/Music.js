@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import ResponsiveApBar from "./ResponsiveAppBar";
 
 import {
   Grid,
@@ -70,7 +69,6 @@ const MediaCard = styled(Card)`
 const TeamPage = () => {
   return (
     <MainContainer>
-      <ResponsiveApBar />
       <ContentContainer>
         <PageTitle>From My Soul to Sound</PageTitle>
         <Grid container spacing={5}>

@@ -12,7 +12,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 
 // NOTE: for the commented out tabs, the compoennts are ready
-const pages = ["HOME", "BLOG", "Music"];
+const pages = ["HOME", "BLOG", "MUSIC"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
