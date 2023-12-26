@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import Home from "./components/Home";
 import Blog from "./components/Blog";
+import Music from "./components/Music";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
   {
     path: "/blog",
     element: <Blog />,
+  },
+  {
+    path: "/music",
+    element: <Music />,
   },
 ]);
 

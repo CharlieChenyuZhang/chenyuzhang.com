@@ -30,7 +30,7 @@ const Home = () => {
     <MainContainer>
       <ResponsiveApBar />
       <ContentContainer>
-        <PageTitle>About me</PageTitle>
+        <PageTitle>Meet Chenyu Zhang</PageTitle>
         <Paragraph>Hello there,</Paragraph>
         <Paragraph>
           Welcome to my blog! My name is (Charlie) Chenyu Zhang, a full stack
