@@ -62,6 +62,11 @@ const PageTitle = styled.div`
   padding: 5rem 0;
 `;
 
+const MediaCard = styled(Card)`
+  width: 313px;
+  height: 500px;
+`;
+
 const TeamPage = () => {
   return (
     <MainContainer>
@@ -70,8 +75,8 @@ const TeamPage = () => {
         <PageTitle>From My Soul to Sound</PageTitle>
         <Grid container spacing={5}>
           {musicCollection.map((music, idx) => (
-            <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={idx}>
-              <Card onClick={() => {}}>
+            <Grid item key={idx}>
+              <MediaCard onClick={() => {}}>
                 <iframe
                   width="313"
                   height="315"
@@ -89,7 +94,7 @@ const TeamPage = () => {
                     {music.description}
                   </Typography>
                 </CardContent>
-              </Card>
+              </MediaCard>
             </Grid>
           ))}
         </Grid>
