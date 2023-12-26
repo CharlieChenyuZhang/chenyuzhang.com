@@ -36,7 +36,7 @@ const Home = () => {
           passion in AI and web3.
         </Paragraph>
         <Paragraph>
-          I founded my first started in 2016 in the space of AI. Many things
+          I founded my first startup in 2016 in the space of AI. Many things
           have changed in the tech industry since then. The only thing that
           didn't change is my passion of sharing my knowledge with the tech
           community. I hope you enjoy all you read as much as I enjoyed writing
