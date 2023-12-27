@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import Markdown from "react-markdown";
+import myMarkdownFile from "../blogs/2023/using-markdown-to-write-blog-posts.md";
+import remarkGfm from "remark-gfm";
 
 const BREAK_POINT = "1200px";
 
@@ -21,11 +24,21 @@ const PageTitle = styled.div`
 `;
 
 const Blog = () => {
+  // TODO: maridown = [{title: "", content: ""}, {...}]
+  // TODO: dynamically grab all the contents from the folder and through useEffect
+  const [markdown, setMarkdown] = useState("");
+
+  useEffect(() => {
+    fetch(myMarkdownFile)
+      .then((response) => response.text())
+      .then((text) => setMarkdown(text));
+  }, []);
+
   return (
     <MainContainer>
       <ContentContainer>
         <PageTitle>Mind's Canvas</PageTitle>
-        coming soon...
+        <Markdown remarkPlugins={[remarkGfm]}>{markdown}</Markdown>
       </ContentContainer>
     </MainContainer>
   );
