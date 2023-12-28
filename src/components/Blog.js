@@ -53,7 +53,7 @@ const Blog = () => {
           <br />
           2. Life is short. I want to leave something behind.
         </PageSubTitle>
-        <Markdown remarkPlugins={[remarkGfm]}>{markdown}</Markdown>
+        {/* <Markdown remarkPlugins={[remarkGfm]}>{markdown}</Markdown> */}
       </ContentContainer>
     </MainContainer>
   );
