@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-
+import music from "../images/music.gif";
 import {
   Grid,
   Card,
@@ -70,7 +70,9 @@ const TeamPage = () => {
   return (
     <MainContainer>
       <ContentContainer>
-        <PageTitle>From My Soul to Sound</PageTitle>
+        <PageTitle>
+          <img src={music} alt="music" width="100" height="100" />
+        </PageTitle>
         <Grid container spacing={5}>
           {musicCollection.map((music, idx) => (
             <Grid item key={idx}>
