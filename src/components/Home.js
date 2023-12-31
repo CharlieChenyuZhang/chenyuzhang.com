@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
+import greeting from "../images/greeting.gif";
 const BREAK_POINT = "1200px";
 
 const MainContainer = styled.div`
@@ -28,7 +28,9 @@ const Home = () => {
   return (
     <MainContainer>
       <ContentContainer>
-        <PageTitle>Meet Chenyu Zhang</PageTitle>
+        <PageTitle>
+          <img src={greeting} alt="greeting" width="100" height="100" />
+        </PageTitle>
         <Paragraph>Hello there,</Paragraph>
         <Paragraph>
           Welcome to my blog! My name is (Charlie) Chenyu Zhang, a full stack

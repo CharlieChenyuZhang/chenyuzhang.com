@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Markdown from "react-markdown";
 import myMarkdownFile from "../blogs/2023/using-markdown-to-write-blog-posts.md";
 import remarkGfm from "remark-gfm";
+import reading from "../images/reading.gif";
 
 const BREAK_POINT = "1200px";
 
@@ -44,15 +45,9 @@ const Blog = () => {
   return (
     <MainContainer>
       <ContentContainer>
-        <PageTitle>Mind's Canvas</PageTitle>
-        <PageSubTitle>
-          Why do I want to start writing blogs?
-          <br />
-          1. I want to share my thoughts with people even there's only one
-          person in this world who find it useful. It would be enough.
-          <br />
-          2. Life is short. I want to leave something behind.
-        </PageSubTitle>
+        <PageTitle>
+          <img src={reading} alt="reading" width="100" height="100" />
+        </PageTitle>
         Posts coming soon...
         {/* <Markdown remarkPlugins={[remarkGfm]}>{markdown}</Markdown> */}
       </ContentContainer>
