@@ -50,7 +50,7 @@ const Home = () => {
           blogs. I will get back to you as soon as I can. That's a promise!
           Please reach me at
         </Paragraph>
-        <Paragraph>charlie[dot]chenyu[dot]zhang [at] gmail[dot]com</Paragraph>
+        <Paragraph>contact[at]chenyuzhang[dot]com</Paragraph>
         <Paragraph>Best,</Paragraph>
         <Paragraph>Chenyu Zhang</Paragraph>
       </ContentContainer>
