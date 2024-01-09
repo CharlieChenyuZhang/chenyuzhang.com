@@ -34,8 +34,8 @@ const Home = () => {
         <Paragraph>Hello there,</Paragraph>
         <Paragraph>
           Welcome to my blog! My name is (Charlie) Chenyu Zhang, a full stack
-          software engineer with 7+ years of programming experience and a strong
-          passion in AI and web3.
+          software engineer with {new Date().getFullYear() - 2015}+ years of
+          programming experience and a strong passion in AI and web3.
         </Paragraph>
         <Paragraph>
           I founded my first startup in 2016 in the space of AI. Many things
