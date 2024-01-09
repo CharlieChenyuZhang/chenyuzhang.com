@@ -31,16 +31,11 @@ const PageSubTitle = styled.div`
 const Blog = () => {
   const [posts, setPosts] = useState([]);
 
-  console.log("posts", posts);
-
   useEffect(() => {
     const importAll = (r) => {
-      console.log("r.keys()", r.keys());
       return r.keys().map((fileName) => {
         // Use the file name directly as provided by require.context
-
         const path = r(fileName);
-        console.log("path", path);
         return {
           slug: fileName.substr(2).replace(/\.md$/, ""), // Extract slug from file name
           path, // Path to the actual file content
@@ -51,10 +46,10 @@ const Blog = () => {
     // The path here is relative to this script file
     const markdownFiles = require.context("../blogs", true, /\.md$/);
     const blogs = importAll(markdownFiles);
-    console.log("blogs", blogs);
 
     Promise.all(
       blogs.map((blog) => {
+        console.log("blog", blog);
         return fetch(blog.path)
           .then((res) => res.text())
           .then((text) => ({
@@ -71,17 +66,20 @@ const Blog = () => {
   return (
     <MainContainer>
       <ContentContainer>
-        {posts.map((post) => (
-          <div key={post.slug}>
-            <PageTitle>
-              <img src={reading} alt="reading" width="100" height="100" />
-              {/* Add title here if available */}
-            </PageTitle>
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-              {post.content}
-            </ReactMarkdown>
-          </div>
-        ))}
+        {posts.map(
+          (post) =>
+            !post?.slug?.startsWith("_") && (
+              <div key={post.slug}>
+                <PageTitle>
+                  <img src={reading} alt="reading" width="100" height="100" />
+                  {/* Add title here if available */}
+                </PageTitle>
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {post.content}
+                </ReactMarkdown>
+              </div>
+            )
+        )}
       </ContentContainer>
     </MainContainer>
   );
