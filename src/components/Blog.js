@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Markdown from "react-markdown";
-import myMarkdownFile from "../blogs/2023/using-markdown-to-write-blog-posts.md";
+import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import reading from "../images/reading.gif";
 
@@ -30,26 +29,59 @@ const PageSubTitle = styled.div`
 `;
 
 const Blog = () => {
-  // TODO: maridown = [{title: "", content: ""}, {...}]
-  // TODO: dynamically grab all the contents from the folder and through useEffect
-  // TODO: I hope in the futre, I can simply add a new .md file to /2023 or /2024 folder and commit that .md file
-  // it will automatically get organized and published in a reverse chronological order - latest post first
-  const [markdown, setMarkdown] = useState("");
+  const [posts, setPosts] = useState([]);
+
+  console.log("posts", posts);
 
   useEffect(() => {
-    fetch(myMarkdownFile)
-      .then((response) => response.text())
-      .then((text) => setMarkdown(text));
+    const importAll = (r) => {
+      console.log("r.keys()", r.keys());
+      return r.keys().map((fileName) => {
+        // Use the file name directly as provided by require.context
+
+        const path = r(fileName);
+        console.log("path", path);
+        return {
+          slug: fileName.substr(2).replace(/\.md$/, ""), // Extract slug from file name
+          path, // Path to the actual file content
+        };
+      });
+    };
+
+    // The path here is relative to this script file
+    const markdownFiles = require.context("../blogs", true, /\.md$/);
+    const blogs = importAll(markdownFiles);
+    console.log("blogs", blogs);
+
+    Promise.all(
+      blogs.map((blog) => {
+        return fetch(blog.path)
+          .then((res) => res.text())
+          .then((text) => ({
+            ...blog,
+            content: text,
+          }))
+          .catch((err) => console.error("Error loading markdown file:", err));
+      })
+    )
+      .then((posts) => setPosts(posts))
+      .catch((err) => console.error("Error setting posts:", err));
   }, []);
 
   return (
     <MainContainer>
       <ContentContainer>
-        <PageTitle>
-          <img src={reading} alt="reading" width="100" height="100" />
-        </PageTitle>
-        Posts coming soon...
-        {/* <Markdown remarkPlugins={[remarkGfm]}>{markdown}</Markdown> */}
+        {posts.map((post) => (
+          <div key={post.slug}>
+            <PageTitle>
+              <img src={reading} alt="reading" width="100" height="100" />
+              {/* Add title here if available */}
+            </PageTitle>
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {post.content}
+            </ReactMarkdown>
+          </div>
+        ))}
       </ContentContainer>
     </MainContainer>
   );
