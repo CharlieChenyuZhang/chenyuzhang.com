@@ -4,7 +4,15 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import reading from "../images/reading.gif";
 import markdownFiles from "../blog2show";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+
 const BREAK_POINT = "1200px";
+const maxLength = 100;
 
 const MainContainer = styled.div`
   height: 100%;
@@ -33,7 +41,7 @@ const Blog = () => {
 
   useEffect(() => {
     const loadMarkdownFiles = markdownFiles.map((fileName) => {
-      const path = `/blogs/${fileName}`; // Adjust the path based on your `public` folder structure
+      const path = `/posts/${fileName}`; // Adjust the path based on your `public` folder structure
       return fetch(path)
         .then((res) => res.text())
         .then((content) => ({
@@ -48,6 +56,10 @@ const Blog = () => {
       .catch((err) => console.error("Error setting posts:", err));
   }, []);
 
+  const readMoreHandler = (post) => {
+    // redirect to the new route /blog/:postId and postId is the slug name
+    window.open(`/post/${post.slug}`, "_blank");
+  };
   return (
     <MainContainer>
       <ContentContainer>
@@ -57,9 +69,26 @@ const Blog = () => {
               <img src={reading} alt="reading" width="100" height="100" />
               {/* Add title here if available */}
             </PageTitle>
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-              {post.content}
-            </ReactMarkdown>
+
+            <Card sx={{ minWidth: 275 }}>
+              <CardContent>
+                <Typography variant="h5" component="div">
+                  {post.slug.replace(/-/g, " ").toUpperCase()}
+                </Typography>
+                <Typography variant="body2">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {post.content.length > maxLength
+                      ? `${post.content.substring(0, maxLength)}...`
+                      : post.content}
+                  </ReactMarkdown>
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small" onClick={() => readMoreHandler(post)}>
+                  Read More
+                </Button>
+              </CardActions>
+            </Card>
           </div>
         ))}
       </ContentContainer>

@@ -6,6 +6,7 @@ import Blog from "./components/Blog";
 import Music from "./components/Music";
 import ResponsiveApBar from "./components/ResponsiveAppBar";
 import Footer from "./components/Footer";
+import Post from "./components/Post";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
   {
     path: "/music",
     element: elementConstructor(<Music />),
+  },
+  {
+    path: "/post/:postId", // Dynamic route for individual blog posts
+    element: elementConstructor(<Post />),
   },
 ]);
 
