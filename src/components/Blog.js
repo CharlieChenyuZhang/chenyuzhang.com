@@ -69,8 +69,8 @@ const Blog = () => {
               <img src={reading} alt="reading" width="100" height="100" />
               {/* Add title here if available */}
             </PageTitle>
-
-            <Card sx={{ minWidth: 275 }}>
+            Coming soon...
+            {/* <Card sx={{ minWidth: 275 }}>
               <CardContent>
                 <Typography variant="h5" component="div">
                   {post.slug.replace(/-/g, " ").toUpperCase()}
@@ -88,7 +88,7 @@ const Blog = () => {
                   Read More
                 </Button>
               </CardActions>
-            </Card>
+            </Card> */}
           </div>
         ))}
       </ContentContainer>
