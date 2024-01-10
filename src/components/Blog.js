@@ -66,23 +66,26 @@ const Blog = () => {
 
   return (
     <MainContainer>
-      <ContentContainer>
-        {posts.map(
-          (post) =>
-            !post?.slug?.startsWith("_") && (
-              <div key={post.slug}>
-                <PageTitle>
-                  <img src={reading} alt="reading" width="100" height="100" />
-                  {/* Add title here if available */}
-                </PageTitle>
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                  {post.content}
-                </ReactMarkdown>
-              </div>
-            )
-        )}
-      </ContentContainer>
+      <ContentContainer>Coming soon...</ContentContainer>
     </MainContainer>
+    // <MainContainer>
+    //   <ContentContainer>
+    //     {posts.map(
+    //       (post) =>
+    //         !post?.slug?.startsWith("_") && (
+    //           <div key={post.slug}>
+    //             <PageTitle>
+    //               <img src={reading} alt="reading" width="100" height="100" />
+    //               {/* Add title here if available */}
+    //             </PageTitle>
+    //             <ReactMarkdown remarkPlugins={[remarkGfm]}>
+    //               {post.content}
+    //             </ReactMarkdown>
+    //           </div>
+    //         )
+    //     )}
+    //   </ContentContainer>
+    // </MainContainer>
   );
 };
 
