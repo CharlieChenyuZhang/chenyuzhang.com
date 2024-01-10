@@ -4,5 +4,5 @@ chenyuzhang.com landing page
 
 # blog posts instruction
 
-- if it starts with a udnerscore, it will be ignored
-- it will render the .md content automatically in the blogs folder
+- write your new blog in the public/blogs folder
+- it won't appear to the website until you add it to the src/blog2show.js. Remember, FIFO.
