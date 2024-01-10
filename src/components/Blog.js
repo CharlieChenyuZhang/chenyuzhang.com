@@ -30,6 +30,7 @@ const PageSubTitle = styled.div`
 
 const Blog = () => {
   const [posts, setPosts] = useState([]);
+  console.log("posts", posts);
 
   useEffect(() => {
     const importAll = (r) => {
