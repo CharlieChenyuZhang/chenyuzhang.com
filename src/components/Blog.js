@@ -40,15 +40,35 @@ const Blog = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
+    // const loadMarkdownFiles = markdownFiles.map((fileName) => {
+    //   const path = `/posts/${fileName}`; // Adjust the path based on your `public` folder structure
+    //   return fetch(path)
+    //     .then((res) => res.text())
+    //     .then((content) => ({
+    //       slug: fileName.replace(/\.md$/, ""), // Extract slug from file name
+    //       content, // Markdown content
+    //     }))
+    //     .catch((err) => console.error("Error loading markdown file:", err));
+    // });
     const loadMarkdownFiles = markdownFiles.map((fileName) => {
-      const path = `/posts/${fileName}`; // Adjust the path based on your `public` folder structure
-      return fetch(path)
-        .then((res) => res.text())
-        .then((content) => ({
-          slug: fileName.replace(/\.md$/, ""), // Extract slug from file name
-          content, // Markdown content
-        }))
-        .catch((err) => console.error("Error loading markdown file:", err));
+      const path = `posts/${fileName}`; // Adjust the path based on your `public` folder structure
+      // return fetch(path)
+      //   .then((res) => res.text())
+      //   .then((content) => ({
+      //     slug: fileName.replace(/\.md$/, ""), // Extract slug from file name
+      //     content, // Markdown content
+      //   }))
+      //   .catch((err) => console.error("Error loading markdown file:", err));
+
+      return import(`../md/${fileName}`).then((res) =>
+        fetch(res.default)
+          .then((response) => response.text())
+          .then((content) => ({
+            slug: fileName.replace(/\.md$/, ""), // Extract slug from file name
+            content, // Markdown content
+          }))
+          .catch((err) => console.log(err))
+      );
     });
 
     Promise.all(loadMarkdownFiles)
@@ -69,8 +89,7 @@ const Blog = () => {
               <img src={reading} alt="reading" width="100" height="100" />
               {/* Add title here if available */}
             </PageTitle>
-            Coming soon...
-            {/* <Card sx={{ minWidth: 275 }}>
+            <Card sx={{ minWidth: 275 }}>
               <CardContent>
                 <Typography variant="h5" component="div">
                   {post.slug.replace(/-/g, " ").toUpperCase()}
@@ -88,7 +107,7 @@ const Blog = () => {
                   Read More
                 </Button>
               </CardActions>
-            </Card> */}
+            </Card>
           </div>
         ))}
       </ContentContainer>

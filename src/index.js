@@ -8,7 +8,7 @@ import ResponsiveApBar from "./components/ResponsiveAppBar";
 import Footer from "./components/Footer";
 import Post from "./components/Post";
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const elementConstructor = (Component) => {
   return (
@@ -20,28 +20,39 @@ const elementConstructor = (Component) => {
   );
 };
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: elementConstructor(<Home />),
-  },
-  {
-    path: "/blog",
-    element: elementConstructor(<Blog />),
-  },
-  {
-    path: "/music",
-    element: elementConstructor(<Music />),
-  },
-  {
-    path: "/post/:postId", // Dynamic route for individual blog posts
-    element: elementConstructor(<Post />),
-  },
-]);
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: elementConstructor(<Home />),
+//   },
+//   {
+//     path: "/blog",
+//     element: elementConstructor(<Blog />),
+//   },
+//   {
+//     path: "/music",
+//     element: elementConstructor(<Music />),
+//   },
+//   {
+//     path: "/post/:postId", // Dynamic route for individual blog posts
+//     element: elementConstructor(<Post />),
+//   },
+// ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <BrowserRouter>
+      <Routes>
+        <Route exact path="/" element={elementConstructor(<Home />)} />
+        <Route exact path="/blog" element={elementConstructor(<Blog />)} />
+        <Route exact path="/music" element={elementConstructor(<Music />)} />
+        <Route
+          exact
+          path="/post/:postId"
+          element={elementConstructor(<Post />)}
+        />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
