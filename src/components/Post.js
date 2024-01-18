@@ -4,6 +4,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import reading from "../images/reading.gif";
 import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const BREAK_POINT = "1200px";
 
@@ -30,30 +31,20 @@ const PageSubTitle = styled.div`
 `;
 
 const Post = () => {
-  let { postId } = useParams();
-  const [post, setpost] = useState("");
-
-  useEffect(() => {
-    fetch(`/posts/${postId}.md`)
-      .then((res) => res.text())
-      .then((post) =>
-        setpost({
-          slug: postId,
-          post, // Markdown post
-        })
-      )
-      .catch((err) => console.error("Error loading markdown file:", err));
-  }, []);
+  const location = useLocation();
+  const postData = location.state.post;
 
   return (
     <MainContainer>
       <ContentContainer>
-        <div key={post.slug}>
+        <div key={postData.slug}>
           <PageTitle>
             <img src={reading} alt="reading" width="100" height="100" />
             {/* Add title here if available */}
           </PageTitle>
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.post}</ReactMarkdown>
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            {postData.content}
+          </ReactMarkdown>
         </div>
       </ContentContainer>
     </MainContainer>
