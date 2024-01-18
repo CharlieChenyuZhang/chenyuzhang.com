@@ -10,6 +10,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { useNavigate } from "react-router-dom";
 
 const BREAK_POINT = "1200px";
 const maxLength = 100;
@@ -37,49 +38,36 @@ const PageSubTitle = styled.div`
 `;
 
 const Blog = () => {
+  const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    // const loadMarkdownFiles = markdownFiles.map((fileName) => {
-    //   const path = `/posts/${fileName}`; // Adjust the path based on your `public` folder structure
-    //   return fetch(path)
-    //     .then((res) => res.text())
-    //     .then((content) => ({
-    //       slug: fileName.replace(/\.md$/, ""), // Extract slug from file name
-    //       content, // Markdown content
-    //     }))
-    //     .catch((err) => console.error("Error loading markdown file:", err));
-    // });
-    const loadMarkdownFiles = markdownFiles.map((fileName) => {
-      const path = `posts/${fileName}`; // Adjust the path based on your `public` folder structure
-      // return fetch(path)
-      //   .then((res) => res.text())
-      //   .then((content) => ({
-      //     slug: fileName.replace(/\.md$/, ""), // Extract slug from file name
-      //     content, // Markdown content
-      //   }))
-      //   .catch((err) => console.error("Error loading markdown file:", err));
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/api/blog/all");
+        const data = await response.json();
 
-      return import(`../md/${fileName}`).then((res) =>
-        fetch(res.default)
-          .then((response) => response.text())
-          .then((content) => ({
-            slug: fileName.replace(/\.md$/, ""), // Extract slug from file name
-            content, // Markdown content
-          }))
-          .catch((err) => console.log(err))
-      );
-    });
+        // Transform the data into an array
+        console.log("Object.entries(data)", Object.entries(data));
+        const postsArray = Object.entries(data).map(([slug, post]) => ({
+          slug,
+          ...post,
+        }));
 
-    Promise.all(loadMarkdownFiles)
-      .then((posts) => setPosts(posts))
-      .catch((err) => console.error("Error setting posts:", err));
+        setPosts(postsArray);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
+    };
+
+    fetchPosts();
   }, []);
 
   const readMoreHandler = (post) => {
     // redirect to the new route /blog/:postId and postId is the slug name
-    window.open(`/post/${post.slug}`, "_blank");
+    navigate(`/post/${post.slug}`, { state: { post } });
   };
+
   return (
     <MainContainer>
       <ContentContainer>
@@ -92,14 +80,12 @@ const Blog = () => {
             <Card sx={{ minWidth: 275 }}>
               <CardContent>
                 <Typography variant="h5" component="div">
-                  {post.slug.replace(/-/g, " ").toUpperCase()}
+                  {post.data.title}
                 </Typography>
                 <Typography variant="body2">
-                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                    {post.content.length > maxLength
-                      ? `${post.content.substring(0, maxLength)}...`
-                      : post.content}
-                  </ReactMarkdown>
+                  {post.data.subtitle}
+                  {/* <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  </ReactMarkdown> */}
                 </Typography>
               </CardContent>
               <CardActions>
