@@ -44,7 +44,8 @@ const Blog = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/blog/all");
+        // FIXME: update this after deployment
+        const response = await fetch("/api/blog/all");
         const data = await response.json();
 
         // Transform the data into an array
