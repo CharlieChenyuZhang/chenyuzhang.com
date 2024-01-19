@@ -16,3 +16,29 @@ code {
   min-height: 100vh;
   height: 100%;
 }
+
+blockquote {
+  padding: 20px;
+  margin: 20px 0;
+  border-left: 5px solid #8a8a8a; /* A solid left border for distinction */
+  background-color: #f9f9f9; /* A light background color */
+  font-style: italic; /* Italicize text */
+  color: #555; /* A slightly darker text color for readability */
+  font-size: 1.1em; /* Slightly larger font size */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* A subtle shadow for depth */
+  line-height: 1.6; /* Improved line spacing for readability */
+  position: relative;
+}
+
+blockquote:before {
+  content: "📖";
+  font-style: normal;
+  font-size: 3em;
+  line-height: 0.1em;
+  margin-right: 10px;
+  vertical-align: -0.4em;
+  color: #8a8a8a; /* Color of the opening quote */
+  position: relative;
+  left: -10px; /* Adjust as necessary for alignment */
+}

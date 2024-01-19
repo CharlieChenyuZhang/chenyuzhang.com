@@ -45,7 +45,8 @@ const Blog = () => {
     const fetchPosts = async () => {
       try {
         // FIXME: update this after deployment
-        const response = await fetch("/api/blog/all");
+        // http://localhost:8080
+        const response = await fetch("/blog/all");
         const data = await response.json();
 
         // Transform the data into an array
@@ -66,7 +67,7 @@ const Blog = () => {
 
   const readMoreHandler = (post) => {
     // redirect to the new route /blog/:postId and postId is the slug name
-    navigate(`/post/${post.slug}`, { state: { post } });
+    navigate(`/post/${post.slug}`, { state: { slug: post.slug } });
   };
 
   return (

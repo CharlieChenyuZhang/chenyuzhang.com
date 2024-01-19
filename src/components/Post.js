@@ -3,7 +3,6 @@ import styled from "styled-components";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import reading from "../images/reading.gif";
-import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
 const BREAK_POINT = "1200px";
@@ -32,19 +31,38 @@ const PageSubTitle = styled.div`
 
 const Post = () => {
   const location = useLocation();
-  const postData = location.state.post;
+  const mdFileName = location.state.slug;
+
+  const [post, setPost] = useState("");
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        // FIXME: update this after deployment
+        // http://localhost:8080
+        const response = await fetch(
+          `http://localhost:8080/blog/${mdFileName}`
+        );
+        const data = await response.json();
+        // Transform the data into an array
+        setPost(data.content);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
+    };
+
+    fetchPost();
+  }, []);
 
   return (
     <MainContainer>
       <ContentContainer>
-        <div key={postData.slug}>
+        <div key={mdFileName}>
           <PageTitle>
             <img src={reading} alt="reading" width="100" height="100" />
             {/* Add title here if available */}
           </PageTitle>
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
-            {postData.content}
-          </ReactMarkdown>
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>{post}</ReactMarkdown>
         </div>
       </ContentContainer>
     </MainContainer>
