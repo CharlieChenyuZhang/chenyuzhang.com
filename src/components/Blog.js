@@ -67,7 +67,7 @@ const Blog = () => {
 
   const readMoreHandler = (post) => {
     // redirect to the new route /blog/:postId and postId is the slug name
-    navigate(`/post/${post.slug}`, { state: { slug: post.slug } });
+    navigate(`/post/${post.slug}`);
   };
 
   return (
