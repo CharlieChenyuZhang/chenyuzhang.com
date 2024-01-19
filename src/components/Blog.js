@@ -46,7 +46,7 @@ const Blog = () => {
       try {
         // FIXME: update this after deployment
         // http://localhost:8080
-        const response = await fetch("/blog/all");
+        const response = await fetch("http://localhost:8080/blog/all");
         const data = await response.json();
 
         // Transform the data into an array

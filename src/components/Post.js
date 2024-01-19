@@ -3,7 +3,6 @@ import styled from "styled-components";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import reading from "../images/reading.gif";
-import { useLocation } from "react-router-dom";
 
 const BREAK_POINT = "1200px";
 
@@ -30,8 +29,7 @@ const PageSubTitle = styled.div`
 `;
 
 const Post = () => {
-  const location = useLocation();
-  const mdFileName = location.state.slug;
+  const mdFileName = window.location.href.split("/").pop();
 
   const [post, setPost] = useState("");
 
