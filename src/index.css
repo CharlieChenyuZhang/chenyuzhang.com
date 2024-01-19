@@ -32,7 +32,7 @@ blockquote {
 }
 
 blockquote:before {
-  content: "📖";
+  content: open-quote;
   font-style: normal;
   font-size: 3em;
   line-height: 0.1em;

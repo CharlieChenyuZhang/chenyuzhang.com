@@ -3,6 +3,9 @@ import styled from "styled-components";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import reading from "../images/reading.gif";
+import rehypeKatex from "rehype-katex";
+import remarkMath from "remark-math";
+import "katex/dist/katex.min.css";
 
 const BREAK_POINT = "1200px";
 
@@ -60,7 +63,12 @@ const Post = () => {
             <img src={reading} alt="reading" width="100" height="100" />
             {/* Add title here if available */}
           </PageTitle>
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{post}</ReactMarkdown>
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm, remarkMath]}
+            rehypePlugins={[rehypeKatex]}
+          >
+            {post}
+          </ReactMarkdown>
         </div>
       </ContentContainer>
     </MainContainer>
