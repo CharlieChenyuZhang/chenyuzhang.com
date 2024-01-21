@@ -6,6 +6,7 @@ import reading from "../images/reading.gif";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import "katex/dist/katex.min.css";
+import { DOMAIN } from "../constants";
 
 const BREAK_POINT = "1200px";
 
@@ -40,10 +41,7 @@ const Post = () => {
     const fetchPost = async () => {
       try {
         // FIXME: update this after deployment
-        // http://localhost:8080
-        const response = await fetch(
-          `http://localhost:8080/blog/${mdFileName}`
-        );
+        const response = await fetch(`${DOMAIN}/blog/${mdFileName}`);
         const data = await response.json();
         // Transform the data into an array
         setPost(data.content);

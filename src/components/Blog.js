@@ -11,6 +11,7 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
+import { DOMAIN } from "../constants";
 
 const BREAK_POINT = "1200px";
 const maxLength = 100;
@@ -45,8 +46,7 @@ const Blog = () => {
     const fetchPosts = async () => {
       try {
         // FIXME: update this after deployment
-        // http://localhost:8080
-        const response = await fetch("http://localhost:8080/blog/all");
+        const response = await fetch(`${DOMAIN}/blog/all`);
         const data = await response.json();
 
         // Transform the data into an array
