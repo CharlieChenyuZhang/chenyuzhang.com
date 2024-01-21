@@ -23,7 +23,8 @@ I've chagned the Build settings manually in the AWS Amplify.
 
 # blog posts instruction
 
-- write your new blog in the public/posts folder
+- write your new blog in the server/blogs folder, place any images to the server/backend-assets folder then link it using
+  `![architecture](/backend-assets/personal-blog-architecture.jpg "Blog Architecture")` Remember it has to be /backend-assets.
 - it won't appear to the website until you add it to the src/blog2show.js. Remember, FIFO.
 - The .md file name has it's naming convension. all lower case and separate each word with a dash. NOTE: the file name will become the title so make it descriptive.
 

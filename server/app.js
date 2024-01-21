@@ -7,6 +7,11 @@ app.use(cors()); // This will enable CORS for all routes
 const matter = require("gray-matter");
 const port = process.env.PORT || 8080;
 
+app.use(
+  "/backend-assets",
+  express.static(path.join(__dirname, "backend-assets"))
+);
+
 app.get("/", (req, res) => {
   res.send({
     status: "healthy",

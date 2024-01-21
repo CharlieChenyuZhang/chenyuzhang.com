@@ -67,6 +67,7 @@ const SinglePost = () => {
             {/* Add title here if available */}
           </PageTitle>
           <ReactMarkdown
+            className="markdown-content"
             remarkPlugins={[remarkGfm, remarkMath]}
             rehypePlugins={[rehypeKatex]}
           >
