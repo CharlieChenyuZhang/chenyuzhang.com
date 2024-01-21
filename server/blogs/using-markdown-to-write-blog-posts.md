@@ -9,40 +9,19 @@ tags:
   - generatedByAI
 ---
 
-# Personal Website + Bloggging Architecture
+## Motivation
 
-## Introduction to Markdown
+There are many blogging platforms available, generally falling into two categories:
 
-Markdown is a lightweight markup language with plain text formatting syntax. It was designed to be converted to HTML and other formats using a simple tool. Created by John Gruber and Aaron Swartz, Markdown was meant to allow people to write using an easy-to-read and easy-to-write plain text format, and then convert it to structurally valid HTML.
+1. Free blogging websites like Medium, which are easy for posting blogs. However, bloggers essentially exchange their content and traffic for the service. They do not retain ownership of their content or web traffic.
+2. Paid services like [Posthaven]("https://posthaven.com/"), used by the likes of [Sam Altman](https://blog.samaltman.com/). These can integrate with your own web pages, but at the time of my research, Posthaven charged $5/month for 10 blogs. For someone who wants to blog extensively without incurring costs, this obviously wasn't an option.
 
-## Simplicity and Ease of Use
+This is why I spent time over the weekend devising my own blogging solution. I leveraged the convenience of Markdown to format my blogs easily, without worrying about which HTML tags to use.
 
-One of the main reasons I chose Markdown for my blog is its simplicity and ease of use. Unlike other text formatting languages, Markdown's syntax is intuitive and straightforward, which makes the writing process much smoother and more efficient.
+## Tech Architecture of my blogging site
 
-## Portability and Compatibility
+![architecture](/backend-assets/personal-blog-architecture.jpg "Blog Architecture")
 
-Markdown files are incredibly portable and compatible across different platforms and devices. This flexibility allows me to edit and share my content easily, regardless of the device or platform I am using.
+## What is Markdown?
 
-## Focus on Content
-
-With Markdown, I find that I can focus more on the content rather than getting distracted by complex formatting options. This focus on content is crucial for effective blogging.
-
-## Version Control Friendly
-
-Markdown is incredibly friendly with version control systems like Git. This compatibility is essential for tracking changes, collaborating with others, and maintaining a history of my work.
-
-## Customization and Extensibility
-
-While Markdown is simple, it also allows for extensive customization. I can extend it with HTML and CSS, giving me the freedom to personalize my blog posts as needed.
-
-## Community and Ecosystem
-
-The community around Markdown is both supportive and active. There are numerous tools, libraries, and resources available that make working with Markdown even more enjoyable.
-
-## Personal Experience
-
-My personal journey with Markdown began when I was looking for a straightforward way to write and share content. Its simplicity and effectiveness immediately stood out to me, making it my go-to choice for blogging.
-
-## Conclusion
-
-In conclusion, Markdown has significantly streamlined my blogging process. I encourage anyone looking to simplify their writing and publishing process to give Markdown a try. I'm sure you'll find it as useful as I have.
+Markdown is a lightweight markup language with a plain text formatting syntax, designed to be converted to HTML and other formats using simple tools. Created by John Gruber and Aaron Swartz, Markdown's goal was to enable people to write in an easy-to-read, easy-to-write plain text format, and then convert it to structurally valid HTML.

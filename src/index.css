@@ -17,7 +17,7 @@ code {
   height: 100%;
 }
 
-blockquote {
+.markdown-content blockquote {
   padding: 20px;
   margin: 20px 0;
   border-left: 5px solid #8a8a8a; /* A solid left border for distinction */
@@ -31,7 +31,7 @@ blockquote {
   position: relative;
 }
 
-blockquote:before {
+.markdown-content blockquote:before {
   content: open-quote;
   font-style: normal;
   font-size: 3em;
@@ -41,4 +41,9 @@ blockquote:before {
   color: #8a8a8a; /* Color of the opening quote */
   position: relative;
   left: -10px; /* Adjust as necessary for alignment */
+}
+
+.markdown-content img {
+  max-width: 900px;
+  width: 100%;
 }
