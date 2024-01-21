@@ -9,7 +9,7 @@ tags:
   - generatedByAI
 ---
 
-# Why I Chose Markdown for Blogging
+# Personal Website + Bloggging Architecture
 
 ## Introduction to Markdown
 

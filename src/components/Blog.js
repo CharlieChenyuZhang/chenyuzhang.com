@@ -11,7 +11,7 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
-import { DOMAIN } from "../constants";
+import { BACKEND_DOMAIN_UAT, BACKEND_DOMAIN_LOCALHOST } from "../constants";
 
 const BREAK_POINT = "1200px";
 const maxLength = 100;
@@ -45,12 +45,16 @@ const Blog = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        // FIXME: update this after deployment
-        const response = await fetch(`${DOMAIN}/blog/all`);
+        const response = await fetch(
+          `${
+            process.env.NODE_ENV === "production"
+              ? BACKEND_DOMAIN_UAT
+              : BACKEND_DOMAIN_LOCALHOST
+          }/blog/all`
+        );
         const data = await response.json();
 
         // Transform the data into an array
-        console.log("Object.entries(data)", Object.entries(data));
         const postsArray = Object.entries(data).map(([slug, post]) => ({
           slug,
           ...post,
@@ -73,31 +77,31 @@ const Blog = () => {
   return (
     <MainContainer>
       <ContentContainer>
-        {posts.map((post) => (
-          <div key={post.slug}>
-            <PageTitle>
-              <img src={reading} alt="reading" width="100" height="100" />
-              {/* Add title here if available */}
-            </PageTitle>
-            <Card sx={{ minWidth: 275 }}>
-              <CardContent>
-                <Typography variant="h5" component="div">
-                  {post.data.title}
-                </Typography>
-                <Typography variant="body2">
-                  {post.data.subtitle}
-                  {/* <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                  </ReactMarkdown> */}
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button size="small" onClick={() => readMoreHandler(post)}>
-                  Read More
-                </Button>
-              </CardActions>
-            </Card>
-          </div>
-        ))}
+        {posts.length > 0
+          ? posts.map((post) => (
+              <div key={post.slug}>
+                <PageTitle>
+                  <img src={reading} alt="reading" width="100" height="100" />
+                  {/* Add title here if available */}
+                </PageTitle>
+                <Card sx={{ minWidth: 275 }}>
+                  <CardContent>
+                    <Typography variant="h5" component="div">
+                      {post.data.title}
+                    </Typography>
+                    <Typography variant="body2">
+                      {post.data.subtitle}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button size="small" onClick={() => readMoreHandler(post)}>
+                      Read More
+                    </Button>
+                  </CardActions>
+                </Card>
+              </div>
+            ))
+          : "Coming soon..."}
       </ContentContainer>
     </MainContainer>
   );
