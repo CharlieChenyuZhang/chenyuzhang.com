@@ -6,7 +6,7 @@ import reading from "../images/reading.gif";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import "katex/dist/katex.min.css";
-import { DOMAIN } from "../constants";
+import { BACKEND_DOMAIN_UAT, BACKEND_DOMAIN_LOCALHOST } from "../constants";
 
 const BREAK_POINT = "1200px";
 
@@ -32,7 +32,7 @@ const PageSubTitle = styled.div`
   padding-bottom: 5rem;
 `;
 
-const Post = () => {
+const SinglePost = () => {
   const mdFileName = window.location.href.split("/").pop();
 
   const [post, setPost] = useState("");
@@ -40,9 +40,13 @@ const Post = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        // FIXME: update this after deployment
-        console.log("process.env.NODE_ENV", process.env.NODE_ENV);
-        const response = await fetch(`${DOMAIN}/blog/${mdFileName}`);
+        const response = await fetch(
+          `${
+            process.env.NODE_ENV === "production"
+              ? BACKEND_DOMAIN_UAT
+              : BACKEND_DOMAIN_LOCALHOST
+          }/blog/${mdFileName}`
+        );
         const data = await response.json();
         // Transform the data into an array
         setPost(data.content);
@@ -74,4 +78,4 @@ const Post = () => {
   );
 };
 
-export default Post;
+export default SinglePost;
