@@ -14,6 +14,13 @@ frontend - React deployed to AWS Amplify
 
 backend - node.js, Docker, Amazon ECR, App Runner
 
+# NOTE
+
+Since I am using react-mathjax which only works with React16 but now, my React version is React18.
+So I am adding `--legacy-peer-deps` flag to the npm ci so it reads `npm ci --legacy-peer-deps`
+
+I've chagned the Build settings manually in the AWS Amplify.
+
 # blog posts instruction
 
 - write your new blog in the public/posts folder
