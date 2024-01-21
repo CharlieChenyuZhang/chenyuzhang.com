@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:18
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -13,6 +13,9 @@ RUN npm install
 
 # Bundle app source
 COPY . .
+
+# Set an environment variable 
+ENV PORT=8080
 
 EXPOSE 8080
 CMD [ "npm", "start" ]

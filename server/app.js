@@ -7,6 +7,12 @@ app.use(cors()); // This will enable CORS for all routes
 const matter = require("gray-matter");
 const port = process.env.PORT || 8080;
 
+app.get("/", (req, res) => {
+  res.send({
+    status: "healthy",
+  });
+});
+
 app.get("/blog/all", (req, res) => {
   const mdDirectory = path.join(__dirname, "blogs"); // Adjust the path as necessary
 
