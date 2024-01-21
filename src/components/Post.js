@@ -41,6 +41,7 @@ const Post = () => {
     const fetchPost = async () => {
       try {
         // FIXME: update this after deployment
+        console.log("process.env.NODE_ENV", process.env.NODE_ENV);
         const response = await fetch(`${DOMAIN}/blog/${mdFileName}`);
         const data = await response.json();
         // Transform the data into an array
