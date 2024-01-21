@@ -20,7 +20,7 @@ This is why I spent time over the weekend devising my own blogging solution. I l
 
 ## Tech Architecture of my blogging site
 
-![architecture](/backend-assets/personal-blog-architecture.jpg "Blog Architecture")
+![architecture](https://chenyuzhang-com-assets.s3.amazonaws.com/personal-blog-architecture.jpg "Blog Architecture")
 
 ## What is Markdown?
 
