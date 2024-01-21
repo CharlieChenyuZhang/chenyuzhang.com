@@ -7,7 +7,10 @@ module.exports = function (app) {
   app.use(
     "/backend-assets",
     createProxyMiddleware({
-      target: BACKEND_DOMAIN_LOCALHOST,
+      target:
+        process.env.NODE_ENV === "production"
+          ? BACKEND_DOMAIN_UAT
+          : BACKEND_DOMAIN_LOCALHOST,
       changeOrigin: true,
     })
   );
