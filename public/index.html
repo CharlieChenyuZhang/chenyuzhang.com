@@ -26,6 +26,39 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Chenyu Zhang</title>
+
+    <!-- AWS CloudWatch RUM configuration for web traffic monitoring -->
+    <script>
+      (function (n, i, v, r, s, c, x, z) {
+        x = window.AwsRumClient = { q: [], n: n, i: i, v: v, r: r, c: c };
+        window[n] = function (c, p) {
+          x.q.push({ c: c, p: p });
+        };
+        z = document.createElement("script");
+        z.async = true;
+        z.src = s;
+        document.head.insertBefore(
+          z,
+          document.head.getElementsByTagName("script")[0]
+        );
+      })(
+        "cwr",
+        "d323c96d-03a6-452f-91f1-63942797dd1c",
+        "1.0.0",
+        "us-east-1",
+        "https://client.rum.us-east-1.amazonaws.com/1.16.1/cwr.js",
+        {
+          sessionSampleRate: 1,
+          guestRoleArn:
+            "arn:aws:iam::925450674585:role/RUM-Monitor-us-east-1-925450674585-7360890985071-Unauth",
+          identityPoolId: "us-east-1:fe2b2f3f-b5f0-47dc-9c98-9b9bf5c9ccd5",
+          endpoint: "https://dataplane.rum.us-east-1.amazonaws.com",
+          telemetries: ["performance", "errors", "http"],
+          allowCookies: true,
+          enableXRay: false,
+        }
+      );
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
