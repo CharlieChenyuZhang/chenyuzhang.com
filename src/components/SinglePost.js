@@ -6,7 +6,7 @@ import reading from "../images/reading.gif";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import "katex/dist/katex.min.css";
-import { BACKEND_DOMAIN_UAT, BACKEND_DOMAIN_LOCALHOST } from "../constants";
+import { backendDomain } from "../utils";
 
 const BREAK_POINT = "1200px";
 
@@ -40,13 +40,7 @@ const SinglePost = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await fetch(
-          `${
-            process.env.NODE_ENV === "production"
-              ? BACKEND_DOMAIN_UAT
-              : BACKEND_DOMAIN_LOCALHOST
-          }/blog/${mdFileName}`
-        );
+        const response = await fetch(`${backendDomain()}/blog/${mdFileName}`);
         const data = await response.json();
         // Transform the data into an array
         setPost(data.content);

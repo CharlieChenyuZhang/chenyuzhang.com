@@ -11,7 +11,7 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
-import { BACKEND_DOMAIN_UAT, BACKEND_DOMAIN_LOCALHOST } from "../constants";
+import { backendDomain } from "../utils";
 
 const BREAK_POINT = "1200px";
 const maxLength = 100;
@@ -39,20 +39,13 @@ const PageSubTitle = styled.div`
 `;
 
 const Blog = () => {
-  console.log("process.env.NODE_ENV", process.env.NODE_ENV);
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch(
-          `${
-            process.env.NODE_ENV === "production"
-              ? BACKEND_DOMAIN_UAT
-              : BACKEND_DOMAIN_LOCALHOST
-          }/blog/all`
-        );
+        const response = await fetch(`${backendDomain()}/blog/all`);
         const data = await response.json();
 
         // Transform the data into an array
