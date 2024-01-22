@@ -39,6 +39,7 @@ const PageSubTitle = styled.div`
 `;
 
 const Blog = () => {
+  console.log("process.env.NODE_ENV", process.env.NODE_ENV);
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
 
