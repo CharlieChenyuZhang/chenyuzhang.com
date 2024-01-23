@@ -32,7 +32,7 @@ code {
 }
 
 .markdown-content blockquote:before {
-  content: open-quote;
+  content: "“";
   font-style: normal;
   font-size: 3em;
   line-height: 0.1em;
