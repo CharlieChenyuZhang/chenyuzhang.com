@@ -1,17 +1,17 @@
 ---
-title: TBD
-subtitle: TBD
+title: 按自己的意愿过一生
+subtitle: 读书笔记
 published: false
-id: 1
+id: 4
 author: Chenyu Zhang
 tags:
-  - Book | Others
+  - Book
   - Mandarin
 ---
 
-# 大力出奇迹：张一鸣的创业心路与算法思维
+# 按自己的意愿过一生
 
-# 读书笔记
+## 读书笔记
 
 2024-01-28
 
