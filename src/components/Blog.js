@@ -51,7 +51,11 @@ const Blog = () => {
         }));
 
         postsArray.sort((a, b) => {
+          // if < 0. a -> b
+          // if > 0, b -> a
           // Compare the id values in descending order
+
+          // if a = 0, b = 1 ==> I want it to return b -> a i.e. should return a > 0 number.
           return b.data.id - a.data.id;
         });
 
