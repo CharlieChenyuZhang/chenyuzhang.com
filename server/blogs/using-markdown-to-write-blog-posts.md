@@ -5,8 +5,8 @@ published: true
 id: 0
 author: Chenyu Zhang
 tags:
-  - Blogs
-  - generatedByAI
+  - Others
+  - English
 ---
 
 ## Motivation

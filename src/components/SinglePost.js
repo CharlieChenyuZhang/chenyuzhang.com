@@ -52,6 +52,17 @@ const SinglePost = () => {
     fetchPost();
   }, []);
 
+  const CustomImage = (props) => {
+    let style = {};
+
+    // Apply different styles based on the image 'alt' text or 'src'
+    if (props.alt === "book cover") {
+      style = { maxWidth: "250px" };
+    }
+
+    return <img {...props} style={style} />;
+  };
+
   return (
     <MainContainer>
       <ContentContainer>
@@ -64,6 +75,9 @@ const SinglePost = () => {
             className="markdown-content"
             remarkPlugins={[remarkGfm, remarkMath]}
             rehypePlugins={[rehypeKatex]}
+            components={{
+              img: CustomImage,
+            }}
           >
             {post}
           </ReactMarkdown>

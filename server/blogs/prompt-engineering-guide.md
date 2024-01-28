@@ -5,7 +5,6 @@ published: false
 id: 2
 author: Chenyu Zhang
 tags:
-  - Blogs
-  - Prompt Engineering
-  - AI
+  - Others
+  - Mandarin
 ---
