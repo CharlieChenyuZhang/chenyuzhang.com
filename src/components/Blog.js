@@ -50,6 +50,11 @@ const Blog = () => {
           ...post,
         }));
 
+        postsArray.sort((a, b) => {
+          // Compare the id values in descending order
+          return b.data.id - a.data.id;
+        });
+
         setPosts(postsArray);
       } catch (error) {
         console.error("Error fetching posts:", error);
