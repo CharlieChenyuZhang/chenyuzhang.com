@@ -38,7 +38,7 @@ const H1 = styled.h1`
   font-family: "Playlist-Script";
   font-size: 3.75rem;
   line-height: 1;
-  font-weight: 700;
+  font-weight: 500;
 `;
 
 const Home = () => {
