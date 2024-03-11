@@ -1,7 +1,7 @@
 ---
 title: 大力出奇迹：张一鸣的创业心路与算法思维
 subtitle: 读书笔记
-published: true
+published: false
 id: 1
 author: Chenyu Zhang
 tags:
