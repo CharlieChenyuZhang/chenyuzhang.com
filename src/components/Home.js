@@ -24,13 +24,34 @@ const Paragraph = styled.div`
   margin-bottom: 1rem;
 `;
 
+const HeaderContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 8rem;
+  /* justify-content: center; */
+  text-align: center;
+  align-items: center;
+`;
+
+const H1 = styled.h1`
+  font-family: "Playlist-Script";
+  font-size: 3.75rem;
+  line-height: 1;
+  font-weight: 700;
+`;
+
 const Home = () => {
   return (
     <MainContainer>
+      <HeaderContainer>
+        <H1>Chenyu Zhang</H1>
+      </HeaderContainer>
+
       <ContentContainer>
-        <PageTitle>
+        {/* <PageTitle>
           <img src={greeting} alt="greeting" width="100" height="100" />
-        </PageTitle>
+        </PageTitle> */}
         <Paragraph>Hello there,</Paragraph>
         <Paragraph>
           Welcome to my blog! My name is (Charlie) Chenyu Zhang, a full stack
@@ -48,9 +69,8 @@ const Home = () => {
         <Paragraph>
           If you don't get an answer immediately, I might just be writing new
           blogs. I will get back to you as soon as I can. That's a promise!
-          Please reach me at
+          Please reach me at <i>contact[at]chenyuzhang[dot]com</i>
         </Paragraph>
-        <Paragraph>contact[at]chenyuzhang[dot]com</Paragraph>
         <Paragraph>Best,</Paragraph>
         <Paragraph>Chenyu Zhang</Paragraph>
       </ContentContainer>
