@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import greeting from "../images/greeting.gif";
-const BREAK_POINT = "1200px";
 
 const MainContainer = styled.div`
   height: 100%;
   min-height: 100vh;
+  background-color: black;
+  color: white;
 `;
 
 const ContentContainer = styled.div`
@@ -22,6 +22,14 @@ const PageTitle = styled.div`
 
 const Paragraph = styled.div`
   margin-bottom: 1rem;
+
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 50rem;
+  font-size: 1.125rem;
+  line-height: 150%;
+  font-weight: 400;
+  font-family: sans-serif;
 `;
 
 const HeaderContainer = styled.div`
@@ -41,7 +49,7 @@ const H1 = styled.h1`
   font-weight: 500;
 `;
 
-const Home = () => {
+const MiniHome = () => {
   return (
     <MainContainer>
       <HeaderContainer>
@@ -49,14 +57,11 @@ const Home = () => {
       </HeaderContainer>
 
       <ContentContainer>
-        {/* <PageTitle>
-          <img src={greeting} alt="greeting" width="100" height="100" />
-        </PageTitle> */}
         <Paragraph>Hello there,</Paragraph>
         <Paragraph>
-          Welcome to my blog! My name is (Charlie) Chenyu Zhang, a full stack
-          software engineer with {new Date().getFullYear() - 2015}+ years of
-          programming experience and a strong passion in AI and web3.
+          Welcome to my blog! My name is Chenyu Zhang, a full stack software
+          engineer with {new Date().getFullYear() - 2015}+ years of programming
+          experience and a strong passion in AI and web3.
         </Paragraph>
         <Paragraph>
           I founded my first startup in 2016 in the space of AI. Many things
@@ -78,4 +83,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default MiniHome;
