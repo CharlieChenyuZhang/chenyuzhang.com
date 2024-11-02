@@ -87,7 +87,7 @@ const TeamPage = () => {
       <ContentContainer>
         <PageTitle>
           <img src={music} alt="music" width="100" height="100" />
-          <Paragraph>Here’s a list of music I’ve created. Enjoy!</Paragraph>
+          <Paragraph>Here's a list of music I've created. Enjoy!</Paragraph>
         </PageTitle>
 
         <Grid container spacing={5}>

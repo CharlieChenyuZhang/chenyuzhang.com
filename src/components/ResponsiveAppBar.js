@@ -102,6 +102,11 @@ function ResponsiveAppBar() {
                   color: "white",
                   backgroundColor: "black",
                   display: "block",
+
+                  "&:hover": {
+                    transition: "color 0.3s ease",
+                    color: "gray",
+                  },
                 }}
               >
                 {page}

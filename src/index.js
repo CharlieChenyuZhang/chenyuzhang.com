@@ -29,7 +29,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route exact path="/music" element={elementConstructor(<Music />)} />
         <Route
           exact
-          path="/post/:postId"
+          path="/blog/:blogId"
           element={elementConstructor(<SinglePost />)}
         />
       </Routes>
