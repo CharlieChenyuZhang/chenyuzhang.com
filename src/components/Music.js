@@ -59,11 +59,26 @@ const PageTitle = styled.div`
   font-size: 2rem;
   font-weight: bold;
   padding: 5rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const MediaCard = styled(Card)`
   width: 313px;
   height: 500px;
+`;
+
+const Paragraph = styled.div`
+  margin-bottom: 1rem;
+
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 50rem;
+  font-size: 1.125rem;
+  line-height: 150%;
+  font-weight: 400;
+  font-family: sans-serif;
 `;
 
 const TeamPage = () => {
@@ -72,11 +87,20 @@ const TeamPage = () => {
       <ContentContainer>
         <PageTitle>
           <img src={music} alt="music" width="100" height="100" />
+          <Paragraph>Here’s a list of music I’ve created. Enjoy!</Paragraph>
         </PageTitle>
+
         <Grid container spacing={5}>
           {musicCollection.map((music, idx) => (
             <Grid item key={idx}>
-              <MediaCard onClick={() => {}}>
+              <MediaCard
+                onClick={() => {}}
+                sx={{
+                  backgroundColor: "black",
+                  color: "white",
+                  border: "1px solid white",
+                }}
+              >
                 <iframe
                   width="313"
                   height="315"
@@ -90,9 +114,7 @@ const TeamPage = () => {
                   <Typography gutterBottom variant="h5" component="div">
                     {music.name}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {music.description}
-                  </Typography>
+                  <Typography variant="body2">{music.description}</Typography>
                 </CardContent>
               </MediaCard>
             </Grid>

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import reading from "../images/reading.gif";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -8,9 +7,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { backendDomain } from "../utils";
-
-const BREAK_POINT = "1200px";
-const maxLength = 100;
+import universe from "../images/universe.gif";
 
 const MainContainer = styled.div`
   height: 100%;
@@ -26,12 +23,32 @@ const ContentContainer = styled.div`
 const PageTitle = styled.div`
   font-size: 2rem;
   font-weight: bold;
-  padding-top: 5rem;
+  padding: 5rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const PageSubTitle = styled.div`
   font-size: 1rem;
   padding-bottom: 5rem;
+`;
+
+// Custom styled CardContent with black background and white font color
+const CustomCardContent = styled(CardContent)`
+  background-color: black;
+  color: white;
+
+  transition: background-color 0.3s ease;
+  &:hover {
+    cursor: pointer;
+    background-color: grey;
+  }
+`;
+
+const CustomCardActions = styled(CardActions)`
+  background-color: black;
+  color: white;
 `;
 
 const Blog = () => {
@@ -51,11 +68,6 @@ const Blog = () => {
         }));
 
         postsArray.sort((a, b) => {
-          // if < 0. a -> b
-          // if > 0, b -> a
-          // Compare the id values in descending order
-
-          // if a = 0, b = 1 ==> I want it to return b -> a i.e. should return a > 0 number.
           return b.data.id - a.data.id;
         });
 
@@ -69,9 +81,20 @@ const Blog = () => {
   }, []);
 
   const readMoreHandler = (post) => {
-    // redirect to the new route /blog/:postId and postId is the slug name
     navigate(`/post/${post.slug}`);
   };
+
+  const Paragraph = styled.div`
+    margin-bottom: 1rem;
+
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 50rem;
+    font-size: 1.125rem;
+    line-height: 150%;
+    font-weight: 400;
+    font-family: sans-serif;
+  `;
 
   return (
     <MainContainer>
@@ -80,23 +103,26 @@ const Blog = () => {
           ? posts.map((post) => (
               <div key={post.slug}>
                 <PageTitle>
-                  <img src={reading} alt="reading" width="100" height="100" />
-                  {/* Add title here if available */}
+                  <img src={universe} alt="reading" width="100" height="100" />
+                  <Paragraph>
+                    Here’s a list of music I’ve created. Enjoy!
+                  </Paragraph>
                 </PageTitle>
-                <Card sx={{ minWidth: 275 }}>
-                  <CardContent>
+
+                <Card sx={{ minWidth: 275, border: "1px white solid" }}>
+                  <CustomCardContent onClick={() => readMoreHandler(post)}>
                     <Typography variant="h5" component="div">
                       {post.data.title}
                     </Typography>
+                    <br />
                     <Typography variant="body2">
                       {post.data.subtitle}
                     </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small" onClick={() => readMoreHandler(post)}>
-                      Read More
-                    </Button>
-                  </CardActions>
+                    <br />
+                    <Typography variant="caption">
+                      Date: {post.data.date} | Author: Chenyu Zhang
+                    </Typography>
+                  </CustomCardContent>
                 </Card>
               </div>
             ))
