@@ -4,6 +4,7 @@ subtitle: I've set up my personal blogs with markdown and React.
 published: true
 id: 0
 author: Chenyu Zhang
+date: November 2, 2024
 tags:
   - Others
   - English

@@ -68,7 +68,7 @@ const SinglePost = () => {
       <ContentContainer>
         <div key={mdFileName}>
           <PageTitle>
-            <img src={reading} alt="reading" width="100" height="100" />
+            {/* <img src={reading} alt="reading" width="100" height="100" /> */}
             {/* Add title here if available */}
           </PageTitle>
           <ReactMarkdown
