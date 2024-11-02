@@ -26,3 +26,7 @@ This is why I spent time over the weekend devising my own blogging solution. I l
 ## What is Markdown?
 
 Markdown is a lightweight markup language with a plain text formatting syntax, designed to be converted to HTML and other formats using simple tools. Created by John Gruber and Aaron Swartz, Markdown's goal was to enable people to write in an easy-to-read, easy-to-write plain text format, and then convert it to structurally valid HTML.
+
+## Next Step
+
+I initially planned to host the backend on a cloud service like AWS App Runner, but found it too costly for a blog post project. As a result, I decided to forgo this architecture. However, I’ve preserved the source code, which is available for review on my personal website.

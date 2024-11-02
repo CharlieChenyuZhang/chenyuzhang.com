@@ -80,8 +80,8 @@ const Blog = () => {
     fetchPosts();
   }, []);
 
-  const readMoreHandler = (post) => {
-    navigate(`/post/${post.slug}`);
+  const readMoreHandler = (blog) => {
+    navigate(`/blog/${blog.slug}`);
   };
 
   const Paragraph = styled.div`
@@ -105,7 +105,8 @@ const Blog = () => {
                 <PageTitle>
                   <img src={universe} alt="reading" width="100" height="100" />
                   <Paragraph>
-                    Here’s a list of music I’ve created. Enjoy!
+                    I'm documenting my learning notes and reflections in this
+                    blog. Enjoy!
                   </Paragraph>
                 </PageTitle>
 
