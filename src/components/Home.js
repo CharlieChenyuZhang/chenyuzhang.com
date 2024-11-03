@@ -138,18 +138,19 @@ const MiniHome = () => {
         </Paragraph>
 
         <Paragraph>
-          I'm Chenyu Zhang—a full-stack software engineer, AI researcher, and
-          lifelong learner. My passion lies in bringing bold, forward-thinking
-          ideas to life, blending technology with creativity to transform how we
-          learn, connect, and grow.
+          I'm Chenyu Zhang—a full-stack software engineer with
+          {new Date().getFullYear() - 2015}+ years of programming experience, AI
+          researcher, and lifelong learner. My passion lies in bringing bold,
+          forward-thinking ideas to life, blending technology with creativity to
+          transform how we learn, connect, and grow.
         </Paragraph>
 
         <Paragraph>
-          Right now, I'm immersed in AI and education projects. I'm not just
-          envisioning these projects—they're real, tangible tools designed to
-          inspire creativity, foster genuine connections, and support lifelong
-          learning. My work is about more than just tech; it's about creating
-          experiences that bring people fulfillment and spark curiosity.
+          I'm currently deep into projects at the intersection of AI and
+          education, building hands-on tools designed to spark creativity,
+          foster real connections, and encourage lifelong learning. It's not
+          just about the tech for me; it's about crafting experiences that
+          inspire curiosity and bring a sense of fulfillment to people.
         </Paragraph>
 
         <Paragraph>
