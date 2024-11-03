@@ -133,26 +133,42 @@ const MiniHome = () => {
       </HeaderContainer>
 
       <ContentContainer>
-        <Paragraph>Hello there,</Paragraph>
         <Paragraph>
-          Welcome to my blog! My name is Chenyu Zhang, a full stack software
-          engineer with {new Date().getFullYear() - 2015}+ years of programming
-          experience and a strong passion in AI and web3.
+          Hello there, and welcome to my little corner of the internet!
         </Paragraph>
+
         <Paragraph>
-          I founded my first startup in 2016 in the space of AI. Many things
-          have changed in the tech industry since then. The only thing that
-          didn't change is my passion of sharing my knowledge with the tech
-          community. I hope you enjoy all you read as much as I enjoyed writing
-          it. If you have any questions or have a career opportunity that you'd
-          like to talk to me about, please feel free to drop me a line.
+          I'm Chenyu Zhang—a full-stack software engineer, AI researcher, and
+          lifelong learner. My passion lies in bringing bold, forward-thinking
+          ideas to life, blending technology with creativity to transform how we
+          learn, connect, and grow.
         </Paragraph>
+
         <Paragraph>
-          If you don't get an answer immediately, I might just be writing new
-          blogs. I will get back to you as soon as I can. That's a promise!
-          Please reach me at <i>contact[at]chenyuzhang[dot]com</i>
+          Right now, I'm immersed in AI and education projects. I'm not just
+          envisioning these projects—they're real, tangible tools designed to
+          inspire creativity, foster genuine connections, and support lifelong
+          learning. My work is about more than just tech; it's about creating
+          experiences that bring people fulfillment and spark curiosity.
         </Paragraph>
-        <Paragraph>Best,</Paragraph>
+
+        <Paragraph>
+          Outside of work, I'm all about living life to the fullest. I'm a level
+          10 pianist, a proud cat parent to my buddy Lucky, and a creator at
+          heart—I'm currently learning to sketch and can't wait to share my
+          drawings of Lucky soon. My curiosity has taken me from producing EDM
+          music to learning hip hop dance, horseback riding, cruising on a
+          motorcycle, and even skydiving. Life's too short to stick to one lane!
+        </Paragraph>
+
+        <Paragraph>
+          If you're interested in connecting, collaborating, or chatting about
+          bold ideas and real-world projects, feel free to reach out at
+          contact[at]chenyuzhang[dot]com. Let's build the future, together—and
+          enjoy the journey while we're at it.
+        </Paragraph>
+
+        <Paragraph>Warmly,</Paragraph>
         <Paragraph>Chenyu Zhang</Paragraph>
       </ContentContainer>
     </MainContainer>
