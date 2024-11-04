@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import music from "../images/music.gif";
+import project from "../images/project-giphy.gif";
 import {
   Grid,
   Card,
@@ -81,48 +81,17 @@ const Paragraph = styled.div`
   font-family: sans-serif;
 `;
 
-const Music = () => {
+const Project = () => {
   return (
     <MainContainer>
       <ContentContainer>
         <PageTitle>
-          <img src={music} alt="music" width="100" height="100" />
-          <Paragraph>Here's a list of music I've created. Enjoy!</Paragraph>
+          <img src={project} alt="projects" width="100" height="100" />
+          <Paragraph>Projects coming soon...</Paragraph>
         </PageTitle>
-
-        <Grid container spacing={5}>
-          {musicCollection.map((music, idx) => (
-            <Grid item key={idx}>
-              <MediaCard
-                onClick={() => {}}
-                sx={{
-                  backgroundColor: "black",
-                  color: "white",
-                  border: "1px solid white",
-                }}
-              >
-                <iframe
-                  width="313"
-                  height="315"
-                  src={music.link}
-                  title="YouTube video player"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen
-                ></iframe>
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {music.name}
-                  </Typography>
-                  <Typography variant="body2">{music.description}</Typography>
-                </CardContent>
-              </MediaCard>
-            </Grid>
-          ))}
-        </Grid>
       </ContentContainer>
     </MainContainer>
   );
 };
 
-export default Music;
+export default Project;
