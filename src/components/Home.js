@@ -138,7 +138,7 @@ const MiniHome = () => {
         </Paragraph>
 
         <Paragraph>
-          I'm Chenyu Zhang—a full-stack software engineer with
+          I'm Chenyu Zhang—a full-stack software engineer with{" "}
           {new Date().getFullYear() - 2015}+ years of programming experience, AI
           researcher, and lifelong learner. My passion lies in bringing bold,
           forward-thinking ideas to life, blending technology with creativity to
