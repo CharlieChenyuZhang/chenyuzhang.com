@@ -90,7 +90,7 @@ const Music = () => {
           <Paragraph>Here's a list of music I've created. Enjoy!</Paragraph>
         </PageTitle>
 
-        <Grid container spacing={5}>
+        <Grid container spacing={5} justifyContent="center">
           {musicCollection.map((music, idx) => (
             <Grid item key={idx}>
               <MediaCard
