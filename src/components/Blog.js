@@ -110,7 +110,14 @@ const Blog = () => {
                   </Paragraph>
                 </PageTitle>
 
-                <Card sx={{ minWidth: 275, border: "1px white solid" }}>
+                <Card
+                  sx={{
+                    minWidth: 275,
+                    maxWidth: 800,
+                    margin: "0 auto",
+                    border: "1px white solid",
+                  }}
+                >
                   <CustomCardContent onClick={() => readMoreHandler(post)}>
                     <Typography variant="h5" component="div">
                       {post.data.title}
