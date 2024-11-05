@@ -171,9 +171,6 @@ const ProjectSmart = () => {
           SMART 🤓
           <br />
           Social Mastery And Reflective Training
-          <Paragraph>
-            Chenyu Zhang's project PoC for the HGSE'25 LDIT PCE course.
-          </Paragraph>
         </PageTitle>
 
         <ProjectContainer>
