@@ -123,7 +123,16 @@ const PageTitle = styled.div`
   text-align: center;
 `;
 
-const Paragraph = styled.div``;
+const Paragraph = styled.div`
+  margin-bottom: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 50rem;
+  font-size: 1.125rem;
+  line-height: 150%;
+  font-weight: 400;
+  font-family: sans-serif;
+`;
 
 export default function App() {
   const [profile1, setProfile1] = useState({
@@ -179,11 +188,11 @@ export default function App() {
         <PageTitle>PoC: Social Intelligence</PageTitle>
         <Paragraph>
           If each persona could either be a human or an AI agent, then, this
-          relationship could be{" "}
+          relationship could be
+          <br />
+          a. Human - Human <br />
+          b. Human - AI Agent <br /> c. AI Agent - AI Agent
         </Paragraph>
-        <Paragraph>{"Human <> Human"}</Paragraph>
-        <Paragraph>{"Human <> AI Agent"}</Paragraph>
-        <Paragraph>{"AI Agent <> AI Agent"}</Paragraph>
 
         <ProjectContainer>
           <ProfilesContainer>
