@@ -115,6 +115,7 @@ const ProjectSmart = () => {
     learn: "",
   });
   const [apiResponse, setApiResponse] = useState(null);
+  const [sentimentAnalysis, setSentimentAnalysis] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const handleChange = (section, field) => (e) => {
@@ -145,6 +146,7 @@ const ProjectSmart = () => {
 
     setLoading(true); // Start loading spinner
     try {
+      // step 1: generate the image
       const response = await fetch(`${backendDomain()}/image`, {
         method: "POST",
         headers: {
@@ -155,6 +157,18 @@ const ProjectSmart = () => {
 
       const data = await response.json();
       setApiResponse(data);
+
+      // Step 2: Perform sentiment analysis
+      const sentimentResponse = await fetch(`${backendDomain()}/sentiment`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ inputText }),
+      });
+
+      const sentimentData = await sentimentResponse.json();
+      setSentimentAnalysis(sentimentData.emotions);
     } catch (error) {
       console.error("Error fetching the image:", error);
     } finally {
@@ -219,6 +233,7 @@ const ProjectSmart = () => {
                   color: "white",
                   backgroundColor: "black",
                   border: "white 1px solid",
+                  width: "fit-content",
                 }}
               >
                 Submit Morning
@@ -286,7 +301,16 @@ const ProjectSmart = () => {
             ) : (
               <>
                 <Typography variant="h6" align="center" gutterBottom>
-                  Generated Prompt
+                  (AI Detected) Emotions
+                </Typography>
+                <Typography align="center" sx={{ marginBottom: "20px" }}>
+                  {sentimentAnalysis
+                    ? sentimentAnalysis
+                    : "No emotions detected"}
+                </Typography>
+
+                <Typography variant="h6" align="center" gutterBottom>
+                  (AI Generated) Image Prompt
                 </Typography>
                 <Typography align="center">{apiResponse.prompt}</Typography>
                 <img
