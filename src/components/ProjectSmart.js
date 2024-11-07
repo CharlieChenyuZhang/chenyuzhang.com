@@ -181,11 +181,11 @@ const ProjectSmart = () => {
   return (
     <MainContainer>
       <ContentContainer>
-        <PageTitle>
-          SMART 🤓
-          <br />
-          Social Mastery And Reflective Training
-        </PageTitle>
+        <PageTitle>PoC: Smart Journaling</PageTitle>
+        <Paragraph>
+          Explores bi-directional learning dynamics. AI will learn from you and
+          you can learn from AI.
+        </Paragraph>
 
         <ProjectContainer>
           <InputContainer>
