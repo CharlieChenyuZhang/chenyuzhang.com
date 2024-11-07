@@ -9,6 +9,7 @@ import ProjectSmart from "./components/ProjectSmart";
 import ResponsiveApBar from "./components/ResponsiveAppBar";
 import Footer from "./components/Footer";
 import SinglePost from "./components/SinglePost";
+import Icebreaking from "./components/ProjectIcebreaking";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -38,6 +39,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           exact
           path="/project/smart"
           element={elementConstructor(<ProjectSmart />)}
+        />
+        <Route
+          exact
+          path="/project/icebreaking"
+          element={elementConstructor(<Icebreaking />)}
         />
         <Route
           exact

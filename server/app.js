@@ -175,6 +175,55 @@ Follow the tips above, please convert the following text into a detailed prompt 
   }
 });
 
+app.post("/sentiment", async (req, res) => {
+  const { inputText } = req.body;
+
+  if (!inputText) {
+    return res.status(400).send({ error: "No input text provided" });
+  }
+
+  try {
+    // Call GPT-4 for sentiment analysis and to generate a list of emotions
+    const sentimentResponse = await axios.post(
+      "https://api.openai.com/v1/chat/completions",
+      {
+        model: "gpt-4",
+        messages: [
+          {
+            role: "system",
+            content: `
+              Analyze the following text for sentiment and provide a list of emotions associated with it.
+              Return the emotions as a concise list without additional explanation.
+            `,
+          },
+          {
+            role: "user",
+            content: inputText,
+          },
+        ],
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${OPENAI_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const emotions = sentimentResponse.data.choices[0].message.content.trim();
+
+    res.send({
+      emotions: emotions,
+    });
+  } catch (error) {
+    console.error(
+      "Error performing sentiment analysis: ",
+      error.response?.data || error.message
+    );
+    res.status(500).send({ error: "Error performing sentiment analysis" });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
