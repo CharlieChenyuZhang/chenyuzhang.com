@@ -75,3 +75,31 @@ Everything can be mapped in this 3-D dynamics.
 
 Sparks-Auto-encoder.
 When you press them, there might be only a few ones that are actually doing something.
+
+# voice interface, tts and stt
+
+Solution 1:
+TTS: speak-tts
+
+STT: react-speech-recognition
+
+Pros: free npm packages
+
+Cons:
+
+1. quality.
+2. Doesn't work with React@18, this would need an older version of React@16.There
+3. For the STT, we cannot access the original audio file.
+
+Conclusion: not recommended unless you want to build a prototype.
+
+Solution 2
+TTS: OpenAI Audio API
+
+STT: [MediaRecorder](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder) (to record and generate .wav) + OpenAI Audio API - (Speech to Text)[https://platform.openai.com/docs/guides/speech-to-text] (convert .wav to text)
+
+Pros: quality. For the STT, we have the option to store the .wav file in the future.
+
+Cons: not free. File uploads are currently limited to 25 MB
+
+Conclusion: recommended.
