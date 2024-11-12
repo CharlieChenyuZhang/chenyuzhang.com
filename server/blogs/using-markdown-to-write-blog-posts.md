@@ -1,6 +1,6 @@
 ---
-title: How to use Markdown to write blog posts?
-subtitle: I've set up my personal blogs with markdown and React.
+title: Building My Own Blogging Platform - A Cost-Free Solution for Content Ownership and Control
+subtitle: How I Developed a Self-Hosted Markdown-Based Blog Using AWS Amplify for Seamless Deployment
 published: true
 id: 0
 author: Chenyu Zhang
@@ -29,4 +29,4 @@ Markdown is a lightweight markup language with a plain text formatting syntax, d
 
 ## Next Step
 
-I initially planned to host the backend on a cloud service like AWS App Runner, but found it too costly for a blog post project. As a result, I decided to forgo this architecture. However, I’ve preserved the source code, which is available for review on my personal website.
+I hosted the backend on AWS App Runner, but found it too costly for a blog post project. I might forgo this architecture in the future. However, I’ve preserved the source code on GitHub if you are interested in reviewing it.

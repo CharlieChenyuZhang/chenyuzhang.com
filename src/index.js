@@ -5,7 +5,8 @@ import Home from "./components/Home";
 import Blog from "./components/Blog";
 import Music from "./components/Music";
 import Project from "./components/Project";
-import ProjectSmart from "./components/ProjectSmart";
+import ProjectSmart from "./components/ProjectSmart/ProjectSmartV2";
+import ProjectRelief from "./components/ProjectRelief";
 import ResponsiveApBar from "./components/ResponsiveAppBar";
 import Footer from "./components/Footer";
 import SinglePost from "./components/SinglePost";
@@ -40,6 +41,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           path="/project/smart"
           element={elementConstructor(<ProjectSmart />)}
         />
+        <Route exact path="/project/relief" element={<ProjectRelief />} />
         <Route
           exact
           path="/project/icebreaking"

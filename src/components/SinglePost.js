@@ -11,25 +11,40 @@ import { backendDomain } from "../utils";
 const BREAK_POINT = "1200px";
 
 const MainContainer = styled.div`
+  margin-top: 10%;
+  margin-bottom: 10%;
   height: 100%;
   min-height: 100vh;
 `;
 
 const ContentContainer = styled.div`
   margin-top: 83px;
-  margin-left: 60px;
-  margin-right: 60px;
+  margin-left: 30rem;
+  margin-right: 30rem;
 `;
 
-const PageTitle = styled.div`
-  font-size: 2rem;
-  font-weight: bold;
-  padding-top: 5rem;
+const Date = styled.div`
+  text-align: center;
+  margin-bottom: 0.79625rem;
 `;
 
-const PageSubTitle = styled.div`
-  font-size: 1rem;
-  padding-bottom: 5rem;
+const Title = styled.div`
+  font-size: 4rem;
+  max-width: 62.5rem;
+  text-align: center;
+  margin: 0 auto;
+  font-size: 4.5rem;
+  line-height: 110%;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+`;
+
+const SubTitle = styled.div`
+margin-top: 1.41875rem;
+  text-align: center;e
+  font-size: 1.125rem;
+  line-height: 150%;
+  font-weight: 400;
 `;
 
 const SinglePost = () => {
@@ -43,7 +58,7 @@ const SinglePost = () => {
         const response = await fetch(`${backendDomain()}/blog/${mdFileName}`);
         const data = await response.json();
         // Transform the data into an array
-        setPost(data.content);
+        setPost(data);
       } catch (error) {
         console.error("Error fetching posts:", error);
       }
@@ -65,12 +80,11 @@ const SinglePost = () => {
 
   return (
     <MainContainer>
+      <Date>{post?.data?.date}</Date>
+      <Title>{post?.data?.title}</Title>
+      <SubTitle>{post?.data?.subtitle}</SubTitle>
       <ContentContainer>
         <div key={mdFileName}>
-          <PageTitle>
-            {/* <img src={reading} alt="reading" width="100" height="100" /> */}
-            {/* Add title here if available */}
-          </PageTitle>
           <ReactMarkdown
             className="markdown-content"
             remarkPlugins={[remarkGfm, remarkMath]}
@@ -79,7 +93,7 @@ const SinglePost = () => {
               img: CustomImage,
             }}
           >
-            {post}
+            {post.content}
           </ReactMarkdown>
         </div>
       </ContentContainer>
