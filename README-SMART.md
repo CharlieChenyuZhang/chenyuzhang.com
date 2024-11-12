@@ -83,7 +83,10 @@ TTS: speak-tts
 
 STT: react-speech-recognition
 
-Pros: free npm packages
+Pros:
+
+1. free npm packages
+2. For the STT, we are able to get the
 
 Cons:
 
@@ -98,8 +101,26 @@ TTS: OpenAI Audio API
 
 STT: [MediaRecorder](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder) (to record and generate .wav) + OpenAI Audio API - (Speech to Text)[https://platform.openai.com/docs/guides/speech-to-text] (convert .wav to text)
 
-Pros: quality. For the STT, we have the option to store the .wav file in the future.
+Pros:
 
-Cons: not free. File uploads are currently limited to 25 MB
+1. quality is very good.
+2. For the STT, we have the option to store the .wav file in the future.
+
+Cons:
+
+1. not free.
+2. For the STT, file uploads are currently limited to 25 MB.
+3. not able to get the words being transcribed as we speak.
 
 Conclusion: recommended.
+
+Solutino 3:
+OpenAI Realtime API
+
+Pros:
+TBD
+
+Cons:
+TBD
+
+COnclusion: TBD

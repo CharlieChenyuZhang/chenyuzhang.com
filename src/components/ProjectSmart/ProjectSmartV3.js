@@ -122,7 +122,7 @@ const ProjectSmart = () => {
 
     setLoading(true);
     try {
-      const response = await fetch(`${backendDomain()}/image`, {
+      const tutorResponse = await fetch(`${backendDomain()}/tutor`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -130,8 +130,8 @@ const ProjectSmart = () => {
         body: JSON.stringify({ inputText }),
       });
 
-      const data = await response.json();
-      setApiResponse(data);
+      const tutorData = await tutorResponse.json();
+      setApiResponse(tutorData);
 
       const sentimentResponse = await fetch(`${backendDomain()}/sentiment`, {
         method: "POST",
@@ -144,14 +144,14 @@ const ProjectSmart = () => {
       const sentimentData = await sentimentResponse.json();
       setSentimentAnalysis(sentimentData.emotions);
     } catch (error) {
-      console.error("Error fetching the image:", error);
+      console.error("Error fetching the tutor data:", error);
     } finally {
       setLoading(false);
     }
   };
 
   const handlePlayTTS = async () => {
-    if (apiResponse && apiResponse.prompt) {
+    if (apiResponse && apiResponse.response) {
       try {
         const response = await fetch("https://api.openai.com/v1/audio/speech", {
           method: "POST",
@@ -162,7 +162,7 @@ const ProjectSmart = () => {
           body: JSON.stringify({
             model: "tts-1",
             voice: "alloy",
-            input: apiResponse.prompt,
+            input: apiResponse.response,
           }),
         });
 
@@ -284,7 +284,7 @@ const ProjectSmart = () => {
               <>
                 <CircularProgress color="inherit" />
                 <Typography align="center" mt={2}>
-                  Generating image...
+                  Processing request...
                 </Typography>
               </>
             ) : (
@@ -299,9 +299,9 @@ const ProjectSmart = () => {
                       : "No emotions detected"}
                   </Typography>
                   <Typography variant="h6" align="center" gutterBottom>
-                    (AI Generated) Image Prompt
+                    Tutor Response
                   </Typography>
-                  <Typography align="center">{apiResponse.prompt}</Typography>
+                  <Typography align="center">{apiResponse.response}</Typography>
                   <SubmitButton
                     onClick={handlePlayTTS}
                     sx={{
@@ -315,15 +315,6 @@ const ProjectSmart = () => {
                     Play TTS
                   </SubmitButton>
                   <audio ref={audioRef} />
-                  <img
-                    src={apiResponse.imageUrl}
-                    alt="Generated Illustration"
-                    style={{
-                      width: "100%",
-                      maxWidth: "400px",
-                      marginTop: "1rem",
-                    }}
-                  />
                 </>
               )
             )}

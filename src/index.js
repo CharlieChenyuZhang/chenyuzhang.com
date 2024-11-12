@@ -5,7 +5,9 @@ import Home from "./components/Home";
 import Blog from "./components/Blog";
 import Music from "./components/Music";
 import Project from "./components/Project";
-import ProjectSmart from "./components/ProjectSmart/ProjectSmartV2";
+import ProjectSmartV1 from "./components/ProjectSmart/ProjectSmartV1";
+import ProjectSmartV2 from "./components/ProjectSmart/ProjectSmartV2";
+import ProjectSmartV3 from "./components/ProjectSmart/ProjectSmartV3";
 import ProjectRelief from "./components/ProjectRelief";
 import ResponsiveApBar from "./components/ResponsiveAppBar";
 import Footer from "./components/Footer";
@@ -38,9 +40,20 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         />
         <Route
           exact
-          path="/project/smart"
-          element={elementConstructor(<ProjectSmart />)}
+          path="/project/smart/v1"
+          element={elementConstructor(<ProjectSmartV1 />)}
         />
+        <Route
+          exact
+          path="/project/smart/v2"
+          element={elementConstructor(<ProjectSmartV2 />)}
+        />
+        <Route
+          exact
+          path="/project/smart/v3"
+          element={elementConstructor(<ProjectSmartV3 />)}
+        />
+
         <Route exact path="/project/relief" element={<ProjectRelief />} />
         <Route
           exact

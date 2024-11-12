@@ -224,6 +224,54 @@ app.post("/sentiment", async (req, res) => {
   }
 });
 
+app.post("/tutor", async (req, res) => {
+  const { inputText } = req.body;
+
+  if (!inputText) {
+    return res.status(400).send({ error: "No input text provided" });
+  }
+
+  try {
+    // TODO: could have fed with the conversation history
+    const sentimentResponse = await axios.post(
+      "https://api.openai.com/v1/chat/completions",
+      {
+        model: "gpt-4",
+        messages: [
+          {
+            role: "system",
+            content: `
+              Act as a helpful tutor and I am your student. Your task is to help me with whatever tasks I am stuck on.
+            `,
+          },
+          {
+            role: "user",
+            content: inputText,
+          },
+        ],
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${OPENAI_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const response = sentimentResponse.data.choices[0].message.content.trim();
+
+    res.send({
+      response: response,
+    });
+  } catch (error) {
+    console.error(
+      "Error performing sentiment analysis: ",
+      error.response?.data || error.message
+    );
+    res.status(500).send({ error: "Error performing sentiment analysis" });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
