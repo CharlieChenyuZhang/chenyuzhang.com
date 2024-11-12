@@ -52,7 +52,7 @@ const ImageContainer = styled.div`
   padding: 1rem;
   border: 1px solid white;
   background-color: #111;
-  min-height: 300px; /* Ensures it has a visible height */
+  min-height: 300px;
 `;
 
 const QuestionBox = styled(Box)`
@@ -105,48 +105,23 @@ const Paragraph = styled.div`
 `;
 
 const ProjectSmart = () => {
-  const [morningAnswers, setMorningAnswers] = useState({
-    grateful: "",
-    great: "",
-    affirmation: "",
-  });
-  const [eveningAnswers, setEveningAnswers] = useState({
-    highlights: "",
-    learn: "",
-  });
+  const [thought, setThought] = useState("");
   const [apiResponse, setApiResponse] = useState(null);
   const [sentimentAnalysis, setSentimentAnalysis] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (section, field) => (e) => {
-    const setAnswers =
-      section === "morning" ? setMorningAnswers : setEveningAnswers;
-    setAnswers((prev) => ({ ...prev, [field]: e.target.value }));
+  const handleChange = (e) => {
+    setThought(e.target.value);
   };
 
-  const isMorningComplete = Object.values(morningAnswers).every(
-    (answer) => answer !== ""
-  );
-  const isEveningComplete = Object.values(eveningAnswers).every(
-    (answer) => answer !== ""
-  );
+  const isComplete = thought.trim() !== "";
 
-  // mode: m - morning; e - evening
-  const handleSubmit = async (mode = "m") => {
-    const inputText =
-      mode === "m"
-        ? `
-      Grateful: ${morningAnswers.grateful}
-      Great: ${morningAnswers.great}
-      Affirmation: ${morningAnswers.affirmation}
-    `
-        : `
-      Highlights: ${eveningAnswers.highlights}
-      Learn: ${eveningAnswers.learn}`;
+  const handleSubmit = async () => {
+    const inputText = `Thought: ${thought}`;
 
     setLoading(true); // Start loading spinner
     try {
-      // step 1: generate the image
+      // Step 1: Generate the image
       const response = await fetch(`${backendDomain()}/image`, {
         method: "POST",
         headers: {
@@ -181,53 +156,45 @@ const ProjectSmart = () => {
   return (
     <MainContainer>
       <ContentContainer>
-        <PageTitle>PoC: Smart Journaling</PageTitle>
+        <PageTitle>PoC</PageTitle>
         <Paragraph>
-          After talking to Prof. Karen Brennan, she mentioned{" "}
-          <a href="https://stoney.sb.org/eno/oblique.html" target="_blank">
-            Oblique Strategies{" "}
-          </a>
+          Solution 1 <br />
+          TTS: speak-tts
+          <br />
+          STT: react-speech-recognition <br />
+          Pros: free npm packages <br />
+          Cons: quality. Doesn't work with React@18, this would need an older
+          versino of React@16. <br />
+          Conclusion: not recommended unless you want to build a prototype.
+        </Paragraph>
+
+        <Paragraph>
+          Solution 2 <br />
+          TTS: OpenAI Audio API
+          <br />
+          STT: OpenAI Audio API <br />
+          Pros: quality. <br />
+          Cons: not free <br />
+          Conclusion: recommended.
         </Paragraph>
 
         <ProjectContainer>
           <InputContainer>
             <Box>
               <QuestionBox>
-                <Typography>I am grateful for...</Typography>
+                <Typography>What's on your mind today?</Typography>
                 <StyledTextField
                   fullWidth
                   multiline
-                  rows={2}
+                  rows={4}
                   variant="outlined"
-                  value={morningAnswers.grateful}
-                  onChange={handleChange("morning", "grateful")}
-                />
-              </QuestionBox>
-              <QuestionBox>
-                <Typography>What would make today great?</Typography>
-                <StyledTextField
-                  fullWidth
-                  multiline
-                  rows={2}
-                  variant="outlined"
-                  value={morningAnswers.great}
-                  onChange={handleChange("morning", "great")}
-                />
-              </QuestionBox>
-              <QuestionBox>
-                <Typography>Daily affirmation</Typography>
-                <StyledTextField
-                  fullWidth
-                  multiline
-                  rows={2}
-                  variant="outlined"
-                  value={morningAnswers.affirmation}
-                  onChange={handleChange("morning", "affirmation")}
+                  value={thought}
+                  onChange={handleChange}
                 />
               </QuestionBox>
               <SubmitButton
-                show={isMorningComplete}
-                onClick={() => handleSubmit("m")}
+                show={isComplete}
+                onClick={handleSubmit}
                 sx={{
                   color: "white",
                   backgroundColor: "black",
@@ -254,7 +221,7 @@ const ProjectSmart = () => {
                   Your generated image will appear here!
                 </Typography>
                 <Typography align="center">
-                  Fill out the prompts and click submit to see your personalized
+                  Fill out the prompt and click submit to see your personalized
                   image.
                 </Typography>
               </>
