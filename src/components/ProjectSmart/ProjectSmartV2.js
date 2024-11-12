@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import {
   Box,
@@ -109,12 +109,15 @@ const ProjectSmart = () => {
   const [apiResponse, setApiResponse] = useState(null);
   const [sentimentAnalysis, setSentimentAnalysis] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
+  const mediaRecorderRef = useRef(null); // Use ref for mediaRecorder
 
   const handleChange = (e) => {
     setThought(e.target.value);
   };
 
-  const isComplete = thought.trim() !== "";
+  console.log("thought", thought);
+  const isComplete = (thought ?? "").trim() !== "";
 
   const handleSubmit = async () => {
     const inputText = `Thought: ${thought}`;
@@ -151,33 +154,65 @@ const ProjectSmart = () => {
     }
   };
 
+  const handleStartRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaRecorderRef.current = new MediaRecorder(stream); // Set mediaRecorderRef
+      mediaRecorderRef.current.start();
+
+      const audioChunks = [];
+      mediaRecorderRef.current.ondataavailable = (event) =>
+        audioChunks.push(event.data);
+
+      mediaRecorderRef.current.onstop = async () => {
+        const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
+        await handleTranscribe(audioBlob); // Transcribe audio after stopping
+        stream.getTracks().forEach((track) => track.stop()); // Stop audio stream
+      };
+
+      setIsRecording(true);
+    } catch (error) {
+      console.error("Error starting audio recording:", error);
+    }
+  };
+
+  const handleStopRecording = () => {
+    if (mediaRecorderRef.current) {
+      mediaRecorderRef.current.stop();
+      setIsRecording(false);
+    }
+  };
+
+  const handleTranscribe = async (audioBlob) => {
+    const formData = new FormData();
+    formData.append("file", audioBlob, "recording.wav");
+    formData.append("model", "whisper-1");
+
+    try {
+      const response = await fetch(
+        "https://api.openai.com/v1/audio/transcriptions",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${process.env.REACT_APP_OPENAI_KEY}`, // FIXME:
+          },
+          body: formData,
+        }
+      );
+
+      const data = await response.json();
+      setThought(data.text); // Set transcribed text to thought
+    } catch (error) {
+      console.error("Error transcribing audio:", error);
+    }
+  };
+
   const showPlaceholder = !apiResponse && !loading;
 
   return (
     <MainContainer>
       <ContentContainer>
         <PageTitle>PoC</PageTitle>
-        <Paragraph>
-          Solution 1 <br />
-          TTS: speak-tts
-          <br />
-          STT: react-speech-recognition <br />
-          Pros: free npm packages <br />
-          Cons: quality. Doesn't work with React@18, this would need an older
-          versino of React@16. <br />
-          Conclusion: not recommended unless you want to build a prototype.
-        </Paragraph>
-
-        <Paragraph>
-          Solution 2 <br />
-          TTS: OpenAI Audio API
-          <br />
-          STT: OpenAI Audio API <br />
-          Pros: quality. <br />
-          Cons: not free <br />
-          Conclusion: recommended.
-        </Paragraph>
-
         <ProjectContainer>
           <InputContainer>
             <Box>
@@ -203,6 +238,20 @@ const ProjectSmart = () => {
                 }}
               >
                 Submit
+              </SubmitButton>
+
+              <SubmitButton
+                onClick={
+                  isRecording ? handleStopRecording : handleStartRecording
+                }
+                sx={{
+                  color: "white",
+                  backgroundColor: isRecording ? "red" : "black",
+                  border: "white 1px solid",
+                  marginLeft: "10px",
+                }}
+              >
+                {isRecording ? "Stop Recording" : "Start Recording"}
               </SubmitButton>
             </Box>
           </InputContainer>
