@@ -7,7 +7,7 @@ import {
   Typography,
   CircularProgress,
 } from "@mui/material";
-import { backendDomain } from "../utils";
+import { backendDomain } from "../../utils";
 
 const MainContainer = styled.div`
   height: 100%;
@@ -183,16 +183,15 @@ const ProjectSmart = () => {
       <ContentContainer>
         <PageTitle>PoC: Smart Journaling</PageTitle>
         <Paragraph>
-          Explores bi-directional learning dynamics. AI will learn from you and
-          you can learn from AI.
+          After talking to Prof. Karen Brennan, she mentioned{" "}
+          <a href="https://stoney.sb.org/eno/oblique.html" target="_blank">
+            Oblique Strategies{" "}
+          </a>
         </Paragraph>
 
         <ProjectContainer>
           <InputContainer>
             <Box>
-              <Typography variant="h6" align="center" gutterBottom>
-                Morning Session
-              </Typography>
               <QuestionBox>
                 <Typography>I am grateful for...</Typography>
                 <StyledTextField
@@ -236,46 +235,7 @@ const ProjectSmart = () => {
                   width: "fit-content",
                 }}
               >
-                Submit Morning
-              </SubmitButton>
-            </Box>
-
-            <Box mt={4}>
-              <Typography variant="h6" align="center" gutterBottom>
-                Evening Session
-              </Typography>
-              <QuestionBox>
-                <Typography>Highlights of the Day</Typography>
-                <StyledTextField
-                  fullWidth
-                  multiline
-                  rows={2}
-                  variant="outlined"
-                  value={eveningAnswers.highlights}
-                  onChange={handleChange("evening", "highlights")}
-                />
-              </QuestionBox>
-              <QuestionBox>
-                <Typography>What did I learn today?</Typography>
-                <StyledTextField
-                  fullWidth
-                  multiline
-                  rows={2}
-                  variant="outlined"
-                  value={eveningAnswers.learn}
-                  onChange={handleChange("evening", "learn")}
-                />
-              </QuestionBox>
-              <SubmitButton
-                show={isEveningComplete}
-                onClick={() => handleSubmit("e")}
-                sx={{
-                  color: "white",
-                  backgroundColor: "black",
-                  border: "white 1px solid",
-                }}
-              >
-                Submit Evening
+                Submit
               </SubmitButton>
             </Box>
           </InputContainer>
