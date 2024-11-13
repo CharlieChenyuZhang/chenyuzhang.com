@@ -11,7 +11,7 @@ import {
   Radio,
   Slider,
 } from "@mui/material";
-import { backendDomain } from "../utils";
+import { backendDomain } from "../../utils";
 
 const WhiteRadio = styled(Radio)({
   color: "white",
