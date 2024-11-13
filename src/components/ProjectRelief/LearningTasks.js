@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Button, Typography, TextField } from "@mui/material";
 
@@ -62,6 +62,7 @@ const CountdownSection = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 1.2rem;
+  margin: auto; /* Centers the countdown vertically and horizontally */
 `;
 
 const TextInputSection = styled.div`
@@ -92,6 +93,10 @@ const CustomButton = styled(Button)`
   padding: 1rem;
 `;
 
+const FrustratedButton = styled(CustomButton)`
+  border: 1px solid red !important;
+`;
+
 const StyledTextField = styled(TextField)`
   & .MuiOutlinedInput-root {
     color: white;
@@ -118,18 +123,42 @@ const ButtonsContainer = styled.div`
   flex-direction: column;
 `;
 
+const StyledPre = styled.pre`
+  background-color: #333;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+`;
+
 const LearningTasks = () => {
+  const [countdown, setCountdown] = useState(10);
+
+  useEffect(() => {
+    if (countdown > 0) {
+      const timer = setInterval(() => {
+        setCountdown((prevCountdown) => prevCountdown - 1);
+      }, 1000);
+
+      // Clear the interval when countdown reaches 0
+      return () => clearInterval(timer);
+    }
+  }, [countdown]);
+
   return (
     <MainContainer>
       <LayoutContainer>
         <TextSection>
           <Typography variant="body1" style={{ flexGrow: 1 }}>
-            {`
-            
-            for i in range(n):
-              print(i)
-            
-            `}
+            {"Find the time complexity of the following:"}
+            <StyledPre>
+              <code>
+                {`
+for i in range(n):
+  print(i)
+      `}
+              </code>
+            </StyledPre>
           </Typography>
 
           <TextInputSection>
@@ -162,7 +191,9 @@ const LearningTasks = () => {
           </TextInputSection>
         </ChatSection>
 
-        <CountdownSection>Time Countdown</CountdownSection>
+        <CountdownSection>
+          {countdown > 0 ? countdown : "Time's up!"}
+        </CountdownSection>
 
         <ButtonsContainer>
           <ButtonSection>
@@ -170,9 +201,9 @@ const LearningTasks = () => {
           </ButtonSection>
 
           <Button2Section>
-            <CustomButton variant="outlined">
+            <FrustratedButton variant="outlined">
               I am frustrated! Please help!
-            </CustomButton>
+            </FrustratedButton>
           </Button2Section>
         </ButtonsContainer>
       </LayoutContainer>
