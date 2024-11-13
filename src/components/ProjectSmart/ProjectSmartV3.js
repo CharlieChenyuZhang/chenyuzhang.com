@@ -108,6 +108,7 @@ const ProjectSmart = () => {
   const [thought, setThought] = useState("");
   const [apiResponse, setApiResponse] = useState(null);
   const [sentimentAnalysis, setSentimentAnalysis] = useState(null);
+  const [sentimentAnalysisTutor, setSentimentAnalysisTutor] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
@@ -142,7 +143,21 @@ const ProjectSmart = () => {
       });
 
       const sentimentData = await sentimentResponse.json();
+
+      const sentimentResponseTutor = await fetch(
+        `${backendDomain()}/sentiment`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ inputText: tutorData.response }),
+        }
+      );
+
+      const sentimentDataTutor = await sentimentResponseTutor.json();
       setSentimentAnalysis(sentimentData.emotions);
+      setSentimentAnalysisTutor(sentimentDataTutor.emotions);
     } catch (error) {
       console.error("Error fetching the tutor data:", error);
     } finally {
@@ -291,13 +306,23 @@ const ProjectSmart = () => {
               apiResponse && (
                 <>
                   <Typography variant="h6" align="center" gutterBottom>
-                    (AI Detected) Emotions
+                    Detected Human's Emotions
                   </Typography>
                   <Typography align="center" sx={{ marginBottom: "20px" }}>
                     {sentimentAnalysis
                       ? sentimentAnalysis
                       : "No emotions detected"}
                   </Typography>
+
+                  <Typography variant="h6" align="center" gutterBottom>
+                    Detected AI Tutor's Emotions
+                  </Typography>
+                  <Typography align="center" sx={{ marginBottom: "20px" }}>
+                    {sentimentAnalysisTutor
+                      ? sentimentAnalysisTutor
+                      : "No emotions detected"}
+                  </Typography>
+
                   <Typography variant="h6" align="center" gutterBottom>
                     Tutor Response
                   </Typography>
