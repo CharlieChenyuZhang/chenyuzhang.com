@@ -92,6 +92,27 @@ const PageTitle = styled.div`
   text-align: center;
 `;
 
+const Divider = styled.div`
+  height: 30px;
+`;
+
+const WhiteSlider = styled(Slider)({
+  color: "white",
+  "& .MuiSlider-track": {
+    color: "white",
+  },
+  "& .MuiSlider-rail": {
+    color: "rgba(255, 255, 255, 0.3)", // Light gray rail
+  },
+  "& .MuiSlider-thumb": {
+    color: "white",
+    border: "2px solid white", // White thumb with border
+  },
+  "& .MuiSlider-mark": {
+    color: "rgba(255, 255, 255, 0.7)", // Lighter white for marks
+  },
+});
+
 const ProjectRelief = () => {
   // State variables for each question and error messages
   const [participantCode, setParticipantCode] = useState("");
@@ -167,17 +188,16 @@ const ProjectRelief = () => {
   return (
     <MainContainer>
       <ContentContainer>
-        <PageTitle>Project Relief</PageTitle>
+        {/* <PageTitle>Project Relief</PageTitle> */}
+        <Box textAlign="center" marginBottom="1rem" sx={{ marginTop: "100px" }}>
+          <Typography variant="h5" fontWeight="bold">
+            Welcome to our Gen AI Python Tutor Study
+          </Typography>
+          <Typography variant="body1" color="inherit">
+            To get started, please fill out the form below.
+          </Typography>
+        </Box>
         <ProjectContainer>
-          <Box textAlign="center" marginBottom="1rem">
-            <Typography variant="h5" fontWeight="bold">
-              Welcome to our Gen AI Python Tutor Study
-            </Typography>
-            <Typography variant="body1" color="inherit">
-              To get started, please fill out the form below.
-            </Typography>
-          </Box>
-
           <InputContainer>
             <StyledTextField
               label="Participant Code"
@@ -191,6 +211,7 @@ const ProjectRelief = () => {
               error={!!errors.participantCode}
               helperText={errors.participantCode}
             />
+            <Divider />
             <StyledTextField
               label="MBTI Personality Type"
               fullWidth
@@ -203,6 +224,7 @@ const ProjectRelief = () => {
               error={!!errors.mbtiType}
               helperText={errors.mbtiType}
             />
+            <Divider />
             <StyledTextField
               label="Email Address"
               fullWidth
@@ -215,6 +237,7 @@ const ProjectRelief = () => {
               error={!!errors.email}
               helperText={errors.email}
             />
+            <Divider />
             <Typography>What is your race/ethnicity?</Typography>
             <RadioGroup
               value={ethnicity}
@@ -277,7 +300,7 @@ const ProjectRelief = () => {
             {errors.ethnicity && (
               <Typography color="error">{errors.ethnicity}</Typography>
             )}
-
+            <Divider />
             <StyledTextField
               label="Country of Origin"
               fullWidth
@@ -290,6 +313,7 @@ const ProjectRelief = () => {
               error={!!errors.countryOfOrigin}
               helperText={errors.countryOfOrigin}
             />
+            <Divider />
             <StyledTextField
               label="If origin is X but grew up in Y"
               fullWidth
@@ -302,6 +326,7 @@ const ProjectRelief = () => {
               error={!!errors.originGrewUp}
               helperText={errors.originGrewUp}
             />
+            <Divider />
             <Typography>What is your gender?</Typography>
             <RadioGroup
               value={gender}
@@ -334,7 +359,7 @@ const ProjectRelief = () => {
             {errors.gender && (
               <Typography color="error">{errors.gender}</Typography>
             )}
-
+            <Divider />
             <StyledTextField
               label="Age"
               fullWidth
@@ -347,6 +372,7 @@ const ProjectRelief = () => {
               error={!!errors.age}
               helperText={errors.age}
             />
+            <Divider />
             <Typography>What is your school affiliation?</Typography>
             <RadioGroup
               value={schoolAffiliation}
@@ -374,11 +400,11 @@ const ProjectRelief = () => {
             {errors.schoolAffiliation && (
               <Typography color="error">{errors.schoolAffiliation}</Typography>
             )}
-
+            <Divider />
             <Typography>
               How comfortable are you with Python programming?
             </Typography>
-            <Slider
+            <WhiteSlider
               value={pythonComfort}
               onChange={(e, newValue) => setPythonComfort(newValue)}
               step={1}
@@ -387,7 +413,7 @@ const ProjectRelief = () => {
               marks
               valueLabelDisplay="auto"
             />
-
+            <Divider />
             <SubmitButton
               disabled={loading}
               onClick={handleSubmit}
