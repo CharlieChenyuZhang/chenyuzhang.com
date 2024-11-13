@@ -327,7 +327,7 @@ const ProjectSmart = () => {
                     Tutor Response
                   </Typography>
                   <Typography align="center">{apiResponse.response}</Typography>
-                  <SubmitButton
+                  {/* <SubmitButton
                     onClick={handlePlayTTS}
                     sx={{
                       color: "white",
@@ -338,7 +338,7 @@ const ProjectSmart = () => {
                     }}
                   >
                     Play TTS
-                  </SubmitButton>
+                  </SubmitButton> */}
                   <audio ref={audioRef} />
                 </>
               )
