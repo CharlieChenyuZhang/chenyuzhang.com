@@ -120,8 +120,8 @@ const ProjectSmart = () => {
 
   const handleSubmit = async () => {
     const inputText = `Thought: ${thought}`;
-
     setLoading(true);
+
     try {
       const tutorResponse = await fetch(`${backendDomain()}/tutor`, {
         method: "POST",
@@ -133,6 +133,9 @@ const ProjectSmart = () => {
 
       const tutorData = await tutorResponse.json();
       setApiResponse(tutorData);
+
+      // Play TTS immediately after receiving the tutor response
+      handlePlayTTS(tutorData);
 
       const sentimentResponse = await fetch(`${backendDomain()}/sentiment`, {
         method: "POST",
@@ -165,8 +168,8 @@ const ProjectSmart = () => {
     }
   };
 
-  const handlePlayTTS = async () => {
-    if (apiResponse && apiResponse.response) {
+  const handlePlayTTS = async (tutorData) => {
+    if (tutorData && tutorData.response) {
       try {
         const response = await fetch("https://api.openai.com/v1/audio/speech", {
           method: "POST",
@@ -177,7 +180,7 @@ const ProjectSmart = () => {
           body: JSON.stringify({
             model: "tts-1",
             voice: "alloy",
-            input: apiResponse.response,
+            input: tutorData.response,
           }),
         });
 
@@ -217,10 +220,13 @@ const ProjectSmart = () => {
   };
 
   const handleStopRecording = () => {
+    // FIXME:
     if (mediaRecorderRef.current) {
       mediaRecorderRef.current.stop();
       setIsRecording(false);
     }
+
+    // submit
   };
 
   const handleTranscribe = async (audioBlob) => {
