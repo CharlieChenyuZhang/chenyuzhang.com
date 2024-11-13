@@ -8,7 +8,11 @@ import Project from "./components/Project";
 import ProjectSmartV1 from "./components/ProjectSmart/ProjectSmartV1";
 import ProjectSmartV2 from "./components/ProjectSmart/ProjectSmartV2";
 import ProjectSmartV3 from "./components/ProjectSmart/ProjectSmartV3";
-import ProjectRelief from "./components/ProjectRelief";
+import ProjectRelief from "./components/ProjectRelief/ProjectRelief";
+import ProjectReliefWebcamTest from "./components/ProjectRelief/WebcamTest";
+import ProjectReliefLearningVideo from "./components/ProjectRelief/LearningVideo";
+import ProjectReliefLearningTasks from "./components/ProjectRelief/LearningTasks";
+import ProjectReliefDebrief from "./components/ProjectRelief/Debrief";
 import ResponsiveApBar from "./components/ResponsiveAppBar";
 import Footer from "./components/Footer";
 import SinglePost from "./components/SinglePost";
@@ -54,7 +58,31 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           element={elementConstructor(<ProjectSmartV3 />)}
         />
 
+        {/* BEGINNING of project relief */}
         <Route exact path="/project/relief" element={<ProjectRelief />} />
+        <Route
+          exact
+          path="/project/relief/webcam-test"
+          element={<ProjectReliefWebcamTest />}
+        />
+        <Route
+          exact
+          path="/project/relief/learning-video"
+          element={<ProjectReliefLearningVideo />}
+        />
+        <Route
+          exact
+          path="/project/relief/learning-tasks"
+          element={<ProjectReliefLearningTasks />}
+        />
+
+        <Route
+          exact
+          path="/project/relief/debrief"
+          element={<ProjectReliefDebrief />}
+        />
+        {/* END of project relief */}
+
         <Route
           exact
           path="/project/icebreaking"
