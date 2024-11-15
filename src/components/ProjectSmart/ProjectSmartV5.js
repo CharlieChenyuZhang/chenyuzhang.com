@@ -161,14 +161,14 @@ const ProjectSmart = () => {
       );
 
       const data = await response.json();
-      setThought(data.text);
+      setThought(data.text ?? "");
     } catch (error) {
       console.error("Error transcribing audio:", error);
     }
   };
 
   const handleChange = (e) => {
-    setThought(e.target.value);
+    setThought(e.target.value ?? "");
   };
 
   const handleSubmit = async () => {
