@@ -202,7 +202,39 @@ const ProjectSmart = () => {
   };
 
   const handleEmbodimentSubmit = async () => {
-    // TBD;
+    if (!thought.trim()) return;
+
+    const imgPrompt = `Embodiment prompt: ${thought}`;
+    setLoading(true);
+
+    // Add the user's input to the conversation
+    const newConversation = [...conversation, { text: thought, isUser: true }];
+    setConversation(newConversation);
+    setThought("");
+
+    try {
+      const response = await fetch(`${backendDomain()}/image`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ inputText: imgPrompt }),
+      });
+
+      const data = await response.json();
+      const { embodimentResponseMsg, imageUrl } = data;
+
+      // Add the embodiment response message and image to the conversation
+      setConversation((prev) => [
+        ...prev,
+        { text: embodimentResponseMsg, isUser: false },
+        { imageUrl, isUser: false },
+      ]);
+    } catch (error) {
+      console.error("Error fetching embodiment data:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleReframeSubmit = async () => {
@@ -283,9 +315,22 @@ const ProjectSmart = () => {
           {conversation.map((msg, index) => (
             <MessageContainer key={index} isUser={msg.isUser}>
               {!msg.isUser && <AiIcon>✧₊⁺</AiIcon>}{" "}
-              {/* AI icon next to top of message */}
-              <MessageBubble isUser={msg.isUser}>{msg.text}</MessageBubble>
-              {!msg.isUser && (
+              {/* AI icon next to message */}
+              {msg.text && (
+                <MessageBubble isUser={msg.isUser}>{msg.text}</MessageBubble>
+              )}
+              {msg.imageUrl && (
+                <img
+                  src={msg.imageUrl}
+                  alt="Embodiment Response"
+                  style={{
+                    maxWidth: "100%",
+                    borderRadius: "8px",
+                    marginTop: "8px",
+                  }}
+                />
+              )}
+              {!msg.isUser && msg.text && (
                 <SpeakerIcon onClick={() => handlePlayTTS(msg.text)}>
                   ၊၊||၊
                 </SpeakerIcon>
@@ -302,6 +347,7 @@ const ProjectSmart = () => {
             </MessageContainer>
           )}
         </ChatContainer>
+
         <InputContainer>
           <StyledTextField
             placeholder="Type your thought here..."

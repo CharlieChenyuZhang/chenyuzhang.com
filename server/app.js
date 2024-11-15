@@ -172,6 +172,8 @@ Follow the tips above, please convert the following text into a detailed prompt 
             content: `
               Act as a positive psychologist and a yogi, your task is to generate some meditation instructions to help me embody the image. 
 
+              Keep it short and concise.
+              
               This is the description of the image. 
 
               ${imgPrompt}
