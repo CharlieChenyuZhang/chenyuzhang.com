@@ -34,7 +34,7 @@ const ContentContainer = styled.div`
 const ChatContainer = styled.div`
   flex-grow: 1;
   height: 50vh;
-  overflow-y: auto; /* This ensures the scrollbar appears */
+  overflow-y: auto;
   margin-bottom: 20px;
   padding: 10px;
   border: 1px solid #fff;
@@ -50,9 +50,18 @@ const MessageContainer = styled.div`
 
 const AiIcon = styled.div`
   font-size: 1.5rem;
-  margin-top: -4px; /* Aligns icon to the top of the message bubble */
+  margin-top: -4px;
   margin-right: ${(props) => (props.isUser ? "0" : "8px")};
   margin-left: ${(props) => (props.isUser ? "8px" : "0")};
+`;
+
+const SpeakerIcon = styled.div`
+  font-size: 1.5rem;
+  margin-top: -4px;
+  cursor: pointer;
+  margin-right: ${(props) => (props.isUser ? "8px" : "0")};
+  margin-left: ${(props) => (props.isUser ? "0" : "8px")};
+  color: ${(props) => (props.isUser ? "#fff" : "#ccc")};
 `;
 
 const MessageBubble = styled.div`
@@ -97,6 +106,7 @@ const ProjectSmart = () => {
   const [conversation, setConversation] = useState([]);
   const [loading, setLoading] = useState(false);
   const chatContainerRef = useRef(null);
+  const audioRef = useRef(null); // Ref for audio playback
 
   const handleChange = (e) => {
     setThought(e.target.value);
@@ -141,6 +151,35 @@ const ProjectSmart = () => {
     }
   }, [conversation]);
 
+  const handlePlayTTS = async (what2Speak) => {
+    if (what2Speak && what2Speak) {
+      try {
+        const response = await fetch("https://api.openai.com/v1/audio/speech", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${process.env.REACT_APP_OPENAI_KEY}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            model: "tts-1",
+            voice: "alloy",
+            input: what2Speak,
+          }),
+        });
+
+        const audioBlob = await response.blob();
+        const audioUrl = URL.createObjectURL(audioBlob);
+
+        if (audioRef.current) {
+          audioRef.current.src = audioUrl;
+          audioRef.current.play();
+        }
+      } catch (error) {
+        console.error("Error with TTS:", error);
+      }
+    }
+  };
+
   return (
     <MainContainer>
       <ContentContainer>
@@ -153,6 +192,11 @@ const ProjectSmart = () => {
               {!msg.isUser && <AiIcon>✧₊⁺</AiIcon>}{" "}
               {/* AI icon next to top of message */}
               <MessageBubble isUser={msg.isUser}>{msg.text}</MessageBubble>
+              {!msg.isUser && (
+                <SpeakerIcon onClick={() => handlePlayTTS(msg.text)}>
+                  ၊၊||၊
+                </SpeakerIcon>
+              )}
             </MessageContainer>
           ))}
           {loading && (
@@ -191,6 +235,7 @@ const ProjectSmart = () => {
           >
             Send
           </Button>
+          <audio ref={audioRef} />
         </InputContainer>
       </ContentContainer>
     </MainContainer>
