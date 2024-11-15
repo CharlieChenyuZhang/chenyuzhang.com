@@ -112,6 +112,7 @@ const ProjectSmart = () => {
   const audioRef = useRef(null); // Ref for audio playback
   const [isRecording, setIsRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
+  const [loadingTTS, setLoadingTTS] = useState(false);
 
   const handleStartRecording = async () => {
     try {
@@ -307,7 +308,8 @@ const ProjectSmart = () => {
   }, [conversation]);
 
   const handlePlayTTS = async (what2Speak) => {
-    if (what2Speak && what2Speak) {
+    if (what2Speak) {
+      setLoadingTTS(true);
       try {
         const response = await fetch("https://api.openai.com/v1/audio/speech", {
           method: "POST",
@@ -331,6 +333,8 @@ const ProjectSmart = () => {
         }
       } catch (error) {
         console.error("Error with TTS:", error);
+      } finally {
+        setLoadingTTS(false);
       }
     }
   };
@@ -362,7 +366,11 @@ const ProjectSmart = () => {
               </MessageBubble>
               {!msg.isUser && msg.text && (
                 <SpeakerIcon onClick={() => handlePlayTTS(msg.text)}>
-                  ၊၊||၊
+                  {loadingTTS ? (
+                    <CircularProgress size={16} color="inherit" />
+                  ) : (
+                    "၊၊||၊"
+                  )}
                 </SpeakerIcon>
               )}
             </MessageContainer>
