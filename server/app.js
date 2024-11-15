@@ -141,13 +141,13 @@ Follow the tips above, please convert the following text into a detailed prompt 
       }
     );
 
-    const gptPrompt = gptResponse.data.choices[0].message.content.trim();
+    const imgPrompt = gptResponse.data.choices[0].message.content.trim();
 
     // Step 2: Call DALL-E 3 to generate an image
     const dalleResponse = await axios.post(
       "https://api.openai.com/v1/images/generations",
       {
-        prompt: "An ink sketch of a " + gptPrompt,
+        prompt: "An ink sketch of a " + imgPrompt,
         model: "dall-e-3",
         n: 1,
         size: "1024x1024",
@@ -160,10 +160,48 @@ Follow the tips above, please convert the following text into a detailed prompt 
       }
     );
 
+    // step 3: embodiment generation
+
+    const embodimentResponse = await axios.post(
+      "https://api.openai.com/v1/chat/completions",
+      {
+        model: "gpt-4",
+        messages: [
+          {
+            role: "system",
+            content: `
+              Act as a positive psychologist and a yogi, your task is to generate some meditation instructions to help me embody the image. 
+
+              This is the description of the image. 
+
+              ${imgPrompt}
+
+              """
+              
+              `,
+          },
+          {
+            role: "user",
+            content: inputText,
+          },
+        ],
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${OPENAI_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const embodimentResponseMsg =
+      embodimentResponse.data.choices[0].message.content.trim();
+
     const imageUrl = dalleResponse.data.data[0].url;
 
     res.send({
-      prompt: gptPrompt,
+      prompt: imgPrompt,
+      embodimentResponseMsg: embodimentResponseMsg,
       imageUrl: imageUrl,
     });
   } catch (error) {

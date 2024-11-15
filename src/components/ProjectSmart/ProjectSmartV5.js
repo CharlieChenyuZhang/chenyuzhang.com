@@ -201,6 +201,10 @@ const ProjectSmart = () => {
     }
   };
 
+  const handleEmbodimentSubmit = async () => {
+    // TBD;
+  };
+
   const handleReframeSubmit = async () => {
     if (!thought.trim()) return;
 
@@ -346,7 +350,7 @@ const ProjectSmart = () => {
 
             <Button
               variant="outlined"
-              onClick={handleSubmit}
+              onClick={handleEmbodimentSubmit}
               disabled={!thought.trim()}
               sx={{
                 color: "white",
@@ -358,7 +362,7 @@ const ProjectSmart = () => {
                 },
               }}
             >
-              Embody - TBD
+              Embody
             </Button>
 
             <Button
