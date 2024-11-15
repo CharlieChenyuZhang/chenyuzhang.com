@@ -366,6 +366,75 @@ app.post("/reframe", async (req, res) => {
   }
 });
 
+app.post("/mental-model", async (req, res) => {
+  const { inputText } = req.body;
+
+  if (!inputText) {
+    return res.status(400).send({ error: "No input text provided" });
+  }
+
+  try {
+    // Call GPT-4 for sentiment analysis and to generate a list of emotions
+    const sentimentResponse = await axios.post(
+      "https://api.openai.com/v1/chat/completions",
+      {
+        model: "gpt-4",
+        messages: [
+          {
+            role: "system",
+            content: `
+
+            Mental models are cognitive frameworks that simplify complex concepts and help us interpret, analyze, and navigate the world around us. They act as mental "tools" we use to break down and make sense of information, relationships, and outcomes across different contexts. Rather than memorizing all details about a situation, mental models enable us to focus on fundamental principles, giving us a structured way to approach decision-making, problem-solving, and understanding.
+
+            At their core, mental models reflect how we perceive cause and effect, draw from past experiences, and apply learned principles to new situations. For example, when crossing a street, we unconsciously apply mental models of motion, distance, and timing to avoid oncoming traffic. Similarly, models from fields like economics, psychology, and physics provide general principles that help us evaluate choices, predict outcomes, and avoid biases in thinking.
+
+            Importantly, using the right mental model for a given situation can significantly improve our decision-making. However, using the wrong model or relying too heavily on intuition and first impressions can lead to mistakes. Mental models encourage a more thoughtful approach, prompting us to slow down, consider multiple perspectives, and adopt a multidisciplinary view when analyzing situations. In doing so, they help us cultivate broader understanding, avoid cognitive pitfalls, and make wiser, more rational decisions.
+
+            """
+          
+            Act as an expert in mental modeling. Your task is to recommend the most relevant mental model to help me with my current task.
+
+            Task: ${inputText}
+
+            Please format your response as follows:
+
+            Recommended mental model: XXX
+
+            What it is:
+            XXX
+
+            Mental model analysis for your task:
+            XXX
+            `,
+          },
+          {
+            role: "user",
+            content: inputText,
+          },
+        ],
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${OPENAI_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const response = sentimentResponse.data.choices[0].message.content.trim();
+
+    res.send({
+      response,
+    });
+  } catch (error) {
+    console.error(
+      "Error performing sentiment analysis: ",
+      error.response?.data || error.message
+    );
+    res.status(500).send({ error: "Error performing sentiment analysis" });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
