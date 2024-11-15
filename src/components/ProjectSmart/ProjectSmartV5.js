@@ -34,7 +34,7 @@ const ContentContainer = styled.div`
 const ChatContainer = styled.div`
   flex-grow: 1;
   height: 50vh;
-  overflow-y: auto;
+  overflow-y: auto; /* This ensures the scrollbar appears */
   margin-bottom: 20px;
   padding: 10px;
   border: 1px solid #fff;
@@ -150,14 +150,14 @@ const ProjectSmart = () => {
         <ChatContainer ref={chatContainerRef}>
           {conversation.map((msg, index) => (
             <MessageContainer key={index} isUser={msg.isUser}>
-              {!msg.isUser && <AiIcon>🤓</AiIcon>}{" "}
+              {!msg.isUser && <AiIcon>✧₊⁺</AiIcon>}{" "}
               {/* AI icon next to top of message */}
               <MessageBubble isUser={msg.isUser}>{msg.text}</MessageBubble>
             </MessageContainer>
           ))}
           {loading && (
             <MessageContainer isUser={false}>
-              <AiIcon>🤓</AiIcon>
+              <AiIcon>✧₊⁺</AiIcon>
               <MessageBubble>
                 <CircularProgress size={20} color="inherit" />
                 {" Processing..."}
