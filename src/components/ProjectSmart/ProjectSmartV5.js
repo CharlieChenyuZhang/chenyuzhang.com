@@ -227,8 +227,8 @@ const ProjectSmart = () => {
       // Add the embodiment response message and image to the conversation
       setConversation((prev) => [
         ...prev,
+        { imageUrl, isUser: false }, // show the img first. Order matters here.
         { text: embodimentResponseMsg, isUser: false },
-        { imageUrl, isUser: false },
       ]);
     } catch (error) {
       console.error("Error fetching embodiment data:", error);
@@ -316,20 +316,20 @@ const ProjectSmart = () => {
             <MessageContainer key={index} isUser={msg.isUser}>
               {!msg.isUser && <AiIcon>✧₊⁺</AiIcon>}{" "}
               {/* AI icon next to message */}
-              {msg.text && (
-                <MessageBubble isUser={msg.isUser}>{msg.text}</MessageBubble>
-              )}
-              {msg.imageUrl && (
-                <img
-                  src={msg.imageUrl}
-                  alt="Embodiment Response"
-                  style={{
-                    maxWidth: "100%",
-                    borderRadius: "8px",
-                    marginTop: "8px",
-                  }}
-                />
-              )}
+              <MessageBubble isUser={msg.isUser}>
+                {msg.text && <span>{msg.text}</span>}
+                {msg.imageUrl && (
+                  <img
+                    src={msg.imageUrl}
+                    alt="Embodiment Response"
+                    style={{
+                      maxWidth: "100%",
+                      borderRadius: "8px",
+                      marginTop: msg.text ? "8px" : "0",
+                    }}
+                  />
+                )}
+              </MessageBubble>
               {!msg.isUser && msg.text && (
                 <SpeakerIcon onClick={() => handlePlayTTS(msg.text)}>
                   ၊၊||၊
@@ -337,6 +337,7 @@ const ProjectSmart = () => {
               )}
             </MessageContainer>
           ))}
+
           {loading && (
             <MessageContainer isUser={false}>
               <AiIcon>✧₊⁺</AiIcon>
