@@ -78,6 +78,7 @@ const InputContainer = styled.div`
   display: flex;
   align-items: center;
   margin-top: 10px;
+  flex-direction: column;
 `;
 
 const StyledTextField = styled(TextField)`
@@ -100,6 +101,8 @@ const StyledTextField = styled(TextField)`
   }
   width: 100%;
 `;
+
+const ButtonGroup = styled.div``;
 
 const ProjectSmart = () => {
   const [thought, setThought] = useState("");
@@ -198,6 +201,37 @@ const ProjectSmart = () => {
     }
   };
 
+  const handleReframeSubmit = async () => {
+    if (!thought.trim()) return;
+
+    const inputText = `Thought: ${thought}`;
+    setLoading(true);
+
+    const newConversation = [...conversation, { text: thought, isUser: true }];
+    setConversation(newConversation);
+    setThought("");
+
+    try {
+      const tutorResponse = await fetch(`${backendDomain()}/reframe`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ inputText }),
+      });
+
+      const tutorData = await tutorResponse.json();
+      setConversation((prev) => [
+        ...prev,
+        { text: tutorData.response, isUser: false },
+      ]);
+    } catch (error) {
+      console.error("Error fetching the tutor data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Scroll to bottom on new messages
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -275,7 +309,7 @@ const ProjectSmart = () => {
             sx={{ marginRight: "10px" }}
           />
 
-          <div>
+          <ButtonGroup>
             <Button
               variant="outlined"
               onClick={handleSubmit}
@@ -299,18 +333,15 @@ const ProjectSmart = () => {
               onClick={isRecording ? handleStopRecording : handleStartRecording}
               sx={{
                 color: "white",
-                border: "none",
+                borderColor: "white",
+                "&:hover": { backgroundColor: "grey" },
                 "&.Mui-disabled": {
                   color: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled text
                   borderColor: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled border
                 },
-                "&:hover": {
-                  border: "none",
-                  background: "none",
-                },
               }}
             >
-              {isRecording ? <>🔴</> : <>◉</>}
+              {isRecording ? <>🔴 stop recording</> : <>◉ start Recording</>}
             </Button>
 
             <Button
@@ -327,9 +358,43 @@ const ProjectSmart = () => {
                 },
               }}
             >
-              Embody
+              Embody - TBD
             </Button>
-          </div>
+
+            <Button
+              variant="outlined"
+              onClick={handleReframeSubmit}
+              disabled={!thought.trim()}
+              sx={{
+                color: "white",
+                borderColor: "white",
+                "&:hover": { backgroundColor: "grey" },
+                "&.Mui-disabled": {
+                  color: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled text
+                  borderColor: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled border
+                },
+              }}
+            >
+              Reframe
+            </Button>
+
+            <Button
+              variant="outlined"
+              onClick={handleSubmit}
+              disabled={!thought.trim()}
+              sx={{
+                color: "white",
+                borderColor: "white",
+                "&:hover": { backgroundColor: "grey" },
+                "&.Mui-disabled": {
+                  color: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled text
+                  borderColor: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled border
+                },
+              }}
+            >
+              Mental Modal - TBD
+            </Button>
+          </ButtonGroup>
 
           <audio ref={audioRef} />
         </InputContainer>
