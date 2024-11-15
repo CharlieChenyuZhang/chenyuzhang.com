@@ -115,10 +115,12 @@ Cons:
 Conclusion: recommended.
 
 Solutino 3:
-OpenAI Realtime API
+OpenAI Realtime API (a server-side WebSocket interface)
 
 Pros:
-TBD
+
+1. faster to get the nuanced output becase it's skipping the intermediate text format.
+   TBD
 
 Cons:
 TBD

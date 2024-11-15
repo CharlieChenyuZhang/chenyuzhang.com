@@ -254,7 +254,7 @@ const ProjectSmart = () => {
     <MainContainer>
       <ContentContainer>
         <PageTitle>PoC</PageTitle>
-        <Paragraph>Using OpenAI's Audio API.</Paragraph>
+        <Paragraph>Using OpenAI's Real Time API.</Paragraph>
         <ProjectContainer>
           <InputContainer>
             <Box>
