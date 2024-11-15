@@ -107,6 +107,61 @@ const ProjectSmart = () => {
   const [loading, setLoading] = useState(false);
   const chatContainerRef = useRef(null);
   const audioRef = useRef(null); // Ref for audio playback
+  const [isRecording, setIsRecording] = useState(false);
+  const mediaRecorderRef = useRef(null);
+
+  const handleStartRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaRecorderRef.current = new MediaRecorder(stream);
+      mediaRecorderRef.current.start();
+
+      const audioChunks = [];
+      mediaRecorderRef.current.ondataavailable = (event) =>
+        audioChunks.push(event.data);
+
+      mediaRecorderRef.current.onstop = async () => {
+        const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
+        await handleTranscribe(audioBlob);
+        stream.getTracks().forEach((track) => track.stop());
+      };
+
+      setIsRecording(true);
+    } catch (error) {
+      console.error("Error starting audio recording:", error);
+    }
+  };
+
+  const handleStopRecording = () => {
+    if (mediaRecorderRef.current) {
+      mediaRecorderRef.current.stop();
+      setIsRecording(false);
+    }
+  };
+
+  const handleTranscribe = async (audioBlob) => {
+    const formData = new FormData();
+    formData.append("file", audioBlob, "recording.wav");
+    formData.append("model", "whisper-1");
+
+    try {
+      const response = await fetch(
+        "https://api.openai.com/v1/audio/transcriptions",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${process.env.REACT_APP_OPENAI_KEY}`,
+          },
+          body: formData,
+        }
+      );
+
+      const data = await response.json();
+      setThought(data.text);
+    } catch (error) {
+      console.error("Error transcribing audio:", error);
+    }
+  };
 
   const handleChange = (e) => {
     setThought(e.target.value);
@@ -219,22 +274,63 @@ const ProjectSmart = () => {
             rows={2}
             sx={{ marginRight: "10px" }}
           />
-          <Button
-            variant="outlined"
-            onClick={handleSubmit}
-            disabled={!thought.trim()}
-            sx={{
-              color: "white",
-              borderColor: "white",
-              "&:hover": { backgroundColor: "grey" },
-              "&.Mui-disabled": {
-                color: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled text
-                borderColor: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled border
-              },
-            }}
-          >
-            Send
-          </Button>
+
+          <div>
+            <Button
+              variant="outlined"
+              onClick={handleSubmit}
+              disabled={!thought.trim()}
+              sx={{
+                color: "white",
+                borderColor: "white",
+                "&:hover": { backgroundColor: "grey" },
+                "&.Mui-disabled": {
+                  color: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled text
+                  borderColor: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled border
+                },
+              }}
+            >
+              Send
+            </Button>
+
+            {/* record button */}
+            <Button
+              variant="outlined"
+              onClick={isRecording ? handleStopRecording : handleStartRecording}
+              sx={{
+                color: "white",
+                border: "none",
+                "&.Mui-disabled": {
+                  color: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled text
+                  borderColor: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled border
+                },
+                "&:hover": {
+                  border: "none",
+                  background: "none",
+                },
+              }}
+            >
+              {isRecording ? <>🔴</> : <>◉</>}
+            </Button>
+
+            <Button
+              variant="outlined"
+              onClick={handleSubmit}
+              disabled={!thought.trim()}
+              sx={{
+                color: "white",
+                borderColor: "white",
+                "&:hover": { backgroundColor: "grey" },
+                "&.Mui-disabled": {
+                  color: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled text
+                  borderColor: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled border
+                },
+              }}
+            >
+              Embody
+            </Button>
+          </div>
+
           <audio ref={audioRef} />
         </InputContainer>
       </ContentContainer>
