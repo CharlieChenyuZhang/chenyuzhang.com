@@ -237,6 +237,36 @@ const ProjectSmart = () => {
     }
   };
 
+  const handleMentalModelSubmit = async () => {
+    if (!thought.trim()) return;
+
+    const inputText = `Thought: ${thought}`;
+    setLoading(true);
+
+    const newConversation = [...conversation, { text: thought, isUser: true }];
+    setConversation(newConversation);
+    setThought("");
+
+    try {
+      const tutorResponse = await fetch(`${backendDomain()}/mental-model`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ inputText }),
+      });
+
+      const tutorData = await tutorResponse.json();
+      setConversation((prev) => [
+        ...prev,
+        { text: tutorData.response, isUser: false },
+      ]);
+    } catch (error) {
+      console.error("Error fetching the tutor data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
   const handleReframeSubmit = async () => {
     if (!thought.trim()) return;
 
@@ -431,7 +461,7 @@ const ProjectSmart = () => {
 
             <Button
               variant="outlined"
-              onClick={handleSubmit}
+              onClick={handleMentalModelSubmit}
               disabled={!thought.trim()}
               sx={{
                 color: "white",
@@ -443,7 +473,7 @@ const ProjectSmart = () => {
                 },
               }}
             >
-              Mental Modal - TBD
+              Mental Model
             </Button>
           </ButtonGroup>
 
