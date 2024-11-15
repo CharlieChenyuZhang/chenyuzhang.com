@@ -272,6 +272,60 @@ app.post("/tutor", async (req, res) => {
   }
 });
 
+app.post("/reframe", async (req, res) => {
+  const { inputText } = req.body;
+
+  if (!inputText) {
+    return res.status(400).send({ error: "No input text provided" });
+  }
+
+  try {
+    // TODO: could have fed with the conversation history
+    const apiResponse = await axios.post(
+      "https://api.openai.com/v1/chat/completions",
+      {
+        model: "gpt-4",
+        messages: [
+          {
+            role: "system",
+            content: `
+              Act as a positive psychologist, your task is to help me reframe the negative thoughts.
+
+              Use the following pattern
+              
+              """
+              
+              Reframe: 
+            `,
+          },
+          {
+            role: "user",
+            content: inputText,
+          },
+        ],
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${OPENAI_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const response = apiResponse.data.choices[0].message.content.trim();
+
+    res.send({
+      response: response,
+    });
+  } catch (error) {
+    console.error(
+      "Error performing sentiment analysis: ",
+      error.response?.data || error.message
+    );
+    res.status(500).send({ error: "Error performing sentiment analysis" });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
