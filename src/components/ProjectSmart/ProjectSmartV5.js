@@ -389,7 +389,7 @@ const ProjectSmart = () => {
 
         <InputContainer>
           <StyledTextField
-            placeholder="Type your thought here..."
+            placeholder="What's on your mind today? Reflect freely..."
             variant="outlined"
             value={thought}
             onChange={handleChange}
