@@ -100,10 +100,21 @@ const WebcamTest = () => {
 
   const stopWebcam = () => {
     if (mediaStream) {
+      // Stop the webcam stream
       mediaStream.getTracks().forEach((track) => track.stop());
       setMediaStream(null);
       setFaceDetected(false);
       setConfidence(null);
+
+      // Remove the video source to show the grey background
+      if (videoRef.current) {
+        videoRef.current.srcObject = null;
+      }
+
+      // Clear the canvas to remove the bounding box
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
   };
 
