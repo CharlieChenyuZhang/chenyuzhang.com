@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import {
   Box,
@@ -20,43 +20,65 @@ const MainContainer = styled.div`
 `;
 
 const ContentContainer = styled.div`
-  margin-top: 83px;
-  margin-left: 60px;
-  margin-right: 60px;
   width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #fff;
+  border-radius: 8px;
+  background-color: #111;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
 `;
 
-const ProjectContainer = styled.div`
+const ChatContainer = styled.div`
+  flex-grow: 1;
+  height: 50vh;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #fff;
+  border-radius: 8px;
+`;
+
+const MessageContainer = styled.div`
   display: flex;
-  max-width: 1000px;
-  width: 100%;
-  padding: 2rem;
-  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
-  border: white 1px solid;
-  margin: 0 auto;
+  align-items: flex-start;
+  margin: 8px 0;
+  flex-direction: ${(props) => (props.isUser ? "row-reverse" : "row")};
+`;
+
+const AiIcon = styled.div`
+  font-size: 1.5rem;
+  margin-top: -4px;
+  margin-right: ${(props) => (props.isUser ? "0" : "8px")};
+  margin-left: ${(props) => (props.isUser ? "8px" : "0")};
+`;
+
+const SpeakerIcon = styled.div`
+  font-size: 1.5rem;
+  margin-top: -4px;
+  cursor: pointer;
+  margin-right: ${(props) => (props.isUser ? "8px" : "0")};
+  margin-left: ${(props) => (props.isUser ? "0" : "8px")};
+  color: ${(props) => (props.isUser ? "#fff" : "#ccc")};
+`;
+
+const MessageBubble = styled.div`
+  background-color: ${(props) => (props.isUser ? "#000" : "#222")};
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 12px;
+  padding: 10px 15px;
+  max-width: 75%;
+  white-space: pre-line;
 `;
 
 const InputContainer = styled.div`
-  max-width: 500px;
-  width: 100%;
-  padding-right: 2rem;
-`;
-
-const ImageContainer = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  max-width: 400px;
-  width: 100%;
-  padding: 1rem;
-  border: 1px solid white;
-  background-color: #111;
-  min-height: 300px;
-`;
-
-const QuestionBox = styled(Box)`
-  margin-bottom: 1.5rem;
+  margin-top: 10px;
+  flex-direction: column;
 `;
 
 const StyledTextField = styled(TextField)`
@@ -77,125 +99,20 @@ const StyledTextField = styled(TextField)`
   & .MuiInputLabel-root {
     color: #fff;
   }
+  width: 100%;
 `;
 
-const SubmitButton = styled(Button)`
-  display: ${(props) => (props.show ? "block" : "none")};
-`;
-
-const PageTitle = styled.div`
-  font-size: 2rem;
-  font-weight: bold;
-  padding: 5rem 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-`;
-
-const Paragraph = styled.div`
-  margin-bottom: 1rem;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 50rem;
-  font-size: 1.125rem;
-  line-height: 150%;
-  font-weight: 400;
-  font-family: sans-serif;
-`;
+const ButtonGroup = styled.div``;
 
 const ProjectSmart = () => {
   const [thought, setThought] = useState("");
-  const [apiResponse, setApiResponse] = useState(null);
-  const [sentimentAnalysis, setSentimentAnalysis] = useState(null);
-  const [sentimentAnalysisTutor, setSentimentAnalysisTutor] = useState(null);
+  const [conversation, setConversation] = useState([]);
   const [loading, setLoading] = useState(false);
+  const chatContainerRef = useRef(null);
+  const audioRef = useRef(null); // Ref for audio playback
   const [isRecording, setIsRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
-  const audioRef = useRef(null); // Ref for audio playback
-
-  const handleChange = (e) => {
-    setThought(e.target.value);
-  };
-
-  const handleSubmit = async () => {
-    const inputText = `Thought: ${thought}`;
-    setLoading(true);
-
-    try {
-      const tutorResponse = await fetch(`${backendDomain()}/tutor`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ inputText }),
-      });
-
-      const tutorData = await tutorResponse.json();
-      setApiResponse(tutorData);
-
-      // Play TTS immediately after receiving the tutor response
-      // handlePlayTTS(tutorData);
-
-      const sentimentResponse = await fetch(`${backendDomain()}/sentiment`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ inputText }),
-      });
-
-      const sentimentData = await sentimentResponse.json();
-
-      const sentimentResponseTutor = await fetch(
-        `${backendDomain()}/sentiment`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ inputText: tutorData.response }),
-        }
-      );
-
-      const sentimentDataTutor = await sentimentResponseTutor.json();
-      setSentimentAnalysis(sentimentData.emotions);
-      setSentimentAnalysisTutor(sentimentDataTutor.emotions);
-    } catch (error) {
-      console.error("Error fetching the tutor data:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handlePlayTTS = async () => {
-    if (apiResponse && apiResponse.response) {
-      try {
-        const response = await fetch("https://api.openai.com/v1/audio/speech", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${process.env.REACT_APP_OPENAI_KEY}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            model: "tts-1",
-            voice: "alloy",
-            input: apiResponse.response,
-          }),
-        });
-
-        const audioBlob = await response.blob();
-        const audioUrl = URL.createObjectURL(audioBlob);
-
-        if (audioRef.current) {
-          audioRef.current.src = audioUrl;
-          audioRef.current.play();
-        }
-      } catch (error) {
-        console.error("Error with TTS:", error);
-      }
-    }
-  };
+  const [loadingTTS, setLoadingTTS] = useState(false);
 
   const handleStartRecording = async () => {
     try {
@@ -244,111 +161,332 @@ const ProjectSmart = () => {
       );
 
       const data = await response.json();
-      setThought(data.text);
+      setThought(data.text ?? "");
     } catch (error) {
       console.error("Error transcribing audio:", error);
+    }
+  };
+
+  const handleChange = (e) => {
+    setThought(e.target.value ?? "");
+  };
+
+  const handleSubmit = async () => {
+    if (!thought.trim()) return;
+
+    const inputText = `Thought: ${thought}`;
+    setLoading(true);
+
+    const newConversation = [...conversation, { text: thought, isUser: true }];
+    setConversation(newConversation);
+    setThought("");
+
+    try {
+      const tutorResponse = await fetch(`${backendDomain()}/tutor`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ inputText }),
+      });
+
+      const tutorData = await tutorResponse.json();
+      setConversation((prev) => [
+        ...prev,
+        { text: tutorData.response, isUser: false },
+      ]);
+    } catch (error) {
+      console.error("Error fetching the tutor data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleEmbodimentSubmit = async () => {
+    if (!thought.trim()) return;
+
+    const imgPrompt = `Embodiment prompt: ${thought}`;
+    setLoading(true);
+
+    // Add the user's input to the conversation
+    const newConversation = [...conversation, { text: thought, isUser: true }];
+    setConversation(newConversation);
+    setThought("");
+
+    try {
+      const response = await fetch(`${backendDomain()}/image`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ inputText: imgPrompt }),
+      });
+
+      const data = await response.json();
+      const { embodimentResponseMsg, imageUrl } = data;
+
+      // Add the embodiment response message and image to the conversation
+      setConversation((prev) => [
+        ...prev,
+        { imageUrl, isUser: false }, // show the img first. Order matters here.
+        { text: embodimentResponseMsg, isUser: false },
+      ]);
+    } catch (error) {
+      console.error("Error fetching embodiment data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleMentalModelSubmit = async () => {
+    if (!thought.trim()) return;
+
+    const inputText = `Thought: ${thought}`;
+    setLoading(true);
+
+    const newConversation = [...conversation, { text: thought, isUser: true }];
+    setConversation(newConversation);
+    setThought("");
+
+    try {
+      const tutorResponse = await fetch(`${backendDomain()}/mental-model`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ inputText }),
+      });
+
+      const tutorData = await tutorResponse.json();
+      setConversation((prev) => [
+        ...prev,
+        { text: tutorData.response, isUser: false },
+      ]);
+    } catch (error) {
+      console.error("Error fetching the tutor data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleReframeSubmit = async () => {
+    if (!thought.trim()) return;
+
+    const inputText = `Thought: ${thought}`;
+    setLoading(true);
+
+    const newConversation = [...conversation, { text: thought, isUser: true }];
+    setConversation(newConversation);
+    setThought("");
+
+    try {
+      const tutorResponse = await fetch(`${backendDomain()}/reframe`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ inputText }),
+      });
+
+      const tutorData = await tutorResponse.json();
+      setConversation((prev) => [
+        ...prev,
+        { text: tutorData.response, isUser: false },
+      ]);
+    } catch (error) {
+      console.error("Error fetching the tutor data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Scroll to bottom on new messages
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
+    }
+  }, [conversation]);
+
+  const handlePlayTTS = async (what2Speak) => {
+    if (what2Speak) {
+      setLoadingTTS(true);
+      try {
+        const response = await fetch("https://api.openai.com/v1/audio/speech", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${process.env.REACT_APP_OPENAI_KEY}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            model: "tts-1",
+            voice: "alloy",
+            input: what2Speak,
+          }),
+        });
+
+        const audioBlob = await response.blob();
+        const audioUrl = URL.createObjectURL(audioBlob);
+
+        if (audioRef.current) {
+          audioRef.current.src = audioUrl;
+          audioRef.current.play();
+        }
+      } catch (error) {
+        console.error("Error with TTS:", error);
+      } finally {
+        setLoadingTTS(false);
+      }
     }
   };
 
   return (
     <MainContainer>
       <ContentContainer>
-        <PageTitle>PoC</PageTitle>
-        <Paragraph>Using OpenAI's Real Time API.</Paragraph>
-        <ProjectContainer>
-          <InputContainer>
-            <Box>
-              <QuestionBox>
-                <Typography>What's on your mind today?</Typography>
-                <StyledTextField
-                  fullWidth
-                  multiline
-                  rows={4}
-                  variant="outlined"
-                  value={thought}
-                  onChange={handleChange}
-                />
-              </QuestionBox>
-              <SubmitButton
-                show={thought.trim() !== ""}
-                onClick={handleSubmit}
-                sx={{
-                  color: "white",
-                  backgroundColor: "black",
-                  border: "white 1px solid",
-                  width: "fit-content",
-                }}
-              >
-                Submit
-              </SubmitButton>
-
-              <SubmitButton
-                onClick={
-                  isRecording ? handleStopRecording : handleStartRecording
-                }
-                sx={{
-                  color: "white",
-                  backgroundColor: isRecording ? "red" : "black",
-                  border: "white 1px solid",
-                  marginLeft: "10px",
-                }}
-              >
-                {isRecording ? "Stop Recording" : "Start Recording"}
-              </SubmitButton>
-            </Box>
-          </InputContainer>
-
-          <ImageContainer>
-            {loading ? (
-              <>
-                <CircularProgress color="inherit" />
-                <Typography align="center" mt={2}>
-                  Processing request...
-                </Typography>
-              </>
-            ) : (
-              apiResponse && (
-                <>
-                  <Typography variant="h6" align="center" gutterBottom>
-                    Detected Human's Emotions
-                  </Typography>
-                  <Typography align="center" sx={{ marginBottom: "20px" }}>
-                    {sentimentAnalysis
-                      ? sentimentAnalysis
-                      : "No emotions detected"}
-                  </Typography>
-
-                  <Typography variant="h6" align="center" gutterBottom>
-                    Detected AI Tutor's Emotions
-                  </Typography>
-                  <Typography align="center" sx={{ marginBottom: "20px" }}>
-                    {sentimentAnalysisTutor
-                      ? sentimentAnalysisTutor
-                      : "No emotions detected"}
-                  </Typography>
-
-                  <Typography variant="h6" align="center" gutterBottom>
-                    Tutor Response
-                  </Typography>
-                  <Typography align="center">{apiResponse.response}</Typography>
-                  <SubmitButton
-                    onClick={handlePlayTTS}
-                    sx={{
-                      color: "white",
-                      backgroundColor: "black",
-                      border: "white 1px solid",
-                      marginTop: "10px",
-                      width: "fit-content",
+        {/* <Typography variant="h4" align="center" gutterBottom>
+          SMART Journaling
+        </Typography> */}
+        <ChatContainer ref={chatContainerRef}>
+          {conversation.map((msg, index) => (
+            <MessageContainer key={index} isUser={msg.isUser}>
+              {!msg.isUser && <AiIcon>✧₊⁺</AiIcon>}{" "}
+              {/* AI icon next to message */}
+              <MessageBubble isUser={msg.isUser}>
+                {msg.text && <span>{msg.text}</span>}
+                {msg.imageUrl && (
+                  <img
+                    src={msg.imageUrl}
+                    alt="Embodiment Response"
+                    style={{
+                      maxWidth: "100%",
+                      borderRadius: "8px",
+                      marginTop: msg.text ? "8px" : "0",
                     }}
-                  >
-                    Play TTS
-                  </SubmitButton>
-                  <audio ref={audioRef} />
-                </>
-              )
-            )}
-          </ImageContainer>
-        </ProjectContainer>
+                  />
+                )}
+              </MessageBubble>
+              {!msg.isUser && msg.text && (
+                <SpeakerIcon onClick={() => handlePlayTTS(msg.text)}>
+                  {loadingTTS ? (
+                    <CircularProgress size={16} color="inherit" />
+                  ) : (
+                    "၊၊||၊"
+                  )}
+                </SpeakerIcon>
+              )}
+            </MessageContainer>
+          ))}
+
+          {loading && (
+            <MessageContainer isUser={false}>
+              <AiIcon>✧₊⁺</AiIcon>
+              <MessageBubble>
+                <CircularProgress size={20} color="inherit" />
+                {" Processing..."}
+              </MessageBubble>
+            </MessageContainer>
+          )}
+        </ChatContainer>
+
+        <InputContainer>
+          <StyledTextField
+            placeholder="What's on your mind today? Reflect freely..."
+            variant="outlined"
+            value={thought}
+            onChange={handleChange}
+            multiline
+            rows={2}
+            sx={{ marginRight: "10px" }}
+          />
+
+          <ButtonGroup>
+            <Button
+              variant="outlined"
+              onClick={handleSubmit}
+              disabled={!thought.trim()}
+              sx={{
+                color: "white",
+                borderColor: "white",
+                "&:hover": { backgroundColor: "grey" },
+                "&.Mui-disabled": {
+                  color: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled text
+                  borderColor: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled border
+                },
+              }}
+            >
+              Send
+            </Button>
+
+            {/* record button */}
+            <Button
+              variant="outlined"
+              onClick={isRecording ? handleStopRecording : handleStartRecording}
+              sx={{
+                color: "white",
+                borderColor: "white",
+                "&:hover": { backgroundColor: "grey" },
+                "&.Mui-disabled": {
+                  color: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled text
+                  borderColor: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled border
+                },
+              }}
+            >
+              {isRecording ? <>🔴 stop recording</> : <>◉ start Recording</>}
+            </Button>
+
+            <Button
+              variant="outlined"
+              onClick={handleEmbodimentSubmit}
+              disabled={!thought.trim()}
+              sx={{
+                color: "white",
+                borderColor: "white",
+                "&:hover": { backgroundColor: "grey" },
+                "&.Mui-disabled": {
+                  color: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled text
+                  borderColor: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled border
+                },
+              }}
+            >
+              Embody
+            </Button>
+
+            <Button
+              variant="outlined"
+              onClick={handleReframeSubmit}
+              disabled={!thought.trim()}
+              sx={{
+                color: "white",
+                borderColor: "white",
+                "&:hover": { backgroundColor: "grey" },
+                "&.Mui-disabled": {
+                  color: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled text
+                  borderColor: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled border
+                },
+              }}
+            >
+              Reframe
+            </Button>
+
+            <Button
+              variant="outlined"
+              onClick={handleMentalModelSubmit}
+              disabled={!thought.trim()}
+              sx={{
+                color: "white",
+                borderColor: "white",
+                "&:hover": { backgroundColor: "grey" },
+                "&.Mui-disabled": {
+                  color: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled text
+                  borderColor: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled border
+                },
+              }}
+            >
+              Mental Model
+            </Button>
+          </ButtonGroup>
+
+          <audio ref={audioRef} />
+        </InputContainer>
       </ContentContainer>
     </MainContainer>
   );

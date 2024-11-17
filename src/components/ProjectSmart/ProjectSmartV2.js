@@ -236,6 +236,7 @@ const ProjectSmart = () => {
     <MainContainer>
       <ContentContainer>
         <PageTitle>PoC</PageTitle>
+        <Paragraph>Dall-E 3 Image generation + TTS/STT</Paragraph>
         <ProjectContainer>
           <InputContainer>
             <Box>

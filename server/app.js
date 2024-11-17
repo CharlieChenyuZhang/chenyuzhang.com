@@ -281,7 +281,7 @@ app.post("/tutor", async (req, res) => {
           {
             role: "system",
             content: `
-              Act as a helpful tutor and I am your student. Your task is to help me with whatever tasks I am stuck on.
+              Act as my assistant and my smart journal. Your task is to help me with whatever tasks I am stuck on.
             `,
           },
           {

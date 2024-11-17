@@ -125,4 +125,24 @@ Pros:
 Cons:
 TBD
 
-COnclusion: TBD
+Conclusion: TBD
+
+## Meeting with KB and Feedbacks
+
+Being up front with all the functionalities and what to expect at each stage (input -- output) is helpful.
+
+- i.e. how do you prepare someone to use it meaingfully
+
+People find AI agent very off-putting if there's an misalignment with a person's goal and what's offering.
+
+## feedback from Tom Thorsheim
+
+The existing platform is recommendating the people who are similar to you. You would never understand how people think with different point of view.
+
+Help people to be more unified.
+
+Chenyu's thought. ChatGPT makes people think the same.
+
+- next step for SMART journaling is to match you with people who are going through a similar things. Group formation tools.
+
+Tom has down group therapy. Come up with a good group of people.

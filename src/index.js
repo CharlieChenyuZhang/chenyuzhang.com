@@ -9,7 +9,6 @@ import ProjectSmartV1 from "./components/ProjectSmart/ProjectSmartV1";
 import ProjectSmartV2 from "./components/ProjectSmart/ProjectSmartV2";
 import ProjectSmartV3 from "./components/ProjectSmart/ProjectSmartV3";
 import ProjectSmartV4 from "./components/ProjectSmart/ProjectSmartV4";
-import ProjectSmartV5 from "./components/ProjectSmart/ProjectSmartV5";
 import ProjectRelief from "./components/ProjectRelief/ProjectRelief";
 import ProjectReliefWebcamTest from "./components/ProjectRelief/WebcamTest";
 import ProjectReliefLearningVideo from "./components/ProjectRelief/LearningVideo";
@@ -59,19 +58,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           path="/project/smart/v3"
           element={elementConstructor(<ProjectSmartV3 />)}
         />
-
-        {/* AI Tutor API */}
         <Route
           exact
           path="/project/smart/v4"
           element={elementConstructor(<ProjectSmartV4 />)}
-        />
-
-        {/* chat style */}
-        <Route
-          exact
-          path="/project/smart/v5"
-          element={elementConstructor(<ProjectSmartV5 />)}
         />
 
         {/* BEGINNING of project relief */}
