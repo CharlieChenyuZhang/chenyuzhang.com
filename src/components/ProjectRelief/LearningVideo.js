@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { Button, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const MainContainer = styled.div`
   height: 100%;
@@ -58,6 +59,7 @@ const CaptureButton = styled(Button)`
 `;
 
 const LearningVideo = () => {
+  const navigate = useNavigate();
   return (
     <MainContainer>
       <WebcamContainer>
@@ -86,7 +88,11 @@ const LearningVideo = () => {
           ></iframe>
         </VideoContainer>
 
-        <CaptureButton onClick={() => alert("next!!!")}>Next</CaptureButton>
+        <CaptureButton
+          onClick={() => navigate("/project/relief/learning-tasks")}
+        >
+          Next
+        </CaptureButton>
       </WebcamContainer>
     </MainContainer>
   );

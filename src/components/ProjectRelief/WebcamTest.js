@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import * as faceapi from "face-api.js";
 import { Button, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const MainContainer = styled.div`
   height: 100%;
@@ -64,7 +65,7 @@ const CaptureButton = styled(Button)`
 const WebcamTest = () => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
-
+  const navigate = useNavigate();
   const [mediaStream, setMediaStream] = useState(null);
   const [loading, setLoading] = useState(true);
   const [faceDetected, setFaceDetected] = useState(false);
@@ -204,7 +205,14 @@ const WebcamTest = () => {
             {loading ? "Loading Models..." : "Start Webcam"}
           </CaptureButton>
         ) : (
-          <CaptureButton onClick={stopWebcam}>Looks good!</CaptureButton>
+          <CaptureButton
+            onClick={() => {
+              stopWebcam();
+              navigate("/project/relief/learning-video");
+            }}
+          >
+            Looks good!
+          </CaptureButton>
         )}
       </WebcamContainer>
     </MainContainer>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Button, Typography, TextField } from "@mui/material";
+import { Button, Typography, TextField, Box } from "@mui/material";
 
 const MainContainer = styled.div`
   height: 100%;
@@ -8,6 +8,7 @@ const MainContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   background-color: #000;
   color: #fff;
   padding: 2rem;
@@ -18,10 +19,10 @@ const LayoutContainer = styled.div`
   border: 1px solid white;
   display: grid;
   grid-template-areas:
-    "text chat countdown"
-    "input chat countdown"
+    "countdown text chat"
+    "countdown input chat"
     "button1 button2 button3";
-  grid-template-columns: 1fr 2fr 0.5fr;
+  grid-template-columns: 0.5fr 1fr 2fr;
   grid-template-rows: auto;
   gap: 1.5rem;
   width: 100%;
@@ -62,7 +63,7 @@ const CountdownSection = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 1.2rem;
-  margin: auto; /* Centers the countdown vertically and horizontally */
+  margin: auto;
 `;
 
 const TextInputSection = styled.div`
@@ -147,7 +148,20 @@ const LearningTasks = () => {
 
   return (
     <MainContainer>
+      <Box textAlign="center" marginBottom="1rem" sx={{ marginTop: "100px" }}>
+        <Typography variant="h5" fontWeight="bold">
+          Welcome to our Gen AI Python Tutor Study
+        </Typography>
+        <Typography variant="body1" color="inherit">
+          To get started, please fill out the form below.
+        </Typography>
+      </Box>
+
       <LayoutContainer>
+        <CountdownSection>
+          {countdown > 0 ? countdown : "Time's up!"}
+        </CountdownSection>
+
         <TextSection>
           <Typography variant="body1" style={{ flexGrow: 1 }}>
             {"Find the time complexity of the following:"}
@@ -190,10 +204,6 @@ for i in range(n):
             </CustomButton>
           </TextInputSection>
         </ChatSection>
-
-        <CountdownSection>
-          {countdown > 0 ? countdown : "Time's up!"}
-        </CountdownSection>
 
         <ButtonsContainer>
           <ButtonSection>
