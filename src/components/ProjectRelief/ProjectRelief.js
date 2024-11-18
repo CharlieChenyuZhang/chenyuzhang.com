@@ -12,6 +12,7 @@ import {
   Slider,
 } from "@mui/material";
 import { backendDomain } from "../../utils";
+import { useNavigate } from "react-router-dom";
 
 const WhiteRadio = styled(Radio)({
   color: "white",
@@ -114,6 +115,8 @@ const WhiteSlider = styled(Slider)({
 });
 
 const ProjectRelief = () => {
+  const navigate = useNavigate();
+
   // State variables for each question and error messages
   const [participantCode, setParticipantCode] = useState("");
   const [mbtiType, setMbtiType] = useState("");
@@ -168,16 +171,20 @@ const ProjectRelief = () => {
     };
 
     try {
-      const response = await fetch(`${backendDomain()}/storeResponses`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      if (response.ok) {
-        alert("Responses submitted successfully!");
-      }
+      // FIXME: add them back and move navigate inside response.ok
+      // const response = await fetch(`${backendDomain()}/storeResponses`, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(formData),
+      // });
+      // if (response.ok) {
+      //   alert("Responses submitted successfully!");
+      // }
+
+      // redirect to the next page - video testing
+      navigate("/project/relief/webcam-test");
     } catch (error) {
       console.error("Error submitting form:", error);
     } finally {
