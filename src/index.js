@@ -22,85 +22,99 @@ import Icebreaking from "./components/ProjectIcebreaking";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AppContainer from "./components/AppContainer"; // Import the AppContainer
 
-const elementConstructor = (Component) => {
-  return (
+const elementConstructor = (Component, showStars = false) => {
+  return !showStars ? (
     <>
       <ResponsiveAppBar />
       {Component}
       <Footer />
     </>
+  ) : (
+    <AppContainer>
+      <ResponsiveAppBar />
+      {Component}
+      <Footer />
+    </AppContainer>
   );
 };
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <AppContainer>
-      <BrowserRouter>
-        <Routes>
-          <Route exact path="/" element={elementConstructor(<Home />)} />
-          <Route exact path="/blog" element={elementConstructor(<Blog />)} />
-          <Route exact path="/music" element={elementConstructor(<Music />)} />
-          <Route
-            exact
-            path="/project"
-            element={elementConstructor(<Project />)}
-          />
-          <Route
-            exact
-            path="/project/smart/v1"
-            element={elementConstructor(<ProjectSmartV1 />)}
-          />
-          <Route
-            exact
-            path="/project/smart/v2"
-            element={elementConstructor(<ProjectSmartV2 />)}
-          />
-          <Route
-            exact
-            path="/project/smart/v3"
-            element={elementConstructor(<ProjectSmartV3 />)}
-          />
-          <Route
-            exact
-            path="/project/smart/v4"
-            element={elementConstructor(<ProjectSmartV4 />)}
-          />
+    <BrowserRouter>
+      <Routes>
+        <Route exact path="/" element={elementConstructor(<Home />, true)} />
+        <Route
+          exact
+          path="/blog"
+          element={elementConstructor(<Blog />, true)}
+        />
+        <Route
+          exact
+          path="/music"
+          element={elementConstructor(<Music />, true)}
+        />
+        <Route
+          exact
+          path="/project"
+          element={elementConstructor(<Project />, true)}
+        />
+        <Route
+          exact
+          path="/blog/:blogId"
+          element={elementConstructor(<SinglePost />)}
+        />
 
-          {/* Project Relief Routes */}
-          <Route exact path="/project/relief" element={<ProjectRelief />} />
-          <Route
-            exact
-            path="/project/relief/webcam-test"
-            element={<ProjectReliefWebcamTest />}
-          />
-          <Route
-            exact
-            path="/project/relief/learning-video"
-            element={<ProjectReliefLearningVideo />}
-          />
-          <Route
-            exact
-            path="/project/relief/learning-tasks"
-            element={<ProjectReliefLearningTasks />}
-          />
-          <Route
-            exact
-            path="/project/relief/debrief"
-            element={<ProjectReliefDebrief />}
-          />
+        {/* BELOW IS THE PROJECT PAGES */}
+        <Route
+          exact
+          path="/project/smart/v1"
+          element={elementConstructor(<ProjectSmartV1 />)}
+        />
+        <Route
+          exact
+          path="/project/smart/v2"
+          element={elementConstructor(<ProjectSmartV2 />)}
+        />
+        <Route
+          exact
+          path="/project/smart/v3"
+          element={elementConstructor(<ProjectSmartV3 />)}
+        />
+        <Route
+          exact
+          path="/project/smart/v4"
+          element={elementConstructor(<ProjectSmartV4 />)}
+        />
 
-          <Route
-            exact
-            path="/project/icebreaking"
-            element={elementConstructor(<Icebreaking />)}
-          />
-          <Route
-            exact
-            path="/blog/:blogId"
-            element={elementConstructor(<SinglePost />)}
-          />
-        </Routes>
-      </BrowserRouter>
-    </AppContainer>
+        {/* Project Relief Routes */}
+        <Route exact path="/project/relief" element={<ProjectRelief />} />
+        <Route
+          exact
+          path="/project/relief/webcam-test"
+          element={<ProjectReliefWebcamTest />}
+        />
+        <Route
+          exact
+          path="/project/relief/learning-video"
+          element={<ProjectReliefLearningVideo />}
+        />
+        <Route
+          exact
+          path="/project/relief/learning-tasks"
+          element={<ProjectReliefLearningTasks />}
+        />
+        <Route
+          exact
+          path="/project/relief/debrief"
+          element={<ProjectReliefDebrief />}
+        />
+
+        <Route
+          exact
+          path="/project/icebreaking"
+          element={elementConstructor(<Icebreaking />)}
+        />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
