@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Typography, CircularProgress } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Text } from "@react-three/drei";
 
@@ -120,18 +120,28 @@ function InteractionDimensions3D() {
       <Text position={[0, 0, 5.5]} fontSize={0.3} color="lightgreen">
         Temporal Scale
       </Text>
+
+      {/* Plotting Interaction Scenarios */}
+      {interactionScenarios.map((scenario, index) => (
+        <Text
+          key={index}
+          position={scenario.position}
+          fontSize={0.2}
+          color="yellow"
+        >
+          {scenario.label}
+        </Text>
+      ))}
     </>
   );
 }
 
 function TickWithLabel({ position, label, horizontal = false, depth = false }) {
-  // Define the tick length and offset for the label
   const tickLength = 0.2;
   const offset = 0.3;
 
   return (
     <>
-      {/* Draw tick */}
       <line>
         <bufferGeometry attach="geometry">
           <bufferAttribute
@@ -171,7 +181,6 @@ function TickWithLabel({ position, label, horizontal = false, depth = false }) {
         <lineBasicMaterial color="white" />
       </line>
 
-      {/* Label positioned beside tick */}
       <Text
         position={
           horizontal
@@ -188,3 +197,19 @@ function TickWithLabel({ position, label, horizontal = false, depth = false }) {
     </>
   );
 }
+
+// Interaction scenarios with coordinates
+const interactionScenarios = [
+  { label: "Interpersonal Conflict", position: [2, 2, 1] },
+  { label: "Team Conflict", position: [3, 4, 2] },
+  { label: "Management-Employee Dispute", position: [2, 3, 1] },
+  { label: "Department Policy Disagreement", position: [3, 5, 2] },
+  { label: "Conflict Resolution Workshop", position: [3, 5, 3] },
+  { label: "Customer Service Escalation", position: [2, 4, 1] },
+  { label: "Cross-Functional Disagreement", position: [3, 3, 2] },
+  { label: "Organizational Conflict", position: [3, 5, 3] },
+  { label: "Union-Management Conflict", position: [3, 5, 3] },
+  { label: "Cultural Differences", position: [3, 4, 3] },
+  { label: "High-Stakes Negotiation", position: [2, 4, 1] },
+  { label: "Social Media Backlash", position: [3, 1, 1] },
+];
