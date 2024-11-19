@@ -146,3 +146,29 @@ Chenyu's thought. ChatGPT makes people think the same.
 - next step for SMART journaling is to match you with people who are going through a similar things. Group formation tools.
 
 Tom has down group therapy. Come up with a good group of people.
+
+## feedback from Connie Cheng on Nov 19, 2024
+
+Smart V4 is very GPT-ish. Encourage you to connect different ideas (try to make this a more cohesive experience). Trying to understand where the innovation is.
+
+This one is you know what your problem is.(explicit stuff)
+
+The other idea is you don't know what your problem is and you just do free form writing. (implicit stuff)
+
+## v5. smart journaling idea
+
+Highlight the journaling part. Right now, it's just a ChatGPT like chatbox. The focus is on the chat.
+
+Move the chatbox on the right hand side.
+
+Once the user finish journaling. AI could annotate and highlight certain parts in the journal for users to elaborate.
+
+## for the tangible interface idea
+
+Connie's comment
+List some key interactions in cs or machine learning
+Figure out what would benefit from physical version
+What the use case would be / what is the value exactly
+From having a physical version and what process analogy is conveyed in the form
+And then begin to consider what inputs / outputs / technical req
+Look at relevant literature
