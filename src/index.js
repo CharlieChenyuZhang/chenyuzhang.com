@@ -17,7 +17,8 @@ import ProjectReliefDebrief from "./components/ProjectRelief/Debrief";
 import ResponsiveAppBar from "./components/ResponsiveAppBar";
 import Footer from "./components/Footer";
 import SinglePost from "./components/SinglePost";
-import Icebreaking from "./components/ProjectIcebreaking";
+import Icebreaking from "./components/ProjectSocialIntelligence/Icebreaking";
+import InteractionDimensions3D from "./components/ProjectSocialIntelligence/InteractionDimensions3D";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AppContainer from "./components/AppContainer"; // Import the AppContainer
@@ -109,9 +110,16 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           element={<ProjectReliefDebrief />}
         />
 
+        {/* Project social intellignece */}
         <Route
           exact
-          path="/project/icebreaking"
+          path="/project/social-intelligence/dimensions-of-interactions"
+          element={elementConstructor(<InteractionDimensions3D />)}
+        />
+
+        <Route
+          exact
+          path="/project/social-intelligence/icebreaking"
           element={elementConstructor(<Icebreaking />)}
         />
       </Routes>

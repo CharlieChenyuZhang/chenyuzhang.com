@@ -134,7 +134,7 @@ const Paragraph = styled.div`
   font-family: sans-serif;
 `;
 
-export default function App() {
+export default function IceBreaking() {
   const [profile1, setProfile1] = useState({
     name: "",
     offer: "",
