@@ -40,6 +40,8 @@ export default function IceBreaking() {
           camera={{ position: [6, 6, 6], fov: 45 }}
           style={{ height: "500px", border: "1px solid white" }}
         >
+          <ambientLight intensity={0.5} />
+          <pointLight position={[10, 10, 10]} />
           <InteractionDimensions3D />
           <OrbitControls enableZoom={true} maxDistance={15} minDistance={5} />
         </Canvas>
@@ -49,6 +51,8 @@ export default function IceBreaking() {
 }
 
 function InteractionDimensions3D() {
+  const [hovered, setHovered] = useState(null);
+
   return (
     <>
       {/* Axis lines */}
@@ -121,16 +125,24 @@ function InteractionDimensions3D() {
         Temporal Scale
       </Text>
 
-      {/* Plotting Interaction Scenarios */}
+      {/* Plotting Interaction Scenarios as dots */}
       {interactionScenarios.map((scenario, index) => (
-        <Text
+        <mesh
           key={index}
           position={scenario.position}
-          fontSize={0.2}
-          color="yellow"
+          onPointerOver={() => setHovered(scenario)}
+          onPointerOut={() => setHovered(null)}
         >
-          {scenario.label}
-        </Text>
+          {/* Dot */}
+          <sphereGeometry args={[0.1, 16, 16]} /> {/* Increased size to 0.1 */}
+          <meshStandardMaterial color="yellow" />
+          {/* Display label on hover */}
+          {hovered === scenario && (
+            <Text position={[0, 0.3, 0]} fontSize={0.2} color="yellow">
+              {scenario.label}
+            </Text>
+          )}
+        </mesh>
       ))}
     </>
   );
