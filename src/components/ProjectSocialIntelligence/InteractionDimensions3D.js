@@ -38,7 +38,7 @@ export default function IceBreaking() {
 
         <Canvas
           camera={{ position: [6, 6, 6], fov: 45 }}
-          style={{ height: "500px" }}
+          style={{ height: "500px", border: "1px solid white" }}
         >
           <InteractionDimensions3D />
           <OrbitControls enableZoom={true} maxDistance={15} minDistance={5} />
