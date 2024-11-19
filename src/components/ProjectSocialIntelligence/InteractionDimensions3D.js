@@ -12,6 +12,7 @@ const MainContainer = styled.div`
   justify-content: center;
   background-color: #000;
   color: #fff;
+  padding: 20px;
 `;
 
 const ContentContainer = styled.div`
@@ -19,6 +20,22 @@ const ContentContainer = styled.div`
   width: 100%;
   max-width: 960px;
   padding: 2rem;
+`;
+
+const Legend = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  color: #fff;
+`;
+
+const LegendDot = styled.div`
+  width: 12px;
+  height: 12px;
+  background-color: yellow;
+  border-radius: 50%;
+  margin-right: 8px;
 `;
 
 export default function IceBreaking() {
@@ -32,13 +49,18 @@ export default function IceBreaking() {
   return (
     <MainContainer>
       <ContentContainer>
+        <Legend>
+          <LegendDot />{" "}
+          <Typography variant="body1">Conflict Resolution</Typography>
+        </Legend>
+
         <Typography variant="h4" align="center" gutterBottom>
           Dimensions of Interactions
         </Typography>
 
         <Canvas
           camera={{ position: [6, 6, 6], fov: 45 }}
-          style={{ height: "500px", border: "1px solid white" }}
+          style={{ height: "500px" }}
         >
           <ambientLight intensity={0.5} />
           <pointLight position={[10, 10, 10]} />
@@ -139,7 +161,7 @@ function InteractionDimensions3D() {
           {/* Display label on hover */}
           {hovered === scenario && (
             <Text position={[0, 0.3, 0]} fontSize={0.2} color="yellow">
-              {scenario.label}
+              {`${scenario.label} (${scenario.category})`}
             </Text>
           )}
         </mesh>
@@ -210,18 +232,66 @@ function TickWithLabel({ position, label, horizontal = false, depth = false }) {
   );
 }
 
-// Interaction scenarios with coordinates
+// Interaction scenarios with coordinates and categories
 const interactionScenarios = [
-  { label: "Interpersonal Conflict", position: [2, 2, 1] },
-  { label: "Team Conflict", position: [3, 4, 2] },
-  { label: "Management-Employee Dispute", position: [2, 3, 1] },
-  { label: "Department Policy Disagreement", position: [3, 5, 2] },
-  { label: "Conflict Resolution Workshop", position: [3, 5, 3] },
-  { label: "Customer Service Escalation", position: [2, 4, 1] },
-  { label: "Cross-Functional Disagreement", position: [3, 3, 2] },
-  { label: "Organizational Conflict", position: [3, 5, 3] },
-  { label: "Union-Management Conflict", position: [3, 5, 3] },
-  { label: "Cultural Differences", position: [3, 4, 3] },
-  { label: "High-Stakes Negotiation", position: [2, 4, 1] },
-  { label: "Social Media Backlash", position: [3, 1, 1] },
+  {
+    label: "Interpersonal Conflict",
+    position: [2, 2, 1],
+    category: "Dyad, Behaviors & Acts, Moment",
+  },
+  {
+    label: "Team Conflict",
+    position: [3, 4, 2],
+    category: "Multi-Party, Situations, Short-Term",
+  },
+  {
+    label: "Management-Employee Dispute",
+    position: [2, 3, 1],
+    category: "Dyad, Events, Moment",
+  },
+  {
+    label: "Department Policy Disagreement",
+    position: [3, 5, 2],
+    category: "Multi-Party, Networks, Short-Term",
+  },
+  {
+    label: "Conflict Resolution Workshop",
+    position: [3, 5, 3],
+    category: "Multi-Party, Communities, Life-Long",
+  },
+  {
+    label: "Customer Service Escalation",
+    position: [2, 4, 1],
+    category: "Dyad, Situations, Moment",
+  },
+  {
+    label: "Cross-Functional Disagreement",
+    position: [3, 3, 2],
+    category: "Multi-Party, Events, Short-Term",
+  },
+  {
+    label: "Organizational Conflict",
+    position: [3, 5, 3],
+    category: "Multi-Party, Networks, Life-Long",
+  },
+  {
+    label: "Union-Management Conflict",
+    position: [3, 5, 3],
+    category: "Multi-Party, Communities, Life-Long",
+  },
+  {
+    label: "Cultural Differences",
+    position: [3, 4, 3],
+    category: "Multi-Party, Situations, Life-Long",
+  },
+  {
+    label: "High-Stakes Negotiation",
+    position: [2, 4, 1],
+    category: "Dyad, Situations, Moment",
+  },
+  {
+    label: "Social Media Backlash",
+    position: [3, 1, 1],
+    category: "Multi-Party, Signals, Moment",
+  },
 ];
