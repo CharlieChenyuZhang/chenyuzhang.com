@@ -172,3 +172,32 @@ What the use case would be / what is the value exactly
 From having a physical version and what process analogy is conveyed in the form
 And then begin to consider what inputs / outputs / technical req
 Look at relevant literature
+
+Chenyu's self reflection.
+
+outcome/future vs. problems to solve?
+Persona?
+
+## Top priority if building this as a startup.
+
+1. traction
+2. fundraising (continue building, make sure what you are building is venture appropriate) - pre-seed (a bit over 1M USD). You could use the money to prove the PMF. ==> be clear why you are raising this, how are you going to plan to spend it.
+   1. You can raise the pre-seed / seed anytime you want.
+   2. 1M ARR (now is 3M ARR) then you can raise the series A.
+   3. IPO - when you reach the 1B evaluation.
+3. timeline
+4. core team
+5. Persona
+   1. are those people already jouranling or new to it?
+6. business model. which one?
+   1. B2B. --> employee benefits. corporate training.
+   2. B2C.
+7. What's the USP of this product?
+   1. companionship
+8. Tip
+   1. when you build a good business, money finds you. If you have a good ARR, money will find you.
+   2. !! know the market really really well and demonstrate it.
+   3. next step --> try the weekly / monthly subscription fee and visit them often. observe the churn rate.
+   4. hussel. Use your harvard.edu email to build the connection and schedule a call. Keep searching and you will find it.
+   5. Don't do a free pilot.
+9.

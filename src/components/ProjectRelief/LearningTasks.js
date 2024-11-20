@@ -54,9 +54,9 @@ const ChatSection = styled.div`
 
 const CountdownSection = styled.div`
   grid-area: countdown;
-  border: 1px solid white;
+  /* border: 1px solid white; */
   padding: 1rem;
-  border-radius: 50%;
+  /* border-radius: 50%; */
   width: 100px;
   height: 100px;
   display: flex;
@@ -159,7 +159,9 @@ const LearningTasks = () => {
 
       <LayoutContainer>
         <CountdownSection>
-          {countdown > 0 ? countdown : "Time's up!"}
+          Time's remaining: {countdown}
+          <br />
+          <br />s You solved 0 / 30 questions.
         </CountdownSection>
 
         <TextSection>
@@ -202,20 +204,23 @@ for i in range(n):
             <CustomButton className="chatbot-submit-btn" variant="outlined">
               Submit Chat
             </CustomButton>
+            <FrustratedButton variant="outlined">
+              I am VERY frustrated! Please help!
+            </FrustratedButton>
+            <FrustratedButton variant="outlined">
+              I am Moderately frustrated! Please help!
+            </FrustratedButton>
+            <FrustratedButton variant="outlined">
+              I am Slightly frustrated! Please help!
+            </FrustratedButton>
           </TextInputSection>
         </ChatSection>
 
-        <ButtonsContainer>
+        {/* <ButtonsContainer>
           <ButtonSection>
             <CustomButton variant="outlined">Proceed</CustomButton>
           </ButtonSection>
-
-          <Button2Section>
-            <FrustratedButton variant="outlined">
-              I am frustrated! Please help!
-            </FrustratedButton>
-          </Button2Section>
-        </ButtonsContainer>
+        </ButtonsContainer> */}
       </LayoutContainer>
     </MainContainer>
   );
