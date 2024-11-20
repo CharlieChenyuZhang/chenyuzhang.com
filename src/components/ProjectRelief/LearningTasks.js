@@ -117,14 +117,15 @@ const StyledPre = styled.pre`
   overflow-x: auto;
 `;
 
+const STUDY_TIME = 1800; // 30 minutes in seconds
 const LearningTasks = () => {
-  const [timeLeft, setTimeLeft] = useState(1800); // 30 minutes in seconds
+  const [timeLeft, setTimeLeft] = useState(STUDY_TIME);
   const navigate = useNavigate(); // Initialize navigate
 
   useEffect(() => {
     // Load remaining time from localStorage
     const savedTime = localStorage.getItem("timeLeft");
-    const initialTime = savedTime ? parseInt(savedTime, 10) : 1800;
+    const initialTime = savedTime ? parseInt(savedTime, 10) : STUDY_TIME;
     setTimeLeft(initialTime);
 
     // Countdown logic
@@ -146,6 +147,11 @@ const LearningTasks = () => {
     // Cleanup on component unmount
     return () => clearInterval(countdown);
   }, [navigate]);
+
+  // set time left to 0 for testing purpose
+  // useEffect(() => {
+  //   setTimeLeft(0);
+  // }, [navigate]);
 
   // Format time in MM:SS
   const formatTime = (seconds) => {
