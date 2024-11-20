@@ -84,6 +84,17 @@ const CustomButton = styled(Button)`
   padding: 1rem;
 `;
 
+const RedButton = styled(Button)`
+  background-color: black !important;
+  color: white !important;
+  border: 2px solid red !important;
+  &:hover {
+    background-color: #880000 !important;
+  }
+  width: 100%;
+  padding: 1rem;
+`;
+
 const StyledTextField = styled(TextField)`
   & .MuiOutlinedInput-root {
     color: white;
@@ -145,7 +156,7 @@ const LearningTasks = () => {
   const [solvedCount, setSolvedCount] = useState(0);
   const [userAnswer, setUserAnswer] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [conversation, setConversation] = useState([]);
+  const [conversations, setConversations] = useState([]);
   const [thought, setThought] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -205,7 +216,7 @@ const LearningTasks = () => {
 
     const inputText = `User thought: ${thought}`;
     setLoading(true);
-    setConversation((prev) => [...prev, { text: thought, isUser: true }]);
+    setConversations((prev) => [...prev, { text: thought, isUser: true }]);
     setThought("");
 
     try {
@@ -215,12 +226,34 @@ const LearningTasks = () => {
         body: JSON.stringify({ inputText }),
       });
       const data = await response.json();
-      setConversation((prev) => [
+      setConversations((prev) => [
         ...prev,
         { text: data.response, isUser: false },
       ]);
     } catch (error) {
       console.error("Error fetching chatbot response:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleIntervention = async () => {
+    const lastFiveMessages = conversations.slice(-5); // Get the last 5 messages
+
+    setLoading(true);
+    try {
+      const response = await fetch(`${backendDomain()}/relief/reframe`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ conversations: lastFiveMessages }),
+      });
+      const data = await response.json();
+      setConversations((prev) => [
+        ...prev,
+        { text: data.response, isUser: false },
+      ]);
+    } catch (error) {
+      console.error("Error fetching last five conversations response:", error);
     } finally {
       setLoading(false);
     }
@@ -234,7 +267,7 @@ const LearningTasks = () => {
           chatContainerRef.current.scrollHeight;
       }, 0);
     }
-  }, [conversation]);
+  }, [conversations]);
 
   return (
     <MainContainer>
@@ -289,7 +322,7 @@ const LearningTasks = () => {
             style={{ overflowY: "auto", flexGrow: 1 }}
             ref={chatContainerRef}
           >
-            {conversation.map((msg, index) => (
+            {conversations.map((msg, index) => (
               <MessageContainer key={index} isUser={msg.isUser}>
                 {!msg.isUser && <AiIcon>✧₊⁺</AiIcon>}
                 <MessageBubble isUser={msg.isUser}>{msg.text}</MessageBubble>
@@ -316,6 +349,9 @@ const LearningTasks = () => {
             <CustomButton onClick={handleChatSubmit} variant="outlined">
               Submit Chat
             </CustomButton>
+            <RedButton onClick={handleIntervention}>
+              I am very frustrated
+            </RedButton>
           </TextInputSection>
         </ChatSection>
       </LayoutContainer>
