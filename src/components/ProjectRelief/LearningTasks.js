@@ -223,8 +223,10 @@ const LearningTasks = () => {
   // Scroll to bottom on new messages
   useEffect(() => {
     if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop =
-        chatContainerRef.current.scrollHeight;
+      setTimeout(() => {
+        chatContainerRef.current.scrollTop =
+          chatContainerRef.current.scrollHeight;
+      }, 0);
     }
   }, [conversation]);
 
@@ -272,12 +274,15 @@ const LearningTasks = () => {
           </TextInputSection>
         </TextSection>
 
-        <ChatSection ref={chatContainerRef}>
+        <ChatSection>
           <Typography variant="body1">
             Chat Bot here to explain unfamiliar concepts but won't give you
             answers
           </Typography>
-          <div style={{ overflowY: "auto", flexGrow: 1 }}>
+          <div
+            style={{ overflowY: "auto", flexGrow: 1 }}
+            ref={chatContainerRef}
+          >
             {conversation.map((msg, index) => (
               <MessageContainer key={index} isUser={msg.isUser}>
                 {!msg.isUser && <AiIcon>✧₊⁺</AiIcon>}
