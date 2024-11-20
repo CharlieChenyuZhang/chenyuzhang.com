@@ -4,6 +4,7 @@ const questions = [
     code: `def get_first_element(arr):\n    return arr[0]`,
     answer: "1",
   },
+  //   TODO: add me back. having 1 question for testing purpose only.
   //   {
   //     question: "Print All Elements",
   //     code: `def print_all_elements(arr):\n    for element in arr:\n        print(element)`,

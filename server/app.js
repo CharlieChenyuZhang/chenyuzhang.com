@@ -435,6 +435,93 @@ app.post("/mental-model", async (req, res) => {
   }
 });
 
+// relief reframe endpoint
+app.post("/relief/reframe", async (req, res) => {
+  const { conversations } = req.body;
+
+  if (!Array.isArray(conversations)) {
+    return res
+      .status(400)
+      .send({ error: "Conversations must be a non-empty array" });
+  }
+
+  const system_prompt = `You are a Cognitive Reframing expert designed to help students express their feelings when they just pressed the 'frustrated' button when trying to solve a problem, engage in reflective conversations with you, and reframe their unhelpful thoughts.
+  Make sure your responses are empathetic and genuine throughout the interaction with the user, do not be too blunt.
+  Always start the conversation by directly asking the user how they are feeling at the moment when they pressed the 'frustrated' button.
+  Then, lead them through a conversation to explore their thoughts underlying that emotion, identify their negative thinking patterns, and guide them toward a more positive perspective by reframing their thoughts.
+  Advance the conversation slowly and do not give empty responses. The students have no prior knowledge of Cognitive Reframing.
+  After you guide the user through reframing their thought, if the student is not satisfied or confused, you must keep trying. Only when you receive confirmation that the student think the reframing is helpful, clearly indicate that the reframing is complete by using this exact phrase 'I'm proud of you for looking at your thought from an alternative perspective!'.`;
+
+  const initial_prompt = `The negative thinking patterns are defined as:
+                    "Catastrophizing": by giving greater weight to the worst possible outcome.
+                    "Discounting the positive": experiences by insisting that they “don’t count".
+                    "Overgeneralization": making faulty generalizations from insufficient evidence.
+                    "Personalization": assigning a disproportionate amount of personal blame to oneself.
+                    "Black-and-white or polarized thinking / All or nothing thinking": viewing things as either good or bad and nothing in-between.
+                    "Mental filtering": occurs when an individual dwells only on the negative details of a situation.
+                    "Jumping to conclusions: mind reading": inferring a person‘s probable (usually negative) thoughts from their behavior.
+                    "Jumping to conclusions: Fortune-telling": predicting outcomes (usually negative) of events.
+                    "Should statements": a person demands particular behaviors regardless of the realistic circumstances.
+                    "Labeling and mislabeling": attributing a person’s actions to their character rather than the situation.
+
+                    The reframing strategies you can use are:
+                    "Growth Mindset": Reframe a challenging event as an opportunity to grow instead of dwelling on the setbacks.
+                    "Impermanence": Say that bad things don't last forever, will get better soon, and/or that others have experienced similar struggles.
+                    "Neutralizing": Challenge the negative or catastrophic possibilities and reframe it with a neutral possibility.
+                    "Optimism": Focus and be thankful for the positive aspects of the current situation.
+                    "Self-Affirmation": Say that the character can overcome the challenging event because of their strengths or values.
+
+                    Explain unhelpful thought patterns and reframing strategies compassionately and thoroughly to students, providing personal examples when asked by the student.
+
+                    An example of reframe is:
+                    **Unhelpful Thought**: My neighbor calls me by my first name instead of my nickname. He probably thinks bubblegum is a tacky nickname.
+                    **Unhelpful thinking pattern**: Jumping to conclusions: mind reading
+                    **Reframed Thought**: My neighbor calls me by my first name instead of my nickname. He may think he doesn't know me well enough to use it. I will let him know that I don't mind if he calls me Bubblegum.
+
+                    Begin the conversation with the user.`;
+  try {
+    // Only use the last 5 conversations
+    const lastFiveConversations = conversations.slice(-5);
+
+    const messages = [
+      {
+        role: "system",
+        content: system_prompt + initial_prompt,
+      },
+      ...lastFiveConversations.map((conversation) => ({
+        role: conversation.isUser ? "user" : "assistant",
+        content: conversation.text ?? "",
+      })),
+    ];
+
+    const sentimentResponse = await axios.post(
+      "https://api.openai.com/v1/chat/completions",
+      {
+        model: "gpt-4",
+        messages: messages,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${OPENAI_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const response = sentimentResponse.data.choices[0].message.content.trim();
+
+    res.send({
+      response: response,
+    });
+  } catch (error) {
+    console.error(
+      "Error performing reframing: ",
+      error.response?.data || error.message
+    );
+    res.status(500).send({ error: "Error performing reframing" });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
