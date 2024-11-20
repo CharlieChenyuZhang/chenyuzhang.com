@@ -230,10 +230,12 @@ const LearningTasks = () => {
     setThought("");
 
     try {
-      const response = await fetch(`${backendDomain()}/tutor`, {
+      const lastFiveMessages = conversations.slice(-5); // Get the last 5 messages
+
+      const response = await fetch(`${backendDomain()}/relief/tutor`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ inputText }),
+        body: JSON.stringify({ conversations: lastFiveMessages }),
       });
       const data = await response.json();
       setConversations((prev) => [

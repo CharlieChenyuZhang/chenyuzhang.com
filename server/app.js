@@ -436,6 +436,59 @@ app.post("/mental-model", async (req, res) => {
 });
 
 // relief reframe endpoint
+
+// take the last 5 conversation
+app.post("/relief/tutor", async (req, res) => {
+  const { conversations } = req.body;
+
+  if (!Array.isArray(conversations)) {
+    return res
+      .status(400)
+      .send({ error: "Conversations must be a non-empty array" });
+  }
+
+  const lastFiveConversations = conversations.slice(-5);
+
+  try {
+    const sentimentResponse = await axios.post(
+      "https://api.openai.com/v1/chat/completions",
+      {
+        model: "gpt-4",
+        messages: [
+          {
+            role: "system",
+            content: `
+              Act as my assistant and my smart journal. Your task is to help me with whatever tasks I am stuck on.
+            `,
+          },
+          ...lastFiveConversations.map((conversation) => ({
+            role: conversation.isUser ? "user" : "assistant",
+            content: conversation.text ?? "",
+          })),
+        ],
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${OPENAI_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const response = sentimentResponse.data.choices[0].message.content.trim();
+
+    res.send({
+      response: response,
+    });
+  } catch (error) {
+    console.error(
+      "Error performing sentiment analysis: ",
+      error.response?.data || error.message
+    );
+    res.status(500).send({ error: "Error performing sentiment analysis" });
+  }
+});
+
 app.post("/relief/reframe", async (req, res) => {
   const { conversations } = req.body;
 
