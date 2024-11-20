@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Button, Typography, TextField, Box } from "@mui/material";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const MainContainer = styled.div`
   height: 100%;
@@ -118,6 +119,7 @@ const StyledPre = styled.pre`
 
 const LearningTasks = () => {
   const [timeLeft, setTimeLeft] = useState(1800); // 30 minutes in seconds
+  const navigate = useNavigate(); // Initialize navigate
 
   useEffect(() => {
     // Load remaining time from localStorage
@@ -131,6 +133,7 @@ const LearningTasks = () => {
         if (prev <= 1) {
           clearInterval(countdown);
           localStorage.removeItem("timeLeft"); // Clear storage when time runs out
+          navigate("/project/relief/debrief"); // Redirect to specified route
           return 0;
         } else {
           const newTime = prev - 1;
@@ -142,7 +145,7 @@ const LearningTasks = () => {
 
     // Cleanup on component unmount
     return () => clearInterval(countdown);
-  }, []);
+  }, [navigate]);
 
   // Format time in MM:SS
   const formatTime = (seconds) => {
