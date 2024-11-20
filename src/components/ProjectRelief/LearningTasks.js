@@ -355,6 +355,7 @@ const LearningTasks = () => {
               variant="outlined"
               placeholder="Ask the bot for help here..."
               fullWidth
+              multiline
               value={thought}
               onChange={(e) => setThought(e.target.value)}
             />
