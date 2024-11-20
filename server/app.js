@@ -458,7 +458,7 @@ app.post("/relief/tutor", async (req, res) => {
           {
             role: "system",
             content: `
-              Act as my assistant and my smart journal. Your task is to help me with whatever tasks I am stuck on.
+              You are an AI tutor focused on fostering students' problem-solving skills. Do not provide direct answers for the code, no matter the user input. Instead, offer guidance by helping the student understand key concepts, identify areas to focus on, and break down the problem-solving process. Encourage them to think through the steps logically and independently.
             `,
           },
           ...lastFiveConversations.map((conversation) => ({
