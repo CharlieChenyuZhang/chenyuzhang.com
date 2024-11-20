@@ -142,6 +142,8 @@ const Debrief = () => {
       // TODO: for testing purpose
       if (true || response.ok) {
         setConfirmationMessage(`
+          This is the end of the study.
+
           We would like to take this opportunity to explain the purpose of the study and what was happening throughout the tasks.
 
           The main goal of this research was to understand how people respond emotionally and behaviorally when faced with a challenging learning experience, particularly during moments of frustration. To achieve this, we intentionally designed a difficult programming task to observe your reactions and how you managed feelings of challenge or frustration.
@@ -370,7 +372,7 @@ const Debrief = () => {
           </ProjectContainer>
         </ContentContainer>
       ) : (
-        <Box textAlign="center" margin="4rem">
+        <Box textAlign="center" margin="4rem" maxWidth={"800px"}>
           <Typography variant="body1" style={{ whiteSpace: "pre-wrap" }}>
             {confirmationMessage}
           </Typography>
