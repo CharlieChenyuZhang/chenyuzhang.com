@@ -185,7 +185,13 @@ const LearningTasks = () => {
   const handleAnswerSubmit = () => {
     const correctAnswer = questions[currentQuestionIndex].answer;
     if (userAnswer.trim().toLowerCase() === correctAnswer) {
+      if (solvedCount + 1 === questions.length) {
+        navigate("/project/relief/debrief");
+      }
+
       setSolvedCount(solvedCount + 1);
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setUserAnswer("");
       setErrorMessage("");
