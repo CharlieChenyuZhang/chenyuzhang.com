@@ -163,6 +163,8 @@ Move the chatbox on the right hand side.
 
 Once the user finish journaling. AI could annotate and highlight certain parts in the journal for users to elaborate.
 
+The inside out persona would be so fun!!!
+
 ## for the tangible interface idea
 
 Connie's comment
