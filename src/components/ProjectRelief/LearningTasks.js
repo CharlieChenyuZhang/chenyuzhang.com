@@ -19,11 +19,10 @@ const LayoutContainer = styled.div`
   border: 1px solid white;
   display: grid;
   grid-template-areas:
-    "countdown text chat"
-    "countdown input chat"
-    "button1 button2 button3";
-  grid-template-columns: 0.5fr 1fr 2fr;
-  grid-template-rows: auto;
+    "text chat"
+    "input chat"
+    "button1 button2";
+  grid-template-columns: 1fr 2fr;
   gap: 1.5rem;
   width: 100%;
   max-width: 80%;
@@ -36,7 +35,6 @@ const TextSection = styled.div`
   padding: 1rem;
   border-radius: 8px;
   min-height: 300px;
-
   display: flex;
   flex-direction: column;
 `;
@@ -52,26 +50,17 @@ const ChatSection = styled.div`
   min-height: 200px;
 `;
 
-const CountdownSection = styled.div`
-  grid-area: countdown;
-  /* border: 1px solid white; */
-  padding: 1rem;
-  /* border-radius: 50%; */
-  width: 100px;
-  height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  margin: auto;
-`;
-
 const TextInputSection = styled.div`
   grid-area: input;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
+`;
+
+const AnswerContainer = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const ButtonSection = styled.div`
@@ -119,11 +108,6 @@ const StyledTextField = styled(TextField)`
   }
 `;
 
-const ButtonsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
 const StyledPre = styled.pre`
   background-color: #333;
   color: #fff;
@@ -133,37 +117,54 @@ const StyledPre = styled.pre`
 `;
 
 const LearningTasks = () => {
-  const [countdown, setCountdown] = useState(10);
+  const [timeLeft, setTimeLeft] = useState(1800); // 30 minutes in seconds
 
   useEffect(() => {
-    if (countdown > 0) {
-      const timer = setInterval(() => {
-        setCountdown((prevCountdown) => prevCountdown - 1);
-      }, 1000);
+    // Load remaining time from localStorage
+    const savedTime = localStorage.getItem("timeLeft");
+    const initialTime = savedTime ? parseInt(savedTime, 10) : 1800;
+    setTimeLeft(initialTime);
 
-      // Clear the interval when countdown reaches 0
-      return () => clearInterval(timer);
-    }
-  }, [countdown]);
+    // Countdown logic
+    const countdown = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(countdown);
+          localStorage.removeItem("timeLeft"); // Clear storage when time runs out
+          return 0;
+        } else {
+          const newTime = prev - 1;
+          localStorage.setItem("timeLeft", newTime);
+          return newTime;
+        }
+      });
+    }, 1000);
+
+    // Cleanup on component unmount
+    return () => clearInterval(countdown);
+  }, []);
+
+  // Format time in MM:SS
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes.toString().padStart(2, "0")}:${remainingSeconds
+      .toString()
+      .padStart(2, "0")}`;
+  };
 
   return (
     <MainContainer>
       <Box textAlign="center" marginBottom="1rem" sx={{ marginTop: "100px" }}>
-        <Typography variant="h5" fontWeight="bold">
-          Welcome to our Gen AI Python Tutor Study
+        <Typography variant="h6" fontWeight="bold">
+          Time Left: {formatTime(timeLeft)}
         </Typography>
-        <Typography variant="body1" color="inherit">
-          To get started, please fill out the form below.
+        <Typography variant="h5" fontWeight="bold">
+          You solved 0 / 30 questions.
         </Typography>
       </Box>
 
       <LayoutContainer>
-        <CountdownSection>
-          Time's remaining: {countdown}
-          <br />
-          <br />s You solved 0 / 30 questions.
-        </CountdownSection>
-
         <TextSection>
           <Typography variant="body1" style={{ flexGrow: 1 }}>
             {"Find the time complexity of the following:"}
@@ -178,11 +179,15 @@ for i in range(n):
           </Typography>
 
           <TextInputSection>
-            <StyledTextField
-              variant="outlined"
-              placeholder="Text input"
-              fullWidth
-            />
+            <AnswerContainer>
+              {"O("}
+              <StyledTextField
+                variant="outlined"
+                placeholder="Your answer"
+                fullWidth
+              />
+              {")"}
+            </AnswerContainer>
             <CustomButton className="answer-btn" variant="outlined">
               Submit Answer
             </CustomButton>
@@ -215,12 +220,6 @@ for i in range(n):
             </FrustratedButton>
           </TextInputSection>
         </ChatSection>
-
-        {/* <ButtonsContainer>
-          <ButtonSection>
-            <CustomButton variant="outlined">Proceed</CustomButton>
-          </ButtonSection>
-        </ButtonsContainer> */}
       </LayoutContainer>
     </MainContainer>
   );
