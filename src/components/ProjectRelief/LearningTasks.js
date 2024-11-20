@@ -43,7 +43,7 @@ const TextSection = styled.div`
   border: 1px solid white;
   padding: 1rem;
   border-radius: 8px;
-  min-height: 300px;
+  /* min-height: 300px; */
   display: flex;
   flex-direction: column;
 `;
@@ -56,7 +56,6 @@ const ChatSection = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 200px;
   height: 600px;
   overflow-y: auto;
 `;
@@ -278,7 +277,7 @@ const LearningTasks = () => {
             Chat Bot here to explain unfamiliar concepts but won't give you
             answers
           </Typography>
-          <div style={{ overflowY: "auto", maxHeight: "200px" }}>
+          <div style={{ overflowY: "auto", flexGrow: 1 }}>
             {conversation.map((msg, index) => (
               <MessageContainer key={index} isUser={msg.isUser}>
                 {!msg.isUser && <AiIcon>✧₊⁺</AiIcon>}
