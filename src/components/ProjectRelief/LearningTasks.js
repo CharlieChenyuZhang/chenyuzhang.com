@@ -10,6 +10,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import { backendDomain } from "../../utils"; // Assuming you have a backendDomain utility
 import { questions } from "./constants";
+import SendIcon from "@mui/icons-material/Send";
+import { IconButton } from "@mui/material";
 
 const MainContainer = styled.div`
   height: 100%;
@@ -60,12 +62,20 @@ const ChatSection = styled.div`
   overflow-y: auto;
 `;
 
+// const TextInputSection = styled.div`
+//   grid-area: input;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   gap: 0.5rem;
+// `;
+
 const TextInputSection = styled.div`
   grid-area: input;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
+  flex-direction: row; /* Inline layout for the input and send icon */
+  align-items: center; /* Align vertically */
+  gap: 0.5rem; /* Spacing between input and send icon */
 `;
 
 const AnswerContainer = styled.div`
@@ -346,13 +356,38 @@ const LearningTasks = () => {
               value={thought}
               onChange={(e) => setThought(e.target.value)}
             />
-            <CustomButton onClick={handleChatSubmit} variant="outlined">
-              Submit Chat
-            </CustomButton>
-            <RedButton onClick={handleIntervention}>
-              I am very frustrated
-            </RedButton>
+            <IconButton
+              onClick={handleChatSubmit}
+              sx={{
+                color: "white",
+                "&:hover": {
+                  color: "grey",
+                },
+              }}
+            >
+              <SendIcon />
+            </IconButton>
           </TextInputSection>
+
+          <Box mt={2} width="100%">
+            try me:
+          </Box>
+
+          <Box mt={1} width="100%">
+            <RedButton level="extreme" onClick={handleIntervention}>
+              🔥 I am Extremely frustrated
+            </RedButton>
+          </Box>
+          <Box mt={1} width="100%">
+            <RedButton level="moderate" onClick={handleIntervention}>
+              ⚠️ I am Moderately frustrated
+            </RedButton>
+          </Box>
+          <Box mt={1} width="100%">
+            <RedButton level="slight" onClick={handleIntervention}>
+              🟡 I am Slightly frustrated
+            </RedButton>
+          </Box>
         </ChatSection>
       </LayoutContainer>
     </MainContainer>
