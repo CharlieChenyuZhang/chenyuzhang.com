@@ -533,7 +533,7 @@ app.post("/relief/reframe", async (req, res) => {
                     **Unhelpful thinking pattern**: Jumping to conclusions: mind reading
                     **Reframed Thought**: My neighbor calls me by my first name instead of my nickname. He may think he doesn't know me well enough to use it. I will let him know that I don't mind if he calls me Bubblegum.
 
-                    Begin the conversation with the user.`;
+                    Begin the conversation with the user by directly asking the user how they are feeling at the moment when they pressed the 'frustrated' button.`;
   try {
     // Only use the last 5 conversations
     const lastFiveConversations = conversations.slice(-5);
