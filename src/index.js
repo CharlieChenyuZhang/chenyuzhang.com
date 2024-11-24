@@ -9,6 +9,7 @@ import ProjectSmartV1 from "./components/ProjectSmart/ProjectSmartV1";
 import ProjectSmartV2 from "./components/ProjectSmart/ProjectSmartV2";
 import ProjectSmartV3 from "./components/ProjectSmart/ProjectSmartV3";
 import ProjectSmartV4 from "./components/ProjectSmart/ProjectSmartV4";
+import ProjectSmartV5 from "./components/ProjectSmart/ProjectSmartV5";
 import ProjectRelief from "./components/ProjectRelief/ProjectRelief";
 import ProjectReliefWebcamTest from "./components/ProjectRelief/WebcamTest";
 import ProjectReliefLearningVideo from "./components/ProjectRelief/LearningVideo";
@@ -18,7 +19,9 @@ import ResponsiveAppBar from "./components/ResponsiveAppBar";
 import Footer from "./components/Footer";
 import SinglePost from "./components/SinglePost";
 import Icebreaking from "./components/ProjectSocialIntelligence/Icebreaking";
-import InteractionDimensions3D from "./components/ProjectSocialIntelligence/InteractionDimensions3D";
+import InteractionDimensions3DV1 from "./components/ProjectSocialIntelligence/InteractionDimensions3DV1";
+import InteractionDimensions3DV2 from "./components/ProjectSocialIntelligence/InteractionDimensions3DV2";
+import InteractionDimensions3DV3 from "./components/ProjectSocialIntelligence/InteractionDimensions3DV3";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AppContainer from "./components/AppContainer"; // Import the AppContainer
@@ -86,6 +89,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           path="/project/smart/v4"
           element={elementConstructor(<ProjectSmartV4 />)}
         />
+        <Route
+          exact
+          path="/project/smart/v5"
+          element={elementConstructor(<ProjectSmartV5 />)}
+        />
 
         {/* Project Relief Routes */}
         <Route exact path="/project/relief" element={<ProjectRelief />} />
@@ -113,8 +121,18 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         {/* Project social intellignece */}
         <Route
           exact
-          path="/project/social-intelligence/dimensions-of-interactions"
-          element={elementConstructor(<InteractionDimensions3D />)}
+          path="/project/social-intelligence/dimensions-of-interactions/v1"
+          element={elementConstructor(<InteractionDimensions3DV1 />)}
+        />
+        <Route
+          exact
+          path="/project/social-intelligence/dimensions-of-interactions/v2"
+          element={elementConstructor(<InteractionDimensions3DV2 />)}
+        />
+        <Route
+          exact
+          path="/project/social-intelligence/dimensions-of-interactions/v3"
+          element={elementConstructor(<InteractionDimensions3DV3 />)}
         />
 
         <Route

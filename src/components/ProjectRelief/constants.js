@@ -99,6 +99,194 @@ const questions = [
     code: `def level_order_traversal(root):\n    levels = []\n    if not root:\n        return levels\n    queue = [root]\n    while queue:\n        level = []\n        next_queue = []\n        for node in queue:\n            level.append(node.val)\n            if node.left:\n                next_queue.append(node.left)\n            if node.right:\n                next_queue.append(node.right)\n        levels.append(level)\n        queue = next_queue\n    return levels`,
     answer: "n",
   },
+  {
+    question:
+      "Determine the time complexity of generating all permutations of a list.",
+    code: `
+def generate_permutations(arr):
+    if len(arr) == 0:
+        return [[]]
+    permutations = []
+    for i in range(len(arr)):
+        rest = arr[:i] + arr[i+1:]
+        for perm in generate_permutations(rest):
+            permutations.append([arr[i]] + perm)
+    return permutations
+    `,
+    answer: "O(n!)",
+  },
+  {
+    question:
+      "Determine the time complexity of matrix multiplication for two n × n matrices.",
+    code: `
+def matrix_multiply(a, b):
+    n = len(a)
+    result = [[0] * n for _ in range(n)]
+    for i in range(n):
+        for j in range(n):
+            for k in range(n):
+                result[i][j] += a[i][k] * b[k][j]
+    return result
+    `,
+    answer: "O(n^3)",
+  },
+  {
+    question:
+      "Determine the time complexity of computing all subsets of a list.",
+    code: `
+def generate_subsets(arr):
+    if len(arr) == 0:
+        return [[]]
+    subsets = generate_subsets(arr[1:])
+    return subsets + [[arr[0]] + subset for subset in subsets]
+    `,
+    answer: "O(2^n)",
+  },
+  {
+    question:
+      "Determine the time complexity of finding the shortest path between all pairs of nodes in a graph using Floyd-Warshall Algorithm.",
+    code: `
+def floyd_warshall(graph):
+    n = len(graph)
+    dist = [[float('inf')] * n for _ in range(n)]
+    for i in range(n):
+        for j in range(n):
+            dist[i][j] = graph[i][j]
+    for k in range(n):
+        for i in range(n):
+            for j in range(n):
+                dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])
+    return dist
+    `,
+    answer: "O(n^3)",
+  },
+  {
+    question:
+      "Determine the time complexity of solving the Traveling Salesman Problem using brute force.",
+    code: `
+from itertools import permutations
+
+def traveling_salesman(graph, start):
+    n = len(graph)
+    nodes = list(range(n))
+    nodes.remove(start)
+    min_cost = float('inf')
+    for perm in permutations(nodes):
+        cost = 0
+        prev = start
+        for node in perm:
+            cost += graph[prev][node]
+            prev = node
+        cost += graph[prev][start]
+        min_cost = min(min_cost, cost)
+    return min_cost
+    `,
+    answer: "O(n!)",
+  },
+  {
+    question:
+      "Determine the time complexity of finding all 3-element combinations from a list.",
+    code: `
+def three_combinations(arr):
+    result = []
+    n = len(arr)
+    for i in range(n):
+        for j in range(i + 1, n):
+            for k in range(j + 1, n):
+                result.append([arr[i], arr[j], arr[k]])
+    return result
+    `,
+    answer: "O(n^3)",
+  },
+  {
+    question:
+      "Determine the time complexity of solving the N-Queens problem using backtracking.",
+    code: `
+def n_queens(n):
+    def is_safe(board, row, col):
+        for i in range(row):
+            if board[i] == col or \
+               board[i] - i == col - row or \
+               board[i] + i == col + row:
+                return False
+        return True
+
+    def solve(board, row):
+        if row == n:
+            return 1
+        count = 0
+        for col in range(n):
+            if is_safe(board, row, col):
+                board[row] = col
+                count += solve(board, row + 1)
+        return count
+
+    return solve([-1] * n, 0)
+    `,
+    answer: "O(n!)",
+  },
+  {
+    question:
+      "Determine the time complexity of finding all quadruples of numbers in a list that sum to a target value.",
+    code: `
+def four_sum(arr, target):
+    n = len(arr)
+    result = []
+    for i in range(n):
+        for j in range(i + 1, n):
+            for k in range(j + 1, n):
+                for l in range(k + 1, n):
+                    if arr[i] + arr[j] + arr[k] + arr[l] == target:
+                        result.append([arr[i], arr[j], arr[k], arr[l]])
+    return result
+    `,
+    answer: "O(n^4)",
+  },
+  {
+    question:
+      "Determine the time complexity of finding all unique 5-element combinations from a list.",
+    code: `
+def five_combinations(arr):
+    result = []
+    n = len(arr)
+    for i in range(n):
+        for j in range(i + 1, n):
+            for k in range(j + 1, n):
+                for l in range(k + 1, n):
+                    for m in range(l + 1, n):
+                        result.append([arr[i], arr[j], arr[k], arr[l], arr[m]])
+    return result
+    `,
+    answer: "O(n^5)",
+  },
+  {
+    question:
+      "Determine the time complexity of sorting a list of n integers using merge sort.",
+    code: `
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])
+    right = merge_sort(arr[mid:])
+    return merge(left, right)
+
+def merge(left, right):
+    result = []
+    i = j = 0
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result
+    `,
+    answer: "O(n log n)",
+  },
 ];
 
 export { questions };

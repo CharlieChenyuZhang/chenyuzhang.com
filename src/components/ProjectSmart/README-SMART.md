@@ -203,3 +203,8 @@ Persona?
    4. hussel. Use your harvard.edu email to build the connection and schedule a call. Keep searching and you will find it.
    5. Don't do a free pilot.
 9.
+
+## Feedback from Paul
+
+- What's new on the technical side? from ChatGPT? !!!
+  --> Chenyu's thoughts. The co-editing feature could be interesting. multi-agent collaborations.
