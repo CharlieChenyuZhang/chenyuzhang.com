@@ -8,6 +8,7 @@ const MainContainer = styled.div`
   height: 100%;
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: #000;
@@ -36,6 +37,21 @@ const LegendDot = styled.div`
   background-color: yellow;
   border-radius: 50%;
   margin-right: 8px;
+`;
+
+const ListContainer = styled.div`
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #111;
+  border-radius: 8px;
+  max-width: 960px;
+  color: #fff;
+`;
+
+const ListItem = styled.div`
+  margin-bottom: 10px;
+  font-size: 16px;
+  line-height: 1.5;
 `;
 
 export default function IceBreaking() {
@@ -68,6 +84,18 @@ export default function IceBreaking() {
           <OrbitControls enableZoom={true} maxDistance={15} minDistance={5} />
         </Canvas>
       </ContentContainer>
+
+      {/* Conflict Resolution List */}
+      <ListContainer>
+        <Typography variant="h5" align="center" gutterBottom>
+          Conflict Resolution Scenarios
+        </Typography>
+        {interactionScenarios.map((scenario, index) => (
+          <ListItem key={index}>
+            {index + 1}. {scenario.label} <b>({scenario.category})</b>
+          </ListItem>
+        ))}
+      </ListContainer>
     </MainContainer>
   );
 }
@@ -156,8 +184,9 @@ function InteractionDimensions3D() {
           onPointerOut={() => setHovered(null)}
         >
           {/* Dot */}
-          <sphereGeometry args={[0.1, 16, 16]} /> {/* Increased size to 0.1 */}
+          <sphereGeometry args={[0.1, 16, 16]} />
           <meshStandardMaterial color="yellow" />
+
           {/* Display label on hover */}
           {hovered === scenario && (
             <Text position={[0, 0.3, 0]} fontSize={0.2} color="yellow">
@@ -232,7 +261,7 @@ function TickWithLabel({ position, label, horizontal = false, depth = false }) {
   );
 }
 
-// Interaction scenarios with coordinates and categories
+// Adjusted interaction scenarios with offset positions to avoid overlap
 const interactionScenarios = [
   {
     label: "Interpersonal Conflict",
@@ -271,12 +300,12 @@ const interactionScenarios = [
   },
   {
     label: "Organizational Conflict",
-    position: [3, 5, 3],
+    position: [3.1, 5, 3.1],
     category: "Multi-Party, Networks, Life-Long",
   },
   {
     label: "Union-Management Conflict",
-    position: [3, 5, 3],
+    position: [3.2, 5, 3.2],
     category: "Multi-Party, Communities, Life-Long",
   },
   {
@@ -286,7 +315,7 @@ const interactionScenarios = [
   },
   {
     label: "High-Stakes Negotiation",
-    position: [2, 4, 1],
+    position: [2.1, 4, 1.1],
     category: "Dyad, Situations, Moment",
   },
   {
