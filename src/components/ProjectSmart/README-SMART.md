@@ -208,3 +208,25 @@ Persona?
 
 - What's new on the technical side? from ChatGPT? !!!
   --> Chenyu's thoughts. The co-editing feature could be interesting. multi-agent collaborations.
+
+## Lisa's feedback on Nov 24, 2024
+
+--> would be nice to organize them into a blog post. Private for yourself but a nice way to organize different journals.
+Readings:
+
+- https://scholar.google.com/scholar?hl=en&as_sdt=0%2C22&q=journaling%2C+AI%2C+editing+with+AI&btnG=
+- https://scholar.google.com/scholar?hl=en&as_sdt=0%2C22&q=journaling%2C+assessment%2C+AI&btnG=
+- self-directed learning
+  - Exploring the Role of ChatGPT as a Facilitator for Motivating Self-Directed Learning Among Adult Learners
+- MIT papers in Education and Generative AI
+  - (must read) Generating Reflection Prompts in Self-Directed Learning Activities with Generative AI https://mit-genai.pubpub.org/pub/kju0447a/release/2?readingCollection=0e231e9c
+  - (must read) Negotiation Coaching Bots: Using GenAI to Improve Human-to-Human Interactions in Multiparty Negotiation Instruction https://mit-genai.pubpub.org/pub/zbgw46m4/release/3?readingCollection=0e231e9c
+
+Start with the above two must reads. The second must read could be worked with PP Liang in Social Intelligence.
+
+The first must read is more in the self-directed learning.
+
+## moving pins idea
+
+https://chatgpt.com/share/6743fdde-f4b4-8012-9075-05ecceaa13e1
+--> further idea. a hardware that analyze real time human conversation and based on the sentiment of it, it would change color automatically. A small model that can ran locally.
