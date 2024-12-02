@@ -7,7 +7,8 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { backendDomain } from "../utils";
-import universe from "../images/universe.gif";
+// import universe from "../images/universe.gif";
+import universe from "../images/project-giphy.gif";
 
 const MainContainer = styled.div`
   height: 100%;
@@ -102,8 +103,14 @@ const Blog = () => {
         <PageTitle>
           <img src={universe} alt="reading" width="100" height="100" />
           <Paragraph>
-            I'm documenting my learning notes and reflections in this blog.
-            Enjoy!
+            "Funktionslust" is this awesome German word that means finding joy
+            in doing what you’re best at. For me, building projects is all about
+            curiosity, tinkering, and not being afraid to fail along the way. My
+            approach boils down to four things: keeping it fun and exciting with
+            new ideas, diving into tough challenges that push boundaries, making
+            a positive impact by building fair, bias-free tools, and creating
+            something useful for the community that others can enjoy and build
+            on.
           </Paragraph>
         </PageTitle>
         {posts.length > 0

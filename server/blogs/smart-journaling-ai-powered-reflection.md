@@ -64,11 +64,12 @@ I believe everyone has something to teach, and SMART Journaling could play a rol
 
 ## Acknowledgments
 
-SMART Journaling is an individual project developed as part of the Program Core Experience (PCE) course at the Harvard Graduate School of Education. I am deeply grateful to Prof. Karen Brennan for her inspiring insights into reflection and learning, which shaped the foundation of this work. I also extend special thanks to Karishma Chadha, the Teaching Fellow for the course, whose thoughtful guidance and feedback were instrumental in refining this project. Your support has been invaluable in bringing this vision to life.
+SMART Journaling is an individual project that I developed and coded entirely on my own as part of the Program Core Experience (PCE) course at the Harvard Graduate School of Education. I am deeply grateful to Prof. Karen Brennan for her inspiring insights into reflection and learning, which shaped the foundation of this work. I also extend special thanks to Karishma Chadha, the Teaching Fellow for the course, whose thoughtful guidance and feedback were instrumental in refining this project. Your support has been invaluable in bringing this vision to life.
+
+I would also like to express my heartfelt gratitude to Tom Thorsheim, PhD, for brainstorming ideas with me, and to Amy Yuan for providing thoughtful feedback that helped me enhance this project. Your contributions have been instrumental in shaping SMART Journaling.
 
 ## Contact Information
 
-For further details about SMART Journaling or to discuss collaboration opportunities, please reach out to:
+For further details about SMART Journaling or to discuss collaboration opportunities, please reach out to: **Chenyu Zhang** using the following email.
 
-**Chenyu Zhang**  
 contact [at] chenyuzhang [dot] com
