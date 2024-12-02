@@ -20,8 +20,8 @@ const MainContainer = styled.div`
 
 const ContentContainer = styled.div`
   margin-top: 83px;
-  margin-left: 30rem;
-  margin-right: 30rem;
+  margin: 0 auto;
+  max-width: 50rem;
 `;
 
 const Date = styled.div`
@@ -38,6 +38,10 @@ const Title = styled.div`
   line-height: 110%;
   letter-spacing: -0.02em;
   font-weight: 400;
+
+  @media (max-width: 768px) {
+    font-size: 3rem;
+  }
 `;
 
 const SubTitle = styled.div`
