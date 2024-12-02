@@ -78,7 +78,10 @@ function ResponsiveAppBar() {
               {pages.map((page) => (
                 <MenuItem
                   key={page}
-                  onClick={() => handleNavClick(page)}
+                  onClick={() => {
+                    handleNavClick(page);
+                    handleCloseNavMenu();
+                  }}
                   sx={{
                     color: "white",
                     "&:hover": {
