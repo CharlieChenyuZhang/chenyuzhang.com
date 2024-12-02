@@ -12,7 +12,7 @@ import rehypeRaw from "rehype-raw";
 const BREAK_POINT = "1200px";
 
 const MainContainer = styled.div`
-  margin: 10%;
+  margin: 20% 10%;
   height: 100%;
   min-height: 100vh;
 `;
@@ -55,6 +55,10 @@ const SinglePost = () => {
   const mdFileName = window.location.href.split("/").pop();
 
   const [post, setPost] = useState("");
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [mdFileName]);
 
   useEffect(() => {
     const fetchPost = async () => {
