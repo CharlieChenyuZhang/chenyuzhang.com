@@ -12,8 +12,7 @@ import rehypeRaw from "rehype-raw";
 const BREAK_POINT = "1200px";
 
 const MainContainer = styled.div`
-  margin-top: 10%;
-  margin-bottom: 10%;
+  margin: 10%;
   height: 100%;
   min-height: 100vh;
 `;
