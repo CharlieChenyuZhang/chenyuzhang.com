@@ -63,7 +63,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         /> */}
         <Route
           exact
-          path="/blog/:blogId"
+          path="/project/:blogId"
           element={elementConstructor(<SinglePost />)}
         />
 
