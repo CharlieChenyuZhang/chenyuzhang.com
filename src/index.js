@@ -4,7 +4,6 @@ import "./index.css";
 import Home from "./components/Home";
 import Blog from "./components/Blog";
 import Music from "./components/Music";
-import Project from "./components/Project";
 import ProjectSmartV1 from "./components/ProjectSmart/ProjectSmartV1";
 import ProjectSmartV2 from "./components/ProjectSmart/ProjectSmartV2";
 import ProjectSmartV3 from "./components/ProjectSmart/ProjectSmartV3";
@@ -49,7 +48,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route exact path="/" element={elementConstructor(<Home />, true)} />
         <Route
           exact
-          path="/blog"
+          path="/project"
           element={elementConstructor(<Blog />, true)}
         />
         <Route
@@ -57,11 +56,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           path="/music"
           element={elementConstructor(<Music />, true)}
         />
-        <Route
+        {/* <Route
           exact
           path="/project"
           element={elementConstructor(<Project />, true)}
-        />
+        /> */}
         <Route
           exact
           path="/blog/:blogId"
