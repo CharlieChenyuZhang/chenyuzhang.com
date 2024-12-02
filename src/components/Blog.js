@@ -99,22 +99,21 @@ const Blog = () => {
   return (
     <MainContainer>
       <ContentContainer>
+        <PageTitle>
+          <img src={universe} alt="reading" width="100" height="100" />
+          <Paragraph>
+            I'm documenting my learning notes and reflections in this blog.
+            Enjoy!
+          </Paragraph>
+        </PageTitle>
         {posts.length > 0
           ? posts.map((post) => (
               <div key={post.slug}>
-                <PageTitle>
-                  <img src={universe} alt="reading" width="100" height="100" />
-                  <Paragraph>
-                    I'm documenting my learning notes and reflections in this
-                    blog. Enjoy!
-                  </Paragraph>
-                </PageTitle>
-
                 <Card
                   sx={{
                     minWidth: 275,
                     maxWidth: 800,
-                    margin: "0 auto",
+                    margin: "2rem auto",
                     border: "1px white solid",
                   }}
                 >
