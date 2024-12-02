@@ -82,7 +82,7 @@ const Blog = () => {
   }, []);
 
   const readMoreHandler = (blog) => {
-    navigate(`/blog/${blog.slug}`);
+    navigate(`/project/${blog.slug}`);
   };
 
   const Paragraph = styled.div`
