@@ -500,6 +500,8 @@ app.post("/relief/reframe", async (req, res) => {
       .send({ error: "Conversations must be a non-empty array" });
   }
 
+  const conversationMemory = []; // reset conversation memory
+
   const system_prompt = `You are a Cognitive Reframing expert designed to help students express their feelings when they just pressed the 'frustrated' button when trying to solve a problem, engage in reflective conversations with you, and reframe their unhelpful thoughts.
   Make sure your responses are empathetic and genuine throughout the interaction with the user, do not be too blunt.
   Always start the conversation by directly asking the user how they are feeling at the moment when they pressed the 'frustrated' button.
@@ -536,20 +538,21 @@ app.post("/relief/reframe", async (req, res) => {
                     Begin the conversation with the user by directly asking the user how they are feeling at the moment when they pressed the 'frustrated' button.`;
   try {
     // Only use the last 5 conversations
-    const lastFiveConversations = conversations.slice(-5);
+    conversationMemory.push({ role: "user", content: initial_prompt });
+    if (conversationMemory.length > 5) {
+      conversationMemory.shift();
+    }
+
+    // const lastFiveConversations = conversations.slice(-5);
 
     const messages = [
       {
         role: "system",
-        content: system_prompt + initial_prompt,
+        content: system_prompt,
       },
-      {
-        role: "user",
-        content: initial_prompt,
-      },
-      ...lastFiveConversations.map((conversation) => ({
-        role: conversation.isUser ? "user" : "assistant",
-        content: conversation.text ?? "",
+      ...conversationMemory.map((entry) => ({
+        role: entry.role,
+        content: entry.content,
       })),
     ];
 
@@ -569,8 +572,13 @@ app.post("/relief/reframe", async (req, res) => {
 
     const response = sentimentResponse.data.choices[0].message.content.trim();
 
+    conversationMemory.push({
+      role: "assistant",
+      content: assistantResponse,
+    });
+
     res.send({
-      response: response,
+      response: assistantResponse,
     });
   } catch (error) {
     console.error(
