@@ -7,6 +7,7 @@ import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import "katex/dist/katex.min.css";
 import { backendDomain } from "../utils";
+import rehypeRaw from "rehype-raw";
 
 const BREAK_POINT = "1200px";
 
@@ -88,7 +89,7 @@ const SinglePost = () => {
           <ReactMarkdown
             className="markdown-content"
             remarkPlugins={[remarkGfm, remarkMath]}
-            rehypePlugins={[rehypeKatex]}
+            rehypePlugins={[rehypeRaw, rehypeKatex]}
             components={{
               img: CustomImage,
             }}
