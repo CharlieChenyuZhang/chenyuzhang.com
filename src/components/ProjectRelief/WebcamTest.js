@@ -193,7 +193,8 @@ const WebcamTest = () => {
         </VideoContainer>
 
         <br />
-        {faceDetected ? (
+        {/* FIXME: temporary commented this out. This works locally but not on deployed version */}
+        {/* {faceDetected ? (
           <Typography variant="body1" align="center" color="inherit">
             Face Detected with Confidence: {confidence ?? 0}
           </Typography>
@@ -201,7 +202,7 @@ const WebcamTest = () => {
           <Typography variant="body1" align="center" color="inherit">
             No face detected.
           </Typography>
-        )}
+        )} */}
 
         {!mediaStream ? (
           <CaptureButton onClick={startWebcam}>
