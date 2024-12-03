@@ -74,8 +74,11 @@ const WebcamTest = () => {
   useEffect(() => {
     const loadModels = async () => {
       setLoading(true);
-      await faceapi.nets.tinyFaceDetector.loadFromUri("/models");
-      setLoading(false);
+      try {
+        await faceapi.nets.tinyFaceDetector.loadFromUri("/models");
+      } finally {
+        setLoading(false);
+      }
     };
 
     loadModels();
