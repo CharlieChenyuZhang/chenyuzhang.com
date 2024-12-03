@@ -105,6 +105,28 @@ const RedButton = styled(Button)`
   padding: 1rem;
 `;
 
+const AnswerStyledTextField = styled(TextField)`
+  & .MuiOutlinedInput-root {
+    width: 150px;
+    color: white;
+    fieldset {
+      border-color: ${(props) => (props.error ? "red" : "white")};
+    }
+    &:hover fieldset {
+      border-color: #888;
+    }
+    &.Mui-focused fieldset {
+      border-color: white;
+    }
+  }
+  & .MuiInputBase-input {
+    color: white;
+  }
+  & .MuiInputLabel-root {
+    color: white;
+  }
+`;
+
 const StyledTextField = styled(TextField)`
   & .MuiOutlinedInput-root {
     color: white;
@@ -284,10 +306,10 @@ const LearningTasks = () => {
   return (
     <MainContainer>
       <Box textAlign="center" marginBottom="1rem" sx={{ marginTop: "100px" }}>
-        <Typography variant="h6" fontWeight="bold">
+        <Typography variant="h1" fontWeight="bold">
           Time Left: {formatTime(timeLeft)}
         </Typography>
-        <Typography variant="h5" fontWeight="bold">
+        <Typography variant="h2" fontWeight="bold">
           You solved {solvedCount} / {questions.length} questions.
         </Typography>
       </Box>
@@ -303,7 +325,7 @@ const LearningTasks = () => {
           <TextInputSection>
             <AnswerContainer>
               {"O("}
-              <StyledTextField
+              <AnswerStyledTextField
                 variant="outlined"
                 placeholder="Your answer"
                 fullWidth
@@ -316,13 +338,31 @@ const LearningTasks = () => {
               />
               {")"}
             </AnswerContainer>
-            <Typography color="error" variant="body2" sx={{ height: "20px" }}>
-              {errorMessage}
-            </Typography>
             <CustomButton onClick={handleAnswerSubmit} variant="outlined">
               Submit Answer
             </CustomButton>
           </TextInputSection>
+          <Typography color="error" variant="body2" sx={{ height: "20px" }}>
+            {errorMessage}
+          </Typography>
+
+          <Typography variant="body2" sx={{ marginTop: "20px" }}>
+            Tips:
+            <ul>
+              <li>
+                Please write your answer in terms of <strong>n</strong>.
+              </li>
+              <li>
+                If it is exponential, use the symbol <strong>^</strong>. For
+                example, two to the power of <strong>n</strong> should be
+                written as <strong>2^n</strong>.
+              </li>
+              <li>
+                For multiplication, write <strong>2n</strong> instead of{" "}
+                <strong>2*n</strong>.
+              </li>
+            </ul>
+          </Typography>
         </TextSection>
 
         <ChatSection>
