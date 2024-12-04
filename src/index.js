@@ -18,6 +18,7 @@ import ResponsiveAppBar from "./components/ResponsiveAppBar";
 import Footer from "./components/Footer";
 import SinglePost from "./components/SinglePost";
 import Icebreaking from "./components/ProjectSocialIntelligence/Icebreaking";
+import Test from "./components/Test";
 import InteractionDimensions3DV1 from "./components/ProjectSocialIntelligence/InteractionDimensions3DV1";
 import InteractionDimensions3DV2 from "./components/ProjectSocialIntelligence/InteractionDimensions3DV2";
 import InteractionDimensions3DV3 from "./components/ProjectSocialIntelligence/InteractionDimensions3DV3";
@@ -138,6 +139,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           exact
           path="/project/social-intelligence/icebreaking"
           element={elementConstructor(<Icebreaking />)}
+        />
+
+        {/* TEST ROUTES */}
+        <Route
+          exact
+          path="/project/recording-testing"
+          element={elementConstructor(<Test />)}
         />
       </Routes>
     </BrowserRouter>

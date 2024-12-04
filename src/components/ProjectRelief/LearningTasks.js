@@ -52,7 +52,8 @@ const TextSection = styled.div`
 
 const ChatSection = styled.div`
   grid-area: chat;
-  border: 1px solid white;
+  border: ${(props) => (props.color === "green" ? "5px" : "1px")} solid
+    ${(props) => props.color || "white"};
   padding: 1rem;
   border-radius: 8px;
   display: flex;
@@ -164,6 +165,7 @@ const MessageContainer = styled.div`
 `;
 
 const AiIcon = styled.div`
+  color: ${(props) => props.color || "white"};
   font-size: 1.5rem;
   margin-top: -4px;
   margin-right: ${(props) => (props.isUser ? "0" : "8px")};
@@ -171,7 +173,8 @@ const AiIcon = styled.div`
 `;
 
 const MessageBubble = styled.div`
-  background-color: ${(props) => (props.isUser ? "#000" : "#222")};
+  background-color: ${(props) =>
+    props.isUser ? "#000" : props.color || "#222"};
   color: #fff;
   border: 1px solid #fff;
   border-radius: 12px;
@@ -183,6 +186,7 @@ const MessageBubble = styled.div`
 const STUDY_TIME = 1800; // 30 minutes in seconds
 
 const LearningTasks = () => {
+  const [intervening, setIntervening] = useState(false); // Default color is white
   const [timeLeft, setTimeLeft] = useState(STUDY_TIME);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [solvedCount, setSolvedCount] = useState(0);
@@ -257,11 +261,14 @@ const LearningTasks = () => {
     try {
       const lastFiveMessages = newConversatioins.slice(-5); // Get the last 5 messages
 
-      const response = await fetch(`${backendDomain()}/relief/tutor`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ conversations: lastFiveMessages }),
-      });
+      const response = await fetch(
+        `${backendDomain()}/relief/${intervening ? "reframe" : "tutor"}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ conversations: lastFiveMessages }),
+        }
+      );
       const data = await response.json();
       setConversations([
         ...newConversatioins,
@@ -274,7 +281,11 @@ const LearningTasks = () => {
     }
   };
 
-  const handleIntervention = async () => {
+  const handleFrustrationClick = async () => {
+    if (!intervening) {
+      setIntervening(true);
+    }
+
     const lastFiveMessages = conversations.slice(-5); // Get the last 5 messages
 
     setLoading(true);
@@ -368,10 +379,11 @@ const LearningTasks = () => {
           </Typography>
         </TextSection>
 
-        <ChatSection>
-          <Typography variant="body1">
-            Chat Bot here to explain unfamiliar concepts but won't give you
-            answers
+        <ChatSection color={intervening ? "green" : "white"}>
+          <Typography variant="h5" color={intervening ? "green" : "white"}>
+            {intervening
+              ? "Please keep talking to the chatbot till the color turns back to normal."
+              : "Chat Bot here to explain unfamiliar concepts but won't give you"}
           </Typography>
           <div
             style={{ overflowY: "auto", flexGrow: 1 }}
@@ -379,14 +391,21 @@ const LearningTasks = () => {
           >
             {conversations.map((msg, index) => (
               <MessageContainer key={index} isUser={msg.isUser}>
-                {!msg.isUser && <AiIcon>✧₊⁺</AiIcon>}
-                <MessageBubble isUser={msg.isUser}>{msg.text}</MessageBubble>
+                {!msg.isUser && (
+                  <AiIcon color={intervening ? "green" : "white"}>✧₊⁺</AiIcon>
+                )}
+                <MessageBubble
+                  isUser={msg.isUser}
+                  color={intervening ? "green" : "white"}
+                >
+                  {msg.text}
+                </MessageBubble>
               </MessageContainer>
             ))}
             {loading && (
               <MessageContainer isUser={false}>
-                <AiIcon>✧₊⁺</AiIcon>
-                <MessageBubble>
+                <AiIcon color={intervening ? "green" : "white"}>✧₊⁺</AiIcon>
+                <MessageBubble color={intervening ? "green" : "white"}>
                   <CircularProgress size={20} color="inherit" />
                   {" Processing..."}
                 </MessageBubble>
@@ -415,25 +434,29 @@ const LearningTasks = () => {
             </IconButton>
           </TextInputSection>
 
-          <Box mt={2} width="100%">
-            try me:
-          </Box>
+          {!intervening && (
+            <>
+              <Box mt={2} width="100%">
+                try me:
+              </Box>
 
-          <Box mt={1} width="100%">
-            <RedButton level="extreme" onClick={handleIntervention}>
-              🔥 I am Extremely frustrated
-            </RedButton>
-          </Box>
-          <Box mt={1} width="100%">
-            <RedButton level="moderate" onClick={handleIntervention}>
-              ⚠️ I am Moderately frustrated
-            </RedButton>
-          </Box>
-          <Box mt={1} width="100%">
-            <RedButton level="slight" onClick={handleIntervention}>
-              🟡 I am Slightly frustrated
-            </RedButton>
-          </Box>
+              <Box mt={1} width="100%">
+                <RedButton level="extreme" onClick={handleFrustrationClick}>
+                  🔥 I am Extremely frustrated
+                </RedButton>
+              </Box>
+              <Box mt={1} width="100%">
+                <RedButton level="moderate" onClick={handleFrustrationClick}>
+                  ⚠️ I am Moderately frustrated
+                </RedButton>
+              </Box>
+              <Box mt={1} width="100%">
+                <RedButton level="slight" onClick={handleFrustrationClick}>
+                  🟡 I am Slightly frustrated
+                </RedButton>
+              </Box>
+            </>
+          )}
         </ChatSection>
       </LayoutContainer>
     </MainContainer>
