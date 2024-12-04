@@ -282,6 +282,14 @@ const LearningTasks = () => {
           ...newConversatioins,
           { text: data.response, isUser: false },
         ]);
+        // Check for the specific sentence in the API response
+        if (
+          data.response.includes(
+            "I'm proud of you for looking at your thought from an alternative perspective!"
+          )
+        ) {
+          setIntervening(false);
+        }
       } else {
         setConversations([
           ...newConversatioins,
@@ -314,6 +322,15 @@ const LearningTasks = () => {
         ...interventionConversations,
         { text: data.response, isUser: false },
       ]);
+
+      // Check for the specific sentence in the API response
+      if (
+        data.response.includes(
+          "I'm proud of you for looking at your thought from an alternative perspective!"
+        )
+      ) {
+        setIntervening(false);
+      }
     } catch (error) {
       console.error("Error fetching last five conversations response:", error);
     } finally {
