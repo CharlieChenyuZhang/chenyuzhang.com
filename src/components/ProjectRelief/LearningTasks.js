@@ -193,6 +193,9 @@ const LearningTasks = () => {
   const [userAnswer, setUserAnswer] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [conversations, setConversations] = useState([]);
+  const [interventionConversations, setInterventionConversations] = useState(
+    []
+  );
   const [thought, setThought] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -251,11 +254,15 @@ const LearningTasks = () => {
     if (!thought.trim()) return;
 
     const newConversatioins = [
-      ...conversations,
+      ...(intervening ? interventionConversations : conversations),
       { text: thought, isUser: true },
     ];
     setLoading(true);
-    setConversations(newConversatioins);
+    if (intervening) {
+      setInterventionConversations(newConversatioins);
+    } else {
+      setConversations(newConversatioins);
+    }
     setThought("");
 
     try {
@@ -270,10 +277,18 @@ const LearningTasks = () => {
         }
       );
       const data = await response.json();
-      setConversations([
-        ...newConversatioins,
-        { text: data.response, isUser: false },
-      ]);
+
+      if (intervening) {
+        setInterventionConversations([
+          ...newConversatioins,
+          { text: data.response, isUser: false },
+        ]);
+      } else {
+        setConversations([
+          ...newConversatioins,
+          { text: data.response, isUser: false },
+        ]);
+      }
     } catch (error) {
       console.error("Error fetching chatbot response:", error);
     } finally {
@@ -285,19 +300,19 @@ const LearningTasks = () => {
     if (!intervening) {
       setIntervening(true);
     }
-
-    const lastFiveMessages = conversations.slice(-5); // Get the last 5 messages
-
     setLoading(true);
     try {
       const response = await fetch(`${backendDomain()}/relief/reframe`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ conversations: lastFiveMessages }),
+        body: JSON.stringify({ conversations: [] }),
       });
+
+      // whenever this button click, we assume a new intervention thread
+      setInterventionConversations([]);
       const data = await response.json();
-      setConversations((prev) => [
-        ...prev,
+      setInterventionConversations([
+        ...interventionConversations,
         { text: data.response, isUser: false },
       ]);
     } catch (error) {
@@ -315,7 +330,7 @@ const LearningTasks = () => {
           chatContainerRef.current.scrollHeight;
       }, 0);
     }
-  }, [conversations]);
+  }, [conversations, interventionConversations]);
 
   return (
     <MainContainer>
@@ -389,19 +404,21 @@ const LearningTasks = () => {
             style={{ overflowY: "auto", flexGrow: 1 }}
             ref={chatContainerRef}
           >
-            {conversations.map((msg, index) => (
-              <MessageContainer key={index} isUser={msg.isUser}>
-                {!msg.isUser && (
-                  <AiIcon color={intervening ? "green" : "white"}>✧₊⁺</AiIcon>
-                )}
-                <MessageBubble
-                  isUser={msg.isUser}
-                  color={intervening ? "green" : "white"}
-                >
-                  {msg.text}
-                </MessageBubble>
-              </MessageContainer>
-            ))}
+            {(intervening ? interventionConversations : conversations).map(
+              (msg, index) => (
+                <MessageContainer key={index} isUser={msg.isUser}>
+                  {!msg.isUser && (
+                    <AiIcon color={intervening ? "green" : "white"}>✧₊⁺</AiIcon>
+                  )}
+                  <MessageBubble
+                    isUser={msg.isUser}
+                    color={intervening ? "green" : "white"}
+                  >
+                    {msg.text}
+                  </MessageBubble>
+                </MessageContainer>
+              )
+            )}
             {loading && (
               <MessageContainer isUser={false}>
                 <AiIcon color={intervening ? "green" : "white"}>✧₊⁺</AiIcon>
