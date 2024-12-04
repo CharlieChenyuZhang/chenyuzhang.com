@@ -395,7 +395,7 @@ const LearningTasks = () => {
         </TextSection>
 
         <ChatSection color={intervening ? "green" : "white"}>
-          <Typography variant="h5" color={intervening ? "green" : "white"}>
+          <Typography variant="h5" color={intervening ? "red" : "white"}>
             {intervening
               ? "Please keep talking to the chatbot till the color turns back to normal."
               : "Chat Bot here to explain unfamiliar concepts but won't give you"}
