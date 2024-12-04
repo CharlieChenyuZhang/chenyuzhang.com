@@ -246,13 +246,16 @@ const LearningTasks = () => {
   const handleChatSubmit = async () => {
     if (!thought.trim()) return;
 
-    const inputText = `User thought: ${thought}`;
+    const newConversatioins = [
+      ...conversations,
+      { text: thought, isUser: true },
+    ];
     setLoading(true);
-    setConversations((prev) => [...prev, { text: thought, isUser: true }]);
+    setConversations(newConversatioins);
     setThought("");
 
     try {
-      const lastFiveMessages = conversations.slice(-5); // Get the last 5 messages
+      const lastFiveMessages = newConversatioins.slice(-5); // Get the last 5 messages
 
       const response = await fetch(`${backendDomain()}/relief/tutor`, {
         method: "POST",
@@ -260,8 +263,8 @@ const LearningTasks = () => {
         body: JSON.stringify({ conversations: lastFiveMessages }),
       });
       const data = await response.json();
-      setConversations((prev) => [
-        ...prev,
+      setConversations([
+        ...newConversatioins,
         { text: data.response, isUser: false },
       ]);
     } catch (error) {

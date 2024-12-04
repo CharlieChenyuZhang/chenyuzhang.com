@@ -13,7 +13,7 @@ This system is designed to track participant interactions across four screens in
 **Description:** Logs participant email and demographic information when they start the study.
 
 - **Method:** `POST`
-- **Endpoint:** `/api/register`
+- **Endpoint:** `/relief/register`
 - **Request Body:**
   ```json
   {
@@ -24,15 +24,14 @@ This system is designed to track participant interactions across four screens in
     "gender": "Male",
     "age": 25,
     "school_affiliation": "MIT",
-    "python_proficiency": 4
+    "python_proficiency": 4,
+    "time_stamp": "2024-12-04T00:49:27.618Z"
   }
   ```
 - **Response:**
   ```json
   {
-    "status": "success",
-    "message": "Participant registered successfully.",
-    "email": "participant@example.com"
+    "status": "success"
   }
   ```
 
@@ -40,30 +39,22 @@ This system is designed to track participant interactions across four screens in
 
 ### 2. **Endpoint: Log Learning Task Time (Screen 2)**
 
-**Description:** Tracks time spent on the learning task and button clicks.
+**Description:** Tracks time spent on the learning task
 
 - **Method:** `POST`
-- **Endpoint:** `/api/log-learning-task`
+- **Endpoint:** `/relief/log-learning-task`
 - **Request Body:**
   ```json
   {
     "email": "participant@example.com",
-    "task_start_time": "2024-11-27T13:00:00Z",
-    "task_end_time": "2024-11-27T13:10:30Z",
-    "iframe_watch_duration": 630, // in seconds
-    "button_clicks": [
-      {
-        "button_id": "next_button",
-        "timestamp": "2024-11-27T13:10:30Z"
-      }
-    ]
+    "task_start_time": "2024-11-27T13:00:00Z", // when first reach the /project/relief/learning-video
+    "task_end_time": "2024-11-27T13:10:30Z" // when leave the /project/relief/learning-video
   }
   ```
 - **Response:**
   ```json
   {
-    "status": "success",
-    "message": "Learning task log saved successfully."
+    "status": "success"
   }
   ```
 
@@ -121,12 +112,13 @@ This system is designed to track participant interactions across four screens in
 **Description:** Logs participant responses to the post-research questionnaire.
 
 - **Method:** `POST`
-- **Endpoint:** `/api/log-debrief`
+- **Endpoint:** `/relief/log-debrief`
 - **Request Body:**
   ```json
   {
     "email": "participant@example.com",
     "emotions": ["Curiosity", "Frustration", "Relief"],
+    "emotion_explanation": "I am just curious.",
     "impact": ["It enhanced my understanding.", "It made me feel supported."],
     "ai_assistance": "The AI provided clarity on complex concepts.",
     "improvement_suggestions": "Provide more examples in the bot responses."
@@ -135,8 +127,66 @@ This system is designed to track participant interactions across four screens in
 - **Response:**
   ```json
   {
-    "status": "success",
-    "message": "Debrief responses logged successfully."
+    "status": "success"
+  }
+  ```
+
+---
+
+### 5. **Endpoint: tutor/reframe design**
+
+- **Method:** `POST`
+- **Endpoint:** `/relief/tutor` or `/relief/reframe`
+- **Request Body:**
+  ```json
+  {
+    "conversations": [
+      {
+        "isUser": true,
+        "text": "How do I define a list in Python?"
+      },
+      {
+        "isUser": false,
+        "text": "You can define a list using square brackets, e.g., my_list = [1, 2, 3]."
+      }
+    ]
+  }
+  ```
+- **Response:**
+
+  ```json
+  {
+    "response": "You can define a list using square brackets, for example, my_list = [1, 2, 3]."
+  }
+  ```
+
+---
+
+### 6. **Endpoint: track/events**
+
+- **Method:** `POST`
+- **Endpoint:** `/relief/track/events`
+- **Request Body (For Submit Answer):**
+  ```json
+  {
+    "event_name": "SUBMIT_ANSWER_CLICKED",
+    "data": {
+      "answer": "ABC",
+      "correct": true,
+      "timestamp": "2024-12-03T12:00:00Z"
+    }
+  }
+  ```
+
+Or
+
+- **Request Body (For Submit Answer):**
+  ```json
+  {
+    "event_name": "EXTREMELY_FRUSTRATED_CLICKED", // values are EXTREMELY_FRUSTRATED_CLICKED, MODERATELY_FRUSTRATED_CLICKED, SLIGHTLY_FRUSTRATED_CLICKED
+    "data": {
+      "timestamp": "2024-12-03T12:00:00Z"
+    }
   }
   ```
 
@@ -245,3 +295,38 @@ This system is designed to track participant interactions across four screens in
     }
 }
 ````
+
+---
+
+# Participant Interaction Logging System
+
+## **Endpoint: AI Tutor Interaction Logging (/relief/tutor)**
+
+### **Description**
+
+Facilitates an AI tutoring session focused strictly on Python syntax. The system interacts with the OpenAI API to provide concise, accurate responses to user queries while enforcing topic restrictions.
+
+### **Method**
+
+`POST`
+
+### **Endpoint**
+
+`/relief/tutor`
+
+### **Request Body**
+
+```json
+{
+  "conversations": [
+    {
+      "isUser": true,
+      "text": "How do I define a list in Python?"
+    },
+    {
+      "isUser": false,
+      "text": "You can define a list using square brackets, e.g., my_list = [1, 2, 3]."
+    }
+  ]
+}
+```

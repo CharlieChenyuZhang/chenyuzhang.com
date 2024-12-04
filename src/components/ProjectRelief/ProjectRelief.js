@@ -118,7 +118,6 @@ const ProjectRelief = () => {
   const navigate = useNavigate();
 
   // State variables for each question and error messages
-  const [participantCode, setParticipantCode] = useState("");
   const [mbtiType, setMbtiType] = useState("");
   const [email, setEmail] = useState("");
   const [ethnicity, setEthnicity] = useState("");
@@ -134,8 +133,6 @@ const ProjectRelief = () => {
   // Validation function
   const validateForm = () => {
     const newErrors = {};
-    if (!participantCode)
-      newErrors.participantCode = "Participant code is required.";
     if (!mbtiType) newErrors.mbtiType = "MBTI type is required.";
     if (!email || !/\S+@\S+\.\S+/.test(email))
       newErrors.email = "Valid email is required.";
@@ -158,7 +155,6 @@ const ProjectRelief = () => {
 
     setLoading(true);
     const formData = {
-      participantCode,
       mbtiType,
       email,
       ethnicity,
@@ -206,19 +202,6 @@ const ProjectRelief = () => {
         </Box>
         <ProjectContainer>
           <InputContainer>
-            <StyledTextField
-              label="Participant Code"
-              fullWidth
-              variant="outlined"
-              value={participantCode}
-              onChange={(e) => {
-                setParticipantCode(e.target.value);
-                setErrors((prev) => ({ ...prev, participantCode: "" }));
-              }}
-              error={!!errors.participantCode}
-              helperText={errors.participantCode}
-            />
-            <Divider />
             <StyledTextField
               label="MBTI Personality Type"
               fullWidth
