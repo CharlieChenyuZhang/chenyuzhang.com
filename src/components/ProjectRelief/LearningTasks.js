@@ -29,11 +29,10 @@ const LayoutContainer = styled.div`
   padding: 1.5rem;
   border: 1px solid white;
   display: grid;
-  grid-template-areas:
-    "text chat"
-    "input chat"
-    "button1 button2";
-  grid-template-columns: 1fr 2fr;
+  grid-template-areas: ${({ intervening }) =>
+    intervening ? "'chat'" : "'text chat' 'input chat' 'button1 button2'"};
+  grid-template-columns: ${({ intervening }) =>
+    intervening ? "1fr" : "1fr 2fr"};
   gap: 1.5rem;
   width: 100%;
   max-width: 80%;
@@ -343,56 +342,58 @@ const LearningTasks = () => {
         </Typography>
       </Box>
 
-      <LayoutContainer>
-        <TextSection>
-          <Typography variant="body1">
-            Find the time complexity of the following:
-            <StyledPre>
-              <code>{questions[currentQuestionIndex].code}</code>
-            </StyledPre>
-          </Typography>
-          <TextInputSection>
-            <AnswerContainer>
-              {"O("}
-              <AnswerStyledTextField
-                variant="outlined"
-                placeholder="Your answer"
-                fullWidth
-                value={userAnswer}
-                onChange={(e) => {
-                  setUserAnswer(e.target.value);
-                  setErrorMessage("");
-                }}
-                error={errorMessage !== ""}
-              />
-              {")"}
-            </AnswerContainer>
-            <CustomButton onClick={handleAnswerSubmit} variant="outlined">
-              Submit Answer
-            </CustomButton>
-          </TextInputSection>
-          <Typography color="error" variant="body2" sx={{ height: "20px" }}>
-            {errorMessage}
-          </Typography>
+      <LayoutContainer intervening={intervening}>
+        {!intervening && (
+          <TextSection>
+            <Typography variant="body1">
+              Find the time complexity of the following:
+              <StyledPre>
+                <code>{questions[currentQuestionIndex].code}</code>
+              </StyledPre>
+            </Typography>
+            <TextInputSection>
+              <AnswerContainer>
+                {"O("}
+                <AnswerStyledTextField
+                  variant="outlined"
+                  placeholder="Your answer"
+                  fullWidth
+                  value={userAnswer}
+                  onChange={(e) => {
+                    setUserAnswer(e.target.value);
+                    setErrorMessage("");
+                  }}
+                  error={errorMessage !== ""}
+                />
+                {")"}
+              </AnswerContainer>
+              <CustomButton onClick={handleAnswerSubmit} variant="outlined">
+                Submit Answer
+              </CustomButton>
+            </TextInputSection>
+            <Typography color="error" variant="body2" sx={{ height: "20px" }}>
+              {errorMessage}
+            </Typography>
 
-          <Typography variant="body2" sx={{ marginTop: "20px" }}>
-            Tips:
-            <ul>
-              <li>
-                Please write your answer in terms of <strong>n</strong>.
-              </li>
-              <li>
-                If it is exponential, use the symbol <strong>^</strong>. For
-                example, two to the power of <strong>n</strong> should be
-                written as <strong>2^n</strong>.
-              </li>
-              <li>
-                For multiplication, write <strong>2n</strong> instead of{" "}
-                <strong>2*n</strong>.
-              </li>
-            </ul>
-          </Typography>
-        </TextSection>
+            <Typography variant="body2" sx={{ marginTop: "20px" }}>
+              Tips:
+              <ul>
+                <li>
+                  Please write your answer in terms of <strong>n</strong>.
+                </li>
+                <li>
+                  If it is exponential, use the symbol <strong>^</strong>. For
+                  example, two to the power of <strong>n</strong> should be
+                  written as <strong>2^n</strong>.
+                </li>
+                <li>
+                  For multiplication, write <strong>2n</strong> instead of{" "}
+                  <strong>2*n</strong>.
+                </li>
+              </ul>
+            </Typography>
+          </TextSection>
+        )}
 
         <ChatSection color={intervening ? "green" : "white"}>
           <Typography variant="h5" color={intervening ? "red" : "white"}>
