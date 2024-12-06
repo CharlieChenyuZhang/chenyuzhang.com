@@ -413,10 +413,19 @@ const LearningTasks = () => {
         )}
 
         <ChatSection color={intervening ? "green" : "white"}>
-          <Typography variant="h5" color={intervening ? "red" : "white"}>
-            {intervening
-              ? "Please keep talking to the chatbot till the color turns back to normal."
-              : "Chat Bot here to explain unfamiliar concepts but won't give you"}
+          <Typography variant="h6" color={intervening ? "red" : "white"}>
+            {intervening ? (
+              "Please keep talking to the chatbot till the color turns back to normal."
+            ) : (
+              <span>
+                Chat Bot here to explain unfamiliar concepts only.
+                <div>
+                  Warning: Please do not copy and paste the questions to obtain
+                  solutions, as this may disqualify you from winning the $100
+                  prizes.
+                </div>
+              </span>
+            )}
           </Typography>
           <div
             style={{ overflowY: "auto", flexGrow: 1 }}
@@ -430,7 +439,7 @@ const LearningTasks = () => {
                   )}
                   <MessageBubble
                     isUser={msg.isUser}
-                    color={intervening ? "green" : "white"}
+                    color={intervening ? "green" : "black"}
                   >
                     {msg.text}
                   </MessageBubble>
@@ -440,7 +449,7 @@ const LearningTasks = () => {
             {loading && (
               <MessageContainer isUser={false}>
                 <AiIcon color={intervening ? "green" : "white"}>✧₊⁺</AiIcon>
-                <MessageBubble color={intervening ? "green" : "white"}>
+                <MessageBubble color={intervening ? "green" : "black"}>
                   <CircularProgress size={20} color="inherit" />
                   {" Processing..."}
                 </MessageBubble>
