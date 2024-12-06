@@ -351,14 +351,16 @@ const LearningTasks = () => {
 
   return (
     <MainContainer>
-      <Box textAlign="center" marginBottom="1rem" sx={{ marginTop: "100px" }}>
-        <Typography variant="h1" fontWeight="bold">
-          Time Left: {formatTime(timeLeft)}
-        </Typography>
-        <Typography variant="h2" fontWeight="bold">
-          You solved {solvedCount} / {questions.length} questions.
-        </Typography>
-      </Box>
+      {!intervening && (
+        <Box textAlign="center" marginBottom="1rem" sx={{ marginTop: "100px" }}>
+          <Typography variant="h1" fontWeight="bold">
+            Time Left: {formatTime(timeLeft)}
+          </Typography>
+          <Typography variant="h2" fontWeight="bold">
+            You solved {solvedCount} / {questions.length} questions.
+          </Typography>
+        </Box>
+      )}
 
       <LayoutContainer intervening={intervening}>
         {!intervening && (
