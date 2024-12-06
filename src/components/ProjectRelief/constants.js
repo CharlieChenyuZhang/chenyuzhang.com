@@ -144,7 +144,7 @@ def generate_permutations(arr):
             permutations.append([arr[i]] + perm)
     return permutations
     `,
-    answer: "O(n!)",
+    answer: "n!",
   },
   {
     question:
@@ -159,7 +159,7 @@ def matrix_multiply(a, b):
                 result[i][j] += a[i][k] * b[k][j]
     return result
     `,
-    answer: "O(n^3)",
+    answer: "n^3",
   },
   {
     question:
@@ -171,7 +171,7 @@ def generate_subsets(arr):
     subsets = generate_subsets(arr[1:])
     return subsets + [[arr[0]] + subset for subset in subsets]
     `,
-    answer: "O(2^n)",
+    answer: "2^n",
   },
   {
     question:
@@ -189,7 +189,7 @@ def floyd_warshall(graph):
                 dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])
     return dist
     `,
-    answer: "O(n^3)",
+    answer: "n^3",
   },
   {
     question:
@@ -212,7 +212,7 @@ def traveling_salesman(graph, start):
         min_cost = min(min_cost, cost)
     return min_cost
     `,
-    answer: "O(n!)",
+    answer: "n!",
   },
   {
     question:
@@ -227,7 +227,7 @@ def three_combinations(arr):
                 result.append([arr[i], arr[j], arr[k]])
     return result
     `,
-    answer: "O(n^3)",
+    answer: "n^3",
   },
   {
     question:
@@ -254,7 +254,7 @@ def n_queens(n):
 
     return solve([-1] * n, 0)
     `,
-    answer: "O(n!)",
+    answer: "n!",
   },
   {
     question:
@@ -271,7 +271,7 @@ def four_sum(arr, target):
                         result.append([arr[i], arr[j], arr[k], arr[l]])
     return result
     `,
-    answer: "O(n^4)",
+    answer: "n^4",
   },
   {
     question:
@@ -288,7 +288,7 @@ def five_combinations(arr):
                         result.append([arr[i], arr[j], arr[k], arr[l], arr[m]])
     return result
     `,
-    answer: "O(n^5)",
+    answer: "n^5",
   },
   {
     question:
@@ -316,7 +316,7 @@ def merge(left, right):
     result.extend(right[j:])
     return result
     `,
-    answer: "O(n log n)",
+    answer: "nlogn",
   },
 ];
 
