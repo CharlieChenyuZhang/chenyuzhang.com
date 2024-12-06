@@ -150,7 +150,7 @@ const Debrief = () => {
 
           During the study, we collected data in several ways, including your performance on the task, facial expressions, and any verbal responses (if applicable). This data helps us better understand the emotional and behavioral patterns that occur when learners encounter difficult situations. Additionally, we explored how AI-driven interventions could potentially help improve persistence.
 
-          For example, if you clicked the "End Study" button at any point, our system delivered supportive messages to acknowledge your frustration and encourage you to continue. These interventions were designed to test whether emotional support, delivered in real-time, could influence your decision to persist through a challenging task.
+          For example, if you clicked the "Frustrated" button at any point, our system delivered supportive messages to acknowledge your frustration and encourage you to continue. These interventions were designed to test whether emotional support, delivered in real-time, could influence your decision to persist through a challenging task.
 
           Our study is focused on how non-verbal behaviors, emotional reactions, and AI interventions can influence learning persistence. The insights from this research could contribute to improving online learning environments by making them more adaptive to the emotional needs of students during difficult tasks.
 
