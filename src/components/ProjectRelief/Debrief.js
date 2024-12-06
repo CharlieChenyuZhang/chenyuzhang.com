@@ -8,31 +8,17 @@ import {
   CircularProgress,
   Checkbox,
   FormControlLabel,
-  RadioGroup,
-  Radio,
 } from "@mui/material";
 import { backendDomain } from "../../utils";
 
+// Reusable styles
 const Divider = styled.div`
   height: 30px;
 `;
 
-const WhiteRadio = styled(Radio)({
-  color: "white",
-  "&.Mui-checked": {
-    color: "white",
-  },
-  "& .MuiSvgIcon-root": {
-    color: "white",
-  },
-});
-
 const WhiteCheckbox = styled(Checkbox)({
   color: "white",
   "&.Mui-checked": {
-    color: "white",
-  },
-  "&.MuiCheckbox-colorPrimary.Mui-checked": {
     color: "white",
   },
   "& .MuiSvgIcon-root": {
@@ -103,12 +89,21 @@ const SubmitButton = styled(Button)`
 `;
 
 const Debrief = () => {
-  // State variables for the new questions
-  const [impact, setImpact] = useState([]);
-  const [suggestions, setSuggestions] = useState("");
-  const [emotions, setEmotions] = useState([]);
-  const [emotionExplanation, setEmotionExplanation] = useState("");
-  const [aiAssistance, setAiAssistance] = useState("");
+  // State variables for Tutor AI
+  const [tutorEmotions, setTutorEmotions] = useState([]);
+  const [tutorEmotionExplanation, setTutorEmotionExplanation] = useState("");
+  const [tutorImpact, setTutorImpact] = useState([]);
+  const [tutorAiAssistance, setTutorAiAssistance] = useState("");
+  const [tutorSuggestions, setTutorSuggestions] = useState("");
+
+  // State variables for Intervention AI
+  const [interventionEmotions, setInterventionEmotions] = useState([]);
+  const [interventionEmotionExplanation, setInterventionEmotionExplanation] =
+    useState("");
+  const [interventionImpact, setInterventionImpact] = useState([]);
+  const [interventionAiAssistance, setInterventionAiAssistance] = useState("");
+  const [interventionSuggestions, setInterventionSuggestions] = useState("");
+
   const [loading, setLoading] = useState(false);
   const [confirmationMessage, setConfirmationMessage] = useState("");
 
@@ -123,15 +118,23 @@ const Debrief = () => {
   const handleSubmit = async () => {
     setLoading(true);
     const formData = {
-      impact,
-      suggestions,
-      emotions,
-      emotionExplanation,
-      aiAssistance,
+      tutor: {
+        emotions: tutorEmotions,
+        emotionExplanation: tutorEmotionExplanation,
+        impact: tutorImpact,
+        aiAssistance: tutorAiAssistance,
+        suggestions: tutorSuggestions,
+      },
+      intervention: {
+        emotions: interventionEmotions,
+        emotionExplanation: interventionEmotionExplanation,
+        impact: interventionImpact,
+        aiAssistance: interventionAiAssistance,
+        suggestions: interventionSuggestions,
+      },
     };
 
     try {
-      // TODO:
       const response = await fetch(`${backendDomain()}/storeResponses`, {
         method: "POST",
         headers: {
@@ -172,6 +175,76 @@ const Debrief = () => {
     }
   };
 
+  const renderEmotionQuestion = (title, emotions, setEmotions) => (
+    <>
+      <Typography>{title}</Typography>
+      {[
+        "joy",
+        "curiosity",
+        "frustration",
+        "confidence",
+        "confusion",
+        "relief",
+        "excitement",
+      ].map((emotion) => (
+        <FormControlLabel
+          key={emotion}
+          control={
+            <WhiteCheckbox
+              checked={emotions.includes(emotion)}
+              onChange={() => handleCheckboxChange(setEmotions, emotion)}
+            />
+          }
+          label={emotion.charAt(0).toUpperCase() + emotion.slice(1)}
+        />
+      ))}
+      <Divider />
+    </>
+  );
+
+  const renderImpactQuestion = (impact, setImpact) => (
+    <>
+      <Typography>
+        How would you describe the impact of the AI on your overall experience?
+      </Typography>
+      {[
+        "It made the experience easier.",
+        "It enhanced my understanding.",
+        "It saved me time.",
+        "It made me feel supported.",
+        "It didn't help much.",
+      ].map((label) => (
+        <FormControlLabel
+          key={label}
+          control={
+            <WhiteCheckbox
+              checked={impact.includes(label)}
+              onChange={() => handleCheckboxChange(setImpact, label)}
+            />
+          }
+          label={label}
+        />
+      ))}
+      <StyledTextField
+        label="Other (Please specify)"
+        fullWidth
+        variant="outlined"
+        onChange={(e) => setImpact([...impact, e.target.value])}
+      />
+      <Divider />
+    </>
+  );
+
+  const renderTextQuestion = (label, value, setter) => (
+    <StyledTextField
+      label={label}
+      fullWidth
+      variant="outlined"
+      value={value}
+      onChange={(e) => setter(e.target.value)}
+    />
+  );
+
   return (
     <MainContainer>
       {!confirmationMessage ? (
@@ -187,173 +260,58 @@ const Debrief = () => {
           </Box>
           <ProjectContainer>
             <InputContainer>
-              <Typography>
-                What emotions did you experience during your interaction with
-                the AI? (Check all that applies)
-              </Typography>
-              <FormControlLabel
-                control={
-                  <WhiteCheckbox
-                    checked={emotions.includes("joy")}
-                    onChange={() => handleCheckboxChange(setEmotions, "joy")}
-                  />
-                }
-                label="Joy"
-              />
-              <FormControlLabel
-                control={
-                  <WhiteCheckbox
-                    checked={emotions.includes("curiosity")}
-                    onChange={() =>
-                      handleCheckboxChange(setEmotions, "curiosity")
-                    }
-                  />
-                }
-                label="Curiosity"
-              />
-              <FormControlLabel
-                control={
-                  <WhiteCheckbox
-                    checked={emotions.includes("frustration")}
-                    onChange={() =>
-                      handleCheckboxChange(setEmotions, "frustration")
-                    }
-                  />
-                }
-                label="Frustration"
-              />
-              <FormControlLabel
-                control={
-                  <WhiteCheckbox
-                    checked={emotions.includes("confidence")}
-                    onChange={() =>
-                      handleCheckboxChange(setEmotions, "confidence")
-                    }
-                  />
-                }
-                label="Confidence"
-              />
-              <FormControlLabel
-                control={
-                  <WhiteCheckbox
-                    checked={emotions.includes("confusion")}
-                    onChange={() =>
-                      handleCheckboxChange(setEmotions, "confusion")
-                    }
-                  />
-                }
-                label="Confusion"
-              />
-              <FormControlLabel
-                control={
-                  <WhiteCheckbox
-                    checked={emotions.includes("relief")}
-                    onChange={() => handleCheckboxChange(setEmotions, "relief")}
-                  />
-                }
-                label="Relief"
-              />
-              <FormControlLabel
-                control={
-                  <WhiteCheckbox
-                    checked={emotions.includes("excitement")}
-                    onChange={() =>
-                      handleCheckboxChange(setEmotions, "excitement")
-                    }
-                  />
-                }
-                label="Excitement"
-              />
-              <StyledTextField
-                label="Explanation"
-                fullWidth
-                variant="outlined"
-                value={emotionExplanation}
-                onChange={(e) => setEmotionExplanation(e.target.value)}
-              />
+              {/* Tutor AI Section */}
+              <Typography variant="h6">Tutor AI</Typography>
+              {renderEmotionQuestion(
+                "What emotions did you experience during your interaction with the Tutor AI?",
+                tutorEmotions,
+                setTutorEmotions
+              )}
+              {renderTextQuestion(
+                "Please explain your emotional experience with the Tutor AI:",
+                tutorEmotionExplanation,
+                setTutorEmotionExplanation
+              )}
               <Divider />
+              {renderImpactQuestion(tutorImpact, setTutorImpact)}
+              {renderTextQuestion(
+                "How did the Tutor AI assist you during the experience?",
+                tutorAiAssistance,
+                setTutorAiAssistance
+              )}
+              <Divider />
+              {renderTextQuestion(
+                "What could the Tutor AI have done better to improve your experience?",
+                tutorSuggestions,
+                setTutorSuggestions
+              )}
               <Divider />
 
-              <Typography>
-                How would you describe the impact of the AI on your overall
-                experience?
-              </Typography>
-              <FormControlLabel
-                control={
-                  <WhiteCheckbox
-                    checked={impact.includes("easier")}
-                    onChange={() => handleCheckboxChange(setImpact, "easier")}
-                  />
-                }
-                label="It made the experience easier."
-              />
-              <FormControlLabel
-                control={
-                  <WhiteCheckbox
-                    checked={impact.includes("understanding")}
-                    onChange={() =>
-                      handleCheckboxChange(setImpact, "understanding")
-                    }
-                  />
-                }
-                label="It enhanced my understanding."
-              />
-              <FormControlLabel
-                control={
-                  <WhiteCheckbox
-                    checked={impact.includes("time-saving")}
-                    onChange={() =>
-                      handleCheckboxChange(setImpact, "time-saving")
-                    }
-                  />
-                }
-                label="It saved me time."
-              />
-              <FormControlLabel
-                control={
-                  <WhiteCheckbox
-                    checked={impact.includes("support")}
-                    onChange={() => handleCheckboxChange(setImpact, "support")}
-                  />
-                }
-                label="It made me feel supported."
-              />
-              <FormControlLabel
-                control={
-                  <WhiteCheckbox
-                    checked={impact.includes("not-helpful")}
-                    onChange={() =>
-                      handleCheckboxChange(setImpact, "not-helpful")
-                    }
-                  />
-                }
-                label="It didn't help much."
-              />
-              <StyledTextField
-                label="Other (Please specify)"
-                fullWidth
-                variant="outlined"
-                onChange={(e) => setImpact([...impact, e.target.value])}
-              />
+              {/* Intervention AI Section */}
+              <Typography variant="h6">Intervention AI</Typography>
+              {renderEmotionQuestion(
+                "What emotions did you experience during your interaction with the Intervention AI?",
+                interventionEmotions,
+                setInterventionEmotions
+              )}
+              {renderTextQuestion(
+                "Please explain your emotional experience with the Intervention AI:",
+                interventionEmotionExplanation,
+                setInterventionEmotionExplanation
+              )}
               <Divider />
+              {renderImpactQuestion(interventionImpact, setInterventionImpact)}
+              {renderTextQuestion(
+                "How did the Intervention AI assist you during the experience?",
+                interventionAiAssistance,
+                setInterventionAiAssistance
+              )}
               <Divider />
-              <StyledTextField
-                label="How did the AI assist you during the experience?"
-                fullWidth
-                variant="outlined"
-                value={aiAssistance}
-                onChange={(e) => setAiAssistance(e.target.value)}
-              />
-              <Divider />
-              <Divider />
-              <StyledTextField
-                label="What could the AI have done better to improve your experience?"
-                fullWidth
-                variant="outlined"
-                value={suggestions}
-                onChange={(e) => setSuggestions(e.target.value)}
-              />
-              <Divider />
+              {renderTextQuestion(
+                "What could the Intervention AI have done better to improve your experience?",
+                interventionSuggestions,
+                setInterventionSuggestions
+              )}
               <Divider />
 
               <SubmitButton
