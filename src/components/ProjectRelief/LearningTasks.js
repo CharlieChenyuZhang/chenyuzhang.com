@@ -154,6 +154,7 @@ const StyledPre = styled.pre`
   padding: 1rem;
   border-radius: 8px;
   overflow-x: auto;
+  white-space: pre-wrap; /* without this line, a long line would cause the page to shift */
 `;
 
 const MessageContainer = styled.div`

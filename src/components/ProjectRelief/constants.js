@@ -81,7 +81,38 @@ const questions = [
   },
   {
     question: "Heap Sort",
-    code: `def heap_sort(arr):\n    n = len(arr)\n    for i in range(n // 2 - 1, -1, -1):\n        heapify(arr, n, i)\n    for i in range(n - 1, 0, -1):\n        arr[i], arr[0] = arr[0], arr[i]\n        heapify(arr, i, 0)`,
+    code: `def heap_sort(arr):
+      n = len(arr)
+
+      # Build a max-heap
+      for i in range(n // 2 - 1, -1, -1):
+          heapify(arr, n, i)
+
+      # Extract elements from the heap
+      for i in range(n - 1, 0, -1):
+          arr[i], arr[0] = arr[0], arr[i]  # Swap
+          heapify(arr, i, 0)
+
+  # Function to heapify a subtree rooted at index i
+  # n is the size of the heap
+  def heapify(arr, n, i):
+      largest = i
+      left = 2 * i + 1
+      right = 2 * i + 2
+
+      # If left child is larger than root
+      if left < n and arr[left] > arr[largest]:
+          largest = left
+
+      # If right child is larger than largest so far
+      if right < n and arr[right] > arr[largest]:
+          largest = right
+
+      # If largest is not root
+      if largest != i:
+          arr[i], arr[largest] = arr[largest], arr[i]  # Swap
+          heapify(arr, n, largest)
+  `,
     answer: "nlogn",
   },
   {
