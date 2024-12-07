@@ -341,8 +341,50 @@ router.post("/track/post-reframing-action", async (req, res) => {
     TableName: "mas630-relief",
     Item: {
       userId,
+      timestamp: new Date().toISOString(),
       event: "POST_REFRAMING_SELECTION",
       action,
+    },
+  };
+
+  await dynamoDb.put(putParams).promise();
+
+  res.send({});
+});
+
+router.post("/track/frustration-level", async (req, res) => {
+  const { userId, level } = req.body;
+
+  // FIXME: TBD
+  if (!userId || !level) {
+    return res.status(400).send({ error: "Missing required fields" });
+  }
+
+  // Retrieve existing conversations from DynamoDB
+  const getParams = {
+    TableName: "mas630-relief",
+    Key: { userId, event: "FRUSTRATION_LEVEL_SELECTION" },
+  };
+
+  const existingData = await dynamoDb.get(getParams).promise();
+
+  const updatedData = [
+    ...(existingData?.Item?.levels || []),
+    ...[
+      {
+        timestamp: new Date().toISOString(),
+        level,
+      },
+    ],
+  ];
+
+  // Update the conversation and response in DynamoDB
+  const putParams = {
+    TableName: "mas630-relief",
+    Item: {
+      userId,
+      event: "FRUSTRATION_LEVEL_SELECTION",
+      levels: updatedData,
     },
   };
 

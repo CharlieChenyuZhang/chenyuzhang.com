@@ -324,7 +324,8 @@ const LearningTasks = () => {
     }
   };
 
-  const handleFrustrationClick = async () => {
+  // level is one of extreme, moderate, slight
+  const handleFrustrationClick = async (level) => {
     if (!intervening) {
       setIntervening(true);
     }
@@ -335,6 +336,17 @@ const LearningTasks = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           conversations: [],
+          userId:
+            sessionStorage.getItem("mas630ResearchUserId") || "unknownUser",
+        }),
+      });
+
+      // FIXME: tracking
+      fetch(`${backendDomain()}/relief/track/frustration-level`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          level,
           userId:
             sessionStorage.getItem("mas630ResearchUserId") || "unknownUser",
         }),
@@ -527,17 +539,26 @@ const LearningTasks = () => {
               </Box>
 
               <Box mt={1} width="100%">
-                <RedButton level="extreme" onClick={handleFrustrationClick}>
+                <RedButton
+                  level="extreme"
+                  onClick={() => handleFrustrationClick("extreme")}
+                >
                   🔥 I am Extremely frustrated
                 </RedButton>
               </Box>
               <Box mt={1} width="100%">
-                <RedButton level="moderate" onClick={handleFrustrationClick}>
+                <RedButton
+                  level="moderate"
+                  onClick={() => handleFrustrationClick("moderate")}
+                >
                   ⚠️ I am Moderately frustrated
                 </RedButton>
               </Box>
               <Box mt={1} width="100%">
-                <RedButton level="slight" onClick={handleFrustrationClick}>
+                <RedButton
+                  level="slight"
+                  onClick={() => handleFrustrationClick("slight")}
+                >
                   🟡 I am Slightly frustrated
                 </RedButton>
               </Box>

@@ -19,7 +19,7 @@ This system is designed to track participant interactions across four screens in
   {
     "userId": "uuid",
     "email": "participant@example.com",
-    "event": "FIRST_REGISTRATION",
+    "event": "TRACK_FIRST_REGISTRATION",
     "mbti_type": "INTJ",
     "race_ethnicity": "East Asian",
     "country_of_origin": "China",
@@ -49,7 +49,7 @@ This system is designed to track participant interactions across four screens in
   ```json
   {
     "userID": "uuid",
-    "event": "LEARNING_VIDEO",
+    "event": "TRACK_LEARNING_VIDEO",
     "task_start_time": "2024-11-27T13:00:00Z", // when first reach the /project/relief/learning-video
     "task_end_time": "2024-11-27T13:10:30Z" // when leave the /project/relief/learning-video
   }
@@ -343,12 +343,16 @@ userStorage vs. sessionStorage
 
 ### Events
 
-FIRST_REGISTRATION -- questionaire
+TRACK_FIRST_REGISTRATION -- questionaire
 
-LEARNING_VIDEO -- stats in the video watching page
+TRACK_LEARNING_VIDEO -- stats in the video watching page
 
-TUTOR_CONVERSATION -- conversation with AI tutor.
+TRACK_TUTOR_CONVERSATION -- conversation with AI tutor.
 
-REFRAMING_CONVERSATION -- conversation with AI reframing.
+TRACK_REFRAMING_CONVERSATION -- conversation with AI reframing.
 
-AFTER_REFRAMING_SELECTION -- either quite or continue.
+TRACK_POST_REFRAMING_SELECTION -- either quite or continue.
+
+TRACK_FRUSTRATION_LEVEL_CLICK -- either quite or continue.
+
+TRACK_QUESTION_ANSWER -- track the answer used for each question and whether it's correct or not.
