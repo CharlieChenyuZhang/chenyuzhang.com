@@ -196,6 +196,7 @@ router.post("/register", async (req, res) => {
     TableName: "Mas630Relief", // Replace with your DynamoDB table name
     Item: {
       userId,
+      event: "FIRST_REGISTRATION",
       mbtiType,
       email,
       ethnicity,
@@ -214,6 +215,37 @@ router.post("/register", async (req, res) => {
   } catch (error) {
     console.error("Error storing user data in DynamoDB:", error);
     res.status(500).send({ error: "Error storing user data" });
+  }
+});
+
+router.post("/log-learning-task", async (req, res) => {
+  const { userId, task_start_time, task_end_time } = req.body;
+
+  if (!userId || !task_start_time || !task_end_time) {
+    return res.status(400).send({ error: "Missing required fields" });
+  }
+
+  const params = {
+    TableName: "Mas630Relief",
+    Item: {
+      userId,
+      event: "LEARNING_VIDEO",
+      task_start_time,
+      task_end_time,
+    },
+  };
+
+  try {
+    await dynamoDb.put(params).promise();
+    res
+      .status(200)
+      .send({ message: "learning video stats stored successfully" });
+  } catch (error) {
+    console.error(
+      "Error storing learning video stats data in DynamoDB:",
+      error
+    );
+    res.status(500).send({ error: "Error storing learning video stats data" });
   }
 });
 

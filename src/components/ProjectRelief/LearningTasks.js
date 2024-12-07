@@ -210,7 +210,7 @@ const LearningTasks = () => {
   const chatContainerRef = useRef(null);
 
   useEffect(() => {
-    const savedTime = localStorage.getItem("timeLeft");
+    const savedTime = sessionStorage.getItem("timeLeft");
     const initialTime = savedTime ? parseInt(savedTime, 10) : STUDY_TIME;
     setTimeLeft(initialTime);
 
@@ -218,12 +218,12 @@ const LearningTasks = () => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
           clearInterval(countdown);
-          localStorage.removeItem("timeLeft");
+          sessionStorage.removeItem("timeLeft");
           navigate("/project/relief/debrief");
           return 0;
         } else {
           const newTime = prev - 1;
-          localStorage.setItem("timeLeft", newTime);
+          sessionStorage.setItem("timeLeft", newTime);
           return newTime;
         }
       });

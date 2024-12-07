@@ -1,7 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { backendDomain } from "../../utils";
 
 const MainContainer = styled.div`
   height: 100%;
@@ -37,16 +39,6 @@ const VideoContainer = styled.div`
   margin-top: 1rem;
 `;
 
-const Video = styled.video`
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-`;
-
-const Canvas = styled.canvas`
-  display: none;
-`;
-
 const CaptureButton = styled(Button)`
   margin-top: 1.5rem !important;
   color: white !important;
@@ -60,6 +52,37 @@ const CaptureButton = styled(Button)`
 
 const LearningVideo = () => {
   const navigate = useNavigate();
+  const userId =
+    sessionStorage.getItem("mas630ResearchUserId") || "unknownUser";
+
+  const [taskStartTime, setTaskStartTime] = useState(null);
+
+  // Initialize task start time on page load
+  useEffect(() => {
+    const startTime = new Date().toISOString();
+    setTaskStartTime(startTime);
+  }, []);
+
+  // Function to log task time
+  const logTaskTime = async () => {
+    const taskEndTime = new Date().toISOString();
+    try {
+      await axios.post(`${backendDomain()}/relief/log-learning-task`, {
+        userId,
+        task_start_time: taskStartTime,
+        task_end_time: taskEndTime,
+      });
+    } catch (error) {
+      console.error("Failed to log task time:", error);
+    }
+  };
+
+  // Handle button click
+  const handleNextClick = async () => {
+    await logTaskTime();
+    navigate("/project/relief/learning-tasks");
+  };
+
   return (
     <MainContainer>
       <WebcamContainer>
@@ -72,7 +95,7 @@ const LearningVideo = () => {
           programming task related to the concept.
           <br />
           <br />
-          Please click on the “Next” button once you finish the video,
+          Please click on the “Next” button once you finish the video.
         </Typography>
 
         <VideoContainer>
@@ -81,18 +104,14 @@ const LearningVideo = () => {
             height="315"
             src="https://www.youtube.com/embed/__vX2sjlpXU?si=TNHNystJtEKO5G0W"
             title="YouTube video player"
-            frameborder="0"
+            frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
           ></iframe>
         </VideoContainer>
 
-        <CaptureButton
-          onClick={() => navigate("/project/relief/learning-tasks")}
-        >
-          Next
-        </CaptureButton>
+        <CaptureButton onClick={handleNextClick}>Next</CaptureButton>
       </WebcamContainer>
     </MainContainer>
   );

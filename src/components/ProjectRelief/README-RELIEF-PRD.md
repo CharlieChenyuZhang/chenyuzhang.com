@@ -17,7 +17,9 @@ This system is designed to track participant interactions across four screens in
 - **Request Body:**
   ```json
   {
+    "userId": "uuid",
     "email": "participant@example.com",
+    "event": "FIRST_REGISTRATION",
     "mbti_type": "INTJ",
     "race_ethnicity": "East Asian",
     "country_of_origin": "China",
@@ -46,7 +48,8 @@ This system is designed to track participant interactions across four screens in
 - **Request Body:**
   ```json
   {
-    "email": "participant@example.com",
+    "userID": "uuid",
+    "event": "LEARNING_VIDEO",
     "task_start_time": "2024-11-27T13:00:00Z", // when first reach the /project/relief/learning-video
     "task_end_time": "2024-11-27T13:10:30Z" // when leave the /project/relief/learning-video
   }
@@ -333,4 +336,6 @@ Facilitates an AI tutoring session focused strictly on Python syntax. The system
 
 ### newUserId
 
-newUserId is stored in localStorage
+newUserId is stored in sessionStorage
+
+userStorage vs. sessionStorage
