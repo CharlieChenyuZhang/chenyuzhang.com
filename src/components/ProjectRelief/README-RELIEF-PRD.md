@@ -143,6 +143,7 @@ This system is designed to track participant interactions across four screens in
 - **Request Body:**
   ```json
   {
+    "userId": "uuid",
     "conversations": [
       {
         "isUser": true,
@@ -339,3 +340,15 @@ Facilitates an AI tutoring session focused strictly on Python syntax. The system
 newUserId is stored in sessionStorage
 
 userStorage vs. sessionStorage
+
+### Events
+
+FIRST_REGISTRATION -- questionaire
+
+LEARNING_VIDEO -- stats in the video watching page
+
+TUTOR_CONVERSATION -- conversation with AI tutor.
+
+REFRAMING_CONVERSATION -- conversation with AI reframing.
+
+AFTER_REFRAMING_SELECTION -- either quite or continue.
