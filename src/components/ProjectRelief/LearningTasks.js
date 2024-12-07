@@ -204,6 +204,8 @@ const LearningTasks = () => {
   const [thought, setThought] = useState("");
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false); // Modal state
+  const [incorrectAttempts, setIncorrectAttempts] = useState(0);
+  const [incorrectCount, setIncorrectCount] = useState(0);
   const navigate = useNavigate();
   const chatContainerRef = useRef(null);
 
@@ -244,15 +246,22 @@ const LearningTasks = () => {
       if (solvedCount + 1 === questions.length) {
         navigate("/project/relief/debrief");
       }
-
       setSolvedCount(solvedCount + 1);
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setUserAnswer("");
       setErrorMessage("");
+      setIncorrectAttempts(0); // Reset incorrect attempts
     } else {
-      setErrorMessage("Incorrect answer. Please try again.");
+      setIncorrectAttempts(incorrectAttempts + 1);
+      if (incorrectAttempts + 1 >= 3) {
+        setIncorrectCount(incorrectCount + 1);
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
+        setUserAnswer("");
+        setErrorMessage("");
+        setIncorrectAttempts(0); // Reset incorrect attempts
+      } else {
+        setErrorMessage("Incorrect answer. Please try again.");
+      }
     }
   };
 
@@ -368,7 +377,7 @@ const LearningTasks = () => {
             question(s).
           </Typography>
           <Typography variant="h3" fontWeight="bold">
-            You answered <span style={{ color: "red" }}>{solvedCount}</span>{" "}
+            You answered <span style={{ color: "red" }}>{incorrectCount}</span>{" "}
             question(s) incorrectly.
           </Typography>
         </Box>
