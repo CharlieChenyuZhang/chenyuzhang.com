@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import {
   Box,
@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { backendDomain } from "../../utils";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 const WhiteRadio = styled(Radio)({
   color: "white",
@@ -130,6 +131,10 @@ const ProjectRelief = () => {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
+  useEffect(() => {
+    localStorage.removeItem("mas630ResearchUserId"); // Remove any existing key
+  }, []);
+
   // Validation function
   const validateForm = () => {
     const newErrors = {};
@@ -154,7 +159,9 @@ const ProjectRelief = () => {
     if (!validateForm()) return; // Stop if validation fails
 
     setLoading(true);
+    const newUserId = uuidv4();
     const formData = {
+      userId: newUserId,
       mbtiType,
       email,
       ethnicity,
@@ -167,20 +174,19 @@ const ProjectRelief = () => {
     };
 
     try {
-      // FIXME: add them back and move navigate inside response.ok
-      // const response = await fetch(`${backendDomain()}/storeResponses`, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(formData),
-      // });
-      // if (response.ok) {
-      //   alert("Responses submitted successfully!");
-      // }
-
-      // redirect to the next page - video testing
-      navigate("/project/relief/webcam-test");
+      const response = await fetch(`${backendDomain()}/relief/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      if (response.ok) {
+        localStorage.setItem("mas630ResearchUserId", newUserId); // Save userId to LocalStorage
+        navigate("/project/relief/webcam-test");
+      } else {
+        alert("Something's wrong. Please contact the research team!");
+      }
     } catch (error) {
       console.error("Error submitting form:", error);
     } finally {

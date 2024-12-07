@@ -330,3 +330,7 @@ Facilitates an AI tutoring session focused strictly on Python syntax. The system
   ]
 }
 ```
+
+### newUserId
+
+newUserId is stored in localStorage

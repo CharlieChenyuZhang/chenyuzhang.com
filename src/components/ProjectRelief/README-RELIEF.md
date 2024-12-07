@@ -15,3 +15,12 @@ People with the darker skin.
 Offer solutions. I am VERY, SOMEWHAT, TINY BIT, frustrated, please help.
 
 Move the timer to the LEFT. Make it bigger. Add the label : you have
+
+## in .env
+
+it's use the IAM called mas630-research
+please add to .env
+
+OPENAI_API_KEY=<>
+AWS_ACCESS_KEY_ID=<>
+AWS_SECRET_ACCESS_KEY=<>
