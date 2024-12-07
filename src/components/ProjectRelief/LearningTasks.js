@@ -333,7 +333,11 @@ const LearningTasks = () => {
       const response = await fetch(`${backendDomain()}/relief/reframe`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ conversations: [] }),
+        body: JSON.stringify({
+          conversations: [],
+          userId:
+            sessionStorage.getItem("mas630ResearchUserId") || "unknownUser",
+        }),
       });
 
       // whenever this button click, we assume a new intervention thread
@@ -360,7 +364,16 @@ const LearningTasks = () => {
     }
   }, [conversations, interventionConversations]);
 
-  const handleModalClose = (action) => {
+  const handleModalClose = async (action) => {
+    await fetch(`${backendDomain()}/relief/track/post-reframing-action`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        action,
+        userId: sessionStorage.getItem("mas630ResearchUserId") || "unknownUser",
+      }),
+    });
+
     if (action === "quit") {
       navigate("/project/relief/debrief"); // Route to the debrief page
     } else if (action === "continue") {

@@ -109,7 +109,7 @@ router.post("/tutor", async (req, res) => {
 });
 
 router.post("/reframe", async (req, res) => {
-  const { conversations } = req.body;
+  const { conversations, userId } = req.body;
 
   if (!Array.isArray(conversations)) {
     return res
@@ -207,6 +207,46 @@ router.post("/reframe", async (req, res) => {
     const response =
       reliefReframingResponse.data.choices[0].message.content.trim();
 
+    // Retrieve existing conversations from DynamoDB
+    const getParams = {
+      TableName: "mas630-relief",
+      Key: { userId, event: "REFRAMING_CONVERSATION" },
+    };
+
+    const existingData = await dynamoDb.get(getParams).promise();
+
+    const lastConversation = conversations.slice(-1)[0];
+    const newConversations = [
+      {
+        timestamp: new Date().toISOString(),
+        isUser: lastConversation?.isUser,
+        text: lastConversation?.text ?? "",
+      },
+      {
+        timestamp: new Date().toISOString(),
+        isUser: false,
+        text: response,
+      },
+    ];
+
+    const updatedConversations = [
+      ...(existingData?.Item?.conversations || []),
+      ...newConversations,
+    ];
+
+    // Update the conversation and response in DynamoDB
+    const putParams = {
+      TableName: "mas630-relief",
+      Item: {
+        userId,
+        event: "REFRAMING_CONVERSATION",
+        conversations: updatedConversations,
+        aiResponse: response,
+      },
+    };
+
+    await dynamoDb.put(putParams).promise();
+
     res.send({
       response: response,
     });
@@ -288,6 +328,31 @@ router.post("/log-learning-task", async (req, res) => {
     );
     res.status(500).send({ error: "Error storing learning video stats data" });
   }
+});
+
+router.post("/track/post-reframing-action", async (req, res) => {
+  const { userId, action } = req.body;
+
+  if (!userId || !action) {
+    return res.status(400).send({ error: "Missing required fields" });
+  }
+
+  const putParams = {
+    TableName: "mas630-relief",
+    Item: {
+      userId,
+      event: "POST_REFRAMING_SELECTION",
+      action,
+    },
+  };
+
+  await dynamoDb.put(putParams).promise();
+
+  res.send({});
+});
+
+router.post("/track/question-answer", async (req, res) => {
+  // FIXME: TBD
 });
 
 module.exports = router;
