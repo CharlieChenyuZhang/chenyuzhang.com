@@ -363,8 +363,13 @@ const LearningTasks = () => {
           <Typography variant="h1" fontWeight="bold">
             Time Left: {formatTime(timeLeft)}
           </Typography>
-          <Typography variant="h2" fontWeight="bold">
-            You solved {solvedCount} / {questions.length} questions.
+          <Typography variant="h3" fontWeight="bold">
+            You solved <span style={{ color: "green" }}>{solvedCount}</span>{" "}
+            question(s).
+          </Typography>
+          <Typography variant="h3" fontWeight="bold">
+            You answered <span style={{ color: "red" }}>{solvedCount}</span>{" "}
+            question(s) incorrectly.
           </Typography>
         </Box>
       )}
@@ -405,6 +410,7 @@ const LearningTasks = () => {
             <Typography variant="body2" sx={{ marginTop: "20px" }}>
               Tips:
               <ul>
+                <li>You have 3 attempts per question.</li>
                 <li>
                   Please write your answer in terms of <strong>n</strong>.
                 </li>
