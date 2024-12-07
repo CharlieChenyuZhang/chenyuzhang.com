@@ -68,7 +68,7 @@ const WebcamTest = () => {
     <MainContainer>
       <WebcamContainer>
         <Typography variant="h5" align="center" gutterBottom>
-          Reminder
+          Zoom Reminder
         </Typography>
         <Typography variant="body1" align="center" color="inherit">
           Please make sure you have opened Zoom and are sharing your screen.

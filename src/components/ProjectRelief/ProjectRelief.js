@@ -132,7 +132,7 @@ const ProjectRelief = () => {
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    localStorage.removeItem("mas630ResearchUserId"); // Remove any existing key
+    sessionStorage.removeItem("mas630ResearchUserId"); // Remove any existing key
   }, []);
 
   // Validation function
@@ -182,7 +182,7 @@ const ProjectRelief = () => {
         body: JSON.stringify(formData),
       });
       if (response.ok) {
-        localStorage.setItem("mas630ResearchUserId", newUserId); // Save userId to LocalStorage
+        sessionStorage.setItem("mas630ResearchUserId", newUserId); // Save userId to sessionStorage
         navigate("/project/relief/webcam-test");
       } else {
         alert("Something's wrong. Please contact the research team!");

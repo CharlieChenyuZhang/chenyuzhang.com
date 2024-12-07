@@ -3,6 +3,7 @@ const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
 const axios = require("axios");
+const AWS = require("aws-sdk");
 const app = express();
 const matter = require("gray-matter");
 const port = process.env.PORT || 8080;
