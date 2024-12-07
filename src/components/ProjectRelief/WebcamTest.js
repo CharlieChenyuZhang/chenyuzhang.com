@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import * as faceapi from "face-api.js";
 import { Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
@@ -63,161 +62,30 @@ const CaptureButton = styled(Button)`
 `;
 
 const WebcamTest = () => {
-  const videoRef = useRef(null);
-  const canvasRef = useRef(null);
   const navigate = useNavigate();
-  const [mediaStream, setMediaStream] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [faceDetected, setFaceDetected] = useState(false);
-  const [confidence, setConfidence] = useState(null);
-
-  useEffect(() => {
-    const loadModels = async () => {
-      setLoading(true);
-      try {
-        await faceapi.nets.tinyFaceDetector.loadFromUri("/models");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadModels();
-  }, []);
-
-  const startWebcam = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-
-        // Ensure canvas matches video dimensions after video metadata is loaded
-        videoRef.current.onloadedmetadata = () => {
-          adjustCanvasSize();
-          detectFace();
-        };
-      }
-      setMediaStream(stream);
-    } catch (error) {
-      console.error("Error accessing webcam", error);
-    }
-  };
-
-  const stopWebcam = () => {
-    if (mediaStream) {
-      // Stop the webcam stream
-      mediaStream.getTracks().forEach((track) => track.stop());
-      setMediaStream(null);
-      setFaceDetected(false);
-      setConfidence(null);
-
-      // Remove the video source to show the grey background
-      if (videoRef.current) {
-        videoRef.current.srcObject = null;
-      }
-
-      // Clear the canvas to remove the bounding box
-      const canvas = canvasRef.current;
-      const ctx = canvas.getContext("2d");
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
-  };
-
-  const adjustCanvasSize = () => {
-    if (videoRef.current && canvasRef.current) {
-      canvasRef.current.width = videoRef.current.offsetWidth;
-      canvasRef.current.height = videoRef.current.offsetHeight;
-    }
-  };
-
-  const detectFace = async () => {
-    if (!videoRef.current) return;
-
-    const options = new faceapi.TinyFaceDetectorOptions({ inputSize: 512 });
-    setInterval(async () => {
-      const result = await faceapi.detectSingleFace(videoRef.current, options);
-
-      if (result) {
-        setFaceDetected(true);
-        setConfidence(result.score.toFixed(2)); // Update confidence score
-        drawBox(result); // Draw box around the detected face
-      } else {
-        setFaceDetected(false);
-        setConfidence(null);
-      }
-    }, 1000);
-  };
-
-  const drawBox = (detection) => {
-    const canvas = canvasRef.current;
-    const video = videoRef.current;
-
-    const displaySize = {
-      width: video.offsetWidth,
-      height: video.offsetHeight,
-    };
-    faceapi.matchDimensions(canvas, displaySize);
-
-    const resizedDetection = faceapi.resizeResults(detection, displaySize);
-    const ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Draw bounding box with precise alignment
-    const box = resizedDetection.box;
-    ctx.strokeStyle = "#00FF00";
-    ctx.lineWidth = 3;
-    ctx.strokeRect(box.x, box.y - 100, box.width, box.height);
-  };
 
   return (
     <MainContainer>
       <WebcamContainer>
         <Typography variant="h5" align="center" gutterBottom>
-          Test your webcam
+          Reminder
         </Typography>
         <Typography variant="body1" align="center" color="inherit">
-          Since our study includes the collection of video data, please ensure
-          you are in a well-lit room. Click on the "START WEBCAM" button to
-          check your video.
+          Please make sure you have opened Zoom and are sharing your screen.
+          Ensure your face is clearly recorded on the screen.
           <br />
           <br />
-          <i>Make sure the face detection confidence score is >= 0.8.</i>
-          <br />
-          <br />
-          Click on the "LOOKS GOOD" button once you have completed the camera
-          check below.
+          Click on the "LOOKS GOOD" button once you have completed the check.
         </Typography>
 
-        <VideoContainer>
-          <Video ref={videoRef} autoPlay playsInline muted />
-          <Canvas ref={canvasRef} />
-        </VideoContainer>
-
         <br />
-        {/* FIXME: temporary commented this out. This works locally but not on deployed version */}
-        {/* {faceDetected ? (
-          <Typography variant="body1" align="center" color="inherit">
-            Face Detected with Confidence: {confidence ?? 0}
-          </Typography>
-        ) : (
-          <Typography variant="body1" align="center" color="inherit">
-            No face detected.
-          </Typography>
-        )} */}
-
-        {!mediaStream ? (
-          <CaptureButton onClick={startWebcam}>
-            {loading ? "Loading Models..." : "Start Webcam"}
-          </CaptureButton>
-        ) : (
-          <CaptureButton
-            onClick={() => {
-              stopWebcam();
-              navigate("/project/relief/learning-video");
-            }}
-          >
-            Looks good!
-          </CaptureButton>
-        )}
+        <CaptureButton
+          onClick={() => {
+            navigate("/project/relief/learning-video");
+          }}
+        >
+          Looks good!
+        </CaptureButton>
       </WebcamContainer>
     </MainContainer>
   );
