@@ -6,12 +6,17 @@ import {
   TextField,
   Box,
   CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  IconButton,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { backendDomain } from "../../utils"; // Assuming you have a backendDomain utility
 import { questions } from "./constants";
 import SendIcon from "@mui/icons-material/Send";
-import { IconButton } from "@mui/material";
 
 const MainContainer = styled.div`
   height: 100%;
@@ -198,6 +203,7 @@ const LearningTasks = () => {
   );
   const [thought, setThought] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false); // Modal state
   const navigate = useNavigate();
   const chatContainerRef = useRef(null);
 
@@ -289,7 +295,8 @@ const LearningTasks = () => {
             "I'm proud of you for looking at your thought from an alternative perspective!"
           )
         ) {
-          setIntervening(false);
+          setShowModal(true);
+          // setIntervening(false);
         }
       } else {
         setConversations([
@@ -323,15 +330,6 @@ const LearningTasks = () => {
         ...interventionConversations,
         { text: data.response, isUser: false },
       ]);
-
-      // Check for the specific sentence in the API response
-      if (
-        data.response.includes(
-          "I'm proud of you for looking at your thought from an alternative perspective!"
-        )
-      ) {
-        setIntervening(false);
-      }
     } catch (error) {
       console.error("Error fetching last five conversations response:", error);
     } finally {
@@ -348,6 +346,15 @@ const LearningTasks = () => {
       }, 0);
     }
   }, [conversations, interventionConversations]);
+
+  const handleModalClose = (action) => {
+    if (action === "quit") {
+      navigate("/project/relief/debrief"); // Route to the debrief page
+    } else if (action === "continue") {
+      setShowModal(false);
+      setIntervening(false);
+    }
+  };
 
   return (
     <MainContainer>
@@ -506,6 +513,33 @@ const LearningTasks = () => {
           )}
         </ChatSection>
       </LayoutContainer>
+
+      <Dialog
+        open={showModal}
+        onClose={() => handleModalClose("continue")}
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+      >
+        <DialogTitle id="modal-title">What would you like to do?</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="modal-description">
+            You've reflected on your thought. Would you like to continue or
+            quit?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => handleModalClose("continue")} color="primary">
+            Continue
+          </Button>
+          <Button
+            onClick={() => handleModalClose("quit")}
+            color="error"
+            autoFocus
+          >
+            Quit
+          </Button>
+        </DialogActions>
+      </Dialog>
     </MainContainer>
   );
 };
