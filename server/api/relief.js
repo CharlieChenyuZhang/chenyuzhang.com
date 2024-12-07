@@ -190,7 +190,7 @@ router.post("/reframe", async (req, res) => {
       })),
     ];
 
-    const sentimentResponse = await axios.post(
+    const reliefReframingResponse = await axios.post(
       "https://api.openai.com/v1/chat/completions",
       {
         model: "gpt-4",
@@ -204,7 +204,8 @@ router.post("/reframe", async (req, res) => {
       }
     );
 
-    const response = sentimentResponse.data.choices[0].message.content.trim();
+    const response =
+      reliefReframingResponse.data.choices[0].message.content.trim();
 
     res.send({
       response: response,
