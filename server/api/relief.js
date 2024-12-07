@@ -59,7 +59,7 @@ router.post("/tutor", async (req, res) => {
     // Retrieve existing conversations from DynamoDB
     const getParams = {
       TableName: "mas630-relief",
-      Key: { userId, event: "TUTOR_CONVERSATION" },
+      Key: { userId, event: "TRACK_TUTOR_CONVERSATION" },
     };
 
     const existingData = await dynamoDb.get(getParams).promise();
@@ -88,7 +88,7 @@ router.post("/tutor", async (req, res) => {
       TableName: "mas630-relief",
       Item: {
         userId,
-        event: "TUTOR_CONVERSATION",
+        event: "TRACK_TUTOR_CONVERSATION",
         conversations: updatedConversations,
         aiResponse: response,
       },
@@ -210,7 +210,7 @@ router.post("/reframe", async (req, res) => {
     // Retrieve existing conversations from DynamoDB
     const getParams = {
       TableName: "mas630-relief",
-      Key: { userId, event: "REFRAMING_CONVERSATION" },
+      Key: { userId, event: "TRACK_REFRAMING_CONVERSATION" },
     };
 
     const existingData = await dynamoDb.get(getParams).promise();
@@ -239,7 +239,7 @@ router.post("/reframe", async (req, res) => {
       TableName: "mas630-relief",
       Item: {
         userId,
-        event: "REFRAMING_CONVERSATION",
+        event: "TRACK_REFRAMING_CONVERSATION",
         conversations: updatedConversations,
         aiResponse: response,
       },
@@ -277,7 +277,7 @@ router.post("/register", async (req, res) => {
     TableName: "mas630-relief", // Replace with your DynamoDB table name
     Item: {
       userId,
-      event: "FIRST_REGISTRATION",
+      event: "TRACK_FIRST_REGISTRATION",
       mbtiType,
       email,
       ethnicity,
@@ -310,7 +310,7 @@ router.post("/log-learning-task", async (req, res) => {
     TableName: "mas630-relief",
     Item: {
       userId,
-      event: "LEARNING_VIDEO",
+      event: "TRACK_LEARNING_VIDEO",
       task_start_time,
       task_end_time,
     },
@@ -342,7 +342,7 @@ router.post("/track/post-reframing-action", async (req, res) => {
     Item: {
       userId,
       timestamp: new Date().toISOString(),
-      event: "POST_REFRAMING_SELECTION",
+      event: "TRACK_POST_REFRAMING_SELECTION",
       action,
     },
   };
@@ -394,7 +394,44 @@ router.post("/track/frustration-level", async (req, res) => {
 });
 
 router.post("/track/question-answer", async (req, res) => {
+  const { userId, question, answer, isCorrect } = req.body;
+
   // FIXME: TBD
+  if (!userId || !question || !answer || !isCorrect) {
+    return res.status(400).send({ error: "Missing required fields" });
+  }
+
+  // Retrieve existing conversations from DynamoDB
+  const getParams = {
+    TableName: "mas630-relief",
+    Key: { userId, event: "TRACK_QUESTION_ANSWER" },
+  };
+
+  const existingData = await dynamoDb.get(getParams).promise();
+
+  const updatedData = [
+    ...(existingData?.Item?.levels || []),
+    ...[
+      {
+        timestamp: new Date().toISOString(),
+        level,
+      },
+    ],
+  ];
+
+  // Update the conversation and response in DynamoDB
+  const putParams = {
+    TableName: "mas630-relief",
+    Item: {
+      userId,
+      event: "FRUSTRATION_LEVEL_SELECTION",
+      levels: updatedData,
+    },
+  };
+
+  await dynamoDb.put(putParams).promise();
+
+  res.send({});
 });
 
 module.exports = router;
