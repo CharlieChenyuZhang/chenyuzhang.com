@@ -15,7 +15,7 @@ AWS.config.update({
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 router.post("/tutor", async (req, res) => {
-  const { conversations } = req.body;
+  const { conversations, userId } = req.body;
 
   if (!Array.isArray(conversations)) {
     return res
@@ -26,7 +26,7 @@ router.post("/tutor", async (req, res) => {
   const lastFiveConversations = conversations.slice(-5);
 
   try {
-    const sentimentResponse = await axios.post(
+    const reliefTutorResponse = await axios.post(
       "https://api.openai.com/v1/chat/completions",
       {
         model: "gpt-4",
@@ -54,17 +54,57 @@ router.post("/tutor", async (req, res) => {
       }
     );
 
-    const response = sentimentResponse.data.choices[0].message.content.trim();
+    const response = reliefTutorResponse.data.choices[0].message.content.trim();
+
+    // Retrieve existing conversations from DynamoDB
+    const getParams = {
+      TableName: "mas630-relief",
+      Key: { userId, event: "TUTOR_CONVERSATION" },
+    };
+
+    const existingData = await dynamoDb.get(getParams).promise();
+
+    const lastConversation = conversations.slice(-1)[0];
+    const newConversations = [
+      {
+        timestamp: new Date().toISOString(),
+        isUser: lastConversation?.isUser,
+        text: lastConversation?.text ?? "",
+      },
+      {
+        timestamp: new Date().toISOString(),
+        isUser: false,
+        text: response,
+      },
+    ];
+
+    const updatedConversations = [
+      ...(existingData?.Item?.conversations || []),
+      ...newConversations,
+    ];
+
+    // Update the conversation and response in DynamoDB
+    const putParams = {
+      TableName: "mas630-relief",
+      Item: {
+        userId,
+        event: "TUTOR_CONVERSATION",
+        conversations: updatedConversations,
+        aiResponse: response,
+      },
+    };
+
+    await dynamoDb.put(putParams).promise();
 
     res.send({
       response: response,
     });
   } catch (error) {
     console.error(
-      "Error performing sentiment analysis: ",
+      "Error with Relief Tutor: ",
       error.response?.data || error.message
     );
-    res.status(500).send({ error: "Error performing sentiment analysis" });
+    res.status(500).send({ error: "Error with Relief Tutor" });
   }
 });
 
@@ -193,7 +233,7 @@ router.post("/register", async (req, res) => {
   } = req.body;
 
   const params = {
-    TableName: "Mas630Relief", // Replace with your DynamoDB table name
+    TableName: "mas630-relief", // Replace with your DynamoDB table name
     Item: {
       userId,
       event: "FIRST_REGISTRATION",
@@ -226,7 +266,7 @@ router.post("/log-learning-task", async (req, res) => {
   }
 
   const params = {
-    TableName: "Mas630Relief",
+    TableName: "mas630-relief",
     Item: {
       userId,
       event: "LEARNING_VIDEO",

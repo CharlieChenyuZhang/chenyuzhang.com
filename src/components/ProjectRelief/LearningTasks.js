@@ -288,7 +288,11 @@ const LearningTasks = () => {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ conversations: lastFiveMessages }),
+          body: JSON.stringify({
+            conversations: lastFiveMessages,
+            userId:
+              sessionStorage.getItem("mas630ResearchUserId") || "unknownUser",
+          }),
         }
       );
       const data = await response.json();
