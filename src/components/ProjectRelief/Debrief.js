@@ -147,9 +147,7 @@ const Debrief = () => {
         }),
       });
 
-      // TODO: for testing purpose
-      if (true || response.ok) {
-        setConfirmationMessage(`
+      setConfirmationMessage(`
           This is the end of the study.
 
           We would like to take this opportunity to explain the purpose of the study and what was happening throughout the tasks.
@@ -172,7 +170,6 @@ const Debrief = () => {
           
           You can close the browser now.
         `);
-      }
     } catch (error) {
       console.error("Error submitting form:", error);
     } finally {
