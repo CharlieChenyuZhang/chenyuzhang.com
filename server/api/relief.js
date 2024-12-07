@@ -394,10 +394,15 @@ router.post("/track/frustration-level", async (req, res) => {
 });
 
 router.post("/track/question-answer", async (req, res) => {
-  const { userId, question, answer, isCorrect } = req.body;
+  const { userId, questionIndex, userAnswer, isCorrect } = req.body;
 
-  // FIXME: TBD
-  if (!userId || !question || !answer || !isCorrect) {
+  // String() otherwise index 0 would be treated as falsy
+  if (
+    !userId ||
+    !String(questionIndex) ||
+    !String(userAnswer) ||
+    !String(isCorrect)
+  ) {
     return res.status(400).send({ error: "Missing required fields" });
   }
 
@@ -410,11 +415,13 @@ router.post("/track/question-answer", async (req, res) => {
   const existingData = await dynamoDb.get(getParams).promise();
 
   const updatedData = [
-    ...(existingData?.Item?.levels || []),
+    ...(existingData?.Item?.QA || []),
     ...[
       {
         timestamp: new Date().toISOString(),
-        level,
+        questionIndex,
+        userAnswer,
+        isCorrect,
       },
     ],
   ];
@@ -424,8 +431,8 @@ router.post("/track/question-answer", async (req, res) => {
     TableName: "mas630-relief",
     Item: {
       userId,
-      event: "FRUSTRATION_LEVEL_SELECTION",
-      levels: updatedData,
+      event: "TRACK_QUESTION_ANSWER",
+      QA: updatedData,
     },
   };
 
