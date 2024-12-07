@@ -242,6 +242,19 @@ const LearningTasks = () => {
 
   const handleAnswerSubmit = () => {
     const correctAnswer = questions[currentQuestionIndex].answer;
+
+    // track the Q&A in database first
+    fetch(`${backendDomain()}/relief/track/question-answer`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userAnswer,
+        questionIndex: currentQuestionIndex,
+        isCorrect: userAnswer.trim().toLowerCase() === correctAnswer,
+        userId: sessionStorage.getItem("mas630ResearchUserId") || "unknownUser",
+      }),
+    });
+
     if (userAnswer.trim().toLowerCase() === correctAnswer) {
       if (solvedCount + 1 === questions.length) {
         navigate("/project/relief/debrief");
@@ -341,7 +354,6 @@ const LearningTasks = () => {
         }),
       });
 
-      // FIXME: tracking
       fetch(`${backendDomain()}/relief/track/frustration-level`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
