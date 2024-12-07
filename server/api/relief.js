@@ -441,4 +441,31 @@ router.post("/track/question-answer", async (req, res) => {
   res.send({});
 });
 
+router.post("/track/debrief", async (req, res) => {
+  const { userId, tutor, intervention } = req.body;
+
+  if (!tutor || !intervention || !userId) {
+    return res.status(400).send({ error: "Missing required fields" });
+  }
+
+  const params = {
+    TableName: "mas630-relief",
+    Item: {
+      userId: userId,
+      event: "TRACK_DEBRIEF",
+      timestamp: new Date().toISOString(),
+      tutor,
+      intervention,
+    },
+  };
+
+  try {
+    await dynamoDb.put(params).promise();
+    res.status(200).send({ message: "Debrief data tracked successfully" });
+  } catch (error) {
+    console.error("Error storing debrief data in DynamoDB:", error);
+    res.status(500).send({ error: "Error storing debrief data" });
+  }
+});
+
 module.exports = router;

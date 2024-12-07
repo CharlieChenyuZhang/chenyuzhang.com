@@ -135,13 +135,18 @@ const Debrief = () => {
     };
 
     try {
-      const response = await fetch(`${backendDomain()}/storeResponses`, {
+      const response = await fetch(`${backendDomain()}/relief/track/debrief`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          userId:
+            sessionStorage.getItem("mas630ResearchUserId") || "unknownUser",
+        }),
       });
+
       // TODO: for testing purpose
       if (true || response.ok) {
         setConfirmationMessage(`
