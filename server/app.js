@@ -506,7 +506,7 @@ app.post("/relief/reframe", async (req, res) => {
   Then, lead them through a conversation to explore their thoughts underlying that emotion, identify their negative thinking patterns, help them find evidence that negates or supports their thought, and guide them towards a more positive perspective by reframing their thoughts.
   Make sure your responses are empathetic and genuine throughout the interaction with the user, do not be too blunt.
   Advance the conversation slowly and do not give empty responses. The students have no prior knowledge of Cognitive Reframing.
-  After you guide the user through reframing their thought, if the student is not satisfied or confused, you must keep trying. Only when you receive confirmation that the student think the reframing is helpful, clearly indicate that the reframing is complete by using this exact phrase 'I'm proud of you for looking at your thought from an alternative perspective!'.`;
+  After you guide the user through reframing their thought, if the student is not satisfied or confused, you must keep trying. Only when you receive confirmation that the student think the reframing is helpful, use this exact phrase 'I'm proud of you for looking at your thought from an alternative perspective!'.`;
 
   const initial_prompt = `The negative thinking patterns are defined as:
                     "Catastrophizing": giving greater weight to the worst possible outcome.
