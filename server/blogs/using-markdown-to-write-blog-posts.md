@@ -4,7 +4,7 @@ subtitle: How I Developed a Self-Hosted Markdown-Based Blog Using AWS Amplify fo
 published: true
 id: 0
 author: Chenyu Zhang
-date: November 2, 2024
+date: January 17, 2024
 keywords:
   - Others
   - English
