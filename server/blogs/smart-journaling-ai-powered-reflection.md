@@ -5,12 +5,15 @@ published: true
 id: 1
 author: Chenyu Zhang
 date: November 11, 2024
-tags:
+keywords:
   - adult learning
   - AI
   - journaling
   - lifelong learning
   - self-directed learning
+chips:
+  - Engineering
+  - Ongoing
 ---
 
 ## Motivation

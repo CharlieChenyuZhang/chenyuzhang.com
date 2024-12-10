@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import Home from "./components/Home";
-import Blog from "./components/Blog";
+import ProjectLandingPage from "./components/ProjectLandingPage";
 import Music from "./components/Music";
 import ProjectSmartV1 from "./components/ProjectSmart/ProjectSmartV1";
 import ProjectSmartV2 from "./components/ProjectSmart/ProjectSmartV2";
@@ -50,7 +50,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route
           exact
           path="/project"
-          element={elementConstructor(<Blog />, true)}
+          element={elementConstructor(<ProjectLandingPage />, true)}
         />
         <Route
           exact
