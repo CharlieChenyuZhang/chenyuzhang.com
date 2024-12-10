@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { backendDomain } from "../utils";
 // import universe from "../images/universe.gif";
 import universe from "../images/project-giphy.gif";
+import Chip from "@mui/material/Chip";
 
 const MainContainer = styled.div`
   height: 100%;
@@ -52,7 +53,7 @@ const CustomCardActions = styled(CardActions)`
   color: white;
 `;
 
-const Blog = () => {
+const ProjectLandingPage = () => {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
 
@@ -125,6 +126,23 @@ const Blog = () => {
                   }}
                 >
                   <CustomCardContent onClick={() => readMoreHandler(post)}>
+                    {post.data.chips && post.data.chips.length > 0 && (
+                      <div>
+                        {post.data.chips.map((chip, index) => (
+                          <Chip
+                            key={index}
+                            label={chip}
+                            sx={{
+                              marginBottom: "0.5rem",
+                              marginRight: "0.5rem",
+                              border: "1px solid white",
+                              color: "white",
+                            }}
+                            variant="outlined"
+                          />
+                        ))}
+                      </div>
+                    )}
                     <Typography variant="h5" component="div">
                       {post.data.title}
                     </Typography>
@@ -146,4 +164,4 @@ const Blog = () => {
   );
 };
 
-export default Blog;
+export default ProjectLandingPage;
