@@ -58,6 +58,7 @@ Interpret the results. Discuss their implications, significance, and how they fi
 
 ## Limitations
 
+(NOTE -- this is super important)
 Be transparent about the current approach’s shortcomings. Under what conditions does it fail or become less effective?
 
 ## Future Vision
