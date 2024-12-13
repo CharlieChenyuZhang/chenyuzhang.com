@@ -152,7 +152,7 @@ const Debrief = () => {
 
           We would like to take this opportunity to explain the purpose of the study and what was happening throughout the tasks.
 
-          The main goal of this research was to understand how people respond emotionally and behaviorally when faced with a challenging learning experience, particularly during moments of frustration. To achieve this, we intentionally designed a difficult programming task to observe your reactions and how you managed feelings of challenge or frustration.
+          The main goal of this research was to understand how people respond emotionally and behaviorally when faced with a challenging learning experience, particularly during moments of frustration. To achieve this, we intentionally designed a "impossible" programming task to observe your reactions and how you managed feelings of challenge or frustration.
 
           During the study, we collected data in several ways, including your performance on the task, facial expressions, and any verbal responses (if applicable). This data helps us better understand the emotional and behavioral patterns that occur when learners encounter difficult situations. Additionally, we explored how AI-driven interventions could potentially help improve persistence.
 
