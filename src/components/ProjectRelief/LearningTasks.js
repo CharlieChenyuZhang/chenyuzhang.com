@@ -266,15 +266,17 @@ const LearningTasks = () => {
       setIncorrectAttempts(0); // Reset incorrect attempts
     } else {
       setIncorrectAttempts(incorrectAttempts + 1);
-      if (incorrectAttempts + 1 >= 3) {
-        setIncorrectCount(incorrectCount + 1);
-        setCurrentQuestionIndex(currentQuestionIndex + 1);
-        setUserAnswer("");
-        setErrorMessage("");
-        setIncorrectAttempts(0); // Reset incorrect attempts
-      } else {
-        setErrorMessage("Incorrect answer. Please try again.");
-      }
+      // we've decided to allow the users keep trying
+      // if (incorrectAttempts + 1 >= 3) {
+      //   setIncorrectCount(incorrectCount + 1);
+      //   setCurrentQuestionIndex(currentQuestionIndex + 1);
+      //   setUserAnswer("");
+      //   setErrorMessage("");
+      //   setIncorrectAttempts(0); // Reset incorrect attempts
+      // } else {
+      //   setErrorMessage("Incorrect answer. Please try again.");
+      // }
+      setErrorMessage("Incorrect answer. Please try again.");
     }
   };
 
@@ -414,13 +416,14 @@ const LearningTasks = () => {
             Time Left: {formatTime(timeLeft)}
           </Typography>
           <Typography variant="h3" fontWeight="bold">
-            You solved <span style={{ color: "green" }}>{solvedCount}</span>{" "}
-            question(s).
+            You solved <span style={{ color: "green" }}>{solvedCount}</span> /{" "}
+            100 question(s).
+            {/* this 100 questions is used to increase the anxiety of participants */}
           </Typography>
-          <Typography variant="h3" fontWeight="bold">
+          {/* <Typography variant="h3" fontWeight="bold">
             You answered <span style={{ color: "red" }}>{incorrectCount}</span>{" "}
             question(s) incorrectly.
-          </Typography>
+          </Typography> */}
         </Box>
       )}
 
@@ -460,7 +463,6 @@ const LearningTasks = () => {
             <Typography variant="body2" sx={{ marginTop: "20px" }}>
               Tips:
               <ul>
-                <li>You have 3 attempts per question.</li>
                 <li>
                   Please write your answer in terms of <strong>n</strong>.
                 </li>
@@ -483,14 +485,7 @@ const LearningTasks = () => {
             {intervening ? (
               "Please keep talking to the chatbot till the color turns back to normal."
             ) : (
-              <span>
-                Chat Bot here to explain unfamiliar concepts only.
-                <div>
-                  Warning: Please do not copy and paste the questions to obtain
-                  solutions, as this may disqualify you from winning the $100
-                  prizes.
-                </div>
-              </span>
+              <span>Chat Bot here to explain unfamiliar concepts only.</span>
             )}
           </Typography>
           <div
@@ -547,7 +542,7 @@ const LearningTasks = () => {
           {!intervening && (
             <>
               <Box mt={2} width="100%">
-                try me:
+                click me only when:
               </Box>
 
               <Box mt={1} width="100%">
@@ -586,22 +581,16 @@ const LearningTasks = () => {
         aria-describedby="modal-description"
       >
         <DialogTitle id="modal-title">What would you like to do?</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="modal-description">
-            You've reflected on your thought. Would you like to continue or
-            quit?
-          </DialogContentText>
-        </DialogContent>
         <DialogActions>
           <Button onClick={() => handleModalClose("continue")} color="primary">
-            Continue
+            Continue Answering Questions!
           </Button>
           <Button
             onClick={() => handleModalClose("quit")}
             color="error"
             autoFocus
           >
-            Quit
+            Exit the Study
           </Button>
         </DialogActions>
       </Dialog>

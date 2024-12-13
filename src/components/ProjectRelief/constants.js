@@ -1,4 +1,5 @@
-const questions = [
+// used before dec 13, 2024
+const questions_v1 = [
   {
     question: "Constant Time Access",
     code: `def get_first_element(arr):\n    return arr[0]`,
@@ -317,6 +318,37 @@ def merge(left, right):
     return result
     `,
     answer: "nlogn",
+  },
+];
+
+const questions = [
+  {
+    code: `def get_first_element(arr):\n    return arr[0]`,
+    answer: "1",
+  },
+  {
+    code: `def print_all_elements(arr):\n    for element in arr:\n        print(element)`,
+    answer: "n",
+  },
+  {
+    code: `
+def cryptic_process():
+    def hidden_logic(depth, variance):
+        if depth == 0:
+            return random.randint(1, 10)
+
+        outcome = 0
+        for offset in random.sample(range(variance), 3): 
+            outcome += hidden_logic(depth - 1, variance - offset)
+        return outcome
+
+    stages = 10 
+    spread = 30
+
+    return hidden_logic(stages, spread)
+    `,
+    // answer: "3^n",
+    answer: "impossible_task",
   },
 ];
 
