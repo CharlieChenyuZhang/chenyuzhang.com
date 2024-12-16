@@ -27,7 +27,10 @@ app.get("/", (req, res) => {
 // import all the other API endpoints
 const reliefRoutes = require("./api/relief");
 
-// business logic goes after this line
+// so that backend can serve images
+app.use("/server/images", express.static("./images"));
+
+//////////////////// business logic goes after this line ////////////////////////////////////
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
 app.use("/relief", reliefRoutes);

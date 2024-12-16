@@ -68,7 +68,7 @@ const ProjectLandingPage = () => {
           slug,
           ...post,
         }));
-
+        // sort by ID
         postsArray.sort((a, b) => {
           return b.data.id - a.data.id;
         });
@@ -126,7 +126,7 @@ const ProjectLandingPage = () => {
                   }}
                 >
                   <CustomCardContent onClick={() => readMoreHandler(post)}>
-                    {post.data.chips && post.data.chips.length > 0 && (
+                    {post?.data?.chips && post?.data?.chips?.length > 0 && (
                       <div>
                         {post.data.chips.map((chip, index) => (
                           <Chip

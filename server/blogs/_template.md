@@ -10,6 +10,8 @@ keywords:
   - English
 chips:
   - Research
+  - Affective Computing
+  - Ongoing / Completed
 ---
 
 ### Authors:
@@ -75,7 +77,9 @@ List the scholarly papers, articles, or documentation cited in the blog.
 
 ## Contact Information
 
-Provide a way for readers to get in touch with you or your team.
+For further details, please reach out to: **Chenyu Zhang** using the following email.
+
+contact [at] chenyuzhang [dot] com
 
 ---
 
