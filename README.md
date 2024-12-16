@@ -8,6 +8,10 @@ chenyuzhang.com landing page
 
 `npm run dev` this will run both the frontend and backend
 
+# google analytics
+
+log in to the google analytics account (contact@chenyuzhang.com) to view the stats.
+
 # architecture
 
 frontend - React deployed to AWS Amplify
