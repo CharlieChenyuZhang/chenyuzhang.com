@@ -355,7 +355,6 @@ router.post("/track/post-reframing-action", async (req, res) => {
 router.post("/track/frustration-level", async (req, res) => {
   const { userId, level } = req.body;
 
-  // FIXME: TBD
   if (!userId || !level) {
     return res.status(400).send({ error: "Missing required fields" });
   }
