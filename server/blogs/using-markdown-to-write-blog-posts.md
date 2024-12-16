@@ -13,6 +13,8 @@ chips:
   - Completed
 ---
 
+<img src="./images/ai-generated-8355516_1280.webp" alt="Girl in a jacket" width="500" height="600">
+
 ## Motivation
 
 There are many blogging platforms available, generally falling into two categories:
@@ -29,6 +31,28 @@ This is why I spent time over the weekend devising my own blogging solution. I l
 ## What is Markdown?
 
 Markdown is a lightweight markup language with a plain text formatting syntax, designed to be converted to HTML and other formats using simple tools. Created by John Gruber and Aaron Swartz, Markdown's goal was to enable people to write in an easy-to-read, easy-to-write plain text format, and then convert it to structurally valid HTML.
+
+## Challenges and Solutions
+
+Challenge 1: how do i serve my own images if I am using
+
+- Solution 1: Upload all the images / videos to AWS S3 bucket and serve the images there. But S3 bucket comes with an additional cost.
+  - pros: S3 is easy to use and assets are sharable.
+  - cons: S3 costs additional money and need to open a new browser window to upload these assets.
+- Solution 2: Create a /images folder and serve the images in the backend. One approach is to use `iframe` like this
+  ```
+  <iframe src="/server/images/file_name.pdf" width="100%" height="600px">
+    This browser does not support PDFs. Please download the PDF to view it:
+    <a href="/server/images/file_name.pdf">Download PDF</a>
+  </iframe>
+  ```
+  However, it turns out markdown cannot use relative path even I've added the following line in the server code.
+  ```
+  app.use("/server/images", express.static("./images"));
+  ```
+  - pro: everything is managed in the same backend repo.
+  - cons: could slow down the deployment time when we add more assets with big files.
+- Conclusion: Solution 1
 
 ## Next Step
 

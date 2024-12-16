@@ -85,6 +85,7 @@ const SinglePost = () => {
 
     return <img {...props} style={style} />;
   };
+  console.log("post", post);
 
   return (
     <MainContainer>

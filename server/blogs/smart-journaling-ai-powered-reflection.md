@@ -14,6 +14,8 @@ keywords:
 chips:
   - Engineering
   - Ongoing
+image:
+  - server/images/ai-generated-8355516_1280.webp
 ---
 
 ## Motivation
@@ -24,6 +26,12 @@ chips:
 As Prof. Karen Brennan famously said, “There’s no learning without reflection.” After working five years in the tech industry and as a lifelong learner, I often felt I hadn’t done enough reflection on the things I’d learned. This lack of reflection hindered both my career growth and my personal learning journey. SMART Journaling was born out of a desire to address this issue.
 
 This AI-powered journaling app incorporates features designed to make self-directed learning less painful, help learners get unstuck, and empower them to reflect meaningfully.
+
+## Research Questions (RQs)
+
+RQ1: TBD
+
+RQ2: TBD
 
 ## Prototype Demo
 
@@ -65,14 +73,22 @@ I believe everyone has something to teach, and SMART Journaling could play a rol
 
 ---
 
-## Acknowledgments
+## Contributions & Acknowledgments
+
+I wrote all the code in this project by myself but I would like to thank everyone who contributed to this project.
 
 SMART Journaling is an individual project that I developed and coded entirely on my own as part of the Program Core Experience (PCE) course in the Learning Design, Innovation, and Technology (LDIT) program at the Harvard Graduate School of Education. I am deeply grateful to Prof. Karen Brennan for her inspiring insights into reflection and learning, which shaped the foundation of this work. I also extend special thanks to Karishma Chadha, the Teaching Fellow for the course, whose thoughtful guidance and feedback were instrumental in refining this project. Your support has been invaluable in bringing this vision to life.
 
 I would also like to express my heartfelt gratitude to Tom Thorsheim, PhD, for brainstorming ideas with me, and to Amy Yuan for providing thoughtful feedback that helped me enhance this project. Your contributions have been instrumental in shaping SMART Journaling.
 
+TODO: acknowledment AI Venture class.
+
+TODO: acknowledgement Professor Paul Liang from the MIT Media Lab for your genunious times.
+
+TODO: acknowledgement Tom for brainstorming
+
 ## Contact Information
 
-For further details about SMART Journaling or to discuss collaboration opportunities, please reach out to: **Chenyu Zhang** using the following email.
+For further details, please reach out to: **Chenyu Zhang** using the following email.
 
 contact [at] chenyuzhang [dot] com
