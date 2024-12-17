@@ -8,6 +8,7 @@ keywords:
   - Others
   - English
 date: December 15, 2024
+thumbnail: https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/project-grade/Screenshot+2024-12-17+at+1.59.58%E2%80%AFPM.png
 chips:
   - Research
   - Education
