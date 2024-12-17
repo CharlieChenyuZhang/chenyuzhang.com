@@ -2,9 +2,9 @@
 title: Building My Own Blogging Platform - A Cost-Free Solution for Content Ownership and Control
 subtitle: How I Developed a Self-Hosted Markdown-Based Blog Using AWS Amplify for Seamless Deployment
 published: true
-id: 0
+id: -1
 author: Chenyu Zhang
-date: January 17, 2024
+date: September 1, 2015
 keywords:
   - Others
   - English
