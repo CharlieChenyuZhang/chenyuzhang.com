@@ -23,7 +23,7 @@ This browser does not support PDFs. Please download the PDF to view it:
 
 ## Contributions
 
-Throughout this process, I took on several responsibilities, both technical and administrative:
+I took on several responsibilities, both technical and administrative:
 
 - **Human Subjects Review (COUHES/IRB) Lead:**
 
@@ -56,7 +56,7 @@ Throughout this process, I took on several responsibilities, both technical and 
 
 ## Acknowledgements
 
-This project was developed as part of the course MAS.630: Advanced Seminar on Affective Computing and Ethics at the MIT Media Lab. We are deeply grateful to Professor Rosalind Picard for her invaluable guidance, thought-provoking discussions, and support throughout the course. Her expertise in affective computing has been an inspiration to this work. We would also like to extend our heartfelt thanks to the teaching assistants, Xiajie Zhang, Jocelyn Scheirer, and Manuel Cherep, for their insightful feedback, thoughtful critiques, and dedicated assistance during the study. Their contributions greatly enriched our understanding and helped refine this research. Lastly, we thank Marcella Framondi for her administrative support and for ensuring a smooth learning experience.
+This project was developed as part of the course MAS.630: Advanced Seminar on Affective Computing and Ethics at the MIT Media Lab. I am especially grateful to our teammates, Yilin Qi and Anku Rani, for their exceptional collaboration and contributions throughout this project. We are deeply grateful to Professor Rosalind Picard for her invaluable guidance, thought-provoking discussions, and support throughout the course. Her expertise in affective computing has been an inspiration to this work. We would also like to extend our heartfelt thanks to the teaching assistants, Xiajie Zhang, Jocelyn Scheirer, and Manuel Cherep, for their insightful feedback, thoughtful critiques, and dedicated assistance during the study. Their contributions greatly enriched our understanding and helped refine this research. Lastly, we thank Marcella Framondi for her administrative support and for ensuring a smooth learning experience.
 
 ## Contact Information
 
