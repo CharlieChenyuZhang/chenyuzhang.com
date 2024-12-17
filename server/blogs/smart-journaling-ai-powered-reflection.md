@@ -4,7 +4,7 @@ subtitle: How Self-Reflection and Emotional Awareness Pave the Way for Lifelong 
 published: true
 id: 2
 author: Chenyu Zhang
-date: November 11, 2024
+date: December 15, 2024
 keywords:
   - adult learning
   - AI
