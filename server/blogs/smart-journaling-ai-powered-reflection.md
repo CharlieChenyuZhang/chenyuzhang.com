@@ -59,7 +59,7 @@ Watch the prototype demo on YouTube.
 - **Holistic Learning Design.** Learning involves emotional, cognitive, and reflective processes. SMART provides a safe, growth-oriented space for users to explore these dimensions.
 - **Empathy and Ethical AI.** User safety and privacy are central to SMART’s design. Ethical AI practices ensure transparency, data security, and empathetic interactions.
 
-## Future Vision
+## Future Work
 
 > The trouble with most of these labels is that they seem to imply learning in isolation, whereas self-directed learning usually takes place in association with various kinds of helpers, such as teachers, tutors, mentors, resource people, and peers.  
 > — Knowles, M. S. (1975). _Self-directed learning: A guide for learners and teachers._

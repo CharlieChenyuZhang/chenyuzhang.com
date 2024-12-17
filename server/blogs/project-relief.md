@@ -55,6 +55,24 @@ I took on several responsibilities, both technical and administrative:
 
   Additionally, I reviewed and edited all remaining sections of the report, ensuring coherence and clarity throughout.
 
+## Future Work
+
+Looking ahead, we plan to undertake several key improvements and research directions to enhance the efficacy and applicability of our intervention system:
+
+1. **Enhanced Intervention Chatbot with Flexibility & Graceful Exits:**  
+   Integrating flexible pathways and smooth off-ramps into our chatbot’s design will allow participants greater agency. This will help ensure a more tailored, responsive, and ultimately more comfortable intervention experience.
+
+2. **Advanced Multilingual Emotion Detection Systems:**  
+   Building on insights from our speech and video data analysis, future research will focus on developing sophisticated, multilingual speech emotion detection systems. These systems should be capable of processing diverse language patterns and intonation styles that emerge across global e-learning environments.
+
+3. **Investigating Mouth-Covering and Concentration Behaviors:**  
+   The unexpected but recurring observation of mouth-covering behavior during periods of intense focus warrants deeper investigation. Understanding the psychological underpinnings of these subtle nonverbal cues may yield new approaches to supporting learners in challenging tasks.
+
+4. **Robust Emotion Detection with Partial Facial Occlusion:**  
+   Given the frequent occurrence of partially obscured faces during our study, future work will involve refining algorithms to accurately detect emotions under these conditions. Improved robustness in real-time emotion detection will significantly enhance our capacity to identify and respond to frustration in e-learning settings.
+
+By pursuing these avenues, we will create a more effective, empathetic, and inclusive platform that anticipates learner frustration and delivers timely, culturally sensitive interventions to improve the overall learning experience.
+
 ## Acknowledgements
 
 This project was developed as part of the course MAS.630: Advanced Seminar on Affective Computing and Ethics at the MIT Media Lab. I am especially grateful to our teammates, Yilin Qi and Anku Rani, for their exceptional collaboration and contributions throughout this project. We are deeply grateful to Professor Rosalind Picard for her invaluable guidance, thought-provoking discussions, and support throughout the course. Her expertise in affective computing has been an inspiration to this work. We would also like to extend our heartfelt thanks to the teaching assistants, Xiajie Zhang, Jocelyn Scheirer, and Manuel Cherep, for their insightful feedback, thoughtful critiques, and dedicated assistance during the study. Their contributions greatly enriched our understanding and helped refine this research. Lastly, we thank Marcella Framondi for her administrative support and for ensuring a smooth learning experience.
