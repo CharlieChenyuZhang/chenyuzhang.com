@@ -11,8 +11,6 @@ import {
   Modal,
 } from "@mui/material";
 
-const BREAK_POINT = "1200px";
-
 const MainContainer = styled.div`
   height: 100%;
   min-height: 100vh;
