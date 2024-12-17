@@ -2,7 +2,7 @@
 title: "GRADE: GeneRative AI-Driven Evaluation"
 subtitle: Rethinking Educational Assessment in the Era of Generative AI
 published: true
-id: 2
+id: 1
 author: Chenyu Zhang
 keywords:
   - Others

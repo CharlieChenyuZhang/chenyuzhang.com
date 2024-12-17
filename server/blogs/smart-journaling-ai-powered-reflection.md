@@ -2,7 +2,7 @@
 title: "SMART Journaling: Social Mastery And Reflective Training through AI-Powered Journaling"
 subtitle: How Self-Reflection and Emotional Awareness Pave the Way for Lifelong Learning
 published: true
-id: 1
+id: 2
 author: Chenyu Zhang
 date: November 11, 2024
 keywords:
@@ -13,6 +13,8 @@ keywords:
   - self-directed learning
 chips:
   - Engineering
+  - HCI
+  - LLM
   - Ongoing
 image:
   - server/images/ai-generated-8355516_1280.webp
