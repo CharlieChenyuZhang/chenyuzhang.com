@@ -9,6 +9,7 @@ keywords:
   - Others
   - English
 chips:
+  - Hardware
   - Research
   - Affective Computing
   - LLM
