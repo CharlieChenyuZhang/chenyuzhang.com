@@ -11,6 +11,7 @@ keywords:
   - Real-Time Visualization
   - Humanoid Robots
   - Hardware Integration
+thumbnail: https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/big_solve_robotics/mkiii_0_720.jpg
 chips:
   - Hardware
   - Robotics

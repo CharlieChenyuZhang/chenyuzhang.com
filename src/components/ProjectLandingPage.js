@@ -119,13 +119,29 @@ const ProjectLandingPage = () => {
               <div key={post.slug}>
                 <Card
                   sx={{
+                    display: "flex",
+                    flexDirection: { xs: "column", sm: "row" }, // Column on small screens, row on larger
+                    justifyContent: "space-between",
+                    alignItems: "stretch",
                     minWidth: 275,
                     maxWidth: 800,
                     margin: "2rem auto",
                     border: "1px white solid",
+                    height: { sm: "300px", xs: "auto" }, // Fixed height on larger screens, auto on mobile
                   }}
                 >
-                  <CustomCardContent onClick={() => readMoreHandler(post)}>
+                  {/* Left Content */}
+                  <CustomCardContent
+                    onClick={() => readMoreHandler(post)}
+                    sx={{
+                      flex: 3,
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      overflow: "hidden",
+                      padding: { xs: "1rem", sm: "1.5rem" }, // Smaller padding on mobile
+                    }}
+                  >
                     {post?.data?.chips && post?.data?.chips?.length > 0 && (
                       <div>
                         {post.data.chips.map((chip, index) => (
@@ -143,11 +159,18 @@ const ProjectLandingPage = () => {
                         ))}
                       </div>
                     )}
-                    <Typography variant="h5" component="div">
+                    <Typography
+                      variant="h5"
+                      component="div"
+                      sx={{ fontSize: { xs: "1.2rem", sm: "1.5rem" } }}
+                    >
                       {post.data.title}
                     </Typography>
                     <br />
-                    <Typography variant="body2">
+                    <Typography
+                      variant="body2"
+                      sx={{ fontSize: { xs: "0.9rem", sm: "1rem" } }}
+                    >
                       {post.data.subtitle}
                     </Typography>
                     <br />
@@ -155,6 +178,29 @@ const ProjectLandingPage = () => {
                       Date: {post.data.date} | Author: Chenyu Zhang
                     </Typography>
                   </CustomCardContent>
+
+                  {/* Right Image */}
+                  <div
+                    style={{
+                      flex: 1,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <img
+                      src={post.data.thumbnail || universe}
+                      alt="thumbnail"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        borderTop: { xs: "1px solid white", sm: "none" }, // Add a border on mobile
+                        borderLeft: { xs: "none", sm: "1px solid white" },
+                      }}
+                    />
+                  </div>
                 </Card>
               </div>
             ))
