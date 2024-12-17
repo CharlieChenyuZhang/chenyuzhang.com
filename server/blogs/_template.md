@@ -11,6 +11,7 @@ keywords:
 chips:
   - Hardware
   - Research
+  - Education
   - Affective Computing
   - LLM
   - HCI

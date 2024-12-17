@@ -10,6 +10,7 @@ keywords:
 date: Dec 15, 2024
 chips:
   - Research
+  - Education
   - HCI
   - LLM
   - Ongoing
