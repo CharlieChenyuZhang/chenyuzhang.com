@@ -9,10 +9,8 @@ import "katex/dist/katex.min.css";
 import { backendDomain } from "../utils";
 import rehypeRaw from "rehype-raw";
 
-const BREAK_POINT = "1200px";
-
 const MainContainer = styled.div`
-  margin: 20% 10%;
+  margin: 100px 10%;
   height: 100%;
   min-height: 100vh;
 `;
