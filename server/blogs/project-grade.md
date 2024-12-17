@@ -7,7 +7,7 @@ author: Chenyu Zhang
 keywords:
   - Others
   - English
-date: Dec 15, 2024
+date: December 15, 2024
 chips:
   - Research
   - Education
