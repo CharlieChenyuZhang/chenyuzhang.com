@@ -1,5 +1,5 @@
 ---
-title: SMART Journaling - Social Mastery And Reflective Training through AI-Powered Journaling
+title: "SMART Journaling: Social Mastery And Reflective Training through AI-Powered Journaling"
 subtitle: How Self-Reflection and Emotional Awareness Pave the Way for Lifelong Learning
 published: true
 id: 1

@@ -11,6 +11,8 @@ keywords:
 chips:
   - Research
   - Affective Computing
+  - LLM
+  - HCI
   - Ongoing / Completed
 ---
 

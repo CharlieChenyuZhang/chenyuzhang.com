@@ -1,8 +1,8 @@
 ---
-title: RELIEF
-subtitle: Real-time Emotional Learning Interventions for E-learning Frustration
+title: "RELIEF: Real-time Emotional Learning Interventions for E-learning Frustration"
+subtitle: Empowering Resilient Learning Through Emotion-Aware AI Systems
 published: true
-id: 2
+id: 3
 author: Chenyu Zhang
 keywords:
   - Others
@@ -11,6 +11,7 @@ date: Dec 15, 2024
 chips:
   - Research
   - Affective Computing
+  - LLM
   - Ongoing
 ---
 
