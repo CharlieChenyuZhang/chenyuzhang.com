@@ -28,6 +28,7 @@ app.get("/", (req, res) => {
 const reliefRoutes = require("./api/relief");
 
 // so that backend can serve images
+// this can be used for FE to serve the media files, not for FE to render the media files in the .md content.
 app.use("/server/images", express.static("./images"));
 
 //////////////////// business logic goes after this line ////////////////////////////////////

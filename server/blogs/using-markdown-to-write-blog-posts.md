@@ -13,8 +13,6 @@ chips:
   - Completed
 ---
 
-<img src="./images/ai-generated-8355516_1280.webp" alt="Girl in a jacket" width="500" height="600">
-
 ## Motivation
 
 There are many blogging platforms available, generally falling into two categories:
@@ -34,25 +32,46 @@ Markdown is a lightweight markup language with a plain text formatting syntax, d
 
 ## Challenges and Solutions
 
-Challenge 1: how do i serve my own images if I am using
+### Challenge 1: How do I serve my own images when using Markdown?
 
-- Solution 1: Upload all the images / videos to AWS S3 bucket and serve the images there. But S3 bucket comes with an additional cost.
-  - pros: S3 is easy to use and assets are sharable.
-  - cons: S3 costs additional money and need to open a new browser window to upload these assets.
-- Solution 2: Create a /images folder and serve the images in the backend. One approach is to use `iframe` like this
-  ```
-  <iframe src="/server/images/file_name.pdf" width="100%" height="600px">
-    This browser does not support PDFs. Please download the PDF to view it:
-    <a href="/server/images/file_name.pdf">Download PDF</a>
-  </iframe>
-  ```
-  However, it turns out markdown cannot use relative path even I've added the following line in the server code.
-  ```
-  app.use("/server/images", express.static("./images"));
-  ```
-  - pro: everything is managed in the same backend repo.
-  - cons: could slow down the deployment time when we add more assets with big files.
-- Conclusion: Solution 1
+#### Solution 1: Use AWS S3 Bucket
+
+Upload all images and videos to an **AWS S3 bucket** and serve the assets from there.
+
+- **Pros**:
+  - S3 is easy to use and allows assets to be shared seamlessly.
+- **Cons**:
+  - S3 incurs additional costs.
+  - Uploading assets requires opening a new browser window, which can add friction to the process.
+
+#### Solution 2: Create a Local `/images` Folder and Serve via Backend
+
+Host images directly in the backend by creating an `/images` folder. One way to render assets, such as PDFs, is by using an `iframe` like this:
+
+```html
+<iframe src="/server/images/file_name.pdf" width="100%" height="600px">
+  This browser does not support PDFs. Please download the PDF to view it:
+  <a href="/server/images/file_name.pdf">Download PDF</a>
+</iframe>
+```
+
+To serve these images, you can add a static file middleware to your backend, for example:
+
+```javascript
+app.use("/server/images", express.static("./images"));
+```
+
+However, this approach has limitations: Markdown does not support relative paths for assets, even with the server configuration above.
+
+- **Pros**:
+  - Everything is managed within the same backend repository.
+- **Cons**:
+  - Large assets can increase deployment times.
+  - Managing big files locally may become cumbersome as the project scales.
+
+### Conclusion
+
+**Solution 1** (using AWS S3 bucket) is the preferred choice for serving images and other assets. While it comes with additional costs, it provides a seamless and scalable approach to asset management.
 
 ## Next Step
 

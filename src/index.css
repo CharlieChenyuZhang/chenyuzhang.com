@@ -59,3 +59,43 @@ code {
   max-width: 900px;
   width: 100%;
 }
+
+/* Code block container */
+pre {
+  background-color: #2d2d2d; /* Dark background */
+  color: #f8f8f2; /* Light text color */
+  font-family: "Courier New", Courier, monospace; /* Monospaced font */
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 16px; /* Padding around the code */
+  border-radius: 8px; /* Rounded corners */
+  overflow-x: auto; /* Horizontal scroll for long lines */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+/* Inline code styling */
+code {
+  color: #f92672; /* Pink-red for keywords */
+  background-color: transparent;
+}
+
+/* Syntax highlighting */
+pre code .tag {
+  color: #e06c75;
+} /* HTML tags */
+pre code .attr-name {
+  color: #d19a66;
+} /* Attribute names */
+pre code .attr-value {
+  color: #98c379;
+} /* Attribute values */
+pre code .comment {
+  color: #7f848e;
+  font-style: italic;
+} /* Comments */
+pre code .string {
+  color: #98c379;
+} /* Strings */
+pre code .keyword {
+  color: #c678dd;
+} /* Keywords */
