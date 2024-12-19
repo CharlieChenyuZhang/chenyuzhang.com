@@ -61,7 +61,9 @@ const SinglePost = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await fetch(`${backendDomain()}/blog/${mdFileName}`);
+        const response = await fetch(
+          `${backendDomain()}/project/${mdFileName}`
+        );
         const data = await response.json();
         // Transform the data into an array
         setPost(data);
