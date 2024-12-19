@@ -49,7 +49,7 @@ margin-top: 1.41875rem;
   font-weight: 400;
 `;
 
-const SinglePost = () => {
+const SinglePost = ({ isProject }) => {
   const mdFileName = window.location.href.split("/").pop();
 
   const [post, setPost] = useState("");
@@ -62,7 +62,7 @@ const SinglePost = () => {
     const fetchPost = async () => {
       try {
         const response = await fetch(
-          `${backendDomain()}/project/${mdFileName}`
+          `${backendDomain()}/${isProject ? "project" : "blog"}/${mdFileName}`
         );
         const data = await response.json();
         // Transform the data into an array
