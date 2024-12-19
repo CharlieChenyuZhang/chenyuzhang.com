@@ -76,6 +76,7 @@ const Dance = () => {
                   backgroundColor: "black",
                   color: "white",
                   border: "1px solid white",
+                  textAlign: "center",
                 }}
               >
                 <iframe

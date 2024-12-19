@@ -85,7 +85,15 @@ const Music = () => {
       <ContentContainer>
         <PageTitle>
           {/* <img src={music} alt="music" width="100" height="100" /> */}
-          <Paragraph>Here's a list of music I've created. Enjoy!</Paragraph>
+          <Paragraph>
+            Music has been part of my life for as long as I can remember. At
+            just 18 months old, I’d stand outside a practice room for hours,
+            totally mesmerized. By five, I was learning piano, spending summers
+            perfecting scales and arpeggios. Fast forward to 2021, I discovered
+            EDM and started experimenting with Logic Pro. I’m new to the genre,
+            but it’s been a blast creating! You can check out a few of my demos
+            below—hope you enjoy! 🎧
+          </Paragraph>
         </PageTitle>
 
         <Grid container spacing={5} justifyContent="center">
@@ -97,6 +105,7 @@ const Music = () => {
                   backgroundColor: "black",
                   color: "white",
                   border: "1px solid white",
+                  textAlign: "center",
                 }}
               >
                 <iframe

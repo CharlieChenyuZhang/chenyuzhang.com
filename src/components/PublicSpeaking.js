@@ -71,6 +71,7 @@ const PublicSpeaking = () => {
                   backgroundColor: "black",
                   color: "white",
                   border: "1px solid white",
+                  textAlign: "center",
                 }}
               >
                 <iframe
