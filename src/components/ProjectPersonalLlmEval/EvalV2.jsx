@@ -123,9 +123,7 @@ const StyledIconButton = styled(IconButton)`
   }
 `;
 
-const INTERACTION_LIMIT = 3;
-
-const EvalV1 = () => {
+const EvalV2 = () => {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState({
     GPT4o: [],
@@ -138,14 +136,12 @@ const EvalV1 = () => {
     LearnLM: false,
   });
 
-  // Refs for each model's ChatContainer
   const chatRefs = {
     GPT4o: useRef(null),
     MistralAI: useRef(null),
     LearnLM: useRef(null),
   };
 
-  // Scroll to the bottom of a specific ChatContainer when messages update
   useEffect(() => {
     Object.keys(chatRefs).forEach((model) => {
       const chatRef = chatRefs[model].current;
@@ -159,15 +155,7 @@ const EvalV1 = () => {
     if (!input.trim()) return;
 
     const userMessage = { text: input, isUser: true };
-
-    // Add the user message to each model's conversation
-    setMessages((prev) => ({
-      GPT4o: [...prev.GPT4o, userMessage],
-      MistralAI: [...prev.MistralAI, userMessage],
-      LearnLM: [...prev.LearnLM, userMessage],
-    }));
-
-    setInput(""); // Clear input field
+    setInput("");
     setLoadingStates({ GPT4o: true, MistralAI: true, LearnLM: true });
 
     const apiEndpoints = {
@@ -176,6 +164,14 @@ const EvalV1 = () => {
       LearnLM: `${backendDomain()}/personal-llm-eval/tutor`,
     };
 
+    const newMessages = {
+      GPT4o: [...messages.GPT4o, userMessage],
+      MistralAI: [...messages.MistralAI, userMessage],
+      LearnLM: [...messages.LearnLM, userMessage],
+    };
+
+    setMessages(newMessages); // Update the state asynchronously
+
     try {
       const fetchResponses = Object.keys(apiEndpoints).map(async (model) => {
         try {
@@ -183,16 +179,37 @@ const EvalV1 = () => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              conversations: [...messages[model], userMessage],
+              conversations: newMessages[model], // Use manually constructed conversation
             }),
           });
 
           const data = await response.json();
 
-          // Add the API response to the conversation, marking it as not user-generated
+          const updatedMessages = [
+            ...newMessages[model],
+            { text: data.response, isUser: false },
+          ];
+          setMessages((prev) => ({ ...prev, [model]: updatedMessages }));
+
+          // Call student persona simulation with updated conversation
+          const studentResponse = await fetch(
+            `${backendDomain()}/personal-llm-eval/student-persona-sim`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                conversations: updatedMessages, // Use updated conversation here
+              }),
+            }
+          );
+
+          const studentData = await studentResponse.json();
           setMessages((prev) => ({
             ...prev,
-            [model]: [...prev[model], { text: data.response, isUser: false }],
+            [model]: [
+              ...updatedMessages,
+              { text: studentData.response, isUser: true },
+            ],
           }));
         } catch (error) {
           console.error(`Error fetching response for ${model}:`, error);
@@ -210,18 +227,9 @@ const EvalV1 = () => {
   return (
     <MainContainer>
       <ModelsContainer>
-        {["GPT4o", "MistralAI", "LearnLM"].map((model) => (
+        {Object.keys(messages).map((model) => (
           <ModelCard key={model}>
             <Typography variant="h6">{model}</Typography>
-            <Typography style={{ color: "#0f0" }}>
-              duration: 20ms
-              <br />
-              cLatency: 400ms
-              <br />
-              # of interactions: 5
-              <br />
-              persona satisfaction: 80%
-            </Typography>
             <ChatContainer ref={chatRefs[model]}>
               {messages[model].map((msg, index) => (
                 <MessageContainer key={index} isUser={msg.isUser}>
@@ -255,4 +263,4 @@ const EvalV1 = () => {
   );
 };
 
-export default EvalV1;
+export default EvalV2;

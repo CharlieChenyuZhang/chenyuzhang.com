@@ -55,7 +55,7 @@ router.post("/tutor", async (req, res) => {
   }
 });
 
-router.post("/student-sim", async (req, res) => {
+router.post("/student-persona-sim", async (req, res) => {
   const { conversations } = req.body;
 
   if (!Array.isArray(conversations)) {
@@ -70,12 +70,13 @@ router.post("/student-sim", async (req, res) => {
     const reliefTutorResponse = await axios.post(
       "https://api.openai.com/v1/chat/completions",
       {
-        model: "gpt-3.5-turbo",
+        model: "gpt-4",
         messages: [
           {
             role: "system",
             content: `
-              Act as a student and you will ask follow up questions.
+              You will act as a student learning the concept for the first time, in the conversation, please ask follow up or clarification question like a high school student would do. 
+              Students dont' usually type in full sentences and would have grammar or speling error sometimes. Keep your answer short and concise. No need to use Punctuation
             `,
           },
           ...lastFiveConversations.map((conversation) => ({
