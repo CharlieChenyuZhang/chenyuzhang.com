@@ -21,6 +21,7 @@ import ResponsiveAppBar from "./components/ResponsiveProfileBar";
 import Footer from "./components/Footer";
 import SinglePost from "./components/SinglePost";
 import Icebreaking from "./components/ProjectSocialIntelligence/Icebreaking";
+import EvalV1 from "./components/ProjectPersonalLlmEval/EvalV1";
 import Test from "./components/Test";
 import InteractionDimensions3DV1 from "./components/ProjectSocialIntelligence/InteractionDimensions3DV1";
 import InteractionDimensions3DV2 from "./components/ProjectSocialIntelligence/InteractionDimensions3DV2";
@@ -164,7 +165,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route
           exact
           path="/project/prg/persona-llm-eval"
-          element={elementConstructor(<Icebreaking />)}
+          element={elementConstructor(<EvalV1 />)}
         />
 
         {/* TEST ROUTES */}
