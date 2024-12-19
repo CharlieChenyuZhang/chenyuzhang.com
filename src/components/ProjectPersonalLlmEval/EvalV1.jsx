@@ -141,16 +141,17 @@ const EvalV1 = () => {
   const handleSend = async () => {
     if (!input.trim()) return;
 
+    // User's message
     const userMessage = { text: input, isUser: true };
 
-    // Update state with user message for all models
+    // Add the user message to each model's conversation
     setMessages((prev) => ({
       GPT4o: [...prev.GPT4o, userMessage],
       MistralAI: [...prev.MistralAI, userMessage],
       LearnLM: [...prev.LearnLM, userMessage],
     }));
 
-    setInput("");
+    setInput(""); // Clear input field
     setLoadingStates({ GPT4o: true, MistralAI: true, LearnLM: true });
 
     const apiEndpoints = {
@@ -159,62 +160,36 @@ const EvalV1 = () => {
       LearnLM: `${backendDomain()}/personal-llm-eval/tutor`,
     };
 
-    const conversationLoop = async (
-      iteration = 1,
-      initialMessages = { ...messages }
-    ) => {
-      if (iteration > INTERACTION_LIMIT) {
-        setLoadingStates({ GPT4o: false, MistralAI: false, LearnLM: false });
-        return;
-      }
-
+    try {
+      // Fetch responses for all models in parallel
       const fetchResponses = Object.keys(apiEndpoints).map(async (model) => {
         try {
           const response = await fetch(apiEndpoints[model], {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ conversations: initialMessages[model] }),
+            body: JSON.stringify({
+              conversations: [...messages[model], userMessage],
+            }),
           });
 
           const data = await response.json();
 
+          // Add the API response to the conversation, marking it as not user-generated
           setMessages((prev) => ({
             ...prev,
             [model]: [...prev[model], { text: data.response, isUser: false }],
           }));
-
-          return data.response; // Return the AI's response for the next input
         } catch (error) {
           console.error(`Error fetching response for ${model}:`, error);
-          return null; // Handle errors gracefully
+        } finally {
+          setLoadingStates((prev) => ({ ...prev, [model]: false }));
         }
       });
 
-      const responses = await Promise.all(fetchResponses);
-
-      // Use the first valid response as the next input for simplicity
-      const nextInput = responses.find((resp) => resp) || "";
-
-      // Recursively call the conversation loop if there's valid input
-      if (nextInput) {
-        // Update initialMessages for the next loop iteration
-        const updatedMessages = { ...initialMessages };
-        Object.keys(updatedMessages).forEach((model) => {
-          updatedMessages[model] = [
-            ...updatedMessages[model],
-            { text: nextInput, isUser: true },
-          ];
-        });
-        conversationLoop(iteration + 1, updatedMessages);
-      }
-    };
-
-    // Start the conversation loop with the initial messages
-    conversationLoop(1, {
-      GPT4o: [...messages.GPT4o, userMessage],
-      MistralAI: [...messages.MistralAI, userMessage],
-      LearnLM: [...messages.LearnLM, userMessage],
-    });
+      await Promise.all(fetchResponses); // Wait for all fetch requests to complete
+    } catch (error) {
+      console.error("Error during message processing:", error);
+    }
   };
 
   return (
