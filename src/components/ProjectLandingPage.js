@@ -58,7 +58,7 @@ const ProjectLandingPage = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch(`${backendDomain()}/blog/all`);
+        const response = await fetch(`${backendDomain()}/project/all`);
         const data = await response.json();
 
         // Transform the data into an array
