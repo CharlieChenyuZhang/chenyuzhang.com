@@ -56,7 +56,7 @@ const ContentContainer = styled.div`
 const PageTitle = styled.div`
   font-size: 2rem;
   font-weight: bold;
-  padding: 5rem 0;
+  padding-bottom: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -84,7 +84,7 @@ const Music = () => {
     <MainContainer>
       <ContentContainer>
         <PageTitle>
-          <img src={music} alt="music" width="100" height="100" />
+          {/* <img src={music} alt="music" width="100" height="100" /> */}
           <Paragraph>Here's a list of music I've created. Enjoy!</Paragraph>
         </PageTitle>
 
