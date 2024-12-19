@@ -87,7 +87,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           element={elementConstructor(<SinglePost isProject={false} />)}
         />
 
-        {/* BELOW IS THE PROJECT PAGES */}
+        {/* %%%%%%%%%%%%%%% BELOW IS THE PROJECT PAGES %%%%%%%%%%%%%%% */}
         <Route
           exact
           path="/project/smart/v1"
@@ -157,6 +157,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route
           exact
           path="/project/social-intelligence/icebreaking"
+          element={elementConstructor(<Icebreaking />)}
+        />
+
+        {/* MIT Personal Robots Group PoC */}
+        <Route
+          exact
+          path="/project/prg/persona-llm-eval"
           element={elementConstructor(<Icebreaking />)}
         />
 
