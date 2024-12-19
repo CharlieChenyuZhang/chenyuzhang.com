@@ -37,7 +37,7 @@ const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 app.use("/relief", reliefRoutes);
 
 app.get("/blog/all", (req, res) => {
-  const mdDirectory = path.join(__dirname, "blogs"); // Adjust the path as necessary
+  const mdDirectory = path.join(__dirname, "projects"); // Adjust the path as necessary
 
   fs.readdir(mdDirectory, (err, files) => {
     if (err) {
@@ -73,7 +73,7 @@ app.get("/blog/all", (req, res) => {
 
 app.get("/blog/:name", (req, res) => {
   const postName = req.params.name;
-  const mdDirectory = path.join(__dirname, "blogs"); // Adjust the path as necessary
+  const mdDirectory = path.join(__dirname, "projects"); // Adjust the path as necessary
   const filePath = path.join(mdDirectory, postName); // Assuming the files have '.md' extension
 
   fs.readFile(filePath, "utf8", (err, content) => {
