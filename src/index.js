@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import Home from "./components/Home";
 import ProjectLandingPage from "./components/ProjectLandingPage";
+import BlogLandingPage from "./components/BlogLandingPage";
 import Music from "./components/Music";
 import PublicSpeaking from "./components/PublicSpeaking";
 import Dance from "./components/Dance";
@@ -56,6 +57,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         />
         <Route
           exact
+          path="/blog"
+          element={elementConstructor(<BlogLandingPage />, true)}
+        />
+        <Route
+          exact
           path="/music"
           element={elementConstructor(<Music />, true)}
         />
@@ -69,15 +75,16 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           path="/dance"
           element={elementConstructor(<Dance />, true)}
         />
-        {/* <Route
-          exact
-          path="/project"
-          element={elementConstructor(<Project />, true)}
-        /> */}
         <Route
           exact
-          path="/project/:blogId"
-          element={elementConstructor(<SinglePost />)}
+          path="/project/:projectId"
+          element={elementConstructor(<SinglePost isProject={true} />)}
+        />
+
+        <Route
+          exact
+          path="/blog/:blogId"
+          element={elementConstructor(<SinglePost isProject={false} />)}
         />
 
         {/* BELOW IS THE PROJECT PAGES */}

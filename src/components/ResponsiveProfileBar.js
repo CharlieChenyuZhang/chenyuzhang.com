@@ -13,7 +13,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import profile from "../images/chenyu-profile.png";
 import styled from "styled-components";
 
-const pages = ["HOME", "PROJECT", "SPEAKING", "MUSIC", "Dance"];
+const pages = ["HOME", "PROJECT", "SPEAKING", "BLOG", "MUSIC", "Dance"];
 
 const HeaderContainer = styled.div`
   width: 100%;
