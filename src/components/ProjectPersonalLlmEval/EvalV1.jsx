@@ -123,6 +123,8 @@ const StyledIconButton = styled(IconButton)`
   }
 `;
 
+const INTERACTION_LIMIT = 3;
+
 const EvalV1 = () => {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState({
@@ -152,33 +154,49 @@ const EvalV1 = () => {
     setLoadingStates({ GPT4o: true, MistralAI: true, LearnLM: true });
 
     const apiEndpoints = {
-      // FIXME: for the PoC, call gpt4 model for now
       GPT4o: `${backendDomain()}/tutor`,
       MistralAI: `${backendDomain()}/tutor`,
       LearnLM: `${backendDomain()}/tutor`,
     };
 
-    const fetchResponses = Object.keys(apiEndpoints).map(async (model) => {
-      try {
-        const response = await fetch(apiEndpoints[model], {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ inputText: input }),
-        });
-        const data = await response.json();
-
-        setMessages((prev) => ({
-          ...prev,
-          [model]: [...prev[model], { text: data.response, isUser: false }],
-        }));
-      } catch (error) {
-        console.error(`Error fetching response for ${model}:`, error);
-      } finally {
-        setLoadingStates((prev) => ({ ...prev, [model]: false }));
+    const conversationLoop = async (currentInput, iteration = 1) => {
+      if (iteration > INTERACTION_LIMIT) {
+        setLoadingStates({ GPT4o: false, MistralAI: false, LearnLM: false });
+        return;
       }
-    });
 
-    await Promise.all(fetchResponses);
+      const fetchResponses = Object.keys(apiEndpoints).map(async (model) => {
+        try {
+          const response = await fetch(apiEndpoints[model], {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ inputText: currentInput }),
+          });
+          const data = await response.json();
+
+          setMessages((prev) => ({
+            ...prev,
+            [model]: [...prev[model], { text: data.response, isUser: false }],
+          }));
+
+          return data.response; // Return the AI's response for the next input
+        } catch (error) {
+          console.error(`Error fetching response for ${model}:`, error);
+          return currentInput; // If there's an error, keep the same input
+        }
+      });
+
+      const responses = await Promise.all(fetchResponses);
+
+      // Use the first response as the next input for simplicity
+      const nextInput = responses[0];
+
+      // Recursively call the conversation loop
+      conversationLoop(nextInput, iteration + 1);
+    };
+
+    // Start the conversation loop
+    conversationLoop(input);
   };
 
   return (
