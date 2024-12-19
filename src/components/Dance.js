@@ -38,33 +38,38 @@ const Paragraph = styled.div`
   font-family: sans-serif;
 `;
 
-const publicSpeakingCollection = [
+const danceCollection = [
   {
-    name: "Pitch at MIT AI Venture",
+    name: "Duet Dance Practice",
     description:
-      "This is the pitch where I present the idea of SPARK Journaling, an AI-powered companion designed to promote self-compassion.",
-    link: "https://www.youtube.com/embed/8uddXOx3LLU",
+      "\ud83d\udccd Location: Toronto, Canada\n \ud83d\udcc5 Date: December 2021",
+    link: "https://www.youtube.com/embed/BQHPiXvFktM?si=p6dqpmQD-6wOC_Tr",
   },
   {
-    name: "Public Narrative at Harvard Kennedy School",
+    name: "Live Performance at DanceX Studio",
     description:
-      "This is a public narrative presentation I had at Harvard Kennedy School where I talk about the high school bully.",
-    link: "https://www.youtube.com/embed/GOc2CVToSbU",
+      "\ud83d\udccd Location: Toronto, Canada\n \ud83d\udcc5 Date: December 11, 2021",
+    link: "https://www.youtube.com/embed/EsUGIoVMJFo?si=u6s2_4ww8S2UOfZB",
   },
 ];
 
-const PublicSpeaking = () => {
+const Dance = () => {
   return (
     <MainContainer>
       <ContentContainer>
         <PageTitle>
           <Paragraph>
-            Here are some of my public speaking engagements. Enjoy!
+            In 2021, I decided to step out of my comfort zone and see if I could
+            dance. Spoiler alert: I started as a complete beginner, but with
+            practice and determination, I’ve come a long way! Check out the
+            videos below to see my progress—it’s been such a rewarding journey.
+            I may not be a professional dancer yet, but I’ve discovered the joy
+            of movement and how much fun it can be to keep improving!
           </Paragraph>
         </PageTitle>
 
         <Grid container spacing={5} justifyContent="center">
-          {publicSpeakingCollection.map((video, idx) => (
+          {danceCollection.map((video, idx) => (
             <Grid item key={idx}>
               <MediaCard
                 sx={{
@@ -86,7 +91,12 @@ const PublicSpeaking = () => {
                   <Typography gutterBottom variant="h5" component="div">
                     {video.name}
                   </Typography>
-                  <Typography variant="body2">{video.description}</Typography>
+                  <Typography
+                    variant="body2"
+                    style={{ whiteSpace: "pre-line" }}
+                  >
+                    {video.description}
+                  </Typography>
                 </CardContent>
               </MediaCard>
             </Grid>
@@ -97,4 +107,4 @@ const PublicSpeaking = () => {
   );
 };
 
-export default PublicSpeaking;
+export default Dance;
