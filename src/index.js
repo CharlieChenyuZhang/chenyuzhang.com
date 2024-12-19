@@ -15,7 +15,7 @@ import ProjectReliefWebcamTest from "./components/ProjectRelief/WebcamTest";
 import ProjectReliefLearningVideo from "./components/ProjectRelief/LearningVideo";
 import ProjectReliefLearningTasks from "./components/ProjectRelief/LearningTasks";
 import ProjectReliefDebrief from "./components/ProjectRelief/Debrief";
-import ResponsiveAppBar from "./components/ResponsiveAppBar";
+import ResponsiveAppBar from "./components/ResponsiveProfileBar";
 import Footer from "./components/Footer";
 import SinglePost from "./components/SinglePost";
 import Icebreaking from "./components/ProjectSocialIntelligence/Icebreaking";

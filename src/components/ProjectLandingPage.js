@@ -3,11 +3,9 @@ import styled from "styled-components";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { backendDomain } from "../utils";
-// import universe from "../images/universe.gif";
 import universe from "../images/project-giphy.gif";
 import Chip from "@mui/material/Chip";
 
@@ -25,7 +23,7 @@ const ContentContainer = styled.div`
 const PageTitle = styled.div`
   font-size: 2rem;
   font-weight: bold;
-  padding: 5rem 0;
+  padding-bottom: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -102,7 +100,7 @@ const ProjectLandingPage = () => {
     <MainContainer>
       <ContentContainer>
         <PageTitle>
-          <img src={universe} alt="reading" width="100" height="100" />
+          {/* <img src={universe} alt="reading" width="100" height="100" /> */}
           <Paragraph>
             "Funktionslust" is this awesome German word that means finding joy
             in doing what you’re best at. For me, building projects is all about

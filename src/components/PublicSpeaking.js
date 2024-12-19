@@ -16,7 +16,7 @@ const ContentContainer = styled.div`
 const PageTitle = styled.div`
   font-size: 2rem;
   font-weight: bold;
-  padding: 5rem 0;
+  padding-bottom: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
