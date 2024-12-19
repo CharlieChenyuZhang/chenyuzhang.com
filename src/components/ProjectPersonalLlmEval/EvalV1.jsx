@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import {
   TextField,
@@ -138,10 +138,26 @@ const EvalV1 = () => {
     LearnLM: false,
   });
 
+  // Refs for each model's ChatContainer
+  const chatRefs = {
+    GPT4o: useRef(null),
+    MistralAI: useRef(null),
+    LearnLM: useRef(null),
+  };
+
+  // Scroll to the bottom of a specific ChatContainer when messages update
+  useEffect(() => {
+    Object.keys(chatRefs).forEach((model) => {
+      const chatRef = chatRefs[model].current;
+      if (chatRef) {
+        chatRef.scrollTop = chatRef.scrollHeight;
+      }
+    });
+  }, [messages]);
+
   const handleSend = async () => {
     if (!input.trim()) return;
 
-    // User's message
     const userMessage = { text: input, isUser: true };
 
     // Add the user message to each model's conversation
@@ -161,7 +177,6 @@ const EvalV1 = () => {
     };
 
     try {
-      // Fetch responses for all models in parallel
       const fetchResponses = Object.keys(apiEndpoints).map(async (model) => {
         try {
           const response = await fetch(apiEndpoints[model], {
@@ -186,7 +201,7 @@ const EvalV1 = () => {
         }
       });
 
-      await Promise.all(fetchResponses); // Wait for all fetch requests to complete
+      await Promise.all(fetchResponses);
     } catch (error) {
       console.error("Error during message processing:", error);
     }
@@ -207,7 +222,7 @@ const EvalV1 = () => {
               <br />
               persona satisfaction: 80%
             </Typography>
-            <ChatContainer>
+            <ChatContainer ref={chatRefs[model]}>
               {messages[model].map((msg, index) => (
                 <MessageContainer key={index} isUser={msg.isUser}>
                   {!msg.isUser && <AIIcon />}
