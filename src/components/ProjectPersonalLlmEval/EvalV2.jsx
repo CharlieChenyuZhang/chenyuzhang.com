@@ -123,6 +123,16 @@ const StyledIconButton = styled(IconButton)`
   }
 `;
 
+const RightAlignedSpinner = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  padding-right: 10px;
+`;
+
+const INTERACTION_TURN_LIMIT = 10;
+
 const EvalV2 = () => {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState({
@@ -135,6 +145,12 @@ const EvalV2 = () => {
     MistralAI: false,
     LearnLM: false,
   });
+  const [studentLoadingStates, setStudentLoadingStates] = useState({
+    GPT4o: false,
+    MistralAI: false,
+    LearnLM: false,
+  });
+  const [limitReached, setLimitReached] = useState(false);
 
   const chatRefs = {
     GPT4o: useRef(null),
@@ -154,6 +170,18 @@ const EvalV2 = () => {
   const handleSend = async () => {
     if (!input.trim()) return;
 
+    const totalInteractions = Object.keys(messages).reduce(
+      (acc, model) => acc + messages[model].length,
+      0
+    );
+
+    if (totalInteractions >= INTERACTION_TURN_LIMIT * 3) {
+      setLimitReached(true);
+      return;
+    }
+
+    setLimitReached(false);
+
     const userMessage = { text: input, isUser: true };
     setInput("");
     setLoadingStates({ GPT4o: true, MistralAI: true, LearnLM: true });
@@ -170,7 +198,7 @@ const EvalV2 = () => {
       LearnLM: [...messages.LearnLM, userMessage],
     };
 
-    setMessages(newMessages); // Update the state asynchronously
+    setMessages(newMessages);
 
     try {
       const fetchResponses = Object.keys(apiEndpoints).map(async (model) => {
@@ -179,7 +207,7 @@ const EvalV2 = () => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              conversations: newMessages[model], // Use manually constructed conversation
+              conversations: newMessages[model],
             }),
           });
 
@@ -191,14 +219,15 @@ const EvalV2 = () => {
           ];
           setMessages((prev) => ({ ...prev, [model]: updatedMessages }));
 
-          // Call student persona simulation with updated conversation
+          setStudentLoadingStates((prev) => ({ ...prev, [model]: true }));
+
           const studentResponse = await fetch(
             `${backendDomain()}/personal-llm-eval/student-persona-sim`,
             {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
-                conversations: updatedMessages, // Use updated conversation here
+                conversations: updatedMessages,
               }),
             }
           );
@@ -215,6 +244,7 @@ const EvalV2 = () => {
           console.error(`Error fetching response for ${model}:`, error);
         } finally {
           setLoadingStates((prev) => ({ ...prev, [model]: false }));
+          setStudentLoadingStates((prev) => ({ ...prev, [model]: false }));
         }
       });
 
@@ -226,6 +256,15 @@ const EvalV2 = () => {
 
   return (
     <MainContainer>
+      {limitReached && (
+        <Typography
+          variant="body1"
+          style={{ color: "red", marginBottom: "10px" }}
+        >
+          Interaction limit of {INTERACTION_TURN_LIMIT} turns reached. Please
+          refresh to start over.
+        </Typography>
+      )}
       <ModelsContainer>
         {Object.keys(messages).map((model) => (
           <ModelCard key={model}>
@@ -237,13 +276,17 @@ const EvalV2 = () => {
                   <MessageBubble isUser={msg.isUser}>{msg.text}</MessageBubble>
                 </MessageContainer>
               ))}
-              {loadingStates[model] && (
+              {studentLoadingStates[model] ? (
+                <RightAlignedSpinner>
+                  <CircularProgress size={20} style={{ color: "#00ff00" }} />
+                </RightAlignedSpinner>
+              ) : loadingStates[model] ? (
                 <MessageContainer>
                   <MessageBubble>
                     <CircularProgress size={20} style={{ color: "#fff" }} />
                   </MessageBubble>
                 </MessageContainer>
-              )}
+              ) : null}
             </ChatContainer>
           </ModelCard>
         ))}
@@ -254,8 +297,9 @@ const EvalV2 = () => {
           placeholder="Type your message here..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          disabled={limitReached}
         />
-        <StyledIconButton onClick={handleSend}>
+        <StyledIconButton onClick={handleSend} disabled={limitReached}>
           <SendIcon />
         </StyledIconButton>
       </TextInputSection>
