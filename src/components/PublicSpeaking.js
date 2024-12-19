@@ -59,7 +59,14 @@ const PublicSpeaking = () => {
       <ContentContainer>
         <PageTitle>
           <Paragraph>
-            Here are some of my public speaking engagements. Enjoy!
+            Public speaking was never my strong suit. As a child, I struggled
+            with stuttering, at one point even trying to speak with stones in my
+            mouth. When I moved to Canada at 18, I worried people would judge my
+            accent. Over time, I realized that what I say matters more than how
+            I sound. I’ve also carried the weight of being bullied in high
+            school, a story I only recently gained the courage to share. By
+            opening up, I hope to encourage others to do the same. Storytelling
+            is for everyone, and every voice deserves to be heard.
           </Paragraph>
         </PageTitle>
 
