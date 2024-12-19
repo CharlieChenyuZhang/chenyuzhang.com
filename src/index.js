@@ -4,6 +4,7 @@ import "./index.css";
 import Home from "./components/Home";
 import ProjectLandingPage from "./components/ProjectLandingPage";
 import Music from "./components/Music";
+import PublicSpeaking from "./components/PublicSpeaking";
 import ProjectSmartV1 from "./components/ProjectSmart/ProjectSmartV1";
 import ProjectSmartV2 from "./components/ProjectSmart/ProjectSmartV2";
 import ProjectSmartV3 from "./components/ProjectSmart/ProjectSmartV3";
@@ -56,6 +57,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           exact
           path="/music"
           element={elementConstructor(<Music />, true)}
+        />
+        <Route
+          exact
+          path="/public-speaking"
+          element={elementConstructor(<PublicSpeaking />, true)}
         />
         {/* <Route
           exact
