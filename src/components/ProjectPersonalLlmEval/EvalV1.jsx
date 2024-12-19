@@ -154,12 +154,15 @@ const EvalV1 = () => {
     setLoadingStates({ GPT4o: true, MistralAI: true, LearnLM: true });
 
     const apiEndpoints = {
-      GPT4o: `${backendDomain()}/tutor`,
-      MistralAI: `${backendDomain()}/tutor`,
-      LearnLM: `${backendDomain()}/tutor`,
+      GPT4o: `${backendDomain()}/personal-llm-eval/tutor`,
+      MistralAI: `${backendDomain()}/personal-llm-eval/tutor`,
+      LearnLM: `${backendDomain()}/personal-llm-eval/tutor`,
     };
 
-    const conversationLoop = async (currentInput, iteration = 1) => {
+    const conversationLoop = async (
+      iteration = 1,
+      initialMessages = { ...messages }
+    ) => {
       if (iteration > INTERACTION_LIMIT) {
         setLoadingStates({ GPT4o: false, MistralAI: false, LearnLM: false });
         return;
@@ -170,8 +173,9 @@ const EvalV1 = () => {
           const response = await fetch(apiEndpoints[model], {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ inputText: currentInput }),
+            body: JSON.stringify({ conversations: initialMessages[model] }),
           });
+
           const data = await response.json();
 
           setMessages((prev) => ({
@@ -182,21 +186,35 @@ const EvalV1 = () => {
           return data.response; // Return the AI's response for the next input
         } catch (error) {
           console.error(`Error fetching response for ${model}:`, error);
-          return currentInput; // If there's an error, keep the same input
+          return null; // Handle errors gracefully
         }
       });
 
       const responses = await Promise.all(fetchResponses);
 
-      // Use the first response as the next input for simplicity
-      const nextInput = responses[0];
+      // Use the first valid response as the next input for simplicity
+      const nextInput = responses.find((resp) => resp) || "";
 
-      // Recursively call the conversation loop
-      conversationLoop(nextInput, iteration + 1);
+      // Recursively call the conversation loop if there's valid input
+      if (nextInput) {
+        // Update initialMessages for the next loop iteration
+        const updatedMessages = { ...initialMessages };
+        Object.keys(updatedMessages).forEach((model) => {
+          updatedMessages[model] = [
+            ...updatedMessages[model],
+            { text: nextInput, isUser: true },
+          ];
+        });
+        conversationLoop(iteration + 1, updatedMessages);
+      }
     };
 
-    // Start the conversation loop
-    conversationLoop(input);
+    // Start the conversation loop with the initial messages
+    conversationLoop(1, {
+      GPT4o: [...messages.GPT4o, userMessage],
+      MistralAI: [...messages.MistralAI, userMessage],
+      LearnLM: [...messages.LearnLM, userMessage],
+    });
   };
 
   return (
