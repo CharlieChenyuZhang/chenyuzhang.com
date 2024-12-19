@@ -27,10 +27,10 @@ import InteractionDimensions3DV3 from "./components/ProjectSocialIntelligence/In
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AppContainer from "./components/AppContainer"; // Import the AppContainer
 
+// NOTE: assumption, no stars, no profile pictures and navigations
 const elementConstructor = (Component, showStars = false) => {
   return !showStars ? (
     <>
-      <ResponsiveAppBar />
       {Component}
       <Footer />
     </>
