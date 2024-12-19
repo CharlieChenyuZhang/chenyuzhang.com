@@ -27,7 +27,7 @@ I've chagned the Build settings manually in the AWS Amplify.
 
 # blog posts instruction
 
-- write your new blog in the server/blogs folder.
+- write your new blog in the server/projects folder.
 - If you want to use any digital assets, place them to the S3 buckets and use the absolute URL. https://s3.console.aws.amazon.com/s3/buckets/chenyuzhang-com-assets?region=us-east-1&bucketType=general&tab=objects
 - The .md file name has it's naming convension. all lower case and separate each word with a dash. NOTE: the file name will become the title so make it descriptive.
 
