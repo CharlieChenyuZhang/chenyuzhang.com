@@ -22,6 +22,7 @@ import Footer from "./components/Footer";
 import SinglePost from "./components/SinglePost";
 import Icebreaking from "./components/ProjectSocialIntelligence/Icebreaking";
 import EvalV1 from "./components/ProjectPersonalLlmEval/EvalV1";
+import EvalV2 from "./components/ProjectPersonalLlmEval/EvalV2";
 import Test from "./components/Test";
 import InteractionDimensions3DV1 from "./components/ProjectSocialIntelligence/InteractionDimensions3DV1";
 import InteractionDimensions3DV2 from "./components/ProjectSocialIntelligence/InteractionDimensions3DV2";
@@ -164,8 +165,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         {/* MIT Personal Robots Group PoC */}
         <Route
           exact
-          path="/project/prg/persona-llm-eval"
+          path="/project/prg/persona-llm-eval/v1"
           element={elementConstructor(<EvalV1 />)}
+        />
+        <Route
+          exact
+          path="/project/prg/persona-llm-eval/v2"
+          element={elementConstructor(<EvalV2 />)}
         />
 
         {/* TEST ROUTES */}
