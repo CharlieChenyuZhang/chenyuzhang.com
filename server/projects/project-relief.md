@@ -9,6 +9,7 @@ keywords:
   - English
 date: December 15, 2024
 thumbnail: https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/project-relief/ScreenRecording2024-12-03at7.27.02PM-ezgif.com-video-to-gif-converter+(1).gif
+thumbnail_credit: Chenyu Zhang
 chips:
   - Research
   - Affective Computing

@@ -5,8 +5,8 @@ published: true
 id: 0
 author: Chenyu Zhang
 date: December 8, 2024
-thumbnail: https://files.oaiusercontent.com/file-YHcCHLej1ozD1G4jo2p5bo?se=2024-12-19T15%3A13%3A52Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Df18af0b9-b397-422e-a857-25d094554aa2.webp&sig=CgxNzH4L9%2Bt/Ayql6oDVj0R3askx0vYcxn1K/GoBkyk%3D
-thumbnail-credit: OpenAI Dall-E 3
+thumbnail: https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/blogs/DALL%C2%B7E+2024-12-19+10.29.38+-+A+surreal+and+intricate+depiction+of+a+middle-aged+man+of+Chinese+descent+with+dark+hair+streaked+with+silver%2C+appearing+fractured+and+splintered%2C+emb.webp
+thumbnail_credit: OpenAI Dall-E 3
 chips:
   - Resilience
   - Public Narrative

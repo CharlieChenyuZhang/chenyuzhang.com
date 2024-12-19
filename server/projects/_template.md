@@ -6,7 +6,7 @@ id: 99999
 author: Chenyu Zhang
 date: TBD
 thumbnail: TBD
-thumbnail-credit: OpenAI Dall-E 3
+thumbnail_credit: OpenAI Dall-E 3
 keywords:
   - Others
   - English
