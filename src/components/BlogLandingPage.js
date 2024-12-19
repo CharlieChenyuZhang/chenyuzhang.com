@@ -179,6 +179,7 @@ const BlogLandingPage = () => {
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
+                      position: "relative",
                       overflow: "hidden",
                     }}
                   >
@@ -189,10 +190,28 @@ const BlogLandingPage = () => {
                         width: "100%",
                         height: "100%",
                         objectFit: "cover",
-                        borderTop: { xs: "1px solid white", sm: "none" }, // Add a border on mobile
+                        borderTop: { xs: "1px solid white", sm: "none" },
                         borderLeft: { xs: "none", sm: "1px solid white" },
                       }}
                     />
+                    {post.data.thumbnail_credit && (
+                      <Typography
+                        variant="caption"
+                        sx={{
+                          position: "absolute",
+                          bottom: "0.5rem",
+                          right: "0.5rem",
+                          color: "white",
+                          textAlign: "center",
+                          backgroundColor: "rgba(0, 0, 0, 0.5)",
+                          padding: "0.2rem 0.5rem",
+                          borderRadius: "0.2rem",
+                        }}
+                      >
+                        Img Credit: <br />
+                        {post.data.thumbnail_credit}
+                      </Typography>
+                    )}
                   </div>
                 </Card>
               </div>

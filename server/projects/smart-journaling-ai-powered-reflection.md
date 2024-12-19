@@ -6,6 +6,7 @@ id: 2
 author: Chenyu Zhang
 date: December 15, 2024
 thumbnail: https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/journaling/ScreenRecording2024-12-17at1.48.48PM-ezgif.com-video-to-gif-converter.gif
+thumbnail_credit: Chenyu Zhang
 keywords:
   - adult learning
   - AI
