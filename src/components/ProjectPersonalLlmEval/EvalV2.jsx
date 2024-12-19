@@ -131,7 +131,7 @@ const RightAlignedSpinner = styled.div`
   padding-right: 10px;
 `;
 
-const INTERACTION_TURN_LIMIT = 10;
+const INTERACTION_TURN_LIMIT = 5;
 
 const EvalV2 = () => {
   const [input, setInput] = useState("");
@@ -175,7 +175,7 @@ const EvalV2 = () => {
       0
     );
 
-    if (totalInteractions >= INTERACTION_TURN_LIMIT * 3) {
+    if (totalInteractions >= INTERACTION_TURN_LIMIT) {
       setLimitReached(true);
       return;
     }
@@ -186,12 +186,6 @@ const EvalV2 = () => {
     setInput("");
     setLoadingStates({ GPT4o: true, MistralAI: true, LearnLM: true });
 
-    const apiEndpoints = {
-      GPT4o: `${backendDomain()}/personal-llm-eval/tutor`,
-      MistralAI: `${backendDomain()}/personal-llm-eval/tutor`,
-      LearnLM: `${backendDomain()}/personal-llm-eval/tutor`,
-    };
-
     const newMessages = {
       GPT4o: [...messages.GPT4o, userMessage],
       MistralAI: [...messages.MistralAI, userMessage],
@@ -201,56 +195,75 @@ const EvalV2 = () => {
     setMessages(newMessages);
 
     try {
-      const fetchResponses = Object.keys(apiEndpoints).map(async (model) => {
-        try {
-          const response = await fetch(apiEndpoints[model], {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              conversations: newMessages[model],
-            }),
-          });
-
-          const data = await response.json();
-
-          const updatedMessages = [
-            ...newMessages[model],
-            { text: data.response, isUser: false },
-          ];
-          setMessages((prev) => ({ ...prev, [model]: updatedMessages }));
-
-          setStudentLoadingStates((prev) => ({ ...prev, [model]: true }));
-
-          const studentResponse = await fetch(
-            `${backendDomain()}/personal-llm-eval/student-persona-sim`,
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                conversations: updatedMessages,
-              }),
-            }
-          );
-
-          const studentData = await studentResponse.json();
-          setMessages((prev) => ({
-            ...prev,
-            [model]: [
-              ...updatedMessages,
-              { text: studentData.response, isUser: true },
-            ],
-          }));
-        } catch (error) {
-          console.error(`Error fetching response for ${model}:`, error);
-        } finally {
-          setLoadingStates((prev) => ({ ...prev, [model]: false }));
-          setStudentLoadingStates((prev) => ({ ...prev, [model]: false }));
-        }
-      });
+      const fetchResponses = Object.keys(newMessages).map((model) =>
+        handleModelInteraction(model, newMessages)
+      );
 
       await Promise.all(fetchResponses);
     } catch (error) {
       console.error("Error during message processing:", error);
+    }
+  };
+
+  const handleModelInteraction = async (model, newMessages) => {
+    try {
+      // Call the /tutor endpoint
+      const tutorResponse = await fetch(
+        `${backendDomain()}/personal-llm-eval/tutor`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            conversations: newMessages[model],
+          }),
+        }
+      );
+
+      const tutorData = await tutorResponse.json();
+      const updatedMessagesWithTutor = [
+        ...newMessages[model],
+        { text: tutorData.response, isUser: false },
+      ];
+
+      setMessages((prev) => ({ ...prev, [model]: updatedMessagesWithTutor }));
+
+      // Call the /student-persona-sim endpoint
+      const studentResponse = await fetch(
+        `${backendDomain()}/personal-llm-eval/student-persona-sim`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            conversations: updatedMessagesWithTutor,
+          }),
+        }
+      );
+
+      const studentData = await studentResponse.json();
+      const updatedMessagesWithStudent = [
+        ...updatedMessagesWithTutor,
+        { text: studentData.response, isUser: true },
+      ];
+
+      setMessages((prev) => ({ ...prev, [model]: updatedMessagesWithStudent }));
+
+      // Recursive call back to /tutor
+      const totalInteractions = Object.keys(newMessages).reduce(
+        (acc, modelKey) => acc + newMessages[modelKey].length,
+        0
+      );
+
+      if (totalInteractions < INTERACTION_TURN_LIMIT) {
+        await handleModelInteraction(model, {
+          ...newMessages,
+          [model]: updatedMessagesWithStudent,
+        });
+      }
+    } catch (error) {
+      console.error(`Error during interaction for ${model}:`, error);
+    } finally {
+      setLoadingStates((prev) => ({ ...prev, [model]: false }));
+      setStudentLoadingStates((prev) => ({ ...prev, [model]: false }));
     }
   };
 
