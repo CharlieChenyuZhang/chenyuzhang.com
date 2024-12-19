@@ -11,7 +11,7 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 
-const pages = ["HOME", "MUSIC", "PROJECT"];
+const pages = ["HOME", "MUSIC", "PROJECT", "PUBLIC SPEAKING"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -31,7 +31,7 @@ function ResponsiveAppBar() {
       navigate(`/`);
       return;
     }
-    navigate(`/${page.toLowerCase()}`);
+    navigate(`/${page.toLowerCase().replace(/\s+/g, "-")}`);
   };
 
   return (
