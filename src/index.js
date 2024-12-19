@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import ProjectLandingPage from "./components/ProjectLandingPage";
 import Music from "./components/Music";
 import PublicSpeaking from "./components/PublicSpeaking";
+import Dance from "./components/Dance";
 import ProjectSmartV1 from "./components/ProjectSmart/ProjectSmartV1";
 import ProjectSmartV2 from "./components/ProjectSmart/ProjectSmartV2";
 import ProjectSmartV3 from "./components/ProjectSmart/ProjectSmartV3";
@@ -60,8 +61,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         />
         <Route
           exact
-          path="/public-speaking"
+          path="/speaking"
           element={elementConstructor(<PublicSpeaking />, true)}
+        />
+        <Route
+          exact
+          path="/dance"
+          element={elementConstructor(<Dance />, true)}
         />
         {/* <Route
           exact
