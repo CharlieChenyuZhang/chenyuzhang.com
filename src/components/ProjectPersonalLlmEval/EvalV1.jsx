@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
+import { backendDomain } from "../../utils";
 
 const MainContainer = styled.div`
   height: 100vh;
@@ -129,12 +130,18 @@ const EvalV1 = () => {
     MistralAI: [],
     LearnLM: [],
   });
-  const [loading, setLoading] = useState(false);
+  const [loadingStates, setLoadingStates] = useState({
+    GPT4o: false,
+    MistralAI: false,
+    LearnLM: false,
+  });
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!input.trim()) return;
 
     const userMessage = { text: input, isUser: true };
+
+    // Update state with user message for all models
     setMessages((prev) => ({
       GPT4o: [...prev.GPT4o, userMessage],
       MistralAI: [...prev.MistralAI, userMessage],
@@ -142,17 +149,36 @@ const EvalV1 = () => {
     }));
 
     setInput("");
-    setLoading(true);
+    setLoadingStates({ GPT4o: true, MistralAI: true, LearnLM: true });
 
-    setTimeout(() => {
-      const botMessage = { text: "This is a response.", isUser: false };
-      setMessages((prev) => ({
-        GPT4o: [...prev.GPT4o, botMessage],
-        MistralAI: [...prev.MistralAI, botMessage],
-        LearnLM: [...prev.LearnLM, botMessage],
-      }));
-      setLoading(false);
-    }, 1000);
+    const apiEndpoints = {
+      // FIXME: for the PoC, call gpt4 model for now
+      GPT4o: `${backendDomain()}/tutor`,
+      MistralAI: `${backendDomain()}/tutor`,
+      LearnLM: `${backendDomain()}/tutor`,
+    };
+
+    const fetchResponses = Object.keys(apiEndpoints).map(async (model) => {
+      try {
+        const response = await fetch(apiEndpoints[model], {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ inputText: input }),
+        });
+        const data = await response.json();
+
+        setMessages((prev) => ({
+          ...prev,
+          [model]: [...prev[model], { text: data.response, isUser: false }],
+        }));
+      } catch (error) {
+        console.error(`Error fetching response for ${model}:`, error);
+      } finally {
+        setLoadingStates((prev) => ({ ...prev, [model]: false }));
+      }
+    });
+
+    await Promise.all(fetchResponses);
   };
 
   return (
@@ -162,7 +188,13 @@ const EvalV1 = () => {
           <ModelCard key={model}>
             <Typography variant="h6">{model}</Typography>
             <Typography style={{ color: "#0f0" }}>
-              Stats: {Math.floor(Math.random() * 20) + 80}%
+              duration: 20ms
+              <br />
+              cLatency: 400ms
+              <br />
+              # of interactions: 5
+              <br />
+              persona satisfaction: 80%
             </Typography>
             <ChatContainer>
               {messages[model].map((msg, index) => (
@@ -171,7 +203,7 @@ const EvalV1 = () => {
                   <MessageBubble isUser={msg.isUser}>{msg.text}</MessageBubble>
                 </MessageContainer>
               ))}
-              {loading && (
+              {loadingStates[model] && (
                 <MessageContainer>
                   <MessageBubble>
                     <CircularProgress size={20} style={{ color: "#fff" }} />
