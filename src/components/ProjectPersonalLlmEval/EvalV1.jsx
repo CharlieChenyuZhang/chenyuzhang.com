@@ -214,13 +214,13 @@ const EvalV1 = () => {
           <ModelCard key={model}>
             <Typography variant="h6">{model}</Typography>
             <Typography style={{ color: "#0f0" }}>
-              duration: 20ms
+              duration: 0ms
               <br />
-              cLatency: 400ms
+              cLatency: 0ms
               <br />
-              # of interactions: 5
+              # of interactions: 0
               <br />
-              persona satisfaction: 80%
+              persona satisfaction: 0%
             </Typography>
             <ChatContainer ref={chatRefs[model]}>
               {messages[model].map((msg, index) => (
