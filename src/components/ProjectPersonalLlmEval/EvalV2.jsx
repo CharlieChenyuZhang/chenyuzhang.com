@@ -131,7 +131,7 @@ const RightAlignedSpinner = styled.div`
   padding-right: 10px;
 `;
 
-const INTERACTION_TURN_LIMIT = 5;
+const INTERACTION_TURN_LIMIT = 10;
 
 const EvalV2 = () => {
   const [input, setInput] = useState("");
