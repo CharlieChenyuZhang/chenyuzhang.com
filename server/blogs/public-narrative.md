@@ -8,8 +8,9 @@ date: December 8, 2024
 thumbnail: https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/blogs/DALL%C2%B7E+2024-12-19+10.29.38+-+A+surreal+and+intricate+depiction+of+a+middle-aged+man+of+Chinese+descent+with+dark+hair+streaked+with+silver%2C+appearing+fractured+and+splintered%2C+emb.webp
 thumbnail_credit: OpenAI Dall-E 3
 chips:
-  - Resilience
   - Public Narrative
+  - Harvard Kennedy School
+  - Resilience
 ---
 
 ## Public Narrative
