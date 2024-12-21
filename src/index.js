@@ -7,6 +7,7 @@ import BlogLandingPage from "./components/BlogLandingPage";
 import Music from "./components/Music";
 import PublicSpeaking from "./components/PublicSpeaking";
 import Dance from "./components/Dance";
+import Singing from "./components/Singing";
 import ProjectSmartV1 from "./components/ProjectSmart/ProjectSmartV1";
 import ProjectSmartV2 from "./components/ProjectSmart/ProjectSmartV2";
 import ProjectSmartV3 from "./components/ProjectSmart/ProjectSmartV3";
@@ -76,6 +77,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           exact
           path="/dance"
           element={elementConstructor(<Dance />, true)}
+        />
+        <Route
+          exact
+          path="/singing"
+          element={elementConstructor(<Singing />, true)}
         />
         <Route
           exact
