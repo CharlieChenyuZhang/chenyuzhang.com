@@ -17,6 +17,7 @@ chips:
   - Affective Computing
   - LLM
   - HCI
+  - Harvard Kennedy School
   - Ongoing / Completed
 ---
 
