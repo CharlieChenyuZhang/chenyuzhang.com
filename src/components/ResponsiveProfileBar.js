@@ -221,7 +221,7 @@ function ResponsiveProfileBar() {
                     backgroundColor: "black",
                     display: "block",
                     borderBottom:
-                      location.pathname ===
+                      location.pathname.replace(/\/+$/, "") ===
                         `/${page.toLowerCase().replace(/\s+/g, "-")}` ||
                       (page.toLowerCase() === "home" &&
                         location.pathname === "/")
