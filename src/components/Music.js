@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import music from "../images/music.gif";
 import {
   Grid,
   Card,
