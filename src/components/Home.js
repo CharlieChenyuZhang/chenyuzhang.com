@@ -52,11 +52,10 @@ const MiniHome = () => {
 
         <Paragraph>
           Outside of work, I'm all about living life to the fullest. I'm a level
-          10 pianist, a proud cat parent to my buddy Lucky, and a creator at
-          heart—I'm currently learning to sketch and can't wait to share my
-          drawings of Lucky soon. My curiosity has taken me from producing EDM
-          music to learning hip hop dance, horseback riding, cruising on a
-          motorcycle, and even skydiving. Life's too short to stick to one lane!
+          10 pianist, and a proud cat parent to my buddy Lucky. My curiosity has
+          taken me from producing EDM music to learning hip hop dance, horseback
+          riding, cruising on a motorcycle, and even skydiving. Life's too short
+          to stick to one lane!
         </Paragraph>
 
         <Paragraph>
