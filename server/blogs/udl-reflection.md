@@ -72,7 +72,10 @@ A key consideration is how feedback can be provided in a way that does not trigg
 
 A notable insight from this paper is that the combination of **criticism, high standards, and assurance** is the secret ingredient to improving students' performance. This makes me wonder if an AI tutor could incorporate a similar approach to enhance students' learning outcomes.
 
-I am interested in reading more about self-regulation—what it entails and what strategies people use to develop it.
+There are a few pending questions.
+
+- What does self-regulation entails and what strategies people use to develp it?
+- How can AI be used to promote self-regulation?
 
 (Source: [PsycNet](https://psycnet.apa.org/record/2004-13735-005))
 
