@@ -48,6 +48,34 @@ Now, shifting our focus to the human brain: One fascinating concept I learned th
 
 Another interesting concept is _neuronal migration_—the process by which neurons are formed and travel to the cortex (the outer layer of the brain). Initially, all neurons look identical as they migrate, but they _differentiate_ into specific types only once they reach their final destination.
 
+## Reflection on UDL - Affective Networks: "Why of Learning"
+
+Affect is related to people's feelings. Affective networks enable us to engage with tasks and influence our motivation to learn, setting up priorities and preferences. Affective states, such as stress and confidence, impact our ability to learn.
+
+> While emotion and cognition can be somewhat separable, they’re rarely in opposition. Instead, they are intertwined in a collaborative relationship needed for normal function. As tasks with both emotive and cognitive components become more difficult (e.g., making an increasingly complex economic decision in a setting that is increasingly unfair), activity in the two structures becomes more synchronized.
+>
+> — Sapolsky, 2018, Kindle location: 1,011
+
+From my own experience, when I am under stress, my cognitive ability tends to decrease, making it difficult to think. I can think better when I am calm. Not too long ago, I had an interview at my dream company, where the interviewer asked me to solve a coding question. I provided an answer, but the interviewer was not satisfied and asked me to come up with an alternative solution. At that moment, my mind went blank—I panicked. I felt my brain overheating, and I couldn't think of anything. As a result, I did not pass the interview.
+
+Cognitive appraisal (or the Biopsychosocial Model of Challenge and Threat) can influence how we respond and perform in particular situations, both consciously and unconsciously.
+
+![Biopsychosocial Model of Challenge and Threat](https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/EDU-T560-UDL/The-Biopsychosocial-Model-of-Challenge-and-Threat-and-Implications-for-Creativity.png)
+(Source: [ResearchGate](https://www.researchgate.net/figure/The-Biopsychosocial-Model-of-Challenge-and-Threat-and-Implications-for-Creativity_fig1_327947564))
+
+This leads to the discussion of Growth Mindset versus Fixed Mindset.
+
+A key consideration is how feedback can be provided in a way that does not trigger a threat response but instead fosters a growth mindset.
+
+![Wise Critical Feedback](https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/EDU-T560-UDL/Screenshot+2025-02-14+at+10.40.22%E2%80%AFPM.png)
+(Source: [APA](https://www.apa.org/pubs/journals/releases/xge-a0033906.pdf))
+
+A notable insight from this paper is that the combination of **criticism, high standards, and assurance** is the secret ingredient to improving students' performance. This makes me wonder if an AI tutor could incorporate a similar approach to enhance students' learning outcomes.
+
+I am interested in reading more about self-regulation—what it entails and what strategies people use to develop it.
+
+(Source: [PsycNet](https://psycnet.apa.org/record/2004-13735-005))
+
 ## Acknowledgements
 
 This blog post was written as part of the course **EDU T560: Universal Design for Learning** at the Harvard Graduate School of Education. I would like to extend my gratitude to **Professor Liz Hartmann** and **Professor Jose Blackorby** for their insightful teaching and guidance throughout the course.
