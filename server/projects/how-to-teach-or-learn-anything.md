@@ -1,7 +1,7 @@
 ---
 title: How To Teach / Learn (Almost) Anything
 subtitle: Tools, Theories, and Techniques for Learning and Teaching Anything
-published: true
+published: false
 id: 5
 author: Chenyu Zhang
 date: Feb 21, 2024
