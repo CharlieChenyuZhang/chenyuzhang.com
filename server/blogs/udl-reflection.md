@@ -106,6 +106,41 @@ My personal opinion is that ideally, all images should have alt text. However, s
 
 I also realized that many of the images on my personal website do not have alt text. Maybe I should start adding them going forward. What’s the point of learning UDL if my own website is not very user-friendly?
 
+### The Myth of Learning Styles and Brain Plasticity
+
+One surprising thing I learned this week is the so-called **myth of learning styles**. The concept of learning styles has been around for a few decades and is deceptively attractive—people like to believe they are visual learners or auditory learners. However, **people don’t actually learn that way!** This is an oversimplification of how our brains truly function.
+
+**Recognition is variable.** Allison Posey mentioned **brain plasticity** and the concept of _live wiring_ or _live-wired_ from David Eagleman. The brain is an enormous system designed to extract patterns and meaning from those patterns. Connections are constantly forming—some fast, some slow, some strong, some weak—all happening simultaneously.
+
+This reminds me of a paper by Xander Davies [[5]](/blog/udl-reflection.md#grokking-and-double-descent) discussing **Grokking and Double Descent**, as well as the interplay of slow and fast learning patterns. It’s fascinating to consider the balance between _live wiring_—the brain’s ongoing adaptability—and _hardwired_ connections that allow for rapid access to information.
+
+### The Brain as a Prediction Machine
+
+One of the most interesting insights is that our brains **are not passive recipients of information**. Instead, we are constantly and persistently **anticipating and predicting** what we will see and hear.
+
+This realization could be a key innovation in **AI-driven tutoring systems**—if we can design AI models that anticipate and predict patterns like the human brain, we may be able to create more adaptive and effective learning experiences. Our **expectations** actively shape our perception, which has profound implications for AI tutors, multi-agent collaboration, and reinforcement learning models.
+
+### Heterarchy vs. Hierarchy
+
+- In a **heterarchy**, all nodes function in parallel, with no predefined importance.
+- In a **hierarchy**, some nodes are prioritized over others.
+
+Understanding the **balance between top-down and bottom-up processes** is crucial. A well-functioning **recognition network** takes advantage of both approaches. Teaching that relies solely on either top-down or bottom-up instruction **does not align with how our brains learn**.
+
+### The Hidden Layers of Reading
+
+Another key insight I gained is the **hidden layer of reading**—for example, when we see the word **MAT**, our brain does far more than just recognize the letters. We instinctively interpret meaning, context, and associations, all in a fraction of a second.
+
+These insights are incredibly valuable as my brain makes connections between **how human cognition works and how machine learning models**—or **multi-agent collaboration systems**—could be designed in the future.
+
+---
+
+![image](https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/EDU-T560-UDL/Screenshot+2025-03-01+at+12.48.41%E2%80%AFAM.png)  
+_(Source: Screenshot from EDU T560 Lecture Slides)_
+
+![image](https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/EDU-T560-UDL/Screenshot+2025-03-01+at+12.48.20%E2%80%AFAM.png)  
+_(Source: Screenshot from EDU T560 Lecture Slides)_
+
 ## Acknowledgements
 
 This blog post was written as part of the course **EDU T560: Universal Design for Learning** at the Harvard Graduate School of Education. I would like to extend my gratitude to **Professor Liz Hartmann** and **Professor Jose Blackorby** for their insightful teaching and guidance throughout the course.
@@ -127,6 +162,10 @@ Learning for Students and Teachers. Harvard Education Press, pp. 77–101.
 
 <div id="meditation24-7"></div>
 [4] Your 21 Senses | Meditation 24-7. (n.d.). https://www.meditation24-7.com/senses/come.html
+<br><br>
+
+<div id="grokking-and-double-descent"></div>
+[5] Davies, Xander, Lauro Langosco, and David Krueger. "Unifying grokking and double descent." arXiv preprint arXiv:2303.06173 (2023).
 <br><br>
 
 ## Contact Information
