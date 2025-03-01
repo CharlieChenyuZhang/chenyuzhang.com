@@ -81,6 +81,9 @@ There are a few pending questions.
 
 ## Reflection on UDL - The Recognition Network
 
+![image](https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/EDU-T560-UDL/recognition+is+specialized.png)
+_(Source: 2008 Pearson Education, Inc.)_
+
 The recognition network is located in the back of the brain. I found this article [[4]](/blog/udl-reflection.md#meditation24-7) interesting, where it talked about Aristotle (384-322 BC), who is credited with first numbering the senses in his work _De Anima_. Those senses are sight (vision), hearing (audition), smell (olfaction), taste (gustation), and touch (tactition). Because there is some overlap between different senses, different methods of neurological classification can yield as many as 21 senses. Eco-psychologist Michael J. Cohen puts the number of senses at our disposal at 53.
 
 If we look at UDL horizontally, it is all about multi-modality.
