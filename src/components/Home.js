@@ -26,6 +26,18 @@ const Paragraph = styled.div`
   font-family: sans-serif;
 `;
 
+const Disclaimer = styled.div`
+  font-style: italic;
+  margin-top: 5rem;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 50rem;
+  font-size: 1rem;
+  line-height: 150%;
+  font-weight: 400;
+  font-family: sans-serif;
+`;
+
 const MiniHome = () => {
   return (
     <MainContainer>
@@ -67,6 +79,17 @@ const MiniHome = () => {
 
         <Paragraph>Warmly,</Paragraph>
         <Paragraph>Chenyu Zhang</Paragraph>
+
+        <Disclaimer>
+          Disclaimer: I am actively working on improving the web accessibility
+          of my website in accordance with the Americans with Disabilities Act
+          (ADA) and best practices for screen reader compatibility. I
+          acknowledge that some pages may currently be missing ARIA labels and
+          some images may lack alt text. I am in the process of addressing these
+          issues. If you encounter any accessibility concerns, please feel free
+          to report them by emailing me at contact [at] chenyuzhang [dot] com.
+          Your feedback is greatly appreciated!
+        </Disclaimer>
       </ContentContainer>
     </MainContainer>
   );

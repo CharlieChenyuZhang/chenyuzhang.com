@@ -79,6 +79,30 @@ There are a few pending questions.
 
 (Source: [PsycNet](https://psycnet.apa.org/record/2004-13735-005))
 
+## Reflection on UDL - The Recognition Network
+
+The recognition network is located in the back of the brain. I found this article [[4]](/blog/udl-reflection.md#meditation24-7) interesting, where it talked about Aristotle (384-322 BC), who is credited with first numbering the senses in his work _De Anima_. Those senses are sight (vision), hearing (audition), smell (olfaction), taste (gustation), and touch (tactition). Because there is some overlap between different senses, different methods of neurological classification can yield as many as 21 senses. Eco-psychologist Michael J. Cohen puts the number of senses at our disposal at 53.
+
+If we look at UDL horizontally, it is all about multi-modality.
+
+- **Row 1: Access** - Providing multiple ways for students to access and interact with the content.
+- **Row 2: Support** - Establishing connections, working with others, getting feedback, and responding in multiple ways.
+- **Row 3: Executive Function** - Understanding what makes sense to us as individuals, how we connect it to other things we know, and how we set goals.
+
+![image](https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/EDU-T560-UDL/page18_1.jpg)  
+_(Source: New Scientist)_
+
+Besides this, today I also learned that alt tags for images are used by screen readers. As a software engineer, I know I need to add alt text, but I think it serves two purposes.
+
+1. The alt text is displayed when the image link is broken and the image cannot be displayed.
+2. Screen readers primarily read the alt text of the image to visually impaired users.
+
+One misconception I had before was that screen readers relied on the `aria-label`, but after looking it up, I found that screen readers mainly use the `alt` text for images. In class, the instructor showed that _The New York Times_ and many other websites actually didn’t add alt text for images as of February 28, 2025, when I wrote this reflection.
+
+My personal opinion is that ideally, all images should have alt text. However, some images on news websites do not carry any informational value and are meant purely for visual aesthetics. In such cases, there may be no need to add alt text, as the primary and secondary headlines on the news already convey enough information. But in an ideal scenario, all images should have alt text.
+
+I also realized that many of the images on my personal website do not have alt text. Maybe I should start adding them going forward. What’s the point of learning UDL if my own website is not very user-friendly?
+
 ## Acknowledgements
 
 This blog post was written as part of the course **EDU T560: Universal Design for Learning** at the Harvard Graduate School of Education. I would like to extend my gratitude to **Professor Liz Hartmann** and **Professor Jose Blackorby** for their insightful teaching and guidance throughout the course.
@@ -96,6 +120,10 @@ Learning for Students and Teachers. Harvard Education Press, pp. 77–101.
 
 <div id="reference-meyer-2014"></div>
 [3] Meyer, A., Rose, D.H., Gordon, D.T., 2014. Universal Design for Learning: Theory and Practice. CAST Professional Publishing.
+<br><br>
+
+<div id="meditation24-7"></div>
+[4] Your 21 Senses | Meditation 24-7. (n.d.). https://www.meditation24-7.com/senses/come.html
 <br><br>
 
 ## Contact Information
