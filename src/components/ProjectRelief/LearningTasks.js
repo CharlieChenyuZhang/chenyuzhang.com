@@ -519,7 +519,7 @@ const LearningTasks = () => {
           <TextInputSection>
             <StyledTextField
               variant="outlined"
-              placeholder="Ask the bot for help here..."
+              placeholder="Ask the bot..."
               fullWidth
               multiline
               value={thought}
@@ -541,7 +541,7 @@ const LearningTasks = () => {
           {!intervening && (
             <>
               <Box mt={2} width="100%">
-                click me only when:
+                click the button below only when you are:
               </Box>
 
               <Box mt={1} width="100%">
@@ -549,7 +549,7 @@ const LearningTasks = () => {
                   level="extreme"
                   onClick={() => handleFrustrationClick("extreme")}
                 >
-                  🔥 I am Extremely frustrated
+                  🔥 Extremely frustrated
                 </RedButton>
               </Box>
               <Box mt={1} width="100%">
@@ -557,7 +557,7 @@ const LearningTasks = () => {
                   level="moderate"
                   onClick={() => handleFrustrationClick("moderate")}
                 >
-                  ⚠️ I am Moderately frustrated
+                  ⚠️ Moderately frustrated
                 </RedButton>
               </Box>
               <Box mt={1} width="100%">
@@ -565,7 +565,7 @@ const LearningTasks = () => {
                   level="slight"
                   onClick={() => handleFrustrationClick("slight")}
                 >
-                  🟡 I am Slightly frustrated
+                  🟡 Slightly frustrated
                 </RedButton>
               </Box>
             </>
