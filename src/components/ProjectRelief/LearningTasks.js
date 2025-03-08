@@ -188,7 +188,7 @@ const MessageBubble = styled.div`
   white-space: pre-line;
 `;
 
-const STUDY_TIME = 1800; // 30 minutes in seconds
+const STUDY_TIME = 600; // 15 minutes in seconds
 
 const LearningTasks = () => {
   const [intervening, setIntervening] = useState(false); // Default color is white
@@ -417,8 +417,7 @@ const LearningTasks = () => {
           </Typography>
           <Typography variant="h3" fontWeight="bold">
             You solved <span style={{ color: "green" }}>{solvedCount}</span> /{" "}
-            100 question(s).
-            {/* this 100 questions is used to increase the anxiety of participants */}
+            {questions.length} question(s).
           </Typography>
           {/* <Typography variant="h3" fontWeight="bold">
             You answered <span style={{ color: "red" }}>{incorrectCount}</span>{" "}

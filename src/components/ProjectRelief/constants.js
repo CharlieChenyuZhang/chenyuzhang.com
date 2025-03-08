@@ -321,33 +321,42 @@ def merge(left, right):
   },
 ];
 
+// questions used on [mar 8, 2025, current)
 const questions = [
   {
-    code: `def get_first_element(arr):\n    return arr[0]`,
+    code: `def function(arr):\n    return arr[0]`,
     answer: "1",
   },
   {
-    code: `def print_all_elements(arr):\n    for element in arr:\n        print(element)`,
+    code: `def function(arr):\n    for element in arr:\n        print(element)`,
     answer: "n",
   },
   {
     code: `
-def cryptic_process():
-    def hidden_logic(depth, variance):
-        if depth == 0:
-            return random.randint(1, 10)
-
-        outcome = 0
-        for offset in random.sample(range(variance), 3): 
-            outcome += hidden_logic(depth - 1, variance - offset)
-        return outcome
-
-    stages = 10 
-    spread = 30
-
-    return hidden_logic(stages, spread)
+def function(n):
+    total = 0
+    for i in range(n):
+        j = i
+        while j > 1:
+            j //= 2
+            total += 1
+    return total
     `,
-    // answer: "3^n",
+    answer: "nlogn",
+  },
+  {
+    code: `
+def function(n):
+    count = 0
+    for i in range(n):
+        for j in range(i, n):
+            k = 1
+            while k < n:
+                count += 1
+                k *= 2
+    return count
+    `,
+    // answer: "n^2logn",
     answer: "impossible_task",
   },
 ];
