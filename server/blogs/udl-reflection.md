@@ -133,6 +133,52 @@ Another key insight I gained is the **hidden layer of reading**—for example, w
 
 These insights are incredibly valuable as my brain makes connections between **how human cognition works and how machine learning models**—or **multi-agent collaboration systems**—could be designed in the future.
 
+## David Rose's Guest Lecture – Reflections on Bias, UDL, and the Future of Education
+
+> I’m 79 years old. Have I made all the right choices? Has this been a good life? An unexpected advantage of living in a Continuing Care Retirement Community (CCRC) is that dinner feels like a date night—but without the pressure of romance. It’s just genuine conversation. No worries about grants or careers. People talk about turning points in their lives, the most exciting moments, and what really mattered.
+> — David Rose
+
+During this session, we also learned that Jenna Gravel and Nicole Tucker-Smith are leading the development of **UDL Guidelines 3.0**, which introduce several transformative updates:
+
+- **Emphasize identity** as part of learner variability—recognizing _who_ the learner is, alongside the _why_ (engagement), _what_ (representation), and _how_ (action and expression) of learning.
+- **Acknowledge bias**—individual, institutional, and systemic—as a real and persistent barrier to learning.
+- **Highlight interdependence and collective learning** as essential educational values.
+- **Shift from teacher-centered to learner-centered language** to reframe how we design for inclusion.
+
+You can read more about these updates here: [UDL Guidelines 3.0](https://udlguidelines.cast.org/more/about-guidelines-3-0)
+
+### Our Brain as an Interdependent Web
+
+Your brain is constantly predicting what it’s going to see before it actually sees it. It’s an "interdependent web," processing _six layers of context_ at any given moment. This predictive efficiency is where biases begin.
+
+Take the viral phenomenon of the **blue and black dress**: a new study suggests that our **internal body clocks** might be the key. Early risers, exposed more to natural light, tend to see the dress as **white and gold**, while night owls—who rely more on artificial light—see **black and blue**.
+
+This is just one example of how **implicit, rapid, and unconscious biases** form. These biases are **learned**, not inherited, and they are often difficult to unlearn.
+
+What’s fascinating is that **GPT models hallucinate** in much the same way—because they’re also engaging in prediction. Like our brains, they "guess" what comes next based on prior context.
+
+### The Brain and Bias
+
+Our **top-down biases** are often productive—they help us make quick decisions—but they’re not always accurate or just.
+
+Some biases can be **distorting**, **inaccurate**, or even **harmful**. These snap judgments happen so quickly—often within **200 milliseconds**—that we don’t even realize they’re occurring. Our brains immediately categorize what’s "like me" and "not like me" before we’re fully conscious of what we’re seeing.
+
+Here’s how different parts of the brain relate to bias:
+
+- **Back of the brain (visual cortex)** – Biases in what we _see_
+- **Middle of the brain (limbic system)** – Biases in what we _feel_ (adds emotional value)
+- **Front of the brain (prefrontal cortex)** – Biases in what we _do_ (decision-making, planning)
+
+This breakdown reminds me of the Pixar movie _Inside Out_—each part of our brain playing a distinct emotional and cognitive role.
+
+### A Provocative Question
+
+If we could eliminate emotion, would we also eliminate bias?
+
+> "We would still recognize faces or skin tones different from our own—but we wouldn’t know how to evaluate them."
+
+Emotion and cognition are deeply intertwined. Removing one may disrupt the delicate balance required for empathy, fairness, and learning itself.
+
 ---
 
 ![image](https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/EDU-T560-UDL/Screenshot+2025-03-01+at+12.48.41%E2%80%AFAM.png)  
