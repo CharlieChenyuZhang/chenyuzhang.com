@@ -187,6 +187,30 @@ _(Source: Screenshot from EDU T560 Lecture Slides)_
 ![image](https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/EDU-T560-UDL/Screenshot+2025-03-01+at+12.48.20%E2%80%AFAM.png)  
 _(Source: Screenshot from EDU T560 Lecture Slides)_
 
+<div id="reflection-week8"></div>
+
+## Reflection on UDL – Strategic Networks: The Action and Expression Principle
+
+**Dysgraphia** is a learning difference that falls under the broader category of learning disabilities in the United States. Students with dysgraphia often experience difficulty with fine motor skills, such as holding a pen or pencil. As a result, their handwriting may appear messy, uneven, or hard to decipher. However, it's important to recognize that while their writing might look scrambled to others, many of these students can read their own writing fluently and understand their thoughts clearly. The challenge lies not in their intelligence or understanding, but in their ability to express those thoughts in a conventional written format.
+
+**Key takeaway:** Focus on the _goals_ of learning, and remain _flexible_ with the _means_. Consider offering multiple options for students to participate, express themselves, and demonstrate their understanding. The same principle should be applied to assessments—_one size does not fit all_.
+
+The **critical UDL principle** here is the importance of **providing options, offering choice, and enabling student agency**. By doing so, educators can honor the diverse ways students process, engage with, and express their learning.
+
+### Personal Reflection
+
+In the real world, particularly in under-resourced educational settings, schools and teachers often default to a _one-size-fits-all_ approach. This is especially true in large classrooms—like the public school I attended—where a single teacher may be responsible for 60 students at a time. In such environments, standardizing assignments and grading procedures becomes a practical necessity due to limited time and resources.
+
+However, I strongly resonate with the idea that **text and books, while historically efficient tools for knowledge transfer, are not the only valid means of communication**—especially in today’s information era. We now have a rich array of modalities at our disposal: audio recordings, videos, animations, podcasts, and more. These media forms can often convey information just as effectively—sometimes even more engagingly—than traditional text.
+
+Personally, I was a slow reader growing up, and I often felt disengaged when required to read lengthy texts. In contrast, I found joy and deep understanding in watching animations and movies. Given the choice, I would often prefer a visual medium over written text. This preference wasn’t due to a lack of ability or interest—but because I processed and connected with information more effectively that way.
+
+### Final Thoughts
+
+As educators and designers of learning experiences, we need to remember that the **goal of education is not uniformity in output, but meaningful engagement and comprehension**. UDL encourages us to shift from asking _“Can the student write an essay?”_ to _“How can this student best demonstrate their understanding?”_—and that shift in mindset can be transformative.
+
+By embracing **multiple means of action and expression**, we foster more inclusive, equitable, and empowering learning environments where all students can thrive.
+
 ## Acknowledgements
 
 This blog post was written as part of the course **EDU T560: Universal Design for Learning** at the Harvard Graduate School of Education. I would like to extend my gratitude to **Professor Liz Hartmann** and **Professor Jose Blackorby** for their insightful teaching and guidance throughout the course.
