@@ -14,6 +14,7 @@ keywords:
   - lifelong learning
   - self-directed learning
 chips:
+  - AI Journaling
   - Engineering
   - HCI
   - LLM
@@ -74,6 +75,11 @@ For instance:
 2. Connecting users with expertise to help one another, democratizing learning and enabling decentralized education.
 
 I believe everyone has something to teach, and SMART Journaling could play a role in creating a community where learning is mutual and inclusive.
+
+## Open Questions
+
+1. Define journaling clearly. Is note-taking the same as journaling? Is recording my thoughts considered journaling as well?
+2. How do you make journaling itself an auto-replicated activity? There are people who write consistently and there are people who stop after 10 days. Is there a difference in their approach or patterns in the differences between these two types of people? Is it due to different approaches or personalities?
 
 ---
 
