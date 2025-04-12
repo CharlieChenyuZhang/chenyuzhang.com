@@ -211,6 +211,51 @@ As educators and designers of learning experiences, we need to remember that the
 
 By embracing **multiple means of action and expression**, we foster more inclusive, equitable, and empowering learning environments where all students can thrive.
 
+<div id="reflection-week10"></div>
+
+## Reflection on Learner-Centered Design: Top 10 UDL Tips for Designing Engaging Learning Environments
+
+Link to [CAST Professional Learning’s Top Ten UDL Tips for Developing Learning Goals](https://www.cast.org/wp-content/uploads/2024/12/cast-udltipsfordevelopinglearninggoals-20200920-a11y.pdf)
+
+Below are the 10 tips and my reflection:
+
+1. `Start with a clear goal.`  
+   It's critical that learners know the intended goals of the learning experience. As simple as that sounds, many instructors neglect this basic aspect. Growing up in my own K–12 and higher education, many instructors, lecturers, or professors focused on teaching concepts and shared the learning objectives at the beginning of the semester—but never talked about them again. I think it's important for instructors to always remind students of the learning objectives for each class, why they are learning the material, and its importance. For adult learners, even if instructors don't make the goals clear, learners should have the agency to figure out what they are learning and set goals on their own, whether it's independent, remote, or collaborative teamwork. I really like this first tip because it's also applicable in work environments and team meetings. Whenever I host meetings, the first thing I do is make it clear what we are discussing and what the "definition of success" or the goal of the meeting is. Every team member should be able to describe the goal in their own words. Oftentimes, visualization is the most powerful way to make a goal clear.
+
+2. `Share goals in multiple ways.`  
+   Wow, this is super powerful! Reflecting on my own learning experience and professional work experience in startups, big tech companies, and as a computer science instructor, I realize I often don't offer learners different ways to understand the goals. I usually only shared the learning objectives in written format. In company settings, we typically share goals via written memos or in meetings, but rarely in multiple formats. This is an AHA moment for me. Now I know that offering different ways to express the same ideas can be a powerful method to ensure understanding.
+
+3. `Frame goals with expert learning in mind.`  
+   "Expert learning, in the context of education and personal development, refers to the ability to acquire, retain, and apply knowledge effectively. It involves understanding one's own learning strengths and weaknesses, using strategic approaches to overcome challenges, and taking ownership of the learning process. Expert learners are also characterized by being resourceful, knowledgeable, strategic, goal-directed, purposeful, and motivated."  
+   This is exactly what I am striving for—I want to become an expert learner myself.
+
+- **Behaviorism**: Learning by developing new behaviors (making them habitual)
+- **Information Processing & Cognitive Psychology**: Learning by observing, categorizing, generalizing, storing, and remembering
+- **Individual Constructivism**: Learning by adjusting current knowledge and mental frameworks to new knowledge
+- **Social Constructivism & Situated Learning**: Learning by emulating others in the context of increasingly expert practice
+
+4. `Separate the goal from the means.`  
+   Yes, as long as the goal is clear, we can provide multiple means of engagement. We don't need to dictate how learners master the content. They should have agency, and as instructors, we should give them the freedom to pursue the approach that works best for them.
+
+5. `Prepare your assessment with the goals in mind.`  
+   This means eliminating elements that are not essential to the learning goals. My reflection on this is that teachers in K–12 often assign homework or exams (in STEM, we call them "Psets"), but the goal is not always to assess how well students learned a concept. Often in my experience, I completed a Pset already knowing the content; the goal then became to build muscle memory to perform better in quizzes and exams. I would prefer flexible assessment options—as long as learners can demonstrate mastery of the knowledge, that should be sufficient. I think the current exam format in China (where I grew up) is more about selection—it selects students who are good at information retrieval and patient enough to go through repetitive training to achieve mastery and fluency.
+
+6. `Include opportunities for personal connections to the goals.`  
+   Yes, once again, this is super important. Goals only make sense if learners can relate them to their own lives. If I had my own company, I would provide opportunities for my team to articulate their own personal goals and their interpretations of the company goals.
+
+7. `Divide large goals into sub-goals or objectives.`  
+   I love how this encourages celebrating milestones or reducing barriers along the way. This is true in life as well—often we're intimidated by our New Year's resolutions, but we should break them down into smaller, achievable steps and celebrate the milestones. In a company setting, each team should create its own milestones and long-term goals. I feel many UDL principles are also applicable in leadership contexts.
+
+8. `Consider the process as well as the end product.`  
+   The process of learning can be just as valuable as the result. I really like this point—YES! In society, people often only see the end result, not the process, and that's why the process is often undervalued. But if you think about it, there are only a few end-result moments in life, and most of our time is spent in the process. So, my takeaway here is to enjoy the process. "Mistakes are an opportunity for reflection about what it takes to achieve a goal." YES! This is VERY IMPORTANT to remember. It also aligns with the topic of self-compassion that I chose for this course.
+
+9. `Provide models and examples.`  
+   "Offering examples of what excellence looks like (or 'sounds like' or 'feels like') gives learners a clear model of what to work toward." Yes, this reminds me of an important life lesson—always know where you're heading and what excellence looks like. In learning, having examples of excellence helps learners understand what they are aiming for. And who doesn’t want to be excellent?
+
+10. `Make time for reflection.`  
+    "We’re busy. Whether we are working asynchronously online or together in the same learning space, there is always a lot of curricular ground to cover. It is important to pause and encourage time for learners to reflect on how the goals and design of the experiences supported — or did not support — their learning and goals."  
+    I found this to be very true as a life lesson. Too often, we are too busy to pause and reflect. This reinforces my decision to build a reflection tool!
+
 ## Acknowledgements
 
 This blog post was written as part of the course **EDU T560: Universal Design for Learning** at the Harvard Graduate School of Education. I would like to extend my gratitude to **Professor Liz Hartmann** and **Professor Jose Blackorby** for their insightful teaching and guidance throughout the course.
