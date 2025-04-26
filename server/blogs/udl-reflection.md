@@ -26,11 +26,7 @@ You can listen to the music below:
 
 First song.
 
-<audio controls>
-  <source src="https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/EDU-T560-UDL/Universal+Design+for+Learning+(UDL).mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
-
+<iframe width="560" height="315" src="https://www.youtube.com/embed/BNIoKtjdP78?si=-IlFdzDsBXzUyba-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 <details>
   <summary>The lyrics of the first song.</summary>
   <pre>
@@ -87,12 +83,12 @@ Empowered by choice, engaged each day.
   </pre>
 </details>
 
+<br>
+<br>
+
 Second song.
 
-<audio controls>
-  <source src="https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/EDU-T560-UDL/In+halls+once+built+for+just+a+few.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qhuUrSDEVEY?si=QL5j8MjAlF9jl-1Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 <details>
   <summary>The lyrics of the second song.</summary>
