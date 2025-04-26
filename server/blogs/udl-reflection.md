@@ -12,6 +12,134 @@ chips:
   - Universal Design for Learning
 ---
 
+## UDL-Inspired Music
+
+As our course came to a close, I found myself reflecting on how to meaningfully synthesize everything I had learned about Universal Design for Learning (UDL). I was inspired by the invitation to create a reflection that would disrupt inequity and cultivate joy. I wondered: why not explore a creative medium that embodies the very principles we've been studying? What if I could translate the essence of UDL into music?
+
+This led me to an experiment in multiple means of expression. I collaborated with ChatGPT to help craft lyrics and Suno.com for musical composition to create a song that captures the core principles of UDL. The creative process itself reflected UDL’s spirit: embracing alternative modes of expression, engaging with content in personally meaningful ways, and leveraging technology to overcome traditional barriers to creation.
+
+Through this musical project, I found a way to internalize and share the UDL framework that felt authentic, accessible, and full of joy. The experience reinforced for me that UDL is not just about making learning accessible, it is about expanding our understanding of how learning and expression can flourish in many forms.
+
+I used the tool to generate 16 different songs with various styles and lyrics. Among all these generations, I picked the two below as my favorites. They are really good!
+
+You can listen to the music below:
+
+First song.
+
+<audio controls>
+  <source src="https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/EDU-T560-UDL/Universal+Design+for+Learning+(UDL).mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<details>
+  <summary>The lyrics of the first song.</summary>
+  <pre>
+A tapestry woven wide and fair,  
+Threads of knowledge, rich and rare.  
+Born from rooms where healing dwells,  
+Its story grows, its purpose swells.
+
+Not just for those constrained by walls,  
+But breaking barriers, UDL calls  
+To every learner, diverse and bright,  
+Championing equity, casting wide its light.
+
+Through affect, recognition, and strategic might,  
+Engaging minds and sparking delight.  
+Expert learners it seeks to mold,  
+Not rote memorization, tired and cold.
+
+It honors the ancient wisdom clear,  
+"Teach all, without bias or fear,"  
+Confucius taught, "Adapt and see,  
+Each learner’s uniqueness, set them free."
+
+Adaptive pathways, vibrant, alive,  
+Curricula that learn, adjust, and thrive.  
+Technology listens, learns, and grows,  
+Reflecting needs each student shows.
+
+Designing not for average alone,  
+But edges, where true strength is shown.  
+Questioning boundaries, how wide, how far?  
+Pursuing inclusion, raising the bar.
+
+Brain networks engaged, emotions connect,  
+Recognition patterns, insights collect.  
+Strategic plans, actions expressed,  
+In classrooms transformed, each voice is blessed.
+
+Beyond the myth of rigid style,  
+Live-wiring brains adapt, compile.  
+A complex dance of fast and slow,  
+Predicting patterns, minds aglow.
+
+From biases hidden deep within,  
+UDL challenges, helps us begin  
+To see anew, inclusively taught,  
+Each student's worth, consciously sought.
+
+So let us craft with care and zeal,  
+Learning spaces, vibrant, real.  
+Where every learner finds their way,  
+Empowered by choice, engaged each day.
+
+  </pre>
+</details>
+
+Second song.
+
+<audio controls>
+  <source src="https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/EDU-T560-UDL/In+halls+once+built+for+just+a+few.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<details>
+  <summary>The lyrics of the second song.</summary>
+  <pre>
+In halls once built for just a few,
+A spark was lit, a vision grew —
+A dream that learning could expand,
+Beyond one mold, beyond one hand.
+
+No "average" child, no single way,
+Each mind, a world, a path, a play.
+From affect's fire, to reason's light,
+From motion’s plan to daring flight.
+
+A web of minds, a woven thread,
+Where learning walks, where futures tread.
+Not forced into a rigid mold,
+But given space, and shapes, and soul.
+
+The "why" of hearts, the "what" of thought,
+The "how" of actions, each one taught —
+With doors flung wide, not walls raised high,
+And many ways to leap and fly.
+
+A book, a film, a voice, a song,
+No one way to belong is wrong.
+Through many means, through many eyes,
+We scaffold dreams, we scale the skies.
+
+Not one, not few, but every soul,
+Shapes learning’s ever-living goal.
+Curriculum that bends and grows,
+That listens, learns, and deeply knows.
+
+Bias unveiled, identity named,
+Systems redesigned, not blamed.
+From ancient words to modern calls,
+Education for all, means all.
+
+A seed of thought, a sea of change,
+No mind too distant, none too strange.
+Universal, diverse, profound—
+In UDL, all dreams are found.
+
+  </pre>
+</details>
+
 ## Thoughts on UDL
 
 ![image](https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/EDU-T560-UDL/udlg3-graphicorganizer-digital-nonumbers-a11y.png)
