@@ -1,3 +1,12 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Allow: /
+
+# found these using firecrawl, not sure how these got in there
+Disallow: /children-593313_640
+Disallow: /dessert-3330996_640
+Disallow: /man-791049_1920
+Disallow: /womans-legs-887286_640
+Disallow: /moshed-hello-world
+
+Sitemap: https://www.chenyuzhang.com/sitemap.xml
