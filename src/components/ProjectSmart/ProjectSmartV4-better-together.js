@@ -622,7 +622,7 @@ const ProjectBetterTogether = () => {
           ★ These authors contributed equally to this work ★
         </EqualContributionNote>
         <Typography variant="caption" display="block" gutterBottom>
-          software version: v4.0.2
+          software version: v4.1.0
         </Typography>
       </Box>
       <ConversationFlow>
