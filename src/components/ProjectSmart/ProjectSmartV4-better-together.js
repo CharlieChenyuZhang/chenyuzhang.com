@@ -481,10 +481,10 @@ const ProjectSmart = () => {
   const [conversation, setConversation] = useState([]);
   const [loading, setLoading] = useState(false);
   const chatContainerRef = useRef(null);
-  const audioRef = useRef(null); // Ref for audio playback
+  const audioRef = useRef(null);
   const [isRecording, setIsRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
-  const [loadingTTS, setLoadingTTS] = useState(false);
+  const [loadingTTSIds, setLoadingTTSIds] = useState(new Set());
 
   const handleStartRecording = async () => {
     try {
@@ -679,9 +679,9 @@ const ProjectSmart = () => {
     }
   }, [conversation]);
 
-  const handlePlayTTS = async (what2Speak) => {
+  const handlePlayTTS = async (what2Speak, messageId) => {
     if (what2Speak) {
-      setLoadingTTS(true);
+      setLoadingTTSIds((prev) => new Set([...prev, messageId]));
       try {
         const response = await fetch("https://api.openai.com/v1/audio/speech", {
           method: "POST",
@@ -706,7 +706,11 @@ const ProjectSmart = () => {
       } catch (error) {
         console.error("Error with TTS:", error);
       } finally {
-        setLoadingTTS(false);
+        setLoadingTTSIds((prev) => {
+          const newSet = new Set(prev);
+          newSet.delete(messageId);
+          return newSet;
+        });
       }
     }
   };
@@ -748,22 +752,16 @@ const ProjectSmart = () => {
             )}
             {msg.isUser ? (
               <UserMessageDecorator>
-                <SpeechBubble isUser={msg.isUser}>
-                  {/* <MessageHighlight isUser={msg.isUser} /> */}
-                  {/* <MessageLabel isUser={msg.isUser}>YOU</MessageLabel> */}
-                  {msg.text}
-                </SpeechBubble>
+                <SpeechBubble isUser={msg.isUser}>{msg.text}</SpeechBubble>
               </UserMessageDecorator>
             ) : (
               <SpeechBubble isUser={msg.isUser}>
-                {/* <MessageHighlight isUser={msg.isUser} /> */}
-                {/* <MessageLabel isUser={msg.isUser}>AI</MessageLabel> */}
                 {msg.text}
                 <TTSButton
-                  onClick={() => handlePlayTTS(msg.text)}
-                  disabled={loadingTTS}
+                  onClick={() => handlePlayTTS(msg.text, index)}
+                  disabled={loadingTTSIds.has(index)}
                 >
-                  {loadingTTS ? "..." : "🔊"}
+                  {loadingTTSIds.has(index) ? "..." : "🔊"}
                 </TTSButton>
                 {msg.imageUrl && (
                   <img
