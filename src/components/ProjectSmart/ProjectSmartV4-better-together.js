@@ -160,37 +160,6 @@ const UserMessageDecorator = styled.div`
   }
 `;
 
-const MessageHighlight = styled.div`
-  position: absolute;
-  ${(props) => (props.isUser ? "right" : "left")}: -10px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 4px;
-  height: 70%;
-  background: ${(props) => (props.isUser ? "#FFD700" : "#FF69B4")};
-  border-radius: 2px;
-  box-shadow: 0 0 10px
-    ${(props) =>
-      props.isUser ? "rgba(255, 215, 0, 0.5)" : "rgba(255, 105, 180, 0.5)"};
-`;
-
-const MessageLabel = styled.div`
-  position: absolute;
-  ${(props) => (props.isUser ? "right" : "left")}: 10px;
-  top: -25px;
-  font-family: 'Bangers', 'Comic Sans MS', cursive;
-  color: ${(props) => (props.isUser ? "#FFD700" : "#FF69B4")};
-  font-size: 1rem;
-  text-shadow: 2px 2px 0 #000;
-  transform: rotate(${(props) => (props.isUser ? "2deg" : "-2deg")});
-  
-  &:before {
-    content: '${(props) => (props.isUser ? "💭" : "✧")}';
-    margin-${(props) => (props.isUser ? "left" : "right")}: 5px;
-    font-size: 1.2rem;
-  }
-`;
-
 const SpeechBubble = styled.div`
   background-color: white;
   color: black;
@@ -476,7 +445,7 @@ const EqualContributionNote = styled.div`
   }
 `;
 
-const ProjectSmart = () => {
+const ProjectBetterTogether = () => {
   const [thought, setThought] = useState("");
   const [conversation, setConversation] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -555,103 +524,6 @@ const ProjectSmart = () => {
 
     try {
       const tutorResponse = await fetch(`${backendDomain()}/tutor`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ inputText }),
-      });
-
-      const tutorData = await tutorResponse.json();
-      setConversation((prev) => [
-        ...prev,
-        { text: tutorData.response, isUser: false },
-      ]);
-    } catch (error) {
-      console.error("Error fetching the tutor data:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleEmbodimentSubmit = async () => {
-    if (!thought.trim()) return;
-
-    const imgPrompt = `Embodiment prompt: ${thought}`;
-    setLoading(true);
-
-    // Add the user's input to the conversation
-    const newConversation = [...conversation, { text: thought, isUser: true }];
-    setConversation(newConversation);
-    setThought("");
-
-    try {
-      const response = await fetch(`${backendDomain()}/image`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ inputText: imgPrompt }),
-      });
-
-      const data = await response.json();
-      const { embodimentResponseMsg, imageUrl } = data;
-
-      // Add the embodiment response message and image to the conversation
-      setConversation((prev) => [
-        ...prev,
-        { imageUrl, isUser: false }, // show the img first. Order matters here.
-        { text: embodimentResponseMsg, isUser: false },
-      ]);
-    } catch (error) {
-      console.error("Error fetching embodiment data:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleMentalModelSubmit = async () => {
-    if (!thought.trim()) return;
-
-    const inputText = `Thought: ${thought}`;
-    setLoading(true);
-
-    const newConversation = [...conversation, { text: thought, isUser: true }];
-    setConversation(newConversation);
-    setThought("");
-
-    try {
-      const tutorResponse = await fetch(`${backendDomain()}/mental-model`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ inputText }),
-      });
-
-      const tutorData = await tutorResponse.json();
-      setConversation((prev) => [
-        ...prev,
-        { text: tutorData.response, isUser: false },
-      ]);
-    } catch (error) {
-      console.error("Error fetching the tutor data:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-  const handleReframeSubmit = async () => {
-    if (!thought.trim()) return;
-
-    const inputText = `Thought: ${thought}`;
-    setLoading(true);
-
-    const newConversation = [...conversation, { text: thought, isUser: true }];
-    setConversation(newConversation);
-    setThought("");
-
-    try {
-      const tutorResponse = await fetch(`${backendDomain()}/reframe`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -829,4 +701,4 @@ const ProjectSmart = () => {
   );
 };
 
-export default ProjectSmart;
+export default ProjectBetterTogether;
