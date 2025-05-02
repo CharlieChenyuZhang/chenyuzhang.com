@@ -532,7 +532,10 @@ const ProjectBetterTogether = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ inputText }),
+          body: JSON.stringify({
+            inputText,
+            conversation: newConversation,
+          }),
         }
       );
 
