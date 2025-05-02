@@ -8,6 +8,7 @@ import Music from "./components/Music";
 import PublicSpeaking from "./components/PublicSpeaking";
 import Dance from "./components/Dance";
 import Singing from "./components/Singing";
+import ProjectBetterTogether from "./components/ProjectSmart/ProjectSmartV4-better-together";
 import ProjectSmartV1 from "./components/ProjectSmart/ProjectSmartV1";
 import ProjectSmartV2 from "./components/ProjectSmart/ProjectSmartV2";
 import ProjectSmartV3 from "./components/ProjectSmart/ProjectSmartV3";
@@ -96,6 +97,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         />
 
         {/* %%%%%%%%%%%%%%% BELOW IS THE PROJECT PAGES %%%%%%%%%%%%%%% */}
+        <Route
+          exact
+          path="/project/better-together"
+          element={elementConstructor(<ProjectBetterTogether />)}
+        />
         <Route
           exact
           path="/project/smart/v1"
