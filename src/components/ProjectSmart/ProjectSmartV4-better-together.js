@@ -144,6 +144,7 @@ const UserMessageDecorator = styled.div`
     font-size: 1.5rem;
     color: #ffd700;
     animation: ${sparkle} 2s infinite;
+    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
   }
 
   &:before {
@@ -198,7 +199,7 @@ const SpeechBubble = styled.div`
   max-width: 400px;
   position: relative;
   border: 3px solid black;
-  font-family: "Comic Sans MS", "Chalkboard SE", sans-serif;
+  font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
   font-size: 16px;
   margin: ${(props) => (props.isUser ? "0 20px 0 0" : "0 0 0 20px")};
   box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8);
@@ -206,50 +207,74 @@ const SpeechBubble = styled.div`
   background: ${(props) =>
     props.isUser ? "linear-gradient(135deg, #fff 0%, #fff8e1 100%)" : "white"};
   transform-origin: ${(props) => (props.isUser ? "right" : "left")} center;
-
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.1));
+  
   &:before {
-    content: "";
+    content: '';
     position: absolute;
-    ${(props) => (props.isUser ? "right: -25px" : "left: -25px")};
+    ${(props) => (props.isUser ? "right: -22px" : "left: -22px")};
     top: 50%;
     transform: translateY(-50%);
     width: 0;
     height: 0;
-    border-top: 25px solid transparent;
-    border-bottom: 25px solid transparent;
-    ${(props) =>
+    border: none;
+    background: white;
+    clip-path: ${(props) =>
       props.isUser
-        ? "border-left: 25px solid white;"
-        : "border-right: 25px solid white;"}
+        ? "polygon(0 0, 0% 100%, 100% 50%)"
+        : "polygon(100% 0, 100% 100%, 0 50%)"};
+    width: 22px;
+    height: 22px;
+    background: ${(props) =>
+      props.isUser
+        ? "linear-gradient(135deg, #fff 0%, #fff8e1 100%)"
+        : "white"};
   }
 
   &:after {
-    content: "";
+    content: '';
     position: absolute;
-    ${(props) => (props.isUser ? "right: -29px" : "left: -29px")};
+    ${(props) => (props.isUser ? "right: -22px" : "left: -22px")};
     top: 50%;
     transform: translateY(-50%);
-    width: 0;
-    height: 0;
-    border-top: 28px solid transparent;
-    border-bottom: 28px solid transparent;
-    ${(props) =>
+    width: 25px;
+    height: 25px;
+    background: transparent;
+    border: 3px solid black;
+    border-${(props) => (props.isUser ? "left" : "right")}: 0;
+    border-${(props) => (props.isUser ? "right" : "left")}: 3px solid black;
+    clip-path: ${(props) =>
       props.isUser
-        ? "border-left: 28px solid black;"
-        : "border-right: 28px solid black;"}
-    z-index: -1;
+        ? "polygon(-1px -1px, -1px 26px, 26px 13px)"
+        : "polygon(26px -1px, 26px 26px, -1px 13px)"};
   }
 
-  &:hover {
-    transform: scale(1.02)
-      rotate(${(props) => (props.isUser ? "1deg" : "-1deg")});
-    ${(props) =>
-      props.isUser &&
-      `
-      box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8),
+  ${(props) =>
+    props.isUser &&
+    `
+    &:hover {
+      transform: scale(1.02) rotate(1deg);
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8),
                  0 0 20px rgba(255, 215, 0, 0.2);
-    `}
-  }
+      
+      &:before {
+        background: linear-gradient(135deg, #fff 0%, #fff8e1 100%);
+      }
+    }
+    
+    &:after {
+      border-color: black;
+    }
+  `}
+
+  ${(props) =>
+    !props.isUser &&
+    `
+    &:hover {
+      transform: scale(1.02) rotate(-1deg);
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8);
+    }
+  `}
 `;
 
 const InputContainer = styled.div`
