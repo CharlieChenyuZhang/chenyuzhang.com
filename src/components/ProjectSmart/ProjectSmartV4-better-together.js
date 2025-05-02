@@ -275,6 +275,42 @@ const SpeechBubble = styled.div`
       box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8);
     }
   `}
+
+  /* Add position relative for TTS button positioning */
+  position: relative;
+`;
+
+const TTSButton = styled(Button)`
+  && {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    min-width: 40px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 0;
+    background: #ff69b4;
+    border: 3px solid black;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
+    color: white;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(0deg);
+    transition: all 0.2s ease;
+
+    &:hover {
+      transform: scale(1.1) rotate(-5deg);
+      background: #ff1493;
+    }
+
+    &:disabled {
+      background: #ccc;
+      color: #666;
+    }
+  }
 `;
 
 const InputContainer = styled.div`
@@ -723,6 +759,12 @@ const ProjectSmart = () => {
                 {/* <MessageHighlight isUser={msg.isUser} /> */}
                 {/* <MessageLabel isUser={msg.isUser}>AI</MessageLabel> */}
                 {msg.text}
+                <TTSButton
+                  onClick={() => handlePlayTTS(msg.text)}
+                  disabled={loadingTTS}
+                >
+                  {loadingTTS ? "..." : "🔊"}
+                </TTSButton>
                 {msg.imageUrl && (
                   <img
                     src={msg.imageUrl}
