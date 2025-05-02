@@ -345,11 +345,13 @@ const StyledTextField = styled(TextField)`
       font-family: "Comic Sans MS", "Chalkboard SE", sans-serif;
       font-size: 1.1rem;
       padding: 15px;
+      color: #ffffff;
 
       &::placeholder {
-        color: rgba(255, 215, 0, 0.5);
+        color: rgba(255, 215, 0, 0.7);
         font-family: "Bangers", "Comic Sans MS", cursive;
         letter-spacing: 1px;
+        opacity: 1;
       }
     }
   }
