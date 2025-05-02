@@ -27,6 +27,11 @@ const popIn = keyframes`
   100% { transform: scale(1); opacity: 1; }
 `;
 
+const sparkle = keyframes`
+  0%, 100% { opacity: 0.4; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+`;
+
 const MainContainer = styled.div`
   min-height: 100vh;
   background-color: #000;
@@ -129,6 +134,62 @@ const CharacterContainer = styled.div`
   }
 `;
 
+const UserMessageDecorator = styled.div`
+  position: relative;
+
+  &:before,
+  &:after {
+    content: "✦";
+    position: absolute;
+    font-size: 1.5rem;
+    color: #ffd700;
+    animation: ${sparkle} 2s infinite;
+  }
+
+  &:before {
+    right: -25px;
+    top: 0;
+    animation-delay: 0.3s;
+  }
+
+  &:after {
+    right: -15px;
+    bottom: 0;
+    animation-delay: 0.6s;
+  }
+`;
+
+const MessageHighlight = styled.div`
+  position: absolute;
+  ${(props) => (props.isUser ? "right" : "left")}: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 70%;
+  background: ${(props) => (props.isUser ? "#FFD700" : "#FF69B4")};
+  border-radius: 2px;
+  box-shadow: 0 0 10px
+    ${(props) =>
+      props.isUser ? "rgba(255, 215, 0, 0.5)" : "rgba(255, 105, 180, 0.5)"};
+`;
+
+const MessageLabel = styled.div`
+  position: absolute;
+  ${(props) => (props.isUser ? "right" : "left")}: 10px;
+  top: -25px;
+  font-family: 'Bangers', 'Comic Sans MS', cursive;
+  color: ${(props) => (props.isUser ? "#FFD700" : "#FF69B4")};
+  font-size: 1rem;
+  text-shadow: 2px 2px 0 #000;
+  transform: rotate(${(props) => (props.isUser ? "2deg" : "-2deg")});
+  
+  &:before {
+    content: '${(props) => (props.isUser ? "💭" : "✧")}';
+    margin-${(props) => (props.isUser ? "left" : "right")}: 5px;
+    font-size: 1.2rem;
+  }
+`;
+
 const SpeechBubble = styled.div`
   background-color: white;
   color: black;
@@ -142,6 +203,9 @@ const SpeechBubble = styled.div`
   margin: ${(props) => (props.isUser ? "0 20px 0 0" : "0 0 0 20px")};
   box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8);
   transform: rotate(${(props) => (props.isUser ? "1deg" : "-1deg")});
+  background: ${(props) =>
+    props.isUser ? "linear-gradient(135deg, #fff 0%, #fff8e1 100%)" : "white"};
+  transform-origin: ${(props) => (props.isUser ? "right" : "left")} center;
 
   &:before {
     content: "";
@@ -178,7 +242,13 @@ const SpeechBubble = styled.div`
 
   &:hover {
     transform: scale(1.02)
-      rotate(${(props) => (props.isUser ? "2deg" : "-2deg")});
+      rotate(${(props) => (props.isUser ? "1deg" : "-1deg")});
+    ${(props) =>
+      props.isUser &&
+      `
+      box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8),
+                 0 0 20px rgba(255, 215, 0, 0.2);
+    `}
   }
 `;
 
@@ -326,6 +396,22 @@ const ActionButton = styled(Button)`
     &:active {
       transform: translateY(0) rotate(0deg);
     }
+  }
+`;
+
+const EqualContributionNote = styled.div`
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  &:before,
+  &:after {
+    content: "✦";
+    color: #ffd700;
+    font-size: 1rem;
   }
 `;
 
@@ -566,29 +652,67 @@ const ProjectSmart = () => {
 
   return (
     <MainContainer>
-      <ComicHeader>SMART Reflection Journal</ComicHeader>
+      <ComicHeader>Self-Compassion Journal</ComicHeader>
+
+      <Box
+        sx={{
+          marginTop: "20px",
+          padding: "15px",
+          borderTop: "1px solid rgba(255, 255, 255, 0.1)",
+          fontSize: "0.8rem",
+          color: "rgba(255, 255, 255, 0.7)",
+          textAlign: "center",
+        }}
+      >
+        <Typography variant="caption" display="block" gutterBottom>
+          Course Project for EDU T543
+        </Typography>
+        <Typography variant="caption" display="block" gutterBottom>
+          Team Better Together
+        </Typography>
+        <Typography variant="caption" display="block" gutterBottom>
+          Chenyu Zhang, Jessy Lu, Janice Mason
+        </Typography>
+        <EqualContributionNote>
+          ★ These authors contributed equally to this work ★
+        </EqualContributionNote>
+      </Box>
       <ConversationFlow>
         {conversation.map((msg, index) => (
           <ConversationItem key={index} isUser={msg.isUser}>
-            <CharacterContainer isUser={msg.isUser}>
-              <img src={selfHuggingImage} alt="Self Compassion Character" />
-            </CharacterContainer>
-            <SpeechBubble isUser={msg.isUser}>
-              {msg.text}
-              {msg.imageUrl && (
-                <img
-                  src={msg.imageUrl}
-                  alt="Response Image"
-                  style={{
-                    maxWidth: "100%",
-                    borderRadius: "8px",
-                    marginTop: "10px",
-                    border: "3px solid black",
-                    boxShadow: "4px 4px 0 rgba(0,0,0,0.8)",
-                  }}
-                />
-              )}
-            </SpeechBubble>
+            {!msg.isUser && (
+              <CharacterContainer isUser={msg.isUser}>
+                <img src={selfHuggingImage} alt="Self Compassion Character" />
+              </CharacterContainer>
+            )}
+            {msg.isUser ? (
+              <UserMessageDecorator>
+                <SpeechBubble isUser={msg.isUser}>
+                  {/* <MessageHighlight isUser={msg.isUser} /> */}
+                  {/* <MessageLabel isUser={msg.isUser}>YOU</MessageLabel> */}
+                  {msg.text}
+                </SpeechBubble>
+              </UserMessageDecorator>
+            ) : (
+              <SpeechBubble isUser={msg.isUser}>
+                {/* <MessageHighlight isUser={msg.isUser} /> */}
+                {/* <MessageLabel isUser={msg.isUser}>AI</MessageLabel> */}
+                {msg.text}
+                {msg.imageUrl && (
+                  <img
+                    src={msg.imageUrl}
+                    alt="Response Image"
+                    style={{
+                      maxWidth: "100%",
+                      borderRadius: "8px",
+                      marginTop: "10px",
+                      border: "3px solid black",
+                      boxShadow: "4px 4px 0 rgba(0,0,0,0.8)",
+                    }}
+                  />
+                )}
+              </SpeechBubble>
+            )}
           </ConversationItem>
         ))}
 
@@ -636,35 +760,6 @@ const ProjectSmart = () => {
 
         <audio ref={audioRef} />
       </InputContainer>
-
-      <Box
-        sx={{
-          marginTop: "20px",
-          padding: "15px",
-          borderTop: "1px solid rgba(255, 255, 255, 0.1)",
-          fontSize: "0.8rem",
-          color: "rgba(255, 255, 255, 0.7)",
-          textAlign: "center",
-        }}
-      >
-        <Typography variant="caption" display="block" gutterBottom>
-          Course Project for EDU T543
-        </Typography>
-        <Typography variant="caption" display="block" gutterBottom>
-          Created by the Better Together Team
-        </Typography>
-        <Typography variant="caption" display="block">
-          Photo Credits:{" "}
-          <a
-            href="https://stock.adobe.com/search/images?k=self+compassion"
-            style={{ color: "rgba(255, 255, 255, 0.7)" }}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Adobe Stock
-          </a>
-        </Typography>
-      </Box>
     </MainContainer>
   );
 };
