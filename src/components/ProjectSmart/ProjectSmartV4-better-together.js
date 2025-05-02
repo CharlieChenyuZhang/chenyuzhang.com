@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import {
   Box,
   TextField,
@@ -8,101 +8,326 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { backendDomain } from "../../utils";
+import selfHuggingImage from "./self-compassion/self-hugging.png";
+
+const halftoneBackground = `
+  radial-gradient(circle at 100% 0%, rgba(255,255,255,0.12) 2px, transparent 2px),
+  radial-gradient(circle at 0% 100%, rgba(255,255,255,0.12) 2px, transparent 2px)
+`;
+
+const comicShake = keyframes`
+  0%, 100% { transform: translate(0, 0) rotate(0); }
+  25% { transform: translate(1px, 1px) rotate(0.5deg); }
+  75% { transform: translate(-1px, -1px) rotate(-0.5deg); }
+`;
+
+const popIn = keyframes`
+  0% { transform: scale(0.8); opacity: 0; }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+`;
 
 const MainContainer = styled.div`
-  height: 100%;
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background-color: #000;
   color: #fff;
-`;
-
-const ContentContainer = styled.div`
-  width: 100%;
-  max-width: 800px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  border: 1px solid #fff;
-  border-radius: 8px;
-  background-color: #111;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
-`;
-
-const ChatContainer = styled.div`
-  flex-grow: 1;
-  height: 50vh;
+  align-items: center;
   overflow-y: auto;
-  margin-bottom: 20px;
-  padding: 10px;
-  border: 1px solid #fff;
-  border-radius: 8px;
+  background-image: ${halftoneBackground};
+  background-size: 30px 30px;
+
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
 `;
 
-const MessageContainer = styled.div`
-  display: flex;
-  align-items: flex-start;
-  margin: 8px 0;
-  flex-direction: ${(props) => (props.isUser ? "row-reverse" : "row")};
-`;
-
-const AiIcon = styled.div`
-  font-size: 1.5rem;
-  margin-top: -4px;
-  margin-right: ${(props) => (props.isUser ? "0" : "8px")};
-  margin-left: ${(props) => (props.isUser ? "8px" : "0")};
-`;
-
-const SpeakerIcon = styled.div`
-  font-size: 1.5rem;
-  margin-top: -4px;
-  cursor: pointer;
-  margin-right: ${(props) => (props.isUser ? "8px" : "0")};
-  margin-left: ${(props) => (props.isUser ? "0" : "8px")};
-  color: ${(props) => (props.isUser ? "#fff" : "#ccc")};
-`;
-
-const MessageBubble = styled.div`
-  background-color: ${(props) => (props.isUser ? "#000" : "#222")};
+const ComicHeader = styled.div`
+  font-family: "Bangers", "Comic Sans MS", cursive;
+  font-size: 2.5rem;
   color: #fff;
-  border: 1px solid #fff;
-  border-radius: 12px;
-  padding: 10px 15px;
-  max-width: 75%;
-  white-space: pre-line;
+  text-align: center;
+  margin: 20px 0;
+  text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000,
+    -1px 1px 0 #000, 1px 1px 0 #000;
+  letter-spacing: 2px;
+  animation: ${comicShake} 2.5s infinite;
+`;
+
+const ConversationFlow = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  padding: 20px;
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 100px;
+`;
+
+const ConversationItem = styled.div`
+  display: flex;
+  flex-direction: ${(props) => (props.isUser ? "row-reverse" : "row")};
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  position: relative;
+  animation: ${popIn} 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+
+  &:before {
+    content: "${(props) => (props.isUser ? "YOU" : "AI")}";
+    position: absolute;
+    ${(props) => (props.isUser ? "right" : "left")}: 10px;
+    top: -25px;
+    font-family: "Bangers", "Comic Sans MS", cursive;
+    color: ${(props) => (props.isUser ? "#FFD700" : "#FF69B4")};
+    font-size: 1.2rem;
+    text-shadow: 2px 2px 0 #000;
+    transform: rotate(${(props) => (props.isUser ? "2deg" : "-2deg")});
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    ${(props) =>
+      props.isUser ? "align-items: flex-end" : "align-items: flex-start"};
+  }
+`;
+
+const CharacterContainer = styled.div`
+  width: 200px;
+  height: 200px;
+  flex-shrink: 0;
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+  position: relative;
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: ${halftoneBackground};
+    background-size: 10px 10px;
+    mix-blend-mode: overlay;
+    opacity: 0.1;
+    pointer-events: none;
+  }
+
+  &:hover {
+    transform: scale(1) rotate(${(props) => (props.isUser ? "2deg" : "-2deg")});
+    animation: ${comicShake} 0.5s;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  }
+`;
+
+const SpeechBubble = styled.div`
+  background-color: white;
+  color: black;
+  padding: 25px;
+  border-radius: 30px;
+  max-width: 400px;
+  position: relative;
+  border: 3px solid black;
+  font-family: "Comic Sans MS", "Chalkboard SE", sans-serif;
+  font-size: 16px;
+  margin: ${(props) => (props.isUser ? "0 20px 0 0" : "0 0 0 20px")};
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8);
+  transform: rotate(${(props) => (props.isUser ? "1deg" : "-1deg")});
+
+  &:before {
+    content: "";
+    position: absolute;
+    ${(props) => (props.isUser ? "right: -25px" : "left: -25px")};
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 25px solid transparent;
+    border-bottom: 25px solid transparent;
+    ${(props) =>
+      props.isUser
+        ? "border-left: 25px solid white;"
+        : "border-right: 25px solid white;"}
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    ${(props) => (props.isUser ? "right: -29px" : "left: -29px")};
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 28px solid transparent;
+    border-bottom: 28px solid transparent;
+    ${(props) =>
+      props.isUser
+        ? "border-left: 28px solid black;"
+        : "border-right: 28px solid black;"}
+    z-index: -1;
+  }
+
+  &:hover {
+    transform: scale(1.02)
+      rotate(${(props) => (props.isUser ? "2deg" : "-2deg")});
+  }
 `;
 
 const InputContainer = styled.div`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.95);
+  padding: 20px;
   display: flex;
-  align-items: center;
-  margin-top: 10px;
   flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  border-top: 3px solid #ffd700;
+  box-shadow: 0 -4px 20px rgba(255, 215, 0, 0.2);
+  animation: ${popIn} 0.5s ease-out forwards;
 `;
 
 const StyledTextField = styled(TextField)`
-  & .MuiInputBase-root {
-    color: #fff;
-  }
-  & .MuiOutlinedInput-root {
-    & fieldset {
-      border-color: #fff;
+  && {
+    & .MuiInputBase-root {
+      color: #fff;
+      font-family: "Comic Sans MS", "Chalkboard SE", sans-serif;
+      transition: all 0.3s ease;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 3px solid #ffd700;
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8);
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8);
+      }
+
+      &.Mui-focused {
+        transform: translateY(-2px) scale(1.01);
+        box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8);
+      }
     }
-    &:hover fieldset {
-      border-color: #ccc;
+
+    & .MuiOutlinedInput-root {
+      & fieldset {
+        border: none;
+      }
+
+      &:hover fieldset {
+        border: none;
+      }
+
+      &.Mui-focused fieldset {
+        border: none;
+      }
     }
-    &.Mui-focused fieldset {
-      border-color: #fff;
+
+    & .MuiInputLabel-root {
+      color: rgba(255, 255, 255, 0.7);
+      font-family: "Comic Sans MS", "Chalkboard SE", sans-serif;
+    }
+
+    textarea {
+      font-family: "Comic Sans MS", "Chalkboard SE", sans-serif;
+      font-size: 1.1rem;
+      padding: 15px;
+
+      &::placeholder {
+        color: rgba(255, 215, 0, 0.5);
+        font-family: "Bangers", "Comic Sans MS", cursive;
+        letter-spacing: 1px;
+      }
     }
   }
-  & .MuiInputLabel-root {
-    color: #fff;
-  }
-  width: 100%;
 `;
 
-const ButtonGroup = styled.div``;
+const ButtonGroup = styled.div`
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  max-width: 800px;
+  position: relative;
+
+  &:before {
+    content: "✨";
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    animation: ${comicShake} 2s infinite;
+  }
+
+  &:after {
+    content: "✨";
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    animation: ${comicShake} 2s infinite reverse;
+  }
+`;
+
+const ActionButton = styled(Button)`
+  && {
+    font-family: "Bangers", "Comic Sans MS", cursive;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    padding: 8px 20px;
+    border-width: 3px;
+    border-radius: 15px;
+    text-shadow: 1px 1px 0 #000;
+    position: relative;
+    overflow: hidden;
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.2) 0%,
+        transparent 60%
+      );
+      transform: scale(0);
+      transition: transform 0.3s ease-out;
+    }
+
+    &:hover:before {
+      transform: scale(1);
+    }
+
+    &:hover {
+      transform: translateY(-3px) rotate(-1deg);
+      box-shadow: 0 6px 12px rgba(255, 215, 0, 0.3);
+    }
+
+    &:active {
+      transform: translateY(0) rotate(0deg);
+    }
+  }
+`;
 
 const ProjectSmart = () => {
   const [thought, setThought] = useState("");
@@ -341,182 +566,105 @@ const ProjectSmart = () => {
 
   return (
     <MainContainer>
-      <ContentContainer>
-        {/* <Typography variant="h4" align="center" gutterBottom>
-          SMART Journaling
-        </Typography> */}
-        <ChatContainer ref={chatContainerRef}>
-          {conversation.map((msg, index) => (
-            <MessageContainer key={index} isUser={msg.isUser}>
-              {!msg.isUser && <AiIcon>✧₊⁺</AiIcon>}{" "}
-              {/* AI icon next to message */}
-              <MessageBubble isUser={msg.isUser}>
-                {msg.text && <span>{msg.text}</span>}
-                {msg.imageUrl && (
-                  <img
-                    src={msg.imageUrl}
-                    alt="Embodiment Response"
-                    style={{
-                      maxWidth: "100%",
-                      borderRadius: "8px",
-                      marginTop: msg.text ? "8px" : "0",
-                    }}
-                  />
-                )}
-              </MessageBubble>
-              {!msg.isUser && msg.text && (
-                <SpeakerIcon onClick={() => handlePlayTTS(msg.text)}>
-                  {loadingTTS ? (
-                    <CircularProgress size={16} color="inherit" />
-                  ) : (
-                    "၊၊||၊"
-                  )}
-                </SpeakerIcon>
+      <ComicHeader>SMART Reflection Journal</ComicHeader>
+      <ConversationFlow>
+        {conversation.map((msg, index) => (
+          <ConversationItem key={index} isUser={msg.isUser}>
+            <CharacterContainer isUser={msg.isUser}>
+              <img src={selfHuggingImage} alt="Self Compassion Character" />
+            </CharacterContainer>
+            <SpeechBubble isUser={msg.isUser}>
+              {msg.text}
+              {msg.imageUrl && (
+                <img
+                  src={msg.imageUrl}
+                  alt="Response Image"
+                  style={{
+                    maxWidth: "100%",
+                    borderRadius: "8px",
+                    marginTop: "10px",
+                    border: "3px solid black",
+                    boxShadow: "4px 4px 0 rgba(0,0,0,0.8)",
+                  }}
+                />
               )}
-            </MessageContainer>
-          ))}
+            </SpeechBubble>
+          </ConversationItem>
+        ))}
 
-          {loading && (
-            <MessageContainer isUser={false}>
-              <AiIcon>✧₊⁺</AiIcon>
-              <MessageBubble>
-                <CircularProgress size={20} color="inherit" />
-                {" Processing..."}
-              </MessageBubble>
-            </MessageContainer>
-          )}
-        </ChatContainer>
+        {loading && (
+          <ConversationItem isUser={false}>
+            <CharacterContainer>
+              <img src={selfHuggingImage} alt="Self Compassion Character" />
+            </CharacterContainer>
+            <SpeechBubble isUser={false}>
+              <CircularProgress size={20} color="inherit" />
+              {" THINKING..."}
+            </SpeechBubble>
+          </ConversationItem>
+        )}
+      </ConversationFlow>
 
-        <InputContainer>
-          <StyledTextField
-            placeholder="What's on your mind today? Reflect freely..."
+      <InputContainer>
+        <StyledTextField
+          placeholder="What's on your mind today? POW! Let it out..."
+          variant="outlined"
+          value={thought}
+          onChange={handleChange}
+          multiline
+          rows={2}
+          sx={{ width: "100%", maxWidth: "800px" }}
+        />
+
+        <ButtonGroup>
+          <ActionButton
             variant="outlined"
-            value={thought}
-            onChange={handleChange}
-            multiline
-            rows={2}
-            sx={{ marginRight: "10px" }}
-          />
+            onClick={handleSubmit}
+            disabled={!thought.trim()}
+            sx={{ color: "#FFD700", borderColor: "#FFD700" }}
+          >
+            SEND! 💥
+          </ActionButton>
+          <ActionButton
+            variant="outlined"
+            onClick={isRecording ? handleStopRecording : handleStartRecording}
+            sx={{ color: "#FF69B4", borderColor: "#FF69B4" }}
+          >
+            {isRecording ? "🎯 STOP!" : "🎤 SPEAK!"}
+          </ActionButton>
+        </ButtonGroup>
 
-          <ButtonGroup>
-            <Button
-              variant="outlined"
-              onClick={handleSubmit}
-              disabled={!thought.trim()}
-              sx={{
-                color: "white",
-                borderColor: "white",
-                "&:hover": { backgroundColor: "grey" },
-                "&.Mui-disabled": {
-                  color: "rgba(255, 255, 255, 0.5)",
-                  borderColor: "rgba(255, 255, 255, 0.5)",
-                },
-              }}
-            >
-              Send
-            </Button>
+        <audio ref={audioRef} />
+      </InputContainer>
 
-            {/* record button */}
-            <Button
-              variant="outlined"
-              onClick={isRecording ? handleStopRecording : handleStartRecording}
-              sx={{
-                color: "white",
-                borderColor: "white",
-                "&:hover": { backgroundColor: "grey" },
-                "&.Mui-disabled": {
-                  color: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled text
-                  borderColor: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled border
-                },
-              }}
-            >
-              {isRecording ? <>🔴 stop recording</> : <>◉ start Recording</>}
-            </Button>
-
-            <Button
-              variant="outlined"
-              onClick={handleEmbodimentSubmit}
-              disabled={!thought.trim()}
-              sx={{
-                color: "white",
-                borderColor: "white",
-                "&:hover": { backgroundColor: "grey" },
-                "&.Mui-disabled": {
-                  color: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled text
-                  borderColor: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled border
-                },
-              }}
-            >
-              Embody
-            </Button>
-
-            <Button
-              variant="outlined"
-              onClick={handleReframeSubmit}
-              disabled={!thought.trim()}
-              sx={{
-                color: "white",
-                borderColor: "white",
-                "&:hover": { backgroundColor: "grey" },
-                "&.Mui-disabled": {
-                  color: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled text
-                  borderColor: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled border
-                },
-              }}
-            >
-              Reframe
-            </Button>
-
-            <Button
-              variant="outlined"
-              onClick={handleMentalModelSubmit}
-              disabled={!thought.trim()}
-              sx={{
-                color: "white",
-                borderColor: "white",
-                "&:hover": { backgroundColor: "grey" },
-                "&.Mui-disabled": {
-                  color: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled text
-                  borderColor: "rgba(255, 255, 255, 0.5)", // Lighter color for disabled border
-                },
-              }}
-            >
-              Mental Model
-            </Button>
-          </ButtonGroup>
-
-          <audio ref={audioRef} />
-        </InputContainer>
-
-        <Box
-          sx={{
-            marginTop: "20px",
-            padding: "15px",
-            borderTop: "1px solid rgba(255, 255, 255, 0.1)",
-            fontSize: "0.8rem",
-            color: "rgba(255, 255, 255, 0.7)",
-            textAlign: "center",
-          }}
-        >
-          <Typography variant="caption" display="block" gutterBottom>
-            Course Project for EDU T543
-          </Typography>
-          <Typography variant="caption" display="block" gutterBottom>
-            Created by the Better Together Team
-          </Typography>
-          <Typography variant="caption" display="block">
-            Photo Credits:{" "}
-            <a
-              href="https://stock.adobe.com/search/images?k=self+compassion"
-              style={{ color: "rgba(255, 255, 255, 0.7)" }}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Adobe Stock
-            </a>
-          </Typography>
-        </Box>
-      </ContentContainer>
+      <Box
+        sx={{
+          marginTop: "20px",
+          padding: "15px",
+          borderTop: "1px solid rgba(255, 255, 255, 0.1)",
+          fontSize: "0.8rem",
+          color: "rgba(255, 255, 255, 0.7)",
+          textAlign: "center",
+        }}
+      >
+        <Typography variant="caption" display="block" gutterBottom>
+          Course Project for EDU T543
+        </Typography>
+        <Typography variant="caption" display="block" gutterBottom>
+          Created by the Better Together Team
+        </Typography>
+        <Typography variant="caption" display="block">
+          Photo Credits:{" "}
+          <a
+            href="https://stock.adobe.com/search/images?k=self+compassion"
+            style={{ color: "rgba(255, 255, 255, 0.7)" }}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Adobe Stock
+          </a>
+        </Typography>
+      </Box>
     </MainContainer>
   );
 };
