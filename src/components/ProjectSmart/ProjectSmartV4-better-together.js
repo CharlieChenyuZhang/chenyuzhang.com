@@ -607,7 +607,7 @@ const ProjectBetterTogether = () => {
         }}
       >
         <Typography variant="caption" display="block" gutterBottom>
-          Course Project for EDU T543
+          Course Project for EDU T560: Universal Design for Learning
         </Typography>
         <Typography variant="caption" display="block" gutterBottom>
           Team Better Together
@@ -619,7 +619,7 @@ const ProjectBetterTogether = () => {
           ★ These authors contributed equally to this work ★
         </EqualContributionNote>
         <Typography variant="caption" display="block" gutterBottom>
-          software version: v4.0.1
+          software version: v4.0.2
         </Typography>
       </Box>
       <ConversationFlow>
