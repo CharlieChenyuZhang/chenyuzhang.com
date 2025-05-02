@@ -525,13 +525,16 @@ const ProjectBetterTogether = () => {
     setThought("");
 
     try {
-      const tutorResponse = await fetch(`${backendDomain()}/tutor`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ inputText }),
-      });
+      const tutorResponse = await fetch(
+        `${backendDomain()}/better-together-tutor`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ inputText }),
+        }
+      );
 
       const tutorData = await tutorResponse.json();
       setConversation((prev) => [
@@ -615,6 +618,9 @@ const ProjectBetterTogether = () => {
         <EqualContributionNote>
           ★ These authors contributed equally to this work ★
         </EqualContributionNote>
+        <Typography variant="caption" display="block" gutterBottom>
+          software version: v4.0.1
+        </Typography>
       </Box>
       <ConversationFlow>
         {conversation.map((msg, index) => (
