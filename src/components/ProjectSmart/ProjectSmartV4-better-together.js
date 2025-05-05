@@ -6,6 +6,8 @@ import {
   Button,
   Typography,
   CircularProgress,
+  Modal,
+  Paper,
 } from "@mui/material";
 import { backendDomain } from "../../utils";
 import selfHuggingImage from "./self-compassion/self-hugging.png";
@@ -447,6 +449,96 @@ const EqualContributionNote = styled.div`
   }
 `;
 
+const PrivacyModalContent = styled(Paper)`
+  padding: 36px 28px;
+  max-width: 480px;
+  margin: 40px auto;
+  border-radius: 30px;
+  outline: none;
+  text-align: center;
+  background: #fff;
+  color: #111;
+  box-shadow: 8px 8px 0 #000, 0 8px 32px rgba(0, 0, 0, 0.12);
+  border: 4px solid #ff1744;
+  font-family: "Comic Sans MS", "Chalkboard SE", cursive;
+  position: relative;
+  overflow: visible;
+
+  &:before {
+    content: "✨";
+    position: absolute;
+    left: -24px;
+    top: -24px;
+    font-size: 2.2rem;
+    color: #ff1744;
+    text-shadow: 2px 2px 0 #000;
+    animation: ${comicShake} 2s infinite;
+  }
+  &:after {
+    content: "✨";
+    position: absolute;
+    right: -24px;
+    bottom: -24px;
+    font-size: 2.2rem;
+    color: #ff1744;
+    text-shadow: 2px 2px 0 #000;
+    animation: ${comicShake} 2s infinite reverse;
+  }
+
+  ul {
+    text-align: left;
+    margin: 18px 0 18px 0;
+    padding-left: 28px;
+    color: #111;
+    font-size: 1.08rem;
+    font-family: inherit;
+    list-style: "✦ ";
+  }
+
+  li {
+    margin-bottom: 10px;
+    font-family: inherit;
+    text-shadow: none;
+  }
+
+  b {
+    color: #ff1744;
+    text-shadow: none;
+  }
+
+  .privacy-header {
+    font-family: "Bangers", "Comic Sans MS", cursive;
+    color: #ff1744;
+    font-size: 2.1rem;
+    text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000,
+      -1px 1px 0 #000, 1px 1px 0 #000;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    animation: ${comicShake} 2.5s infinite;
+  }
+
+  .privacy-btn {
+    margin-top: 18px;
+    background: #ff1744;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 15px;
+    font-family: "Bangers", "Comic Sans MS", cursive;
+    font-size: 1.2rem;
+    border: 3px solid #000;
+    box-shadow: 2px 2px 0 #000;
+    text-shadow: none;
+    padding: 8px 32px;
+    transition: all 0.2s;
+    &:hover {
+      background: #ff5252;
+      color: #fff;
+      transform: scale(1.05) rotate(-2deg);
+      box-shadow: 4px 4px 0 #000;
+    }
+  }
+`;
+
 const ProjectBetterTogether = () => {
   const [thought, setThought] = useState("");
   const [conversation, setConversation] = useState([]);
@@ -456,6 +548,7 @@ const ProjectBetterTogether = () => {
   const [isRecording, setIsRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
   const [loadingTTSIds, setLoadingTTSIds] = useState(new Set());
+  const [privacyOpen, setPrivacyOpen] = useState(true);
 
   const handleStartRecording = async () => {
     try {
@@ -597,6 +690,35 @@ const ProjectBetterTogether = () => {
 
   return (
     <MainContainer>
+      <Modal open={privacyOpen} onClose={() => setPrivacyOpen(false)}>
+        <PrivacyModalContent>
+          <div className="privacy-header">🛡️ Privacy Policy</div>
+          <Typography variant="body1" gutterBottom>
+            <b>Your privacy matters!</b> <br />
+            <ul>
+              <li>
+                Your data and chat history are <b>not stored</b> in any
+                database.
+              </li>
+              <li>
+                We do <b>not</b> use your data for commercial purposes.
+              </li>
+              <li>
+                If you refresh or close this page, your chat history will be{" "}
+                <b>gone forever</b>.
+              </li>
+            </ul>
+            Please click <b>Yes</b> to continue.
+          </Typography>
+          <Button
+            variant="contained"
+            className="privacy-btn"
+            onClick={() => setPrivacyOpen(false)}
+          >
+            Yes
+          </Button>
+        </PrivacyModalContent>
+      </Modal>
       <ComicHeader>Self-Compassion Journal</ComicHeader>
 
       <Box
