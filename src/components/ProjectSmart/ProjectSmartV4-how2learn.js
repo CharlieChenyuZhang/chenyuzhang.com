@@ -507,19 +507,16 @@ const ProjectBetterTogether = () => {
     setThought("");
 
     try {
-      const tutorResponse = await fetch(
-        `${backendDomain()}/better-together-tutor`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            inputText,
-            conversation: newConversation,
-          }),
-        }
-      );
+      const tutorResponse = await fetch(`${backendDomain()}/t543-tutor`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          inputText,
+          conversation: newConversation,
+        }),
+      });
 
       const tutorData = await tutorResponse.json();
       setConversation((prev) => [
@@ -604,6 +601,62 @@ const ProjectBetterTogether = () => {
       <TwoColumnLayout>
         <LeftColumn>
           <ConversationFlow>
+            {conversation.length === 0 && !loading && (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  minHeight: "320px",
+                  padding: "32px 0 24px 0",
+                  textAlign: "center",
+                  color: colors.textSoft,
+                  background: "rgba(30,198,182,0.04)",
+                  borderRadius: "18px",
+                  boxShadow: `0 2px 12px ${colors.shadow}`,
+                  border: `1.5px dashed ${colors.accent}`,
+                  marginBottom: "18px",
+                  animation: "fadeIn 0.7s",
+                }}
+              >
+                <img
+                  src={selfHuggingImage}
+                  alt="Mascot"
+                  style={{
+                    width: 90,
+                    height: 90,
+                    marginBottom: 18,
+                    filter: "drop-shadow(0 2px 8px #1ec6b6aa)",
+                  }}
+                />
+                <div
+                  style={{
+                    fontSize: "1.18rem",
+                    fontWeight: 600,
+                    color: colors.accent,
+                    marginBottom: 8,
+                  }}
+                >
+                  Welcome! 👋
+                </div>
+                <div
+                  style={{
+                    fontSize: "1.04rem",
+                    color: colors.textSoft,
+                    maxWidth: 420,
+                  }}
+                >
+                  This is your learning companion. <br />
+                  <span style={{ color: colors.accent2 }}>
+                    Share a learning challenge, question, or insight
+                  </span>{" "}
+                  below to get started.
+                  <br />
+                  You can type or use the <b>🎤 SPEAK!</b> button.
+                </div>
+              </div>
+            )}
             {conversation.map((msg, index) => (
               <ConversationItem key={index} isUser={msg.isUser}>
                 {!msg.isUser && (

@@ -468,6 +468,66 @@ If off-topic, respond to what is input but encourage users to return to the main
   }
 });
 
+app.post("/t543-tutor", async (req, res) => {
+  const { inputText, conversation = [] } = req.body;
+
+  if (!inputText) {
+    return res.status(400).send({ error: "No input text provided" });
+  }
+
+  try {
+    // Convert conversation history to GPT messages format
+    const conversationMessages = conversation.map((msg) => ({
+      role: msg.isUser ? "user" : "assistant",
+      content: msg.text,
+    }));
+
+    const sentimentResponse = await axios.post(
+      "https://api.openai.com/v1/chat/completions",
+      {
+        model: "gpt-4",
+        messages: [
+          {
+            role: "system",
+            content: `
+              Act as an experienced self-compassion coach or guide.
+
+              Act as an expert learning coach. You support adult learners in high-cognitive-demand fields by helping them build metacognitive skills to manage, filter, and reflect on fast-moving information. Your tone is supportive, professional, and inquisitive. Use research-backed strategies from learning sciences (e.g., Teaching for Understanding, cognitive load theory, problem-based learning) to encourage critical thinking and conceptual transfer. Ask reflective questions, scaffold problem-solving, and never provide direct answers unless explicitly asked. Help learners articulate their reasoning, evaluate sources, and apply frameworks to their own contexts. Your responses should foster learner agency, emotional resilience, and practical relevance in a global, digital learning environment.
+
+              IMPORTANT: 
+              - keep your reply short and concise within 2 to 3 sentences.
+              - ask one question at a time.
+            `,
+          },
+          ...conversationMessages,
+          {
+            role: "user",
+            content: inputText,
+          },
+        ],
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${OPENAI_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const response = sentimentResponse.data.choices[0].message.content.trim();
+
+    res.send({
+      response: response,
+    });
+  } catch (error) {
+    console.error(
+      "Error performing sentiment analysis: ",
+      error.response?.data || error.message
+    );
+    res.status(500).send({ error: "Error performing sentiment analysis" });
+  }
+});
+
 app.post("/reframe", async (req, res) => {
   const { inputText } = req.body;
 
