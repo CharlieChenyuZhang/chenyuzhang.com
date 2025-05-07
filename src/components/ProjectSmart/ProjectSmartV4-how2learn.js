@@ -351,7 +351,7 @@ Chunking Information: Chunking refers to the strategy of breaking down large amo
 
 Filtering and Focus: Filtering allows learners to prioritize and engage only with the most relevant information. Research supports that setting clear goals for information consumption—such as focusing solely on AI topics related to healthcare for a week—helps reduce cognitive burden. Additionally, turning off notifications and ignoring non-essential information further reduces distractions and supports deeper processing of key content.
 
-Journaling for Cognitive Offload: Writing down ideas is a powerful way to externalize thoughts and free up working memory. By keeping an “AI learning journal,” learners can summarize key points, record personal insights, and raise questions. This practice not only helps retain information but also reduces the mental load from juggling too many concepts internally, thus making space for reflection and understanding.
+Journaling for Cognitive Offload: Writing down ideas is a powerful way to externalize thoughts and free up working memory. By keeping an "AI learning journal," learners can summarize key points, record personal insights, and raise questions. This practice not only helps retain information but also reduces the mental load from juggling too many concepts internally, thus making space for reflection and understanding.
 
 Tools & Resources:
 - Note-Taking Apps: Use tools like Notion, Evernote, or OneNote to create bite-sized chunks of content. These platforms support tagging, organization, and ease of review, which all facilitate better cognitive offload.
@@ -366,7 +366,7 @@ Tools & Resources:
     summary:
       "Develop a framework to evaluate the credibility and relevance of AI news and research. Practice using rubrics and peer review.",
     details: `
-      The Challenge of Misinformation: Not all AI information is created equal. Some sources are reliable and well-researched, while others are speculative, biased, or incorrect. Consuming low-quality or irrelevant content not only wastes time but can also lead to poor decisions. This week’s module introduces strategies to critically evaluate AI-related information and focus only on credible, useful sources.
+      The Challenge of Misinformation: Not all AI information is created equal. Some sources are reliable and well-researched, while others are speculative, biased, or incorrect. Consuming low-quality or irrelevant content not only wastes time but can also lead to poor decisions. This week's module introduces strategies to critically evaluate AI-related information and focus only on credible, useful sources.
       
       CRAAP Test – A Framework for Source Evaluation: The CRAAP test helps assess the quality of information using five criteria:
       - Currency: Is the information up-to-date? For AI, newer content is often more relevant.
@@ -377,16 +377,16 @@ Tools & Resources:
       
       Using this checklist can help filter out unreliable sources. For example, an outdated, unsupported article from an obscure site likely fails multiple CRAAP criteria and can be safely ignored.
       
-      Lateral Reading – Thinking Like a Fact-Checker: Rather than reading a questionable source top to bottom, open additional tabs to check what other sources say. Fact-checkers do this by verifying authors, claims, and context externally. If a claim about AI isn’t confirmed by reputable news or is debunked by Snopes or similar sites, treat it with skepticism. Searching the author’s background can also reveal expertise (or lack thereof).
+      Lateral Reading – Thinking Like a Fact-Checker: Rather than reading a questionable source top to bottom, open additional tabs to check what other sources say. Fact-checkers do this by verifying authors, claims, and context externally. If a claim about AI isn't confirmed by reputable news or is debunked by Snopes or similar sites, treat it with skepticism. Searching the author's background can also reveal expertise (or lack thereof).
       
       Peer Review & Skeptical Mindset: Academic work is vetted by experts before publication. You can mimic this by asking colleagues for a second opinion on bold AI claims. Discussing articles helps uncover new perspectives and identify flaws. The aim is to cultivate healthy skepticism, not cynicism—question sources, verify facts, and refine your internal filter to recognize trustworthy information.
       
       Tools & Resources:
       - CRAAP Test Checklist: A structured rubric for evaluating information based on the five CRAAP categories. Keep this nearby while reviewing articles.
       - Wikipedia and WikiData: Quickly check unknown authors or organizations. Wikipedia often includes background, biases, or controversies about sources.
-      - Fact-Checking Sites: Tools like Snopes, PolitiFact, and FactCheck.org can help verify viral or sensational AI stories. Google’s Fact Check Explorer is another helpful resource.
+      - Fact-Checking Sites: Tools like Snopes, PolitiFact, and FactCheck.org can help verify viral or sensational AI stories. Google's Fact Check Explorer is another helpful resource.
       - Browser Extensions: Install tools like NewsGuard to assess source reliability at a glance. These tools flag untrustworthy websites with visual indicators.
-      - Critical Reading Tools: Use Hypothesis to annotate and discuss articles collaboratively. Marking up AI content with notes like “citation?” or “biased language” turns passive reading into an analytical activity.
+      - Critical Reading Tools: Use Hypothesis to annotate and discuss articles collaboratively. Marking up AI content with notes like "citation?" or "biased language" turns passive reading into an analytical activity.
       `,
   },
   {
@@ -395,25 +395,25 @@ Tools & Resources:
     summary:
       "Build your own toolkit of strategies and apps to manage AI information, tailored to your needs. Draft, share, and refine your plan.",
     details: `
-      Why You Need a Toolkit: In previous weeks, we explored managing cognitive overload and critically evaluating AI information. Now, it's time to build your personal information management toolkit—a system of tools and habits that supports you daily. Instead of ad-hoc browsing and scattered bookmarks, you’ll design a structured, repeatable approach that reduces decision fatigue and ensures important content isn’t lost. A well-built toolkit helps you curate trustworthy sources, organize what you keep, and schedule regular time to process what matters. Your toolkit will be unique to your role, preferences, and workflow.
+      Why You Need a Toolkit: In previous weeks, we explored managing cognitive overload and critically evaluating AI information. Now, it's time to build your personal information management toolkit—a system of tools and habits that supports you daily. Instead of ad-hoc browsing and scattered bookmarks, you'll design a structured, repeatable approach that reduces decision fatigue and ensures important content isn't lost. A well-built toolkit helps you curate trustworthy sources, organize what you keep, and schedule regular time to process what matters. Your toolkit will be unique to your role, preferences, and workflow.
       
       Core Components of an Information Management System:
       1. Curated Sources: Select a few high-quality, relevant sources. For instance, subscribe to a weekly newsletter, follow two trusted AI blogs, and join a LinkedIn group in your field. Focus on subdomains—like AI in healthcare—and ignore irrelevant topics. The goal is to filter proactively and create a consistent information stream.
       
       2. Aggregation & Delivery: Use tools like Feedly (RSS reader) to centralize updates from your sources in one place. Email newsletters are also helpful for inbox delivery. If you prefer social media, make lists on Twitter or LinkedIn and view them with tools like TweetDeck to reduce distraction. Aggregation cuts noise and keeps your intake intentional.
       
-      3. Organization & Storage: Choose how you’ll store and revisit important items. Options include:
+      3. Organization & Storage: Choose how you'll store and revisit important items. Options include:
       - Notion, Evernote, or OneNote for notes and summaries, organized in folders or databases.
       - Zotero or Mendeley for academic papers, with tagging, annotations, and citation management.
       - Pocket or Instapaper to save articles for later reading—preventing browser tab chaos.
-      - Trello or Todoist to manage “to-read” articles as tasks—ideal if you process lots of content systematically.
+      - Trello or Todoist to manage "to-read" articles as tasks—ideal if you process lots of content systematically.
       
-      4. Workflow & Habits: Tools only work if paired with habits. Set dedicated times to read, save, and reflect. For example: “Check Feedly every morning from 8:00–8:30, save to Pocket, review notes on Friday.” Add calendar blocks for “AI reading” and prune your sources monthly. Your toolkit should evolve as your needs change.
+      4. Workflow & Habits: Tools only work if paired with habits. Set dedicated times to read, save, and reflect. For example: "Check Feedly every morning from 8:00–8:30, save to Pocket, review notes on Friday." Add calendar blocks for "AI reading" and prune your sources monthly. Your toolkit should evolve as your needs change.
       
-      5. Choosing the Right Tools: Pick tools that align with your routine and preferences. Simpler is better—avoid setting up tools you won’t actually use. If you already use Outlook, leverage its RSS reader. If you prefer Slack, create a peer-sharing channel. Build from your existing habits and enhance as needed.
+      5. Choosing the Right Tools: Pick tools that align with your routine and preferences. Simpler is better—avoid setting up tools you won't actually use. If you already use Outlook, leverage its RSS reader. If you prefer Slack, create a peer-sharing channel. Build from your existing habits and enhance as needed.
       
       Example Toolkit:
-      - Sources: AI Weekly, Google Alert for “AI in healthcare,” arXiv Sanity.
+      - Sources: AI Weekly, Google Alert for "AI in healthcare," arXiv Sanity.
       - Aggregation: Feedly for blogs, YouTube playlist for conference talks.
       - Organization: Notion for summaries, Zotero for papers.
       - Workflow: Save daily, review weekly, journal insights.
@@ -436,11 +436,11 @@ Tools & Resources:
     summary:
       "Reflect on your learning journey, finalize your toolkit, and develop habits for lifelong learning and information management.",
     details: `
-The Importance of Reflection: Reflection is essential for deep learning and long-term growth. It moves you beyond simply collecting tips and tools, enabling you to process how and why you use them. Reflection is a form of metacognition—thinking about your own thinking—which enhances self-awareness and supports adaptive learning strategies. In our context, it helps you recognize when you’re overwhelmed and what steps to take. Over the past three weeks, you’ve experimented with techniques like chunking, filtering, and building a toolkit. Now is the time to evaluate: What’s working? What isn’t? For example, you may find journaling helped offload stress, or that limiting sources via Feedly improved your focus.
+The Importance of Reflection: Reflection is essential for deep learning and long-term growth. It moves you beyond simply collecting tips and tools, enabling you to process how and why you use them. Reflection is a form of metacognition—thinking about your own thinking—which enhances self-awareness and supports adaptive learning strategies. In our context, it helps you recognize when you're overwhelmed and what steps to take. Over the past three weeks, you've experimented with techniques like chunking, filtering, and building a toolkit. Now is the time to evaluate: What's working? What isn't? For example, you may find journaling helped offload stress, or that limiting sources via Feedly improved your focus.
 
-Metacognitive Questions: To engage in reflective practice, ask yourself: “Is my approach effective? What am I learning from this? What could I improve?” These questions help you monitor and refine your learning strategies. If AI headlines frequently distract you, consider what’s triggering that and adjust—maybe disable notifications (Week 1) or focus more intentionally on relevant topics (Week 2). The aim is not self-criticism but self-optimization.
+Metacognitive Questions: To engage in reflective practice, ask yourself: "Is my approach effective? What am I learning from this? What could I improve?" These questions help you monitor and refine your learning strategies. If AI headlines frequently distract you, consider what's triggering that and adjust—maybe disable notifications (Week 1) or focus more intentionally on relevant topics (Week 2). The aim is not self-criticism but self-optimization.
 
-Habits and Continuous Improvement: The real power of your toolkit emerges when its use becomes habitual. Simply owning tools like Pocket or Feedly won’t help unless you integrate them into regular routines. Habit formation research shows that tracking behaviors—like checking off a daily reading session—boosts consistency. Even marking an “X” on a calendar can be a motivating cue. Over time, tracking builds awareness and accountability.
+Habits and Continuous Improvement: The real power of your toolkit emerges when its use becomes habitual. Simply owning tools like Pocket or Feedly won't help unless you integrate them into regular routines. Habit formation research shows that tracking behaviors—like checking off a daily reading session—boosts consistency. Even marking an "X" on a calendar can be a motivating cue. Over time, tracking builds awareness and accountability.
 
 Examples of Habits to Cultivate:
 - Scheduled Learning Time: Designate blocks of time for consuming AI content, e.g., 30 minutes every Tuesday and Thursday.
@@ -448,9 +448,9 @@ Examples of Habits to Cultivate:
 - Toolkit Maintenance: Prune your sources and clean up bookmarks monthly.
 - Mindfulness Breaks: After focused work, take 1–2 minute breaks to reset. This helps manage cognitive fatigue and promotes mental clarity.
 
-Adjusting Mindset – Lifelong Learning: It’s normal to feel like you can’t keep up with all AI news—and that’s okay. Even experts miss things. Accepting that you’ll never know everything is freeing. Instead, commit to continuous learning. Your toolkit and habits will help you absorb what matters most and ignore the rest. If something important happens, your network or curated sources will bring it back to your attention. Shift from fear of missing out (FOMO) to trust in your system.
+Adjusting Mindset – Lifelong Learning: It's normal to feel like you can't keep up with all AI news—and that's okay. Even experts miss things. Accepting that you'll never know everything is freeing. Instead, commit to continuous learning. Your toolkit and habits will help you absorb what matters most and ignore the rest. If something important happens, your network or curated sources will bring it back to your attention. Shift from fear of missing out (FOMO) to trust in your system.
 
-Metacognitive Enhancement: Build self-reflection into your process. When reading a dense paper, pause and ask: “Should I chunk this?” When stressed by unread tabs, ask: “Am I subscribing to too much?” Over time, you’ll spot patterns—like overwhelm or distraction—and apply fixes automatically, such as journaling or taking a break. This is how metacognitive habits turn into resilience.
+Metacognitive Enhancement: Build self-reflection into your process. When reading a dense paper, pause and ask: "Should I chunk this?" When stressed by unread tabs, ask: "Am I subscribing to too much?" Over time, you'll spot patterns—like overwhelm or distraction—and apply fixes automatically, such as journaling or taking a break. This is how metacognitive habits turn into resilience.
 
 Tools & Resources:
 - Habit Tracking Apps: Try Habitica (gamified), Loop (Android), or Streaks (iOS). Or use paper, spreadsheets, or bullet journals. The key is visible, regular tracking.
@@ -460,7 +460,7 @@ Tools & Resources:
 - Lifelong Learning Resources: Explore books like *Make It Stick*, *The Organized Mind* (Levitin), or *Digital Minimalism* (Newport). These provide deeper insights into information management, cognitive load, and learning habits.
 - Support System: People are part of your toolkit. Identify a mentor or colleague who stays updated on AI and touch base periodically. A quarterly chat can help you reflect and stay informed.
 
-The core message of Week 4: don’t just consume—reflect. Deepen your self-awareness, cultivate sustainable habits, and trust in your ability to adapt. That’s the real key to thriving in an AI-saturated world.
+The core message of Week 4: don't just consume—reflect. Deepen your self-awareness, cultivate sustainable habits, and trust in your ability to adapt. That's the real key to thriving in an AI-saturated world.
 `,
   },
 ];
@@ -536,6 +536,7 @@ const ProjectBetterTogether = () => {
   const [privacyOpen, setPrivacyOpen] = useState(true);
   const [quizOpen, setQuizOpen] = useState(false);
   const [quizAnswers, setQuizAnswers] = useState({});
+  const [quizResults, setQuizResults] = useState({});
 
   const quizQuestions = [
     {
@@ -710,6 +711,14 @@ const ProjectBetterTogether = () => {
     }
   };
 
+  const handleCheckQuizAnswers = () => {
+    const results = {};
+    quizQuestions.forEach((q) => {
+      results[q.id] = quizAnswers[q.id] === q.answer;
+    });
+    setQuizResults(results);
+  };
+
   return (
     <MainContainer>
       {/* Quiz Modal */}
@@ -750,7 +759,12 @@ const ProjectBetterTogether = () => {
               {q.options.map((opt, idx) => (
                 <Box
                   key={idx}
-                  sx={{ display: "flex", alignItems: "center", mb: 0.5 }}
+                  sx={{
+                    display: "flex",
+                    alignItems: "baseline",
+                    minHeight: 32,
+                    mb: 0.5,
+                  }}
                 >
                   <input
                     type="radio"
@@ -758,7 +772,11 @@ const ProjectBetterTogether = () => {
                     name={`quiz_q${q.id}`}
                     checked={quizAnswers[q.id] === idx}
                     onChange={() => handleQuizChange(q.id, idx)}
-                    style={{ accentColor: colors.accent, marginRight: 8 }}
+                    style={{
+                      accentColor: colors.accent,
+                      marginRight: 8,
+                      verticalAlign: "middle",
+                    }}
                   />
                   <label
                     htmlFor={`q${q.id}_opt${idx}`}
@@ -766,14 +784,45 @@ const ProjectBetterTogether = () => {
                       color: colors.text,
                       fontFamily: mainFont,
                       fontSize: "1rem",
+                      lineHeight: "1.2",
+                      paddingTop: 1,
                     }}
                   >
                     {opt}
                   </label>
                 </Box>
               ))}
+              {quizResults[q.id] !== undefined && (
+                <Typography
+                  sx={{
+                    mt: 1,
+                    fontWeight: 700,
+                    color: quizResults[q.id] ? "#1ec6b6" : "#e74c3c",
+                    fontFamily: mainFont,
+                  }}
+                >
+                  {quizResults[q.id] ? "Correct!" : "Incorrect"}
+                </Typography>
+              )}
             </Box>
           ))}
+          <Button
+            variant="contained"
+            onClick={handleCheckQuizAnswers}
+            sx={{
+              mt: 1,
+              background: colors.accent,
+              color: "#232946",
+              borderRadius: 2,
+              fontWeight: 700,
+              fontFamily: mainFont,
+              boxShadow: `0 2px 8px ${colors.shadow}`,
+              "&:hover": { background: colors.accent2, color: colors.cardBg },
+            }}
+            fullWidth
+          >
+            Check Answers
+          </Button>
           <Button
             variant="contained"
             onClick={() => setQuizOpen(false)}
