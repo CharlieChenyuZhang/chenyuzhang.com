@@ -85,7 +85,6 @@ const ConversationFlow = styled.div`
   gap: 40px;
   padding: 20px;
   width: 100%;
-  max-width: 800px;
   margin-bottom: 100px;
 `;
 
@@ -465,64 +464,236 @@ The core message of Week 4: don't just consume—reflect. Deepen your self-aware
   },
 ];
 
-function LearningModulesSidebar() {
-  const [openIndex, setOpenIndex] = useState(null);
+const LearningModulesModal = ({ open, onClose, initialIndex = 0 }) => {
+  const [current, setCurrent] = useState(initialIndex);
+  const modalRef = useRef();
+
+  useEffect(() => {
+    if (!open) return;
+    const handleKeyDown = (e) => {
+      if (e.key === "ArrowLeft") setCurrent((c) => (c > 0 ? c - 1 : c));
+      if (e.key === "ArrowRight")
+        setCurrent((c) => (c < learningModules.length - 1 ? c + 1 : c));
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [open, onClose]);
+
+  useEffect(() => {
+    if (open && modalRef.current) {
+      modalRef.current.focus();
+    }
+  }, [open, current]);
+
+  if (!open) return null;
+  const mod = learningModules[current];
   return (
-    <div>
-      <h2
+    <div
+      ref={modalRef}
+      tabIndex={-1}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100vw",
+        height: "100vh",
+        background: "rgba(20,24,40,0.98)",
+        zIndex: 2000,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        transition: "background 0.3s",
+      }}
+      aria-modal="true"
+      role="dialog"
+    >
+      <div
         style={{
-          fontFamily: '"Bangers", "Comic Sans MS", cursive',
-          color: "#FFD700",
-          marginBottom: 16,
+          background: colors.cardBg,
+          color: colors.text,
+          borderRadius: 24,
+          boxShadow: `0 8px 48px ${colors.shadow}`,
+          border: `2.5px solid ${colors.accent2}`,
+          fontFamily: mainFont,
+          maxWidth: 700,
+          width: "90vw",
+          maxHeight: "90vh",
+          overflowY: "auto",
+          padding: "40px 32px 32px 32px",
+          position: "relative",
+          outline: "none",
+          animation: "fadeIn 0.4s",
         }}
       >
-        Learning Modules
-      </h2>
-      {learningModules.map((mod, idx) => {
-        const expanded = openIndex === idx;
-        return (
-          <ModuleCard
-            key={mod.week}
-            onClick={() => setOpenIndex(expanded ? null : idx)}
-            tabIndex={0}
-            aria-expanded={expanded}
-            aria-controls={`module-details-${mod.week}`}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ")
-                setOpenIndex(expanded ? null : idx);
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: 18,
+          }}
+        >
+          <button
+            onClick={() => setCurrent((c) => (c > 0 ? c - 1 : c))}
+            disabled={current === 0}
+            aria-label="Previous Module"
+            style={{
+              background: current === 0 ? colors.textSoft : colors.accent2,
+              border: "none",
+              color: current === 0 ? colors.cardBg : "#232946",
+              fontSize: 32,
+              cursor: current === 0 ? "not-allowed" : "pointer",
+              marginRight: 24,
+              width: 44,
+              height: 44,
+              borderRadius: "50%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              boxShadow: current === 0 ? "none" : `0 2px 8px ${colors.shadow}`,
+              transition: "background 0.18s, color 0.18s",
+              outline: "none",
+            }}
+            onMouseOver={(e) => {
+              if (current !== 0)
+                e.currentTarget.style.background = colors.accent;
+            }}
+            onMouseOut={(e) => {
+              if (current !== 0)
+                e.currentTarget.style.background = colors.accent2;
             }}
           >
-            <h3>
+            ‹
+          </button>
+          <div style={{ flex: 1, textAlign: "center", minWidth: 0 }}>
+            <span
+              style={{
+                fontFamily: mainFont,
+                fontWeight: 700,
+                fontSize: "1.5rem",
+                color: colors.accent2,
+                letterSpacing: 1,
+                wordBreak: "break-word",
+              }}
+            >
               Week {mod.week}: {mod.title}
-              <ToggleIcon expanded={expanded}>
-                {expanded ? "▼" : "▶"}
-              </ToggleIcon>
-            </h3>
-            <p>{mod.summary}</p>
-            {expanded && (
-              <div
-                id={`module-details-${mod.week}`}
-                style={{
-                  marginTop: 12,
-                  background: "#181818",
-                  borderRadius: 10,
-                  padding: "12px 10px",
-                  border: "1px solid #FFD700",
-                  color: "#ffe",
-                  fontSize: "0.98em",
-                  whiteSpace: "pre-line",
-                  boxShadow: "1px 1px 0 #000",
-                }}
-              >
-                {mod.details}
-              </div>
-            )}
-          </ModuleCard>
-        );
-      })}
+            </span>
+          </div>
+          <button
+            onClick={() =>
+              setCurrent((c) => (c < learningModules.length - 1 ? c + 1 : c))
+            }
+            disabled={current === learningModules.length - 1}
+            aria-label="Next Module"
+            style={{
+              background:
+                current === learningModules.length - 1
+                  ? colors.textSoft
+                  : colors.accent2,
+              border: "none",
+              color:
+                current === learningModules.length - 1
+                  ? colors.cardBg
+                  : "#232946",
+              fontSize: 32,
+              cursor:
+                current === learningModules.length - 1
+                  ? "not-allowed"
+                  : "pointer",
+              marginLeft: 24,
+              marginRight: 24,
+              width: 44,
+              height: 44,
+              borderRadius: "50%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              boxShadow:
+                current === learningModules.length - 1
+                  ? "none"
+                  : `0 2px 8px ${colors.shadow}`,
+              transition: "background 0.18s, color 0.18s",
+              outline: "none",
+            }}
+            onMouseOver={(e) => {
+              if (current !== learningModules.length - 1)
+                e.currentTarget.style.background = colors.accent;
+            }}
+            onMouseOut={(e) => {
+              if (current !== learningModules.length - 1)
+                e.currentTarget.style.background = colors.accent2;
+            }}
+          >
+            ›
+          </button>
+          <button
+            onClick={onClose}
+            aria-label="Close"
+            style={{
+              position: "relative",
+              top: 0,
+              right: 0,
+              background: colors.accent2,
+              color: "#232946",
+              border: "none",
+              borderRadius: "50%",
+              width: 40,
+              height: 40,
+              fontSize: 24,
+              fontWeight: 700,
+              cursor: "pointer",
+              boxShadow: `0 2px 8px ${colors.shadow}`,
+              zIndex: 10,
+              transition: "background 0.18s",
+              marginLeft: 8,
+            }}
+          >
+            ×
+          </button>
+        </div>
+        <div
+          style={{
+            fontSize: "1.12rem",
+            color: colors.text,
+            marginBottom: 18,
+            fontWeight: 500,
+            textAlign: "center",
+          }}
+        >
+          {mod.summary}
+        </div>
+        <div
+          style={{
+            background: "#181818",
+            borderRadius: 14,
+            padding: "18px 16px",
+            border: `1.5px solid ${colors.accent2}`,
+            color: "#ffe",
+            fontSize: "1.08em",
+            whiteSpace: "pre-line",
+            boxShadow: "1px 1px 0 #000",
+            lineHeight: 1.7,
+            maxHeight: "55vh",
+            overflowY: "auto",
+          }}
+        >
+          {mod.details}
+        </div>
+        <div
+          style={{
+            textAlign: "center",
+            marginTop: 24,
+            color: colors.textSoft,
+            fontSize: "0.98em",
+          }}
+        >
+          Module {current + 1} of {learningModules.length}
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 const ProjectBetterTogether = () => {
   const [thought, setThought] = useState("");
@@ -537,6 +708,7 @@ const ProjectBetterTogether = () => {
   const [quizOpen, setQuizOpen] = useState(false);
   const [quizAnswers, setQuizAnswers] = useState({});
   const [quizResults, setQuizResults] = useState({});
+  const [modulesModalOpen, setModulesModalOpen] = useState(false);
 
   const quizQuestions = [
     {
@@ -842,6 +1014,10 @@ const ProjectBetterTogether = () => {
           </Button>
         </Paper>
       </Modal>
+      <LearningModulesModal
+        open={modulesModalOpen}
+        onClose={() => setModulesModalOpen(false)}
+      />
       <ComicHeader>How to Learn (Almost) Anything</ComicHeader>
       <Box
         sx={{
@@ -861,9 +1037,50 @@ const ProjectBetterTogether = () => {
           Author: Chenyu Zhang
         </Typography>
         <Typography variant="caption" display="block" gutterBottom>
-          Version: v0.0.1
+          Version: v1.0.0
         </Typography>
       </Box>
+      <div
+        style={{
+          width: "100%",
+          maxWidth: 800,
+          margin: "0 auto 18px auto",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Button
+          variant="contained"
+          onClick={() => setModulesModalOpen(true)}
+          sx={{
+            background: colors.accent2,
+            color: "#232946",
+            borderRadius: 2,
+            fontWeight: 700,
+            fontFamily: mainFont,
+            boxShadow: `0 2px 8px ${colors.shadow}`,
+            fontSize: "1.1rem",
+            mb: 1,
+            width: { xs: "100%", sm: "auto" },
+            minWidth: 220,
+            "&:hover": { background: colors.accent, color: colors.cardBg },
+          }}
+        >
+          View All Modules
+        </Button>
+        <div
+          style={{
+            color: colors.textSoft,
+            fontSize: "1.02em",
+            marginTop: 6,
+            textAlign: "center",
+          }}
+        >
+          <b>Tip:</b> Click "View All Modules" to read the full learning modules
+          in a focused, distraction-free view.
+        </div>
+      </div>
       <TwoColumnLayout>
         <LeftColumn>
           <ConversationFlow>
@@ -1016,9 +1233,6 @@ const ProjectBetterTogether = () => {
             <audio ref={audioRef} />
           </InputContainer>
         </LeftColumn>
-        <RightColumn>
-          <LearningModulesSidebar />
-        </RightColumn>
       </TwoColumnLayout>
     </MainContainer>
   );
