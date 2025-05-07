@@ -12,10 +12,27 @@ import {
 import { backendDomain } from "../../utils";
 import selfHuggingImage from "./self-compassion/dinasour.png";
 
+// Professional color palette
+const colors = {
+  background: "linear-gradient(135deg, #1a2233 0%, #232946 100%)",
+  cardBg: "linear-gradient(135deg, #232946 0%, #2d3250 100%)",
+  accent: "#1ec6b6", // teal
+  accent2: "#e6b800", // gold
+  text: "#f7f8fa",
+  textSoft: "#bfc9d1",
+  border: "#1ec6b6",
+  border2: "#e6b800",
+  shadow: "rgba(0,0,0,0.10)",
+};
+
+// Halftone background is now a subtle overlay
 const halftoneBackground = `
-  radial-gradient(circle at 100% 0%, rgba(255,255,255,0.12) 2px, transparent 2px),
-  radial-gradient(circle at 0% 100%, rgba(255,255,255,0.12) 2px, transparent 2px)
+  radial-gradient(circle at 100% 0%, ${colors.accent}10 2px, transparent 2px),
+  radial-gradient(circle at 0% 100%, ${colors.accent2}10 2px, transparent 2px)
 `;
+
+// Use a modern, professional font
+const mainFont = "Inter, Segoe UI, Arial, sans-serif";
 
 const comicShake = keyframes`
   0%, 100% { transform: translate(0, 0) rotate(0); }
@@ -36,8 +53,9 @@ const sparkle = keyframes`
 
 const MainContainer = styled.div`
   min-height: 100vh;
-  background-color: #000;
-  color: #fff;
+  background: ${colors.background};
+  color: ${colors.text};
+  font-family: ${mainFont};
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -52,21 +70,19 @@ const MainContainer = styled.div`
 `;
 
 const ComicHeader = styled.div`
-  font-family: "Bangers", "Comic Sans MS", cursive;
-  font-size: 2.5rem;
-  color: #fff;
+  font-family: ${mainFont};
+  font-weight: 700;
+  font-size: 2.1rem;
+  color: ${colors.accent};
   text-align: center;
-  margin: 20px 0;
-  text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000,
-    -1px 1px 0 #000, 1px 1px 0 #000;
-  letter-spacing: 2px;
-  animation: ${comicShake} 2.5s infinite;
+  margin: 32px 0 12px 0;
+  letter-spacing: 1px;
 `;
 
 const ConversationFlow = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 60px;
+  gap: 40px;
   padding: 20px;
   width: 100%;
   max-width: 800px;
@@ -76,207 +92,67 @@ const ConversationFlow = styled.div`
 const ConversationItem = styled.div`
   display: flex;
   flex-direction: ${(props) => (props.isUser ? "row-reverse" : "row")};
-  align-items: center;
-  gap: 20px;
+  align-items: flex-start;
+  gap: 18px;
   width: 100%;
   position: relative;
-  animation: ${popIn} 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-
-  &:before {
-    content: "${(props) => (props.isUser ? "YOU" : "AI")}";
-    position: absolute;
-    ${(props) => (props.isUser ? "right" : "left")}: 10px;
-    top: -25px;
-    font-family: "Bangers", "Comic Sans MS", cursive;
-    color: ${(props) => (props.isUser ? "#FFD700" : "#FF69B4")};
-    font-size: 1.2rem;
-    text-shadow: 2px 2px 0 #000;
-    transform: rotate(${(props) => (props.isUser ? "2deg" : "-2deg")});
-  }
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    ${(props) =>
-      props.isUser ? "align-items: flex-end" : "align-items: flex-start"};
-  }
 `;
 
 const CharacterContainer = styled.div`
-  width: 200px;
-  height: 200px;
+  width: 80px;
+  height: 80px;
   flex-shrink: 0;
-  transform: scale(0.9);
-  transition: transform 0.3s ease;
-  position: relative;
-
-  &:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: ${halftoneBackground};
-    background-size: 10px 10px;
-    mix-blend-mode: overlay;
-    opacity: 0.1;
-    pointer-events: none;
-  }
-
-  &:hover {
-    transform: scale(1) rotate(${(props) => (props.isUser ? "2deg" : "-2deg")});
-    animation: ${comicShake} 0.5s;
-  }
-
+  border-radius: 50%;
+  background: #232946;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px ${colors.shadow};
   img {
-    width: 100%;
-    height: 100%;
+    width: 70%;
+    height: 70%;
     object-fit: contain;
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
-  }
-`;
-
-const UserMessageDecorator = styled.div`
-  position: relative;
-
-  &:before,
-  &:after {
-    content: "✦";
-    position: absolute;
-    font-size: 1.5rem;
-    color: #ffd700;
-    animation: ${sparkle} 2s infinite;
-    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
-  }
-
-  &:before {
-    right: -25px;
-    top: 0;
-    animation-delay: 0.3s;
-  }
-
-  &:after {
-    right: -15px;
-    bottom: 0;
-    animation-delay: 0.6s;
+    border-radius: 50%;
   }
 `;
 
 const SpeechBubble = styled.div`
-  background-color: white;
-  color: black;
-  padding: 25px;
-  border-radius: 30px;
-  max-width: 400px;
-  position: relative;
-  border: 3px solid black;
-  font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
-  font-size: 16px;
-  margin: ${(props) => (props.isUser ? "0 20px 0 0" : "0 0 0 20px")};
-  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8);
-  transform: rotate(${(props) => (props.isUser ? "1deg" : "-1deg")});
-  background: ${(props) =>
-    props.isUser ? "linear-gradient(135deg, #fff 0%, #fff8e1 100%)" : "white"};
-  transform-origin: ${(props) => (props.isUser ? "right" : "left")} center;
-  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.1));
-  
-  &:before {
-    content: '';
-    position: absolute;
-    ${(props) => (props.isUser ? "right: -22px" : "left: -22px")};
-    top: 50%;
-    transform: translateY(-50%);
-    width: 0;
-    height: 0;
-    border: none;
-    background: white;
-    clip-path: ${(props) =>
-      props.isUser
-        ? "polygon(0 0, 0% 100%, 100% 50%)"
-        : "polygon(100% 0, 100% 100%, 0 50%)"};
-    width: 22px;
-    height: 22px;
-    background: ${(props) =>
-      props.isUser
-        ? "linear-gradient(135deg, #fff 0%, #fff8e1 100%)"
-        : "white"};
-  }
-
-  &:after {
-    content: '';
-    position: absolute;
-    ${(props) => (props.isUser ? "right: -22px" : "left: -22px")};
-    top: 50%;
-    transform: translateY(-50%);
-    width: 25px;
-    height: 25px;
-    background: transparent;
-    border: 3px solid black;
-    border-${(props) => (props.isUser ? "left" : "right")}: 0;
-    border-${(props) => (props.isUser ? "right" : "left")}: 3px solid black;
-    clip-path: ${(props) =>
-      props.isUser
-        ? "polygon(-1px -1px, -1px 26px, 26px 13px)"
-        : "polygon(26px -1px, 26px 26px, -1px 13px)"};
-  }
-
-  ${(props) =>
-    props.isUser &&
-    `
-    &:hover {
-      transform: scale(1.02) rotate(1deg);
-      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8),
-                 0 0 20px rgba(255, 215, 0, 0.2);
-      
-      &:before {
-        background: linear-gradient(135deg, #fff 0%, #fff8e1 100%);
-      }
-    }
-    
-    &:after {
-      border-color: black;
-    }
-  `}
-
-  ${(props) =>
-    !props.isUser &&
-    `
-    &:hover {
-      transform: scale(1.02) rotate(-1deg);
-      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8);
-    }
-  `}
-
-  /* Add position relative for TTS button positioning */
+  background: ${colors.cardBg};
+  color: ${colors.text};
+  padding: 18px 22px;
+  border-radius: 18px;
+  max-width: 420px;
+  border: 1.5px solid ${colors.accent};
+  font-family: ${mainFont};
+  font-size: 1.05rem;
+  margin: ${(props) => (props.isUser ? "0 12px 0 0" : "0 0 0 12px")};
+  box-shadow: 0 2px 8px ${colors.shadow};
   position: relative;
 `;
 
 const TTSButton = styled(Button)`
   && {
     position: absolute;
-    top: -15px;
-    right: -15px;
-    min-width: 40px;
-    width: 40px;
-    height: 40px;
+    top: -10px;
+    right: -10px;
+    min-width: 36px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     padding: 0;
-    background: #ff69b4;
-    border: 3px solid black;
-    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
-    color: white;
-    font-size: 1.2rem;
+    background: ${colors.accent};
+    border: 1.5px solid ${colors.border2};
+    box-shadow: 0 1px 4px ${colors.shadow};
+    color: #fff;
+    font-size: 1.1rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    transform: rotate(0deg);
-    transition: all 0.2s ease;
-
+    transition: all 0.18s ease;
     &:hover {
-      transform: scale(1.1) rotate(-5deg);
-      background: #ff1493;
+      background: ${colors.accent2};
+      color: #232946;
     }
-
     &:disabled {
       background: #ccc;
       color: #666;
@@ -289,70 +165,57 @@ const InputContainer = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.95);
-  padding: 20px;
+  background: #232946ee;
+  padding: 18px 0 18px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
+  gap: 12px;
   z-index: 10;
-  backdrop-filter: blur(10px);
-  border-top: 3px solid #ffd700;
-  box-shadow: 0 -4px 20px rgba(255, 215, 0, 0.2);
-  animation: ${popIn} 0.5s ease-out forwards;
+  border-top: 2px solid ${colors.accent};
+  box-shadow: 0 -2px 12px ${colors.shadow};
 `;
 
 const StyledTextField = styled(TextField)`
   && {
     & .MuiInputBase-root {
-      color: #fff;
-      font-family: "Comic Sans MS", "Chalkboard SE", sans-serif;
-      transition: all 0.3s ease;
-      border-radius: 15px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 3px solid #ffd700;
-      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8);
-
+      color: ${colors.text};
+      font-family: ${mainFont};
+      border-radius: 10px;
+      background: #232946;
+      border: 1.5px solid ${colors.accent};
+      box-shadow: 0 1px 4px ${colors.shadow};
       &:hover {
-        transform: translateY(-2px);
-        box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8);
+        box-shadow: 0 2px 8px ${colors.shadow};
       }
-
       &.Mui-focused {
-        transform: translateY(-2px) scale(1.01);
-        box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8);
+        box-shadow: 0 2px 8px ${colors.shadow};
       }
     }
-
     & .MuiOutlinedInput-root {
       & fieldset {
         border: none;
       }
-
       &:hover fieldset {
         border: none;
       }
-
       &.Mui-focused fieldset {
         border: none;
       }
     }
-
     & .MuiInputLabel-root {
-      color: rgba(255, 255, 255, 0.7);
-      font-family: "Comic Sans MS", "Chalkboard SE", sans-serif;
+      color: ${colors.textSoft};
+      font-family: ${mainFont};
     }
-
     textarea {
-      font-family: "Comic Sans MS", "Chalkboard SE", sans-serif;
-      font-size: 1.1rem;
-      padding: 15px;
-      color: #ffffff;
-
+      font-family: ${mainFont};
+      font-size: 1.05rem;
+      padding: 12px;
+      color: ${colors.text};
       &::placeholder {
-        color: rgba(255, 215, 0, 0.7);
-        font-family: "Bangers", "Comic Sans MS", cursive;
-        letter-spacing: 1px;
+        color: ${colors.accent};
+        font-family: ${mainFont};
+        letter-spacing: 0.5px;
         opacity: 1;
       }
     }
@@ -361,180 +224,35 @@ const StyledTextField = styled(TextField)`
 
 const ButtonGroup = styled.div`
   display: flex;
-  gap: 15px;
-  margin-top: 10px;
+  gap: 12px;
+  margin-top: 8px;
   flex-wrap: wrap;
   justify-content: center;
   width: 100%;
   max-width: 800px;
-  position: relative;
-
-  &:before {
-    content: "✨";
-    position: absolute;
-    left: -20px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.5rem;
-    animation: ${comicShake} 2s infinite;
-  }
-
-  &:after {
-    content: "✨";
-    position: absolute;
-    right: -20px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.5rem;
-    animation: ${comicShake} 2s infinite reverse;
-  }
 `;
 
 const ActionButton = styled(Button)`
   && {
-    font-family: "Bangers", "Comic Sans MS", cursive;
-    font-size: 1.1rem;
-    letter-spacing: 1px;
-    padding: 8px 20px;
-    border-width: 3px;
-    border-radius: 15px;
-    text-shadow: 1px 1px 0 #000;
-    position: relative;
-    overflow: hidden;
-
-    &:before {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(
-        circle,
-        rgba(255, 255, 255, 0.2) 0%,
-        transparent 60%
-      );
-      transform: scale(0);
-      transition: transform 0.3s ease-out;
-    }
-
-    &:hover:before {
-      transform: scale(1);
-    }
-
+    font-family: ${mainFont};
+    font-size: 1.05rem;
+    letter-spacing: 0.5px;
+    padding: 7px 18px;
+    border-width: 1.5px;
+    border-radius: 10px;
+    color: ${colors.accent};
+    border-color: ${colors.accent};
+    background: #232946;
+    box-shadow: 0 1px 4px ${colors.shadow};
+    transition: all 0.18s;
     &:hover {
-      transform: translateY(-3px) rotate(-1deg);
-      box-shadow: 0 6px 12px rgba(255, 215, 0, 0.3);
+      color: #232946;
+      background: ${colors.accent};
+      border-color: ${colors.accent2};
     }
-
     &:active {
-      transform: translateY(0) rotate(0deg);
-    }
-  }
-`;
-
-const EqualContributionNote = styled.div`
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-
-  &:before,
-  &:after {
-    content: "✦";
-    color: #ffd700;
-    font-size: 1rem;
-  }
-`;
-
-const PrivacyModalContent = styled(Paper)`
-  padding: 36px 28px;
-  max-width: 480px;
-  margin: 40px auto;
-  border-radius: 30px;
-  outline: none;
-  text-align: center;
-  background: #fff;
-  color: #111;
-  box-shadow: 8px 8px 0 #000, 0 8px 32px rgba(0, 0, 0, 0.12);
-  border: 4px solid #ff1744;
-  font-family: "Comic Sans MS", "Chalkboard SE", cursive;
-  position: relative;
-  overflow: visible;
-
-  &:before {
-    content: "✨";
-    position: absolute;
-    left: -24px;
-    top: -24px;
-    font-size: 2.2rem;
-    color: #ff1744;
-    text-shadow: 2px 2px 0 #000;
-    animation: ${comicShake} 2s infinite;
-  }
-  &:after {
-    content: "✨";
-    position: absolute;
-    right: -24px;
-    bottom: -24px;
-    font-size: 2.2rem;
-    color: #ff1744;
-    text-shadow: 2px 2px 0 #000;
-    animation: ${comicShake} 2s infinite reverse;
-  }
-
-  ul {
-    text-align: left;
-    margin: 18px 0 18px 0;
-    padding-left: 28px;
-    color: #111;
-    font-size: 1.08rem;
-    font-family: inherit;
-    list-style: "✦ ";
-  }
-
-  li {
-    margin-bottom: 10px;
-    font-family: inherit;
-    text-shadow: none;
-  }
-
-  b {
-    color: #ff1744;
-    text-shadow: none;
-  }
-
-  .privacy-header {
-    font-family: "Bangers", "Comic Sans MS", cursive;
-    color: #ff1744;
-    font-size: 2.1rem;
-    text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000,
-      -1px 1px 0 #000, 1px 1px 0 #000;
-    letter-spacing: 2px;
-    margin-bottom: 10px;
-    animation: ${comicShake} 2.5s infinite;
-  }
-
-  .privacy-btn {
-    margin-top: 18px;
-    background: #ff1744;
-    color: #fff;
-    font-weight: bold;
-    border-radius: 15px;
-    font-family: "Bangers", "Comic Sans MS", cursive;
-    font-size: 1.2rem;
-    border: 3px solid #000;
-    box-shadow: 2px 2px 0 #000;
-    text-shadow: none;
-    padding: 8px 32px;
-    transition: all 0.2s;
-    &:hover {
-      background: #ff5252;
       color: #fff;
-      transform: scale(1.05) rotate(-2deg);
-      box-shadow: 4px 4px 0 #000;
+      background: ${colors.accent2};
     }
   }
 `;
@@ -545,9 +263,8 @@ const TwoColumnLayout = styled.div`
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  gap: 40px;
+  gap: 36px;
   align-items: flex-start;
-
   @media (max-width: 900px) {
     flex-direction: column;
     gap: 0;
@@ -562,16 +279,15 @@ const LeftColumn = styled.div`
 const RightColumn = styled.div`
   flex: 1;
   min-width: 320px;
-  background: rgba(255, 255, 255, 0.07);
-  border-radius: 24px;
-  padding: 24px 18px;
-  border: 3px solid #ffd700;
-  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.7);
-  color: #fff;
-  font-family: "Comic Sans MS", "Chalkboard SE", sans-serif;
+  background: ${colors.cardBg};
+  border-radius: 18px;
+  padding: 22px 16px;
+  border: 1.5px solid ${colors.accent2};
+  box-shadow: 0 2px 8px ${colors.shadow};
+  color: ${colors.text};
+  font-family: ${mainFont};
   position: sticky;
   top: 30px;
-
   @media (max-width: 900px) {
     position: static;
     margin-top: 30px;
@@ -581,44 +297,44 @@ const RightColumn = styled.div`
 `;
 
 const ModuleCard = styled.div`
-  background: #222;
-  border-radius: 16px;
-  border: 2px solid #ffd700;
-  margin-bottom: 18px;
-  padding: 18px 14px;
-  box-shadow: 2px 2px 0 #000;
-  color: #fff;
-  font-family: inherit;
+  background: #232946;
+  border-radius: 12px;
+  border: 1.5px solid ${colors.accent2};
+  margin-bottom: 16px;
+  padding: 16px 12px;
+  box-shadow: 0 1px 4px ${colors.shadow};
+  color: ${colors.text};
+  font-family: ${mainFont};
   cursor: pointer;
-  transition: box-shadow 0.2s, border-color 0.2s;
+  transition: box-shadow 0.18s, border-color 0.18s;
   position: relative;
-
   &:hover {
-    box-shadow: 4px 4px 0 #ffd700;
-    border-color: #fff700;
+    box-shadow: 0 2px 8px ${colors.accent};
+    border-color: ${colors.accent};
   }
-
   h3 {
-    font-family: "Bangers", "Comic Sans MS", cursive;
-    color: #ffd700;
+    font-family: ${mainFont};
+    font-weight: 600;
+    color: ${colors.accent2};
     margin: 0 0 8px 0;
-    font-size: 1.2rem;
+    font-size: 1.08rem;
     display: flex;
     align-items: center;
     gap: 8px;
   }
   p {
     margin: 0;
-    font-size: 1rem;
-    color: #fff;
+    font-size: 0.98rem;
+    color: ${colors.textSoft};
   }
 `;
 
 const ToggleIcon = styled.span`
   display: inline-block;
-  font-size: 1.3em;
+  font-size: 1.1em;
   margin-left: 6px;
-  transition: transform 0.2s;
+  color: ${colors.accent};
+  transition: transform 0.18s;
   transform: ${({ expanded }) => (expanded ? "rotate(90deg)" : "rotate(0deg)")};
 `;
 
@@ -899,9 +615,7 @@ const ProjectBetterTogether = () => {
                   </CharacterContainer>
                 )}
                 {msg.isUser ? (
-                  <UserMessageDecorator>
-                    <SpeechBubble isUser={msg.isUser}>{msg.text}</SpeechBubble>
-                  </UserMessageDecorator>
+                  <SpeechBubble isUser={msg.isUser}>{msg.text}</SpeechBubble>
                 ) : (
                   <SpeechBubble isUser={msg.isUser}>
                     {msg.text}
@@ -944,7 +658,7 @@ const ProjectBetterTogether = () => {
 
           <InputContainer>
             <StyledTextField
-              placeholder="What's on your mind today? POW! Let it out..."
+              placeholder="Share a learning challenge, question, or insight..."
               variant="outlined"
               value={thought}
               onChange={handleChange}
