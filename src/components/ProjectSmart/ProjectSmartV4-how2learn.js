@@ -344,28 +344,124 @@ const learningModules = [
     title: "Managing Cognitive Load in AI Content",
     summary:
       "Learn to recognize and manage cognitive load when engaging with AI material. Practice chunking, filtering, and journaling to avoid overload.",
-    details: `Objectives: Introduce cognitive load theory and equip learners with strategies to avoid overload when engaging with AI-related material. By week's end, participants will recognize the limits of working memory and practice techniques to reduce extraneous load in dense content.\n\nKey Topics & Materials: Cognitive Load Theory (working memory limits, intrinsic vs extraneous load); Information Overload in AI; multimedia lesson on cognitive load; infographic on working memory capacity; reading on "AI information overload" with examples.\n\nLearning Activities:\n- Interactive Case Scenario: Step through a scenario where an entrepreneur is bombarded with AI articles. Identify overload points and triage information.\n- Microlearning Modules: Short modules on chunking, note-taking, dual coding, each with a quiz.\n- Reflective Journal: Daily log of experiences with AI content, using guided prompts.\n- Synchronous Session: Live workshop to collaboratively apply load-reducing techniques to a dense AI article.\n\nAssessment & Reflection:\n- End-of-week quiz on core concepts.\n- Practical summary/mind-map assignment.\n- Peer review of a peer's summary.\n- Self-reflection journal prompt.`,
+    details: `
+Cognitive Load Theory: Our working memory has a limited capacity to process information at any given moment. When we attempt to absorb too much, such as reviewing multiple AI research updates in one sitting, cognitive overload can occur—leading to stress, confusion, and forgetfulness. The objective is to minimize unnecessary mental workload so that we can focus on the most essential information.
+
+Chunking Information: Chunking refers to the strategy of breaking down large amounts of information into smaller, meaningful units. This technique improves comprehension and long-term memory by reducing the number of elements our working memory needs to manage at once. For instance, rather than reading an entire whitepaper in one session, you can divide it into sections—like background, methods, and conclusions—and review them separately. This helps prevent cognitive overload and supports focused attention.
+
+Filtering and Focus: Filtering allows learners to prioritize and engage only with the most relevant information. Research supports that setting clear goals for information consumption—such as focusing solely on AI topics related to healthcare for a week—helps reduce cognitive burden. Additionally, turning off notifications and ignoring non-essential information further reduces distractions and supports deeper processing of key content.
+
+Journaling for Cognitive Offload: Writing down ideas is a powerful way to externalize thoughts and free up working memory. By keeping an “AI learning journal,” learners can summarize key points, record personal insights, and raise questions. This practice not only helps retain information but also reduces the mental load from juggling too many concepts internally, thus making space for reflection and understanding.
+
+Tools & Resources:
+- Note-Taking Apps: Use tools like Notion, Evernote, or OneNote to create bite-sized chunks of content. These platforms support tagging, organization, and ease of review, which all facilitate better cognitive offload.
+- Time Management Tools: Tools like Pomodoro timers (e.g., Focus To-Do) help regulate how long learners spend on cognitively demanding tasks. A 25-minute reading session followed by a 5-minute break reduces fatigue and improves focus.
+- Readability Aids: Browser features such as Reader View or extensions like Mercury Reader eliminate visual clutter, making digital reading less cognitively demanding and more accessible.
+- Mind-Mapping Tools: Visual learners may benefit from using apps like XMind or MindMeister to break down complex topics. By visually organizing podcast takeaways or research summaries into diagrams, learners can better comprehend and retain information.
+`,
   },
   {
     week: 2,
     title: "Critically Filtering AI Information",
     summary:
       "Develop a framework to evaluate the credibility and relevance of AI news and research. Practice using rubrics and peer review.",
-    details: `Objectives: Develop critical evaluation skills using a transferable framework to filter AI-related information. By the end, learners can apply a rubric to judge credibility and relevance of AI news, research, or content.\n\nKey Topics & Materials: Information Literacy Frameworks; source evaluation rubric (e.g. CRAAP test); pitfalls in AI reporting; cognitive biases.\n\nLearning Activities:\n- Rubric Guided Evaluation: Interactive walkthrough evaluating a sample AI article.\n- Compare & Contrast: Analyze three sources (research, blog, news) and fill a comparison table.\n- Reflective Journal: Reflect on how you decide if a source is trustworthy.\n- Spaced Repetition Quiz: Recall questions from Week 1 and new content.\n- Synchronous Session: Live expert panel and group fact-checking exercise.\n\nAssessment & Peer Review:\n- Source evaluation report using the rubric.\n- Peer review of two peers' reports.\n- Self-reflection journal entry.`,
+    details: `
+      The Challenge of Misinformation: Not all AI information is created equal. Some sources are reliable and well-researched, while others are speculative, biased, or incorrect. Consuming low-quality or irrelevant content not only wastes time but can also lead to poor decisions. This week’s module introduces strategies to critically evaluate AI-related information and focus only on credible, useful sources.
+      
+      CRAAP Test – A Framework for Source Evaluation: The CRAAP test helps assess the quality of information using five criteria:
+      - Currency: Is the information up-to-date? For AI, newer content is often more relevant.
+      - Relevance: Does it address your specific needs or questions?
+      - Authority: Who wrote or published it? Is the author credible in the AI field?
+      - Accuracy: Are claims supported by evidence or references?
+      - Purpose: Why was the content created – to inform, persuade, sell, or entertain? Identifying bias is key.
+      
+      Using this checklist can help filter out unreliable sources. For example, an outdated, unsupported article from an obscure site likely fails multiple CRAAP criteria and can be safely ignored.
+      
+      Lateral Reading – Thinking Like a Fact-Checker: Rather than reading a questionable source top to bottom, open additional tabs to check what other sources say. Fact-checkers do this by verifying authors, claims, and context externally. If a claim about AI isn’t confirmed by reputable news or is debunked by Snopes or similar sites, treat it with skepticism. Searching the author’s background can also reveal expertise (or lack thereof).
+      
+      Peer Review & Skeptical Mindset: Academic work is vetted by experts before publication. You can mimic this by asking colleagues for a second opinion on bold AI claims. Discussing articles helps uncover new perspectives and identify flaws. The aim is to cultivate healthy skepticism, not cynicism—question sources, verify facts, and refine your internal filter to recognize trustworthy information.
+      
+      Tools & Resources:
+      - CRAAP Test Checklist: A structured rubric for evaluating information based on the five CRAAP categories. Keep this nearby while reviewing articles.
+      - Wikipedia and WikiData: Quickly check unknown authors or organizations. Wikipedia often includes background, biases, or controversies about sources.
+      - Fact-Checking Sites: Tools like Snopes, PolitiFact, and FactCheck.org can help verify viral or sensational AI stories. Google’s Fact Check Explorer is another helpful resource.
+      - Browser Extensions: Install tools like NewsGuard to assess source reliability at a glance. These tools flag untrustworthy websites with visual indicators.
+      - Critical Reading Tools: Use Hypothesis to annotate and discuss articles collaboratively. Marking up AI content with notes like “citation?” or “biased language” turns passive reading into an analytical activity.
+      `,
   },
   {
     week: 3,
     title: "Designing a Personalized Information Management Toolkit",
     summary:
       "Build your own toolkit of strategies and apps to manage AI information, tailored to your needs. Draft, share, and refine your plan.",
-    details: `Objectives: Guide learners to create a personal toolkit of strategies, workflows, and technology tools for managing AI information. By week's end, participants have a prototype of their information management system.\n\nKey Topics & Materials: Personal Knowledge Management (PKM) principles; toolkit menu of recommended tools (Anki, Pocket, Notion, etc.); case studies.\n\nLearning Activities:\n- Toolkit Exploration: Try at least 2 new tools or methods.\n- Design Challenge: Draft a personalized information management plan using an interactive template.\n- Journaling: Reflect on tool/strategy preferences.\n- Spaced Review: Flashcards from Weeks 1–2 and new terms.\n- Synchronous Session: Guest talk and toolkit show-and-tell.\n\nAssessment:\n- Draft toolkit submission.\n- Peer feedback with a checklist.\n- Self-evaluation of toolkit.`,
+    details: `
+      Why You Need a Toolkit: In previous weeks, we explored managing cognitive overload and critically evaluating AI information. Now, it's time to build your personal information management toolkit—a system of tools and habits that supports you daily. Instead of ad-hoc browsing and scattered bookmarks, you’ll design a structured, repeatable approach that reduces decision fatigue and ensures important content isn’t lost. A well-built toolkit helps you curate trustworthy sources, organize what you keep, and schedule regular time to process what matters. Your toolkit will be unique to your role, preferences, and workflow.
+      
+      Core Components of an Information Management System:
+      1. Curated Sources: Select a few high-quality, relevant sources. For instance, subscribe to a weekly newsletter, follow two trusted AI blogs, and join a LinkedIn group in your field. Focus on subdomains—like AI in healthcare—and ignore irrelevant topics. The goal is to filter proactively and create a consistent information stream.
+      
+      2. Aggregation & Delivery: Use tools like Feedly (RSS reader) to centralize updates from your sources in one place. Email newsletters are also helpful for inbox delivery. If you prefer social media, make lists on Twitter or LinkedIn and view them with tools like TweetDeck to reduce distraction. Aggregation cuts noise and keeps your intake intentional.
+      
+      3. Organization & Storage: Choose how you’ll store and revisit important items. Options include:
+      - Notion, Evernote, or OneNote for notes and summaries, organized in folders or databases.
+      - Zotero or Mendeley for academic papers, with tagging, annotations, and citation management.
+      - Pocket or Instapaper to save articles for later reading—preventing browser tab chaos.
+      - Trello or Todoist to manage “to-read” articles as tasks—ideal if you process lots of content systematically.
+      
+      4. Workflow & Habits: Tools only work if paired with habits. Set dedicated times to read, save, and reflect. For example: “Check Feedly every morning from 8:00–8:30, save to Pocket, review notes on Friday.” Add calendar blocks for “AI reading” and prune your sources monthly. Your toolkit should evolve as your needs change.
+      
+      5. Choosing the Right Tools: Pick tools that align with your routine and preferences. Simpler is better—avoid setting up tools you won’t actually use. If you already use Outlook, leverage its RSS reader. If you prefer Slack, create a peer-sharing channel. Build from your existing habits and enhance as needed.
+      
+      Example Toolkit:
+      - Sources: AI Weekly, Google Alert for “AI in healthcare,” arXiv Sanity.
+      - Aggregation: Feedly for blogs, YouTube playlist for conference talks.
+      - Organization: Notion for summaries, Zotero for papers.
+      - Workflow: Save daily, review weekly, journal insights.
+      - Tools: Feedly, Pocket, Notion, Zotero, Google Calendar.
+      
+      Tools & Resources:
+      - Feedly: An RSS reader for collecting and centralizing updates.
+      - Notion: A flexible workspace for note-taking and organizing reading.
+      - Zotero: A reference manager for saving and tagging academic papers.
+      - Pocket: A read-it-later tool with tagging and offline access.
+      - Trello/Todoist: Task management tools adapted for reading workflows.
+      - Toolkit Planning Template: A worksheet or Notion template to guide your personalized toolkit setup.
+      
+      The ultimate goal is to design a toolkit that fits your lifestyle, helps you avoid overload, and supports continuous learning. Start simple, write it down, and iterate.
+      `,
   },
   {
     week: 4,
     title: "Reflective Practice & Metacognitive Enhancement",
     summary:
       "Reflect on your learning journey, finalize your toolkit, and develop habits for lifelong learning and information management.",
-    details: `Objectives: Culminate with reflective practice to deepen metacognitive awareness and finalize the personal toolkit project.\n\nKey Topics & Materials: Metacognition and reflective practice; techniques like Gibbs Reflective Cycle; sustaining reflection post-course.\n\nLearning Activities:\n- Final Journal Entry: Synthesize learning and describe pivotal moments.\n- Metacognitive Exercise: Self-assessment inventory.\n- Culminating Project: Finalize and present toolkit.\n- Spaced Repetition Review: Capstone quiz on all modules.\n- Synchronous Session: Toolkit showcase and course retrospective.\n\nAssessment:\n- Final toolkit presentation (graded).\n- Reflective essay.\n- Self & peer assessment of collaboration.`,
+    details: `
+The Importance of Reflection: Reflection is essential for deep learning and long-term growth. It moves you beyond simply collecting tips and tools, enabling you to process how and why you use them. Reflection is a form of metacognition—thinking about your own thinking—which enhances self-awareness and supports adaptive learning strategies. In our context, it helps you recognize when you’re overwhelmed and what steps to take. Over the past three weeks, you’ve experimented with techniques like chunking, filtering, and building a toolkit. Now is the time to evaluate: What’s working? What isn’t? For example, you may find journaling helped offload stress, or that limiting sources via Feedly improved your focus.
+
+Metacognitive Questions: To engage in reflective practice, ask yourself: “Is my approach effective? What am I learning from this? What could I improve?” These questions help you monitor and refine your learning strategies. If AI headlines frequently distract you, consider what’s triggering that and adjust—maybe disable notifications (Week 1) or focus more intentionally on relevant topics (Week 2). The aim is not self-criticism but self-optimization.
+
+Habits and Continuous Improvement: The real power of your toolkit emerges when its use becomes habitual. Simply owning tools like Pocket or Feedly won’t help unless you integrate them into regular routines. Habit formation research shows that tracking behaviors—like checking off a daily reading session—boosts consistency. Even marking an “X” on a calendar can be a motivating cue. Over time, tracking builds awareness and accountability.
+
+Examples of Habits to Cultivate:
+- Scheduled Learning Time: Designate blocks of time for consuming AI content, e.g., 30 minutes every Tuesday and Thursday.
+- Regular Reflection: Set aside 5–10 minutes weekly to write a short recap—What did I learn? Did I feel overloaded?
+- Toolkit Maintenance: Prune your sources and clean up bookmarks monthly.
+- Mindfulness Breaks: After focused work, take 1–2 minute breaks to reset. This helps manage cognitive fatigue and promotes mental clarity.
+
+Adjusting Mindset – Lifelong Learning: It’s normal to feel like you can’t keep up with all AI news—and that’s okay. Even experts miss things. Accepting that you’ll never know everything is freeing. Instead, commit to continuous learning. Your toolkit and habits will help you absorb what matters most and ignore the rest. If something important happens, your network or curated sources will bring it back to your attention. Shift from fear of missing out (FOMO) to trust in your system.
+
+Metacognitive Enhancement: Build self-reflection into your process. When reading a dense paper, pause and ask: “Should I chunk this?” When stressed by unread tabs, ask: “Am I subscribing to too much?” Over time, you’ll spot patterns—like overwhelm or distraction—and apply fixes automatically, such as journaling or taking a break. This is how metacognitive habits turn into resilience.
+
+Tools & Resources:
+- Habit Tracking Apps: Try Habitica (gamified), Loop (Android), or Streaks (iOS). Or use paper, spreadsheets, or bullet journals. The key is visible, regular tracking.
+- Journaling Tools: Use apps like Day One or Journey for digital journaling. Or create a reflection section in Notion or Evernote. These apps allow tagging and timeline views to review progress.
+- Mindfulness & Focus Aids: Explore apps like Headspace or Calm for guided breathing and stress relief. Even a short breathing exercise after reading sessions can reset cognitive load.
+- Community & Continued Learning: Consider joining a Slack, Discord, or Reddit group where AI professionals share top picks. Use community insight as a filter, not a distraction. Check forums weekly—not constantly.
+- Lifelong Learning Resources: Explore books like *Make It Stick*, *The Organized Mind* (Levitin), or *Digital Minimalism* (Newport). These provide deeper insights into information management, cognitive load, and learning habits.
+- Support System: People are part of your toolkit. Identify a mentor or colleague who stays updated on AI and touch base periodically. A quarterly chat can help you reflect and stay informed.
+
+The core message of Week 4: don’t just consume—reflect. Deepen your self-awareness, cultivate sustainable habits, and trust in your ability to adapt. That’s the real key to thriving in an AI-saturated world.
+`,
   },
 ];
 
@@ -438,6 +534,46 @@ const ProjectBetterTogether = () => {
   const mediaRecorderRef = useRef(null);
   const [loadingTTSIds, setLoadingTTSIds] = useState(new Set());
   const [privacyOpen, setPrivacyOpen] = useState(true);
+  const [quizOpen, setQuizOpen] = useState(false);
+  const [quizAnswers, setQuizAnswers] = useState({});
+
+  const quizQuestions = [
+    {
+      id: 1,
+      question:
+        "Which of the following is a strategy to manage cognitive load?",
+      options: [
+        "Chunking information",
+        "Ignoring all new information",
+        "Reading as fast as possible",
+        "Multitasking with unrelated tasks",
+      ],
+      answer: 0,
+    },
+    {
+      id: 2,
+      question:
+        "What is a good way to evaluate the credibility of an AI article?",
+      options: [
+        "Check the source and author",
+        "Only read the title",
+        "Trust any article with 'AI' in the title",
+        "Share before reading",
+      ],
+      answer: 0,
+    },
+    {
+      id: 3,
+      question:
+        "Which tool is commonly used for personal knowledge management?",
+      options: ["Anki", "Instagram", "Netflix", "Uber"],
+      answer: 0,
+    },
+  ];
+
+  const handleQuizChange = (qid, idx) => {
+    setQuizAnswers((prev) => ({ ...prev, [qid]: idx }));
+  };
 
   const handleStartRecording = async () => {
     try {
@@ -576,6 +712,87 @@ const ProjectBetterTogether = () => {
 
   return (
     <MainContainer>
+      {/* Quiz Modal */}
+      <Modal open={quizOpen} onClose={() => setQuizOpen(false)}>
+        <Paper
+          sx={{
+            background: colors.cardBg,
+            color: colors.text,
+            borderRadius: 4,
+            boxShadow: `0 4px 24px ${colors.shadow}`,
+            border: `2px solid ${colors.accent2}`,
+            fontFamily: mainFont,
+            minWidth: 340,
+            maxWidth: 420,
+            mx: "auto",
+            my: 8,
+            p: 4,
+            outline: "none",
+            position: "relative",
+          }}
+        >
+          <Typography
+            variant="h5"
+            sx={{
+              color: colors.accent2,
+              fontWeight: 700,
+              mb: 2,
+              fontFamily: mainFont,
+            }}
+          >
+            Quick Quiz
+          </Typography>
+          {quizQuestions.map((q) => (
+            <Box key={q.id} sx={{ mb: 3 }}>
+              <Typography sx={{ mb: 1, fontWeight: 600, color: colors.accent }}>
+                {q.question}
+              </Typography>
+              {q.options.map((opt, idx) => (
+                <Box
+                  key={idx}
+                  sx={{ display: "flex", alignItems: "center", mb: 0.5 }}
+                >
+                  <input
+                    type="radio"
+                    id={`q${q.id}_opt${idx}`}
+                    name={`quiz_q${q.id}`}
+                    checked={quizAnswers[q.id] === idx}
+                    onChange={() => handleQuizChange(q.id, idx)}
+                    style={{ accentColor: colors.accent, marginRight: 8 }}
+                  />
+                  <label
+                    htmlFor={`q${q.id}_opt${idx}`}
+                    style={{
+                      color: colors.text,
+                      fontFamily: mainFont,
+                      fontSize: "1rem",
+                    }}
+                  >
+                    {opt}
+                  </label>
+                </Box>
+              ))}
+            </Box>
+          ))}
+          <Button
+            variant="contained"
+            onClick={() => setQuizOpen(false)}
+            sx={{
+              mt: 2,
+              background: colors.accent,
+              color: "#232946",
+              borderRadius: 2,
+              fontWeight: 700,
+              fontFamily: mainFont,
+              boxShadow: `0 2px 8px ${colors.shadow}`,
+              "&:hover": { background: colors.accent2, color: colors.cardBg },
+            }}
+            fullWidth
+          >
+            Close
+          </Button>
+        </Paper>
+      </Modal>
       <ComicHeader>How to Learn (Almost) Anything</ComicHeader>
       <Box
         sx={{
@@ -737,6 +954,13 @@ const ProjectBetterTogether = () => {
                 sx={{ color: "#FF69B4", borderColor: "#FF69B4" }}
               >
                 {isRecording ? "🎯 STOP!" : "🎤 SPEAK!"}
+              </ActionButton>
+              <ActionButton
+                variant="outlined"
+                onClick={() => setQuizOpen(true)}
+                sx={{ color: colors.accent2, borderColor: colors.accent2 }}
+              >
+                QUIZ! ✨
               </ActionButton>
             </ButtonGroup>
 
