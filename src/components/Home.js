@@ -38,6 +38,28 @@ const Disclaimer = styled.div`
   font-family: sans-serif;
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+`;
+
+const HireMeLink = styled.a`
+  color: #ffd700;
+  font-weight: 700;
+  font-size: 1.125rem;
+  text-decoration: underline;
+  margin-left: 0.5em;
+  transition: color 0.2s;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    color: #ffc107;
+    text-decoration: underline;
+  }
+`;
+
 const MiniHome = () => {
   return (
     <MainContainer>
@@ -47,34 +69,46 @@ const MiniHome = () => {
         </Paragraph>
 
         <Paragraph>
-          I'm Chenyu Zhang—a full-stack software engineer with{" "}
-          {new Date().getFullYear() - 2015}+ years of programming experience, AI
-          researcher, and lifelong learner. My passion lies in bringing bold,
-          forward-thinking ideas to life, blending technology with creativity to
-          transform how we learn, connect, and grow.
+          I'm Chenyu Zhang—a cross-disciplinary educator, AI researcher,
+          full-stack software engineer, and certified Designing Your Life coach
+          from Stanford d.school. I'm also an ICF-accredited Co-Active Coach,
+          trained to support individuals in navigating life's transitions with
+          clarity, purpose, and agency.
+          <HireMeLink href="mailto:contact@chenyuzhang.com" target="_blank">
+            Hire me <span aria-hidden="true">↗</span>
+          </HireMeLink>
         </Paragraph>
 
         <Paragraph>
-          I'm currently deep into projects at the intersection of AI and
-          education, building hands-on tools designed to spark creativity,
-          foster real connections, and encourage lifelong learning. It's not
-          just about the tech for me; it's about crafting experiences that
-          inspire curiosity and bring a sense of fulfillment to people.
+          With {new Date().getFullYear() - 2015}+ years of programming
+          experience and a Master's in Learning Design, Innovation, and
+          Technology from Harvard, I blend deep technical expertise with a
+          human-centered approach to growth. My passion lies in building tools
+          and communities at the intersection of AI and education—projects that
+          spark creativity, deepen connection, and encourage lifelong learning.
         </Paragraph>
 
         <Paragraph>
-          Outside of work, I'm all about living life to the fullest. I'm a level
-          10 pianist, and a proud cat parent to my buddy Lucky. My curiosity has
-          taken me from producing EDM music to learning hip hop dance, horseback
-          riding, cruising on a motorcycle, and even skydiving. Life's too short
-          to stick to one lane!
+          As a first-generation immigrant and university graduate, I care deeply
+          about access, equity, and empowering others to thrive. I've coached
+          and mentored learners and professionals from all walks of life—from
+          first-time coders to startup founders—helping them gain confidence,
+          clarify direction, and make courageous moves.
+        </Paragraph>
+
+        <Paragraph>
+          Outside of work, I believe in living life with curiosity and courage.
+          I'm a level 10 pianist and a proud cat parent to my buddy Lucky. I've
+          explored EDM music production, hip hop dance, horseback riding,
+          motorcycle cruising, and even skydiving—because life's too short to
+          stay in one lane.
         </Paragraph>
 
         <Paragraph>
           If you're interested in connecting, collaborating, or chatting about
           bold ideas and real-world projects, feel free to reach out at
-          contact[at]chenyuzhang[dot]com. Let's build the future, together—and
-          enjoy the journey while we're at it.
+          contact[at]chenyuzhang[dot]com. Let's build the future—and enjoy the
+          ride while we're at it.
         </Paragraph>
 
         <Paragraph>Warmly,</Paragraph>
