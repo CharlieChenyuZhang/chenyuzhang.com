@@ -6,6 +6,7 @@ import {
   Button,
   Typography,
   CircularProgress,
+  Switch,
 } from "@mui/material";
 import { backendDomain } from "../../utils";
 
@@ -104,6 +105,57 @@ const StyledTextField = styled(TextField)`
 
 const ButtonGroup = styled.div``;
 
+// Language toggle styles
+const LanguageToggleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+`;
+
+const LanguageOption = styled.span`
+  cursor: pointer;
+  padding: 4px 12px;
+  margin: 0 2px;
+  border-radius: 6px;
+  font-weight: ${(props) => (props.selected ? "bold" : "normal")};
+  color: ${(props) => (props.selected ? "#111" : "#fff")};
+  background: ${(props) => (props.selected ? "#fff" : "transparent")};
+  border: 1px solid ${(props) => (props.selected ? "#fff" : "transparent")};
+  transition: background 0.2s, color 0.2s;
+  &:hover {
+    background: ${(props) => (props.selected ? "#fff" : "#222")};
+    color: #fff;
+  }
+`;
+
+const translations = {
+  en: {
+    placeholder: "What's on your mind today? Reflect freely...",
+    send: "Send",
+    startRecording: "◉ start Recording",
+    stopRecording: "🔴 stop recording",
+    embody: "Embody",
+    reframe: "Reframe",
+    mentalModel: "Mental Model",
+    language: "English",
+    languageToggle: "中文",
+    processing: "Processing...",
+  },
+  zh: {
+    placeholder: "你今天在想什么？请自由反思……",
+    send: "发送",
+    startRecording: "◉ 开始录音",
+    stopRecording: "🔴 停止录音",
+    embody: "具象化",
+    reframe: "重新表述",
+    mentalModel: "心智模型",
+    language: "中文",
+    languageToggle: "English",
+    processing: "处理中……",
+  },
+};
+
 const ProjectSmart = () => {
   const [thought, setThought] = useState("");
   const [conversation, setConversation] = useState([]);
@@ -112,7 +164,17 @@ const ProjectSmart = () => {
   const audioRef = useRef(null); // Ref for audio playback
   const [isRecording, setIsRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
-  const [loadingTTS, setLoadingTTS] = useState(false);
+  const [loadingTTSIds, setLoadingTTSIds] = useState(new Set());
+  const [language, setLanguage] = useState(() => {
+    return localStorage.getItem("smart-journaling-language") || "en";
+  });
+
+  const t = translations[language];
+
+  // Persist language to localStorage when it changes
+  useEffect(() => {
+    localStorage.setItem("smart-journaling-language", language);
+  }, [language]);
 
   const handleStartRecording = async () => {
     try {
@@ -187,7 +249,7 @@ const ProjectSmart = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ inputText }),
+        body: JSON.stringify({ inputText, language }),
       });
 
       const tutorData = await tutorResponse.json();
@@ -219,7 +281,7 @@ const ProjectSmart = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ inputText: imgPrompt }),
+        body: JSON.stringify({ inputText: imgPrompt, language }),
       });
 
       const data = await response.json();
@@ -254,7 +316,7 @@ const ProjectSmart = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ inputText }),
+        body: JSON.stringify({ inputText, language }),
       });
 
       const tutorData = await tutorResponse.json();
@@ -284,7 +346,7 @@ const ProjectSmart = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ inputText }),
+        body: JSON.stringify({ inputText, language }),
       });
 
       const tutorData = await tutorResponse.json();
@@ -307,9 +369,9 @@ const ProjectSmart = () => {
     }
   }, [conversation]);
 
-  const handlePlayTTS = async (what2Speak) => {
+  const handlePlayTTS = async (what2Speak, messageId) => {
     if (what2Speak) {
-      setLoadingTTS(true);
+      setLoadingTTSIds((prev) => new Set([...prev, messageId]));
       try {
         const response = await fetch("https://api.openai.com/v1/audio/speech", {
           method: "POST",
@@ -318,9 +380,10 @@ const ProjectSmart = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            model: "tts-1",
-            voice: "alloy",
+            model: "gpt-4o-mini-tts",
+            voice: "coral",
             input: what2Speak,
+            instructions: "Speak in a calm, soothing, and reassuring tone.",
           }),
         });
 
@@ -334,7 +397,11 @@ const ProjectSmart = () => {
       } catch (error) {
         console.error("Error with TTS:", error);
       } finally {
-        setLoadingTTS(false);
+        setLoadingTTSIds((prev) => {
+          const newSet = new Set(prev);
+          newSet.delete(messageId);
+          return newSet;
+        });
       }
     }
   };
@@ -342,6 +409,21 @@ const ProjectSmart = () => {
   return (
     <MainContainer>
       <ContentContainer>
+        {/* Language Toggle */}
+        <LanguageToggleContainer>
+          <LanguageOption
+            selected={language === "en"}
+            onClick={() => setLanguage("en")}
+          >
+            English
+          </LanguageOption>
+          <LanguageOption
+            selected={language === "zh"}
+            onClick={() => setLanguage("zh")}
+          >
+            中文
+          </LanguageOption>
+        </LanguageToggleContainer>
         {/* <Typography variant="h4" align="center" gutterBottom>
           SMART Journaling
         </Typography> */}
@@ -365,8 +447,8 @@ const ProjectSmart = () => {
                 )}
               </MessageBubble>
               {!msg.isUser && msg.text && (
-                <SpeakerIcon onClick={() => handlePlayTTS(msg.text)}>
-                  {loadingTTS ? (
+                <SpeakerIcon onClick={() => handlePlayTTS(msg.text, index)}>
+                  {loadingTTSIds.has(index) ? (
                     <CircularProgress size={16} color="inherit" />
                   ) : (
                     "၊၊||၊"
@@ -380,8 +462,7 @@ const ProjectSmart = () => {
             <MessageContainer isUser={false}>
               <AiIcon>✧₊⁺</AiIcon>
               <MessageBubble>
-                <CircularProgress size={20} color="inherit" />
-                {" Processing..."}
+                <CircularProgress size={20} color="inherit" /> {t.processing}
               </MessageBubble>
             </MessageContainer>
           )}
@@ -389,7 +470,7 @@ const ProjectSmart = () => {
 
         <InputContainer>
           <StyledTextField
-            placeholder="What's on your mind today? Reflect freely..."
+            placeholder={t.placeholder}
             variant="outlined"
             value={thought}
             onChange={handleChange}
@@ -413,7 +494,7 @@ const ProjectSmart = () => {
                 },
               }}
             >
-              Send
+              {t.send}
             </Button>
 
             {/* record button */}
@@ -430,7 +511,7 @@ const ProjectSmart = () => {
                 },
               }}
             >
-              {isRecording ? <>🔴 stop recording</> : <>◉ start Recording</>}
+              {isRecording ? <>{t.stopRecording}</> : <>{t.startRecording}</>}
             </Button>
 
             <Button
@@ -447,7 +528,7 @@ const ProjectSmart = () => {
                 },
               }}
             >
-              Embody
+              {t.embody}
             </Button>
 
             <Button
@@ -464,7 +545,7 @@ const ProjectSmart = () => {
                 },
               }}
             >
-              Reframe
+              {t.reframe}
             </Button>
 
             <Button
@@ -481,7 +562,7 @@ const ProjectSmart = () => {
                 },
               }}
             >
-              Mental Model
+              {t.mentalModel}
             </Button>
           </ButtonGroup>
 

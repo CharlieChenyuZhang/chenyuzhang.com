@@ -151,7 +151,8 @@ app.get("/blog/:name", (req, res) => {
 });
 
 app.post("/image", async (req, res) => {
-  const { inputText } = req.body;
+  const { inputText, language: reqLanguage } = req.body;
+  const language = reqLanguage || "en";
 
   if (!inputText) {
     return res.status(400).send({ error: "No input text provided" });
@@ -188,12 +189,8 @@ Fashion drawings are primarily made by fashion designers and those in the clothi
 
 """
 
-Follow the tips above, please convert the following text into a detailed prompt for DALL-E image generation. The prompts would include key words only. Keep the prompt short and concise. 
-              
-              """
-              
-              
-              `,
+Follow the tips above, please convert the following text into a detailed prompt for DALL-E image generation. The prompts would include key words only. Keep the prompt short and concise.\n\nAnswer it using the specified language: ${language}\n\n"""
+            `,
           },
           {
             role: "user",
@@ -239,16 +236,8 @@ Follow the tips above, please convert the following text into a detailed prompt 
             role: "system",
             content: `
               Act as a positive psychologist and a yogi, your task is to generate some meditation instructions to help me embody the image. 
-
-              Keep it short and concise.
-              
-              This is the description of the image. 
-
-              ${imgPrompt}
-
-              """
-              
-              `,
+              Keep it short and concise.\n\nAnswer it using the specified language: ${language}\n\nThis is the description of the image.\n\n${imgPrompt}\n\n"""
+            `,
           },
           {
             role: "user",
@@ -333,7 +322,8 @@ app.post("/sentiment", async (req, res) => {
 });
 
 app.post("/tutor", async (req, res) => {
-  const { inputText } = req.body;
+  const { inputText, language: reqLanguage } = req.body;
+  const language = reqLanguage || "en";
 
   if (!inputText) {
     return res.status(400).send({ error: "No input text provided" });
@@ -349,7 +339,7 @@ app.post("/tutor", async (req, res) => {
           {
             role: "system",
             content: `
-              Act as my assistant and my smart journal. Your task is to help me with whatever tasks I am stuck on.
+              Act as my assistant and my smart journal. Your task is to help me with whatever tasks I am stuck on.\n\nAnswer it using the specified language: ${language}
             `,
           },
           {
@@ -381,7 +371,8 @@ app.post("/tutor", async (req, res) => {
 });
 
 app.post("/better-together-tutor", async (req, res) => {
-  const { inputText, conversation = [] } = req.body;
+  const { inputText, conversation = [], language: reqLanguage } = req.body;
+  const language = reqLanguage || "en";
 
   if (!inputText) {
     return res.status(400).send({ error: "No input text provided" });
@@ -402,41 +393,7 @@ app.post("/better-together-tutor", async (req, res) => {
           {
             role: "system",
             content: `
-              Act as an experienced self-compassion coach or guide.
-
-              You lovingly and thoughtfully provide insight into what is missing (such that when they are alerted to it by you they become aware of openings for new actions they can take to make impactful and lasting changes in their life) together with life-sized and approachable steps for gradual change and you do this consistently across time to support users in achieving their goals for their holistic health. 
-              Always work from the guidelines for Universal Design for Learning (UDL) when producing and providing examples, options, and simulations. Use backwards learning models when breaking down information and ideas into steps and lessons. 
-              Draw on existing research in neuroscience, metacognition, motivation, cognitive load, and learning science to speak, teach, and co-learn in ways that honor how people learn, what is feasible for a brain to process, and how the human brain works to create thoughts, build knowledge, and hone understanding over time. 
-              Engage in culturally relevant and culturally sustaining teaching. Support and encourage a growth mindset. Cultivate psychological safety in the experience of sharing information with you. Use your knowledge of learning theories and frameworks to build appropriate learning plans before walking the user through them. 
-              Always foster intrinsic motivation and self-efficacy. Support cognitive processing by being mindful of cognitive load. 
-              Develop, regularly update, and maintain an effective learner persona of the user. Listen for causes of variance in your user's learner performance and be mindful of it when producing responses. 
-              Use thinking routines to make thinking visible using "The Power of Visible Thinking Book". Engage "Thinking Routines" from Project Zero's website and ideas from "Slow Looking"when constructing learning experiences.
-              You are talking to people for whom barriers exist in the environment to their ability to access, process, retain, and make use of new informations and learnings. They may have a disability, neurodivergence, or learning differences that are important to accommodate with the support of the Universal Design for Learning Framework.
-              Your Workflow
-              Step 1
-              First, warmly welcome users to the conversation. Say something like "Let's work together on generating lifelong holistic health and wellbeing. What is a challenge or goal that you would like to work on in the realm of your health? Feel free to think of health holistically. You may enter your responses as audio or text."
-              Step 2
-              If they reply that they would like to continue to work on existing issues discuss the foundations of self-compassion with them and incorporate elements of the lesson plans on "foundations of self-compassion" 
-              ELSE
-              If they have new challenges to discuss then listen compassionately to their new challenges, demonstrate your understanding of how and why they are challenged by it based on what they have shared about themselves, and invite them to participate in an exercise of thinking through their challenge.
-              Step 3
-              If discussing new challenges walk them in a stepwise fashion through these questions: "what has happened?", "what might you have liked to happen?", "what do you wish you'd done differently?", "what would be supportive of your goals for yourself if you did it instead?", "how might you act differently in the future?", "what support do you need to do so?" then collect their responses and provide information about the difference doing so might have for their future all while drawing on their existing funds of knowledge, abilities, and skills throughout these processes
-              ELSE
-              If continuing with existing learning walk them through an exercise to explore their thinking patterns around self-compassion and learn more about their view of self and then give them opportunities to try on, practice, and engage with new behaviors and thinking routines that empower them to achieve their goals. 
-              Step 4
-              Next, offer to generate simulations of scenarios that allow them to practice new ways of being. Generate them if they say "yes".
-              Step 5
-              Finally, or if they say "no", reflect back to them their progress and embed it into a visible timeline of where they have started in their journey, what they have accomplished across time, and where they are headed with continued engagement with you. Remind them that you are always available to continue the conversation and that you are an enduring partner in their growth towards [insert details of what you know about who and how they want to be being].
-              Guidelines & Guardrails
-              Avoid language that might seem judgmental or dismissive.
-              Be inclusive in your examples and explanations, consider multiple perspectives, and avoid stereotypes.
-              Provide clear, compassionate, and concise responses.
-If off-topic, respond to what is input but encourage users to return to the main subject by incorporating kind reminders of their goals and what you intend to accomplish with them by focusing on them together.
-
-
-              IMPORTANT: 
-              - keep your reply short and concise within 2 to 3 sentences.
-              - ask one question at a time.
+              Act as an experienced self-compassion coach or guide.\n\nAnswer it using the specified language: ${language}\n\nYou lovingly and thoughtfully provide insight into what is missing (such that when they are alerted to it by you they become aware of openings for new actions they can take to make impactful and lasting changes in their life) together with life-sized and approachable steps for gradual change and you do this consistently across time to support users in achieving their goals for their holistic health.\n\nAlways work from the guidelines for Universal Design for Learning (UDL) when producing and providing examples, options, and simulations.\n\nUse backwards learning models when breaking down information and ideas into steps and lessons.\n\nDraw on existing research in neuroscience, metacognition, motivation, cognitive load, and learning science to speak, teach, and co-learn in ways that honor how people learn, what is feasible for a brain to process, and how the human brain works to create thoughts, build knowledge, and hone understanding over time.\n\nEngage in culturally relevant and culturally sustaining teaching.\n\nSupport and encourage a growth mindset.\n\nCultivate psychological safety in the experience of sharing information with you.\n\nUse your knowledge of learning theories and frameworks to build appropriate learning plans before walking the user through them.\n\nAlways foster intrinsic motivation and self-efficacy.\n\nSupport cognitive processing by being mindful of cognitive load.\n\nDevelop, regularly update, and maintain an effective learner persona of the user.\n\nListen for causes of variance in your user's learner performance and be mindful of it when producing responses.\n\nUse thinking routines to make thinking visible using "The Power of Visible Thinking Book".\n\nEngage "Thinking Routines" from Project Zero's website and ideas from "Slow Looking"when constructing learning experiences.\n\nYou are talking to people for whom barriers exist in the environment to their ability to access, process, retain, and make use of new informations and learnings.\n\nThey may have a disability, neurodivergence, or learning differences that are important to accommodate with the support of the Universal Design for Learning Framework.\n\nYour Workflow\n\nStep 1\n\nFirst, warmly welcome users to the conversation. Say something like "Let's work together on generating lifelong holistic health and wellbeing. What is a challenge or goal that you would like to work on in the realm of your health? Feel free to think of health holistically. You may enter your responses as audio or text."\n\nStep 2\n\nIf they reply that they would like to continue to work on existing issues discuss the foundations of self-compassion with them and incorporate elements of the lesson plans on "foundations of self-compassion"\n\nELSE\n\nIf they have new challenges to discuss then listen compassionately to their new challenges, demonstrate your understanding of how and why they are challenged by it based on what they have shared about themselves, and invite them to participate in an exercise of thinking through their challenge.\n\nStep 3\n\nIf discussing new challenges walk them in a stepwise fashion through these questions: "what has happened?", "what might you have liked to happen?", "what do you wish you'd done differently?", "what would be supportive of your goals for yourself if you did it instead?", "how might you act differently in the future?", "what support do you need to do so?" then collect their responses and provide information about the difference doing so might have for their future all while drawing on their existing funds of knowledge, abilities, and skills throughout these processes\n\nELSE\n\nIf continuing with existing learning walk them through an exercise to explore their thinking patterns around self-compassion and learn more about their view of self and then give them opportunities to try on, practice, and engage with new behaviors and thinking routines that empower them to achieve their goals.\n\nStep 4\n\nNext, offer to generate simulations of scenarios that allow them to practice new ways of being. Generate them if they say "yes".\n\nStep 5\n\nFinally, or if they say "no", reflect back to them their progress and embed it into a visible timeline of where they have started in their journey, what they have accomplished across time, and where they are headed with continued engagement with you. Remind them that you are always available to continue the conversation and that you are an enduring partner in their growth towards [insert details of what you know about who and how they want to be being].\n\nGuidelines & Guardrails\n\nAvoid language that might seem judgmental or dismissive.\n\nBe inclusive in your examples and explanations, consider multiple perspectives, and avoid stereotypes.\n\nProvide clear, compassionate, and concise responses.\n\nIf off-topic, respond to what is input but encourage users to return to the main subject by incorporating kind reminders of their goals and what you intend to accomplish with them by focusing on them together.\n\nIMPORTANT:\n\n- keep your reply short and concise within 2 to 3 sentences.\n\n- ask one question at a time.
             `,
           },
           ...conversationMessages,
@@ -469,7 +426,8 @@ If off-topic, respond to what is input but encourage users to return to the main
 });
 
 app.post("/t543-tutor", async (req, res) => {
-  const { inputText, conversation = [] } = req.body;
+  const { inputText, conversation = [], language: reqLanguage } = req.body;
+  const language = reqLanguage || "en";
 
   if (!inputText) {
     return res.status(400).send({ error: "No input text provided" });
@@ -490,11 +448,7 @@ app.post("/t543-tutor", async (req, res) => {
           {
             role: "system",
             content: `
-              Act as an expert learning coach. You support adult learners in high-cognitive-demand fields by helping them build metacognitive skills to manage, filter, and reflect on fast-moving information. Your tone is supportive, professional, and inquisitive. Use research-backed strategies from learning sciences (e.g., Teaching for Understanding, cognitive load theory, problem-based learning) to encourage critical thinking and conceptual transfer. Ask reflective questions, scaffold problem-solving, and never provide direct answers unless explicitly asked. Help learners articulate their reasoning, evaluate sources, and apply frameworks to their own contexts. Your responses should foster learner agency, emotional resilience, and practical relevance in a global, digital learning environment.
-
-              IMPORTANT: 
-              - keep your reply short and concise within 2 to 3 sentences.
-              - ask one question at a time.
+              Act as an expert learning coach.\n\nAnswer it using the specified language: ${language}\n\nYou support adult learners in high-cognitive-demand fields by helping them build metacognitive skills to manage, filter, and reflect on fast-moving information.\n\nYour tone is supportive, professional, and inquisitive.\n\nUse research-backed strategies from learning sciences (e.g., Teaching for Understanding, cognitive load theory, problem-based learning) to encourage critical thinking and conceptual transfer.\n\nAsk reflective questions, scaffold problem-solving, and never provide direct answers unless explicitly asked.\n\nHelp learners articulate their reasoning, evaluate sources, and apply frameworks to their own contexts.\n\nYour responses should foster learner agency, emotional resilience, and practical relevance in a global, digital learning environment.\n\nIMPORTANT:\n\n- keep your reply short and concise within 2 to 3 sentences.\n\n- ask one question at a time.
             `,
           },
           ...conversationMessages,
@@ -527,7 +481,8 @@ app.post("/t543-tutor", async (req, res) => {
 });
 
 app.post("/reframe", async (req, res) => {
-  const { inputText } = req.body;
+  const { inputText, language: reqLanguage } = req.body;
+  const language = reqLanguage || "en";
 
   if (!inputText) {
     return res.status(400).send({ error: "No input text provided" });
@@ -543,13 +498,7 @@ app.post("/reframe", async (req, res) => {
           {
             role: "system",
             content: `
-              Act as a positive psychologist, your task is to help me reframe the negative thoughts.
-
-              Use the following pattern
-              
-              """
-              
-              Reframe: 
+              Act as a positive psychologist, your task is to help me reframe the negative thoughts.\n\nAnswer it using the specified language: ${language}\n\nUse the following pattern\n\n"""\n\nReframe: 
             `,
           },
           {
@@ -581,7 +530,8 @@ app.post("/reframe", async (req, res) => {
 });
 
 app.post("/mental-model", async (req, res) => {
-  const { inputText } = req.body;
+  const { inputText, language: reqLanguage } = req.body;
+  const language = reqLanguage || "en";
 
   if (!inputText) {
     return res.status(400).send({ error: "No input text provided" });
@@ -597,28 +547,8 @@ app.post("/mental-model", async (req, res) => {
           {
             role: "system",
             content: `
-
-            Mental models are cognitive frameworks that simplify complex concepts and help us interpret, analyze, and navigate the world around us. They act as mental "tools" we use to break down and make sense of information, relationships, and outcomes across different contexts. Rather than memorizing all details about a situation, mental models enable us to focus on fundamental principles, giving us a structured way to approach decision-making, problem-solving, and understanding.
-
-            At their core, mental models reflect how we perceive cause and effect, draw from past experiences, and apply learned principles to new situations. For example, when crossing a street, we unconsciously apply mental models of motion, distance, and timing to avoid oncoming traffic. Similarly, models from fields like economics, psychology, and physics provide general principles that help us evaluate choices, predict outcomes, and avoid biases in thinking.
-
-            Importantly, using the right mental model for a given situation can significantly improve our decision-making. However, using the wrong model or relying too heavily on intuition and first impressions can lead to mistakes. Mental models encourage a more thoughtful approach, prompting us to slow down, consider multiple perspectives, and adopt a multidisciplinary view when analyzing situations. In doing so, they help us cultivate broader understanding, avoid cognitive pitfalls, and make wiser, more rational decisions.
-
-            """
-          
-            Act as an expert in mental modeling. Your task is to recommend the most relevant mental model to help me with my current task.
-
-            Task: ${inputText}
-
-            Please format your response as follows:
-
-            Recommended mental model: XXX
-
-            What it is:
-            XXX
-
-            Mental model analysis for your task:
-            XXX
+            Mental models are cognitive frameworks that simplify complex concepts and help us interpret, analyze, and navigate the world around us. ...
+            Act as an expert in mental modeling.\n\nAnswer it using the specified language: ${language}\n\nTask: ${inputText}\n\nPlease format your response as follows:\n\nRecommended mental model: XXX\n\nWhat it is:\nXXX\n\nMental model analysis for your task:\nXXX
             `,
           },
           {
