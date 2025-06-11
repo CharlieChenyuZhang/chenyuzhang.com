@@ -70,12 +70,27 @@ const MiniHome = () => {
 
         <Paragraph>
           I'm Chenyu Zhang—a cross-disciplinary educator, AI researcher,
-          full-stack software engineer, and certified Designing Your Life coach
+          full-stack software engineer, and{" "}
+          <a
+            href="https://designingyour.life/find-a-coach/coaches/chenyu-zhang/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: "#ffd700",
+              fontWeight: 700,
+              textDecoration: "underline",
+            }}
+          >
+            certified Designing Your Life coach{" "}
+            <span aria-hidden="true" style={{ marginRight: "0.5rem" }}>
+              ↗
+            </span>
+          </a>
           from Stanford d.school. I'm also an ICF-accredited Co-Active Coach,
           trained to support individuals in navigating life's transitions with
           clarity, purpose, and agency.
           <HireMeLink href="mailto:contact@chenyuzhang.com" target="_blank">
-            Hire me <span aria-hidden="true">↗</span>
+            Hire me as a coach <span aria-hidden="true">↗</span>
           </HireMeLink>
         </Paragraph>
 
@@ -113,6 +128,20 @@ const MiniHome = () => {
 
         <Paragraph>Warmly,</Paragraph>
         <Paragraph>Chenyu Zhang</Paragraph>
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            margin: "2rem 0",
+          }}
+        >
+          <img
+            src={require("../images/coach-badge@4x.png")}
+            alt="Certified Designing Your Life Coach badge"
+            style={{ maxWidth: "200px", width: "100%", height: "auto" }}
+          />
+        </div>
 
         <Disclaimer>
           Disclaimer: I am actively working on improving the web accessibility
