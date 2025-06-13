@@ -735,15 +735,6 @@ const ProjectBetterTogether = () => {
           Course Project for EDU T560: Universal Design for Learning
         </Typography>
         <Typography variant="caption" display="block" gutterBottom>
-          Team Better Together
-        </Typography>
-        <Typography variant="caption" display="block" gutterBottom>
-          Chenyu Zhang, Jessy Lu, Janice Mason
-        </Typography>
-        <EqualContributionNote>
-          ★ These authors contributed equally to this work ★
-        </EqualContributionNote>
-        <Typography variant="caption" display="block" gutterBottom>
           software version: v4.1.0
         </Typography>
       </Box>
