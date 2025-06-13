@@ -141,6 +141,7 @@ const translations = {
     language: "English",
     languageToggle: "中文",
     processing: "Processing...",
+    support: "Support",
   },
   zh: {
     placeholder: "你今天在想什么？请自由反思……",
@@ -153,6 +154,7 @@ const translations = {
     language: "中文",
     languageToggle: "English",
     processing: "处理中……",
+    support: "支持",
   },
 };
 
@@ -361,6 +363,37 @@ const ProjectSmart = () => {
     }
   };
 
+  const handleSupportSubmit = async () => {
+    if (!thought.trim()) return;
+
+    const inputText = `Thought: ${thought}`;
+    setLoading(true);
+
+    const newConversation = [...conversation, { text: thought, isUser: true }];
+    setConversation(newConversation);
+    setThought("");
+
+    try {
+      const supportResponse = await fetch(`${backendDomain()}/support`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ inputText, language }),
+      });
+
+      const supportData = await supportResponse.json();
+      setConversation((prev) => [
+        ...prev,
+        { text: supportData.response, isUser: false },
+      ]);
+    } catch (error) {
+      console.error("Error fetching the support data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Scroll to bottom on new messages
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -563,6 +596,23 @@ const ProjectSmart = () => {
               }}
             >
               {t.mentalModel}
+            </Button>
+
+            <Button
+              variant="outlined"
+              onClick={handleSupportSubmit}
+              disabled={!thought.trim()}
+              sx={{
+                color: "white",
+                borderColor: "white",
+                "&:hover": { backgroundColor: "grey" },
+                "&.Mui-disabled": {
+                  color: "rgba(255, 255, 255, 0.5)",
+                  borderColor: "rgba(255, 255, 255, 0.5)",
+                },
+              }}
+            >
+              {t.support}
             </Button>
           </ButtonGroup>
 

@@ -1,7 +1,7 @@
 ---
 title: "NANDA: Networked agents and Decentralized AI"
 subtitle: A Research Project at MIT Media Lab’s Camera Culture Group
-published: true
+published: false
 id: 6
 author: Chenyu Zhang
 keywords:
