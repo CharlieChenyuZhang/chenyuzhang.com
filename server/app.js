@@ -529,6 +529,55 @@ app.post("/reframe", async (req, res) => {
   }
 });
 
+app.post("/support", async (req, res) => {
+  const { inputText, language: reqLanguage } = req.body;
+  const language = reqLanguage || "en";
+
+  if (!inputText) {
+    return res.status(400).send({ error: "No input text provided" });
+  }
+
+  try {
+    // TODO: could have fed with the conversation history
+    const apiResponse = await axios.post(
+      "https://api.openai.com/v1/chat/completions",
+      {
+        model: "gpt-4",
+        messages: [
+          {
+            role: "system",
+            content: `
+              Act as a emotion supporter, use casual text style and emojis and interjection (e.g. Awwww) you are going to show your excitment and provide emotional values to the user's input. Make it short like in a text message, at the end, ask me a follow up question (focus on the emotion only). \n\nAnswer it using the specified language: ${language}\n\n
+            `,
+          },
+          {
+            role: "user",
+            content: inputText,
+          },
+        ],
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${OPENAI_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const response = apiResponse.data.choices[0].message.content.trim();
+
+    res.send({
+      response: response,
+    });
+  } catch (error) {
+    console.error(
+      "Error performing sentiment analysis: ",
+      error.response?.data || error.message
+    );
+    res.status(500).send({ error: "Error performing sentiment analysis" });
+  }
+});
+
 app.post("/mental-model", async (req, res) => {
   const { inputText, language: reqLanguage } = req.body;
   const language = reqLanguage || "en";
