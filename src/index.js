@@ -105,7 +105,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         />
         <Route
           exact
-          path="/project/better-together"
+          path="/project/self-compassion"
           element={elementConstructor(<ProjectBetterTogether />)}
         />
         <Route
