@@ -30,6 +30,7 @@ import Test from "./components/Test";
 import InteractionDimensions3DV1 from "./components/ProjectSocialIntelligence/InteractionDimensions3DV1";
 import InteractionDimensions3DV2 from "./components/ProjectSocialIntelligence/InteractionDimensions3DV2";
 import InteractionDimensions3DV3 from "./components/ProjectSocialIntelligence/InteractionDimensions3DV3";
+import Demo from "./components/Demo";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AppContainer from "./components/AppContainer"; // Import the AppContainer
@@ -197,6 +198,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           exact
           path="/project/recording-testing"
           element={elementConstructor(<Test />)}
+        />
+
+        <Route
+          exact
+          path="/demo"
+          element={elementConstructor(<Demo />, true)}
         />
       </Routes>
     </BrowserRouter>
