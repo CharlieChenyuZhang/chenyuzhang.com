@@ -129,6 +129,59 @@ const LanguageOption = styled.span`
   }
 `;
 
+// Emotion Selector styled components (move above ProjectSmart)
+const EmotionSelectorContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px 0;
+`;
+
+const EmotionOption = styled.div`
+  font-size: 2.5rem;
+  margin: 0 14px;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: ${(props) => (props.selected ? props.color : "transparent")};
+  box-shadow: ${(props) => (props.selected ? "0 0 8px #fff" : "none")};
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s, border 0.2s;
+  padding: 0;
+  border: none;
+  user-select: none;
+  outline: none;
+  &:hover {
+    transform: scale(1.13);
+    background: ${(props) =>
+      props.color ? props.color + "55" : "rgba(255,255,255,0.12)"};
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  }
+`;
+
+const SideBySideContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+`;
+
+// Emotion rating options
+const emotionOptions = [
+  { emoji: "😞", color: "#e74c3c", label: "Very Sad" },
+  { emoji: "😕", color: "#f39c12", label: "Sad" },
+  { emoji: "😐", color: "#f1c40f", label: "Neutral" },
+  { emoji: "🙂", color: "#b6e388", label: "Happy" },
+  { emoji: "😃", color: "#27ae60", label: "Very Happy" },
+];
+
 const translations = {
   en: {
     placeholder: "What's on your mind today? Reflect freely...",
@@ -170,6 +223,7 @@ const ProjectSmart = () => {
   const [language, setLanguage] = useState(() => {
     return localStorage.getItem("smart-journaling-language") || "en";
   });
+  const [selectedEmotion, setSelectedEmotion] = useState(null); // Emotion selection state
 
   const t = translations[language];
 
@@ -618,6 +672,36 @@ const ProjectSmart = () => {
 
           <audio ref={audioRef} />
         </InputContainer>
+        {/* Emotion Selector at the bottom */}
+        <div style={{ width: "100%", marginTop: 24 }}>
+          <Typography
+            variant="subtitle1"
+            align="center"
+            style={{
+              color: "#fff",
+              marginBottom: 8,
+              fontWeight: 500,
+              letterSpacing: 0.5,
+            }}
+          >
+            How are you feeling today?
+          </Typography>
+          <EmotionSelectorContainer>
+            {emotionOptions.map((option, idx) => (
+              <EmotionOption
+                key={option.label}
+                color={option.color}
+                selected={selectedEmotion === idx}
+                onClick={() => setSelectedEmotion(idx)}
+                title={option.label}
+                tabIndex={0}
+                aria-label={option.label}
+              >
+                {option.emoji}
+              </EmotionOption>
+            ))}
+          </EmotionSelectorContainer>
+        </div>
       </ContentContainer>
     </MainContainer>
   );
