@@ -20,9 +20,9 @@ const MainContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(rgba(20, 30, 20, 0.7), rgba(20, 30, 20, 0.7)),
+  /* background: linear-gradient(rgba(20, 30, 20, 0.7), rgba(20, 30, 20, 0.7)),
     url("https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80")
-      no-repeat center center fixed;
+      no-repeat center center fixed; */
   background-size: cover;
   color: #fff;
 `;
@@ -161,6 +161,8 @@ const BackgroundVideo = styled.video`
   object-fit: cover;
   z-index: 0;
   pointer-events: none;
+  transition: opacity 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+  opacity: ${(props) => (props.visible ? 1 : 0)};
 `;
 
 // Fallback thumbnail: blurred neutral background with a video icon overlay
@@ -418,61 +420,61 @@ const translations = {
 // Add a list of available videos
 const backgroundVideos = [
   {
-    src: require("../../videos/855432-hd_1840_1034_25fps.mp4"),
+    src: "https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/journaling-videos/855432-hd_1840_1034_25fps.mp4",
     label: "Rain",
     thumb:
       "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=200&q=40",
   },
   {
-    src: require("../../videos/3145794-uhd_3840_2160_25fps.mp4"),
+    src: "https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/journaling-videos/3145794-uhd_3840_2160_25fps.mp4",
     label: "Forest",
     thumb:
       "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=200&q=40",
   },
   {
-    src: require("../../videos/2960875-hd_1920_1080_30fps.mp4"),
+    src: "https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/journaling-videos/2960875-hd_1920_1080_30fps.mp4",
     label: "Lake",
     thumb:
       "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=200&q=40",
   },
   {
-    src: require("../../videos/6549976-uhd_3840_2160_25fps.mp4"),
+    src: "https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/journaling-videos/6549976-uhd_3840_2160_25fps.mp4",
     label: "Library",
     thumb:
       "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=200&q=40",
   },
   {
-    src: require("../../videos/4216161-uhd_3840_2160_25fps.mp4"),
+    src: "https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/journaling-videos/4216161-uhd_3840_2160_25fps.mp4",
     label: "Sunrise",
     thumb:
       "https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=crop&w=200&q=40",
   },
   {
-    src: require("../../videos/2260458-uhd_3840_2160_25fps.mp4"),
+    src: "https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/journaling-videos/2260458-uhd_3840_2160_25fps.mp4",
     label: "Field",
     thumb:
       "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=200&q=40",
   },
   {
-    src: require("../../videos/6859482-hd_1920_1080_30fps.mp4"),
+    src: "https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/journaling-videos/6859482-hd_1920_1080_30fps.mp4",
     label: "City",
     thumb:
       "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=200&q=40",
   },
   {
-    src: require("../../videos/3874730-hd_1920_1080_30fps.mp4"),
+    src: "https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/journaling-videos/3874730-hd_1920_1080_30fps.mp4",
     label: "Street",
     thumb:
       "https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=crop&w=200&q=40",
   },
   {
-    src: require("../../videos/6448156-hd_1920_1080_25fps.mp4"),
+    src: "https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/journaling-videos/6448156-hd_1920_1080_25fps.mp4",
     label: "Blue Lake",
     thumb:
       "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=200&q=40",
   },
   {
-    src: require("../../videos/5594635-uhd_3840_2160_30fps.mp4"),
+    src: "https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/journaling-videos/5594635-uhd_3840_2160_30fps.mp4",
     label: "Clouds",
     thumb:
       "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=200&q=40",
@@ -1107,6 +1109,9 @@ const ProjectSmart = () => {
     return localStorage.getItem("smart-journaling-language") || "en";
   });
   const [selectedVideoIdx, setSelectedVideoIdx] = useState(0);
+  const [currentVideoIdx, setCurrentVideoIdx] = useState(0); // for crossfade
+  const [nextVideoReady, setNextVideoReady] = useState(false);
+  const [isSwitching, setIsSwitching] = useState(false);
 
   const t = translations[language];
 
@@ -1248,21 +1253,59 @@ const ProjectSmart = () => {
     }
   };
 
+  // When user selects a new video
+  const handleVideoSwitch = (idx) => {
+    if (idx === currentVideoIdx) return;
+    setSelectedVideoIdx(idx);
+    setNextVideoReady(false);
+    setIsSwitching(true);
+  };
+
+  // When the new video is ready, fade in and set as current
+  const handleNextVideoReady = () => {
+    setNextVideoReady(true);
+    setTimeout(() => {
+      setCurrentVideoIdx(selectedVideoIdx);
+      setIsSwitching(false);
+    }, 400); // match fade duration
+  };
+
   return (
     <>
-      {/* Background Video */}
+      {/* Background Videos for crossfade */}
       <BackgroundVideo
-        src={backgroundVideos[selectedVideoIdx].src}
+        key={backgroundVideos[currentVideoIdx].src}
+        src={backgroundVideos[currentVideoIdx].src}
         autoPlay
         loop
         muted
+        visible={!isSwitching || !nextVideoReady}
+        style={{
+          opacity: !isSwitching || !nextVideoReady ? 1 : 0,
+          transition: "opacity 0.6s cubic-bezier(0.4, 0.2, 0.2, 1)",
+        }}
       />
+      {(isSwitching || selectedVideoIdx !== currentVideoIdx) && (
+        <BackgroundVideo
+          key={backgroundVideos[selectedVideoIdx].src}
+          src={backgroundVideos[selectedVideoIdx].src}
+          autoPlay
+          loop
+          muted
+          visible={nextVideoReady}
+          onCanPlay={handleNextVideoReady}
+          style={{
+            opacity: nextVideoReady ? 1 : 0,
+            transition: "opacity 0.6s cubic-bezier(0.4, 0.2, 0.2, 1)",
+          }}
+        />
+      )}
       <AppleSwitcherContainer>
         {backgroundVideos.map((video, idx) => (
           <AppleThumbButton
             key={video.label}
             selected={selectedVideoIdx === idx}
-            onClick={() => setSelectedVideoIdx(idx)}
+            onClick={() => handleVideoSwitch(idx)}
             aria-label={video.label}
             title={video.label}
           >
