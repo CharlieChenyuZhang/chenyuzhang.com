@@ -15,6 +15,7 @@ import ProjectSmartV2 from "./components/ProjectSmart/ProjectSmartV2";
 import ProjectSmartV3 from "./components/ProjectSmart/ProjectSmartV3";
 import ProjectSmartV4 from "./components/ProjectSmart/ProjectSmartV4";
 import ProjectSmartV5 from "./components/ProjectSmart/ProjectSmartV5";
+import ProjectSmartV6 from "./components/ProjectSmart/ProjectSmartV6";
 import ProjectRelief from "./components/ProjectRelief/ProjectRelief";
 import ProjectReliefWebcamTest from "./components/ProjectRelief/WebcamTest";
 import ProjectReliefLearningVideo from "./components/ProjectRelief/LearningVideo";
@@ -133,6 +134,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           exact
           path="/project/smart/v5"
           element={elementConstructor(<ProjectSmartV5 />)}
+        />
+        <Route
+          exact
+          path="/project/smart/v6"
+          element={elementConstructor(<ProjectSmartV6 />)}
         />
 
         {/* Project Relief Routes */}

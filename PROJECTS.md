@@ -71,3 +71,27 @@ background: Alice 说女生化妆，最重要的是头发
 - 全网的发型库 （Bertram Malle, Xuan Zhao, 找到了全网人行机器人的长相， HCI）
   我想 - 人的头发，可以找视频数据，不同人的发型截屏出来。What is Human-like?: Decomposing Robots’ Human-like Appearance Using the Anthropomorphic roBOT (ABOT) Database
   Or e.g. the color of the cloth.
+
+Alice said
+"Self-compassion" might need to be a part of something else (hidden in the reframing)
+
+Mentally hug 一下你的情绪。
+情绪放在哪，毛绒玩具让在枕头旁边，挂起来
+
+Journaling
+
+- mood tracking
+- recurring patterns
+- knowledge graphs (reflection --> can become knowledge)
+  - for the same topic, you can track the growth on this topic. AI can automatically organize it on the same topic. Then you can use mind map to visualize it.
+  - TODO: spend time to study rosebud and other journaling apps
+- teaching tools (use your past expereince to teach you a new lesson)
+
+TODO
+
+- remove the double quotation marks from the original data.
+
+Journaling button discussion.
+Different LLM models have different effects.
+
+野生的数据。
