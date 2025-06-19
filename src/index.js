@@ -144,6 +144,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           element={elementConstructor(<ProjectSmartV6 />)}
         />
 
+        {/* mind mirror route  - point to ProjectSmartV6 */}
+        <Route
+          exact
+          path="/mindmirror"
+          element={elementConstructor(<ProjectSmartV6 />)}
+        />
+
         {/* Project Relief Routes */}
         <Route exact path="/project/relief" element={<ProjectRelief />} />
         <Route

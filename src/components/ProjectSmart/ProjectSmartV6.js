@@ -521,62 +521,52 @@ const backgroundVideos = [
   {
     src: "https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/journaling-videos/855432-hd_1840_1034_25fps.mp4",
     label: "Rain",
-    thumb:
-      "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=200&q=40",
+    thumb: require("../../images/frames/855432-hd_1840_1034_25fps.jpg"),
   },
   {
     src: "https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/journaling-videos/3145794-uhd_3840_2160_25fps.mp4",
     label: "Forest",
-    thumb:
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=200&q=40",
+    thumb: require("../../images/frames/3145794-uhd_3840_2160_25fps.jpg"),
   },
   {
     src: "https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/journaling-videos/2960875-hd_1920_1080_30fps.mp4",
     label: "Lake",
-    thumb:
-      "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=200&q=40",
+    thumb: require("../../images/frames/2960875-hd_1920_1080_30fps.jpg"),
   },
   {
     src: "https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/journaling-videos/6549976-uhd_3840_2160_25fps.mp4",
     label: "Library",
-    thumb:
-      "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=200&q=40",
+    thumb: require("../../images/frames/6549976-uhd_3840_2160_25fps.jpg"),
   },
   {
     src: "https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/journaling-videos/4216161-uhd_3840_2160_25fps.mp4",
     label: "Sunrise",
-    thumb:
-      "https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=crop&w=200&q=40",
+    thumb: require("../../images/frames/4216161-uhd_3840_2160_25fps.jpg"),
   },
   {
     src: "https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/journaling-videos/2260458-uhd_3840_2160_25fps.mp4",
     label: "Field",
-    thumb:
-      "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=200&q=40",
+    thumb: require("../../images/frames/2260458-uhd_3840_2160_25fps.jpg"),
   },
   {
     src: "https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/journaling-videos/6859482-hd_1920_1080_30fps.mp4",
     label: "City",
-    thumb:
-      "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=200&q=40",
+    thumb: require("../../images/frames/6859482-hd_1920_1080_30fps.jpg"),
   },
   {
     src: "https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/journaling-videos/3874730-hd_1920_1080_30fps.mp4",
     label: "Street",
-    thumb:
-      "https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=crop&w=200&q=40",
+    thumb: require("../../images/frames/3874730-hd_1920_1080_30fps.jpg"),
   },
   {
     src: "https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/journaling-videos/6448156-hd_1920_1080_25fps.mp4",
     label: "Blue Lake",
-    thumb:
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=200&q=40",
+    thumb: require("../../images/frames/6448156-hd_1920_1080_25fps.jpg"),
   },
   {
     src: "https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/journaling-videos/5594635-uhd_3840_2160_30fps.mp4",
     label: "Clouds",
-    thumb:
-      "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=200&q=40",
+    thumb: require("../../images/frames/5594635-uhd_3840_2160_30fps.jpg"),
   },
 ];
 
@@ -1781,50 +1771,126 @@ const ProjectSmart = () => {
   };
 
   const handleShareImage = async (originalText, reframedText) => {
-    // Create a temporary container for the content to be shared
     const tempContainer = document.createElement("div");
     tempContainer.style.position = "fixed";
     tempContainer.style.left = "-9999px";
     document.body.appendChild(tempContainer);
 
-    // Create and style the content
-    const content = document.createElement("div");
-    content.style.width = "600px";
-    content.style.padding = "32px";
-    content.style.background =
-      "linear-gradient(135deg, rgba(30, 30, 40, 0.95), rgba(20, 20, 30, 0.95))";
-    content.style.borderRadius = "16px";
-    content.style.color = "white";
-    content.style.fontFamily = "Arial, sans-serif";
+    // Create main container with background image
+    const frameContainer = document.createElement("div");
+    frameContainer.style.width = "800px";
+    frameContainer.style.padding = "80px 60px";
+    frameContainer.style.background = `url(${backgroundVideos[currentVideoIdx].thumb})`;
+    frameContainer.style.backgroundSize = "cover";
+    frameContainer.style.backgroundPosition = "center";
+    frameContainer.style.display = "flex";
+    frameContainer.style.justifyContent = "center";
+    frameContainer.style.alignItems = "center";
+    frameContainer.style.position = "relative";
 
-    content.innerHTML = `
-      <div style="margin-bottom: 24px;">
-        <div style="color: white; font-size: 16px; line-height: 1.5;">${originalText}</div>
-      </div>
-      <div>
-        <div style="color: white; font-size: 16px; line-height: 1.5;">${reframedText}</div>
-      </div>
+    // Add a dark overlay for better text readability
+    frameContainer.style.boxShadow =
+      "inset 0 0 0 2000px rgba(20, 20, 30, 0.75)";
+
+    // Create single content container with frosted glass effect
+    const content = document.createElement("div");
+    content.style.width = "100%";
+    content.style.position = "relative";
+    content.style.background = "rgba(255, 255, 255, 0.1)";
+    content.style.backdropFilter = "blur(10px)";
+    content.style.webkitBackdropFilter = "blur(10px)";
+    content.style.borderRadius = "24px";
+    content.style.padding = "60px 40px";
+    content.style.boxShadow = "0 8px 32px rgba(0, 0, 0, 0.2)";
+    content.style.border = "1px solid rgba(255, 255, 255, 0.2)";
+    content.style.fontFamily =
+      "'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif";
+    content.style.textAlign = "center";
+    content.style.color = "#fff";
+
+    // Style the quote content
+    const innerContent = document.createElement("div");
+    innerContent.style.position = "relative";
+    innerContent.innerHTML = `
+      <div style="
+        font-size: 24px;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.95);
+        font-weight: 300;
+        letter-spacing: -0.02em;
+        margin-bottom: 40px;
+        padding: 0 20px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      ">"${originalText}"</div>
+      
+      <div style="
+        width: 80px;
+        height: 1px;
+        background: linear-gradient(90deg, 
+          transparent 0%, 
+          rgba(255, 255, 255, 0.3) 50%,
+          transparent 100%
+        );
+        margin: 40px auto;
+      "></div>
+      
+      <div style="
+        font-size: 20px;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 300;
+        letter-spacing: -0.01em;
+        padding: 0 30px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      ">${reframedText}</div>
     `;
 
-    tempContainer.appendChild(content);
+    // Add subtle watermark
+    const watermark = document.createElement("div");
+    watermark.style.position = "absolute";
+    watermark.style.bottom = "20px";
+    watermark.style.right = "24px";
+    watermark.style.fontSize = "12px";
+    watermark.style.color = "rgba(255, 255, 255, 0.6)";
+    watermark.style.letterSpacing = "0.05em";
+    watermark.style.fontWeight = "400";
+    watermark.style.fontFamily = "'Inter', 'SF Pro Display', sans-serif";
+    watermark.style.textShadow = "0 1px 2px rgba(0, 0, 0, 0.2)";
+    watermark.textContent = "Reframed with MindMirror";
+
+    // Assemble all elements
+    content.appendChild(innerContent);
+    content.appendChild(watermark);
+    frameContainer.appendChild(content);
+    tempContainer.appendChild(frameContainer);
 
     try {
-      // Generate the image
-      const canvas = await html2canvas(content, {
+      // Generate high-quality image
+      const canvas = await html2canvas(frameContainer, {
         backgroundColor: null,
-        scale: 2,
+        scale: 3,
+        allowTaint: true,
+        useCORS: true,
+        logging: false,
+        windowWidth: 1600,
+        windowHeight: 1200,
+        onclone: (clonedDoc) => {
+          const clonedContent = clonedDoc.querySelector("div");
+          if (clonedContent) {
+            clonedContent.style.transform = "scale(1)";
+          }
+        },
       });
 
-      // Convert to image and download
-      const image = canvas.toDataURL("image/png");
+      // Convert to high-quality PNG
+      const image = canvas.toDataURL("image/png", 1.0);
       const link = document.createElement("a");
-      link.download = "reframed-thought.png";
+      link.download = "reframed-thought-frame.png";
       link.href = image;
       link.click();
     } catch (error) {
       console.error("Error generating image:", error);
     } finally {
-      // Clean up
       document.body.removeChild(tempContainer);
     }
   };
