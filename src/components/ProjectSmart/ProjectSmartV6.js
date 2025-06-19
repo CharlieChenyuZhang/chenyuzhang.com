@@ -1849,7 +1849,7 @@ const ProjectSmart = () => {
     watermark.style.fontWeight = "400";
     watermark.style.fontFamily = "'Inter', 'SF Pro Display', sans-serif";
     watermark.style.textShadow = "0 1px 2px rgba(0, 0, 0, 0.2)";
-    watermark.textContent = "Reframed with MindMirror";
+    watermark.textContent = "Reframed with GlowingStar";
 
     // Assemble all elements
     content.appendChild(innerContent);
@@ -1881,6 +1881,23 @@ const ProjectSmart = () => {
       link.download = "reframed-thought.png";
       link.href = image;
       link.click();
+
+      // Track the download event
+      try {
+        await fetch(`${backendDomain()}/track-downloads`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user_id: user.uid,
+            originalText,
+            reframedText,
+          }),
+        });
+      } catch (error) {
+        console.error("Error tracking download:", error);
+      }
     } catch (error) {
       console.error("Error generating image:", error);
     } finally {

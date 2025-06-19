@@ -147,7 +147,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         {/* mind mirror route  - point to ProjectSmartV6 */}
         <Route
           exact
-          path="/mindmirror"
+          path="/glowingstar"
           element={elementConstructor(<ProjectSmartV6 />)}
         />
 
