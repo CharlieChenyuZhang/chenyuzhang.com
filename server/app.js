@@ -27,6 +27,7 @@ app.get("/", (req, res) => {
 // import all the other API endpoints
 const reliefRoutes = require("./api/relief");
 const llmEvalRoute = require("./api/personal-llm-eval");
+const wordGameRoutes = require("./api/word-game");
 
 // so that backend can serve images
 // this can be used for FE to serve the media files, not for FE to render the media files in the .md content.
@@ -37,6 +38,7 @@ const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
 app.use("/relief", reliefRoutes);
 app.use("/personal-llm-eval", llmEvalRoute);
+app.use("/word-game", wordGameRoutes);
 
 app.get("/project/all", (req, res) => {
   const mdDirectory = path.join(__dirname, "projects"); // Adjust the path as necessary

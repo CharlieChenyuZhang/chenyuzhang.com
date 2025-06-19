@@ -32,6 +32,7 @@ import InteractionDimensions3DV1 from "./components/ProjectSocialIntelligence/In
 import InteractionDimensions3DV2 from "./components/ProjectSocialIntelligence/InteractionDimensions3DV2";
 import InteractionDimensions3DV3 from "./components/ProjectSocialIntelligence/InteractionDimensions3DV3";
 import Demo from "./components/Demo";
+import AcademicWordGame from "./components/ProjectSmart/AcademicWordGame";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AppContainer from "./components/AppContainer"; // Import the AppContainer
@@ -210,6 +211,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           exact
           path="/demo"
           element={elementConstructor(<Demo />, true)}
+        />
+
+        <Route
+          exact
+          path="/project/learn"
+          element={elementConstructor(<AcademicWordGame />)}
         />
       </Routes>
     </BrowserRouter>
