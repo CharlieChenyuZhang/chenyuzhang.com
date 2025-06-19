@@ -1,5 +1,120 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import styled from "styled-components";
 import { backendDomain } from "../../utils";
+
+// --- Glass effect and background video styled-components ---
+const MainContainer = styled.div`
+  height: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  color: #fff;
+  position: relative;
+  z-index: 1;
+`;
+
+const ContentContainer = styled.div`
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  border: 1.5px solid #e3e8f0;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 8px 32px 0 rgba(30, 60, 120, 0.18);
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  padding: 32px 24px;
+  z-index: 2;
+  color: #1a237e;
+`;
+
+const BackgroundVideo = styled.video`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+  transition: opacity 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+  opacity: ${(props) => (props.visible ? 1 : 0)};
+`;
+
+const VideoSwitcherContainer = styled.div`
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  background: rgba(30, 30, 40, 0.45);
+  border-radius: 2rem;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  padding: 18px 28px 8px 28px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  max-width: 98vw;
+  background-image: radial-gradient(
+    circle at 60% 40%,
+    rgba(144, 202, 249, 0.1) 0%,
+    rgba(30, 30, 40, 0.45) 80%
+  );
+`;
+
+const VideoThumbButton = styled.button`
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 50%;
+  box-shadow: 0 4px 18px 0 rgba(31, 38, 135, 0.18);
+  border: 3px solid transparent;
+  width: 54px;
+  height: 54px;
+  margin: 0 10px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow 0.22s, transform 0.18s, border 0.22s;
+  position: relative;
+  background: transparent;
+  &:hover,
+  &:focus {
+    box-shadow: 0 0 0 10px rgba(144, 202, 249, 0.18),
+      0 4px 18px 0 rgba(31, 38, 135, 0.18);
+    transform: scale(1.1);
+    z-index: 2;
+  }
+  ${(props) =>
+    props.selected &&
+    `
+      border: 3px solid #90caf9;
+      box-shadow: 0 0 0 16px rgba(144,202,249,0.18), 0 4px 18px 0 rgba(31,38,135,0.18);
+      transform: scale(1.13);
+      z-index: 3;
+    `}
+`;
+
+const ThumbImg = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 50%;
+  background: #222;
+`;
+
+// --- Background video data ---
+const BACKGROUND_VIDEO_URL =
+  "https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/journaling-videos/6859482-hd_1920_1080_30fps.mp4";
 
 const WORDS = [
   {
@@ -287,9 +402,9 @@ function FeatureButtonPanel({ word }) {
           style={{
             padding: "10px 18px",
             borderRadius: 8,
-            border: "1.5px solid #bbb",
-            background: loading === f.key ? "#eee" : "#f8f9fa",
-            color: "#222",
+            border: "1.5px solid #90caf9",
+            background: loading === f.key ? "#e3f2fd" : "#fff",
+            color: "#1a237e",
             fontWeight: 600,
             fontSize: 15,
             cursor: loading === f.key ? "wait" : "pointer",
@@ -415,6 +530,8 @@ function shuffle(array) {
 }
 
 const AcademicWordGame = () => {
+  // No video switching needed
+
   const [current, setCurrent] = useState(0);
   const [choices, setChoices] = useState([]);
   const [selected, setSelected] = useState(null);
@@ -422,7 +539,7 @@ const AcademicWordGame = () => {
   const [showAnswer, setShowAnswer] = useState(false);
   const [finished, setFinished] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (current < WORDS.length) {
       // Pick 3 random wrong definitions + 1 correct
       const wrong = shuffle(WORDS.filter((_, i) => i !== current)).slice(0, 3);
@@ -454,10 +571,19 @@ const AcademicWordGame = () => {
 
   if (finished) {
     return (
-      <div style={{ maxWidth: 500, margin: "2rem auto", textAlign: "center" }}>
-        <h2>Game Finished!</h2>
-        <p>
-          Your score: {score} / {WORDS.length}
+      <div
+        style={{
+          maxWidth: 500,
+          margin: "2rem auto",
+          textAlign: "center",
+          fontFamily: "'Comic Sans MS', 'Comic Sans', cursive",
+        }}
+      >
+        <h2 style={{ fontSize: 36, color: "#ff9800", marginBottom: 16 }}>
+          🎉 Game Finished! 🎉
+        </h2>
+        <p style={{ fontSize: 22, color: "#1976d2", marginBottom: 24 }}>
+          Your score: <b>{score}</b> / {WORDS.length}
         </p>
         <button
           onClick={() => {
@@ -465,146 +591,274 @@ const AcademicWordGame = () => {
             setScore(0);
             setFinished(false);
           }}
+          style={{
+            padding: "14px 32px",
+            borderRadius: 16,
+            background: "#4caf50",
+            color: "#fff",
+            border: "none",
+            fontWeight: "bold",
+            fontSize: 22,
+            outline: "none",
+            cursor: "pointer",
+            boxShadow: "0 2px 8px #4caf5055",
+            marginTop: 12,
+          }}
         >
-          Play Again
+          🔄 Play Again
         </button>
       </div>
     );
   }
 
+  // Kid-friendly progress bar
+  const progressPercent = ((current + 1) / WORDS.length) * 100;
+
   return (
-    <div
-      style={{
-        maxWidth: 600,
-        margin: "2rem auto",
-        padding: 24,
-        background: "#fff",
-        borderRadius: 16,
-        boxShadow: "0 2px 8px #0001",
-      }}
-    >
-      <h2 style={{ textAlign: "center", color: "#000" }}>Academic Word Game</h2>
-      <p style={{ fontSize: 18, margin: "24px 0 8px", color: "#000" }}>
-        <b>Definition:</b> {WORDS[current].definition}
-      </p>
-      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-        {choices.map((choice) => {
-          const isCorrect = selected && choice.word === WORDS[current].word;
-          const isIncorrect =
-            selected &&
-            choice.word === selected &&
-            choice.word !== WORDS[current].word;
-          return (
+    <MainContainer>
+      {/* Single Background Video */}
+      <BackgroundVideo
+        key={BACKGROUND_VIDEO_URL}
+        src={BACKGROUND_VIDEO_URL}
+        autoPlay
+        loop
+        muted
+        visible={true}
+        style={{ opacity: 1 }}
+      />
+      {/* Glass Content Container */}
+      <ContentContainer>
+        {/* --- Place the rest of the game UI here --- */}
+        {/* The following is the previous return content, except the outermost div is removed. */}
+        {finished ? (
+          <div
+            style={{
+              maxWidth: 500,
+              margin: "2rem auto",
+              textAlign: "center",
+              fontFamily: "'Comic Sans MS', 'Comic Sans', cursive",
+            }}
+          >
+            <h2 style={{ fontSize: 36, color: "#ff9800", marginBottom: 16 }}>
+              🎉 Game Finished! 🎉
+            </h2>
+            <p style={{ fontSize: 22, color: "#1976d2", marginBottom: 24 }}>
+              Your score: <b>{score}</b> / {WORDS.length}
+            </p>
             <button
-              key={choice.word}
-              onClick={() => handleSelect(choice)}
-              disabled={!!selected}
-              style={{
-                padding: 12,
-                borderRadius: 8,
-                border: selected
-                  ? isCorrect
-                    ? "2px solid #15803d" // muted modern green
-                    : isIncorrect
-                    ? "2px solid #b91c1c" // muted modern red
-                    : "1px solid #000"
-                  : "1px solid #000",
-                background: selected
-                  ? isCorrect
-                    ? "#15803d"
-                    : isIncorrect
-                    ? "#b91c1c"
-                    : "#fff"
-                  : "#fff",
-                color: selected
-                  ? isCorrect
-                    ? "#fff"
-                    : isIncorrect
-                    ? "#fff"
-                    : "#000"
-                  : "#000",
-                cursor: selected ? "default" : "pointer",
-                fontWeight: "bold",
-                fontSize: 16,
-                transition: "all 0.2s",
-                outline: "none",
-                boxShadow:
-                  selected && (isCorrect || isIncorrect)
-                    ? isCorrect
-                      ? "0 2px 8px rgba(21,128,61,0.10)"
-                      : "0 2px 8px rgba(185,28,28,0.10)"
-                    : "none",
+              onClick={() => {
+                setCurrent(0);
+                setScore(0);
+                setFinished(false);
               }}
-              tabIndex={0}
-              onFocus={(e) => (e.target.style.boxShadow = "0 0 0 3px #1976d2")}
-              onBlur={(e) => (e.target.style.boxShadow = "none")}
-            >
-              {choice.word}
-            </button>
-          );
-        })}
-      </div>
-      {showAnswer && (
-        <div style={{ marginTop: 24, textAlign: "center" }}>
-          {selected === WORDS[current].word ? (
-            <span
               style={{
-                color: "#fff",
-                fontWeight: "bold",
-                background: "#15803d",
-                padding: "4px 18px",
+                padding: "14px 32px",
                 borderRadius: 16,
-                border: "none",
-                fontSize: 18,
-                boxShadow: "0 2px 8px rgba(21,128,61,0.10)",
-              }}
-            >
-              Correct!
-            </span>
-          ) : (
-            <span
-              style={{
-                color: "#fff",
-                fontWeight: "bold",
-                background: "#b91c1c",
-                padding: "4px 18px",
-                borderRadius: 16,
-                border: "none",
-                fontSize: 18,
-                boxShadow: "0 2px 8px rgba(185,28,28,0.10)",
-              }}
-            >
-              Incorrect. The answer is <b>{WORDS[current].word}</b>.
-            </span>
-          )}
-          <div style={{ marginTop: 16 }}>
-            <button
-              onClick={handleNext}
-              style={{
-                padding: "8px 24px",
-                borderRadius: 8,
-                background: "#000",
+                background: "#4caf50",
                 color: "#fff",
                 border: "none",
                 fontWeight: "bold",
-                fontSize: 16,
+                fontSize: 22,
                 outline: "none",
+                cursor: "pointer",
+                boxShadow: "0 2px 8px #4caf5055",
+                marginTop: 12,
               }}
-              tabIndex={0}
-              onFocus={(e) => (e.target.style.boxShadow = "0 0 0 3px #1976d2")}
-              onBlur={(e) => (e.target.style.boxShadow = "none")}
             >
-              Next
+              🔄 Play Again
             </button>
           </div>
-        </div>
-      )}
-      <FeatureButtonPanel word={WORDS[current].word} />
-      <div style={{ marginTop: 32, textAlign: "center", color: "#888" }}>
-        Progress: {current + 1} / {WORDS.length}
-      </div>
-    </div>
+        ) : (
+          <>
+            <h2
+              style={{
+                textAlign: "center",
+                color: "#1a237e",
+                fontSize: 36,
+                marginBottom: 8,
+                fontWeight: 800,
+                textShadow: "0 2px 8px #fff8",
+              }}
+            >
+              🧠 Academic Word Game
+            </h2>
+            <div
+              style={{
+                width: "100%",
+                height: 18,
+                background: "#e3e8f0",
+                borderRadius: 12,
+                border: "2px solid #90caf9",
+                margin: "16px 0 24px 0",
+                overflow: "hidden",
+                boxShadow: "0 2px 8px #90caf933",
+              }}
+            >
+              <div
+                style={{
+                  width: `${((current + 1) / WORDS.length) * 100}%`,
+                  height: "100%",
+                  background:
+                    "linear-gradient(90deg, #1976d2 0%, #ff9800 100%)",
+                  borderRadius: 12,
+                  transition: "width 0.4s",
+                }}
+              ></div>
+            </div>
+            <p
+              style={{
+                fontSize: 22,
+                margin: "24px 0 8px",
+                color: "#222",
+                fontWeight: 700,
+                textShadow: "0 1px 4px #fff8",
+              }}
+            >
+              <b>Definition:</b> {WORDS[current].definition}
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+              {choices.map((choice) => {
+                const isCorrect =
+                  selected && choice.word === WORDS[current].word;
+                const isIncorrect =
+                  selected &&
+                  choice.word === selected &&
+                  choice.word !== WORDS[current].word;
+                return (
+                  <button
+                    key={choice.word}
+                    onClick={() => handleSelect(choice)}
+                    disabled={!!selected}
+                    style={{
+                      padding: 18,
+                      borderRadius: 16,
+                      border: selected
+                        ? isCorrect
+                          ? "3px solid #388e3c"
+                          : isIncorrect
+                          ? "3px solid #d32f2f"
+                          : "2px solid #1976d2"
+                        : "2px solid #1976d2",
+                      background: selected
+                        ? isCorrect
+                          ? "#388e3c"
+                          : isIncorrect
+                          ? "#d32f2f"
+                          : "#fff"
+                        : "#fff",
+                      color: selected
+                        ? isCorrect || isIncorrect
+                          ? "#fff"
+                          : "#1a237e"
+                        : "#1a237e",
+                      cursor: selected ? "default" : "pointer",
+                      fontWeight: "bold",
+                      fontSize: 22,
+                      transition: "all 0.2s",
+                      outline: "none",
+                      boxShadow: "0 2px 8px #0002",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 12,
+                    }}
+                    tabIndex={0}
+                    onFocus={(e) =>
+                      (e.target.style.boxShadow = "0 0 0 4px #1976d2")
+                    }
+                    onBlur={(e) => (e.target.style.boxShadow = "none")}
+                  >
+                    <span style={{ fontSize: 28 }}>🔤</span> {choice.word}
+                  </button>
+                );
+              })}
+            </div>
+            {showAnswer && (
+              <div style={{ marginTop: 32, textAlign: "center" }}>
+                {selected === WORDS[current].word ? (
+                  <span
+                    style={{
+                      color: "#fff",
+                      fontWeight: "bold",
+                      background: "#4caf50",
+                      padding: "8px 28px",
+                      borderRadius: 24,
+                      border: "none",
+                      fontSize: 26,
+                      boxShadow: "0 2px 12px #4caf5055",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 10,
+                    }}
+                  >
+                    🎉 Correct! Great job! 🎉
+                  </span>
+                ) : (
+                  <span
+                    style={{
+                      color: "#fff",
+                      fontWeight: "bold",
+                      background: "#e53935",
+                      padding: "8px 28px",
+                      borderRadius: 24,
+                      border: "none",
+                      fontSize: 26,
+                      boxShadow: "0 2px 12px #e5393555",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 10,
+                    }}
+                  >
+                    😢 Oops! The answer is{" "}
+                    <b style={{ margin: "0 6px" }}>{WORDS[current].word}</b>.
+                  </span>
+                )}
+                <div style={{ marginTop: 24 }}>
+                  <button
+                    onClick={handleNext}
+                    style={{
+                      padding: "12px 32px",
+                      borderRadius: 16,
+                      background: "#1976d2",
+                      color: "#fff",
+                      border: "none",
+                      fontWeight: "bold",
+                      fontSize: 20,
+                      outline: "none",
+                      cursor: "pointer",
+                      boxShadow: "0 2px 8px #1976d255",
+                    }}
+                    tabIndex={0}
+                    onFocus={(e) =>
+                      (e.target.style.boxShadow = "0 0 0 4px #1976d2")
+                    }
+                    onBlur={(e) => (e.target.style.boxShadow = "none")}
+                  >
+                    👉 Next
+                  </button>
+                </div>
+              </div>
+            )}
+            <FeatureButtonPanel word={WORDS[current].word} />
+            <div
+              style={{
+                marginTop: 32,
+                textAlign: "center",
+                color: "#888",
+                fontSize: 18,
+              }}
+            >
+              <span style={{ fontSize: 22 }}>🚦</span> Progress:{" "}
+              <b>{current + 1}</b> / {WORDS.length}
+            </div>
+          </>
+        )}
+      </ContentContainer>
+    </MainContainer>
   );
 };
+
+AcademicWordGame.displayName = "AcademicWordGame";
+
+AcademicWordGame.prototype = undefined; // for hot reload
 
 export default AcademicWordGame;
