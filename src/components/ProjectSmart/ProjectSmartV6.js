@@ -147,6 +147,7 @@ const MessageContainer = styled.div`
   margin: 8px 0;
   flex-direction: ${(props) => (props.isUser ? "row-reverse" : "row")};
   position: relative;
+  gap: 8px;
 `;
 
 const AiIcon = styled.div`
@@ -1576,25 +1577,24 @@ const MessageText = styled(Typography)`
 const ActionButtonsContainer = styled.div`
   display: flex;
   gap: 12px;
-  margin-left: 32px;
-  margin-top: 12px;
-
-  @media (max-width: 768px) {
-    margin-left: 24px;
-    margin-top: 10px;
-  }
+  align-items: center;
+  margin-left: 0;
+  margin-top: 0;
 `;
 
 const ActionButton = styled(IconButton)`
   color: #ffffff;
   background: rgba(255, 255, 255, 0.13);
-  padding: 10px;
+  padding: 8px;
   border-radius: 50%;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
 
   &:hover {
     background: rgba(255, 255, 255, 0.25);
@@ -1609,16 +1609,9 @@ const ActionButton = styled(IconButton)`
   }
 
   svg {
-    font-size: 22px;
+    font-size: 16px;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
     color: #ffffff;
-  }
-
-  @media (max-width: 768px) {
-    padding: 8px;
-    svg {
-      font-size: 20px;
-    }
   }
 `;
 
@@ -1885,7 +1878,7 @@ const ProjectSmart = () => {
       // Convert to high-quality PNG
       const image = canvas.toDataURL("image/png", 1.0);
       const link = document.createElement("a");
-      link.download = "reframed-thought-frame.png";
+      link.download = "reframed-thought.png";
       link.href = image;
       link.click();
     } catch (error) {
@@ -2036,9 +2029,9 @@ const ProjectSmart = () => {
           <ChatContainer ref={chatContainerRef}>
             {conversation.map((msg, index, array) => {
               const isUserMessage = msg.isUser;
-              const nextMessage = array[index + 1];
+              const prevMessage = array[index - 1];
               const showActions =
-                isUserMessage && nextMessage && !nextMessage.isUser;
+                !isUserMessage && prevMessage && prevMessage.isUser;
 
               return (
                 <React.Fragment key={index}>
@@ -2047,25 +2040,18 @@ const ProjectSmart = () => {
                     <MessageBubble isUser={msg.isUser}>
                       {msg.text && <span>{msg.text}</span>}
                     </MessageBubble>
-                  </MessageContainer>
-
-                  {showActions && nextMessage && (
-                    <ActionButtonsContainer>
-                      <StyledTooltip
-                        title="Download as Image"
-                        arrow
-                        placement="top"
-                      >
+                    {showActions && (
+                      <ActionButtonsContainer>
                         <ActionButton
                           onClick={() =>
-                            handleShareImage(msg.text, nextMessage.text)
+                            handleShareImage(prevMessage.text, msg.text)
                           }
                         >
                           <DownloadIcon />
                         </ActionButton>
-                      </StyledTooltip>
-                    </ActionButtonsContainer>
-                  )}
+                      </ActionButtonsContainer>
+                    )}
+                  </MessageContainer>
                 </React.Fragment>
               );
             })}
