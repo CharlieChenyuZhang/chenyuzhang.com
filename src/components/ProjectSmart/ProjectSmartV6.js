@@ -97,16 +97,19 @@ const languageNames = {
 
 // Styled components
 const MainContainer = styled.div`
-  height: 100%;
   min-height: 100vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  /* background: linear-gradient(rgba(20, 30, 20, 0.7), rgba(20, 30, 20, 0.7)),
-    url("https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80")
-      no-repeat center center fixed; */
+  flex-direction: column;
+  padding: 20px;
+  padding-top: 100px;
   background-size: cover;
   color: #fff;
+  position: relative;
+
+  @media (max-width: 600px) {
+    padding: 12px;
+    padding-top: 80px;
+  }
 `;
 
 const ContentContainer = styled.div`
@@ -121,6 +124,7 @@ const ContentContainer = styled.div`
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
   padding: 32px 24px;
+  margin: 0 auto;
 `;
 
 const ChatContainer = styled.div`
@@ -243,7 +247,7 @@ const BackgroundVideo = styled.video`
   width: 100vw;
   height: 100vh;
   object-fit: cover;
-  z-index: 0;
+  z-index: -1;
   pointer-events: none;
   transition: opacity 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
   opacity: ${(props) => (props.visible ? 1 : 0)};
@@ -703,12 +707,11 @@ const CompactThumbLabel = styled.div`
 
 // Apple-style frosted glass container
 const AppleSwitcherContainer = styled(Box)`
-  position: fixed;
-  top: 12px;
+  position: absolute;
+  top: 0;
   left: 50%;
   transform: translateX(-50%)
-    translateY(${(props) => (props.isHidden ? "-100px" : "0")});
-  z-index: 20;
+    translateY(${(props) => (props.isHidden ? "-100%" : "12px")});
   background: rgba(255, 255, 255, 0.18);
   border-radius: 1.5rem;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.12);
@@ -717,18 +720,22 @@ const AppleSwitcherContainer = styled(Box)`
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   backdrop-filter: blur(18px) saturate(180%);
   -webkit-backdrop-filter: blur(18px) saturate(180%);
   max-width: 80%;
   overflow-x: auto;
   opacity: ${(props) => (props.isHidden ? 0 : 1)};
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  pointer-events: ${(props) => (props.isHidden ? "none" : "auto")};
+  z-index: 20;
+
   @media (max-width: 600px) {
-    top: 2px;
     padding: 4px 2vw 4px 2vw;
     border-radius: 1rem;
     min-width: 0;
-    max-width: 100vw;
+    transform: translateX(-50%)
+      translateY(${(props) => (props.isHidden ? "-100%" : "8px")});
   }
 `;
 
