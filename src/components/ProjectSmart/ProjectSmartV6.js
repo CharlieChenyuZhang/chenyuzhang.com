@@ -12,12 +12,15 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  IconButton,
 } from "@mui/material";
 import { backendDomain } from "../../utils";
 import fallbackThumb from "../../images/reading.gif";
 import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
 import ModeIcon from "@mui/icons-material/Mode";
 import LogoutIcon from "@mui/icons-material/Logout";
+import PrivacyTipIcon from "@mui/icons-material/PrivacyTip";
+import GavelIcon from "@mui/icons-material/Gavel";
 import { auth, provider } from "../../firebase";
 import {
   signInWithPopup,
@@ -1745,6 +1748,34 @@ const ProjectSmart = () => {
               </Tooltip>
             </HeaderLeftSection>
             <HeaderRightSection>
+              <Tooltip title="Privacy Policy" arrow placement="bottom">
+                <IconButton
+                  component="a"
+                  href="/privacy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    color: "white",
+                    "&:hover": { background: "rgba(255, 255, 255, 0.1)" },
+                  }}
+                >
+                  <PrivacyTipIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Terms of Service" arrow placement="bottom">
+                <IconButton
+                  component="a"
+                  href="/terms"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    color: "white",
+                    "&:hover": { background: "rgba(255, 255, 255, 0.1)" },
+                  }}
+                >
+                  <GavelIcon />
+                </IconButton>
+              </Tooltip>
               <StyledButton onClick={handleSignOut}>
                 <IconStyled>
                   <LogoutIcon />
