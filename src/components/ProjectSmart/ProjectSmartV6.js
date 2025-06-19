@@ -13,6 +13,15 @@ import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import VolumeOffIcon from "@mui/icons-material/VolumeOff";
 import fallbackThumb from "../../images/reading.gif";
 import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
+import { auth, provider } from "../../firebase";
+import {
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
+import SignInPrompt from "../SignInPrompt";
 
 const MainContainer = styled.div`
   height: 100%;
@@ -1112,6 +1121,11 @@ const ProjectSmart = () => {
   const [currentVideoIdx, setCurrentVideoIdx] = useState(0); // for crossfade
   const [nextVideoReady, setNextVideoReady] = useState(false);
   const [isSwitching, setIsSwitching] = useState(false);
+  const [user, setUser] = useState(null);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isRegister, setIsRegister] = useState(false);
+  const [authError, setAuthError] = useState("");
 
   const t = translations[language];
 
@@ -1119,6 +1133,14 @@ const ProjectSmart = () => {
   useEffect(() => {
     localStorage.setItem("smart-journaling-language", language);
   }, [language]);
+
+  // Listen for auth state changes
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      setUser(firebaseUser);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const handleStartRecording = async () => {
     try {
@@ -1270,6 +1292,93 @@ const ProjectSmart = () => {
     }, 400); // match fade duration
   };
 
+  // Sign in with Google
+  const handleSignIn = async () => {
+    try {
+      await signInWithPopup(auth, provider);
+    } catch (error) {
+      alert("Sign in failed: " + error.message);
+    }
+  };
+
+  // Sign out
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      alert("Sign out failed: " + error.message);
+    }
+  };
+
+  const handleEmailChange = (e) => setEmail(e.target.value);
+  const handlePasswordChange = (e) => setPassword(e.target.value);
+
+  const handleEmailAuth = async (e) => {
+    e.preventDefault();
+    setAuthError("");
+    try {
+      if (isRegister) {
+        await createUserWithEmailAndPassword(auth, email, password);
+      } else {
+        await signInWithEmailAndPassword(auth, email, password);
+      }
+    } catch (error) {
+      setAuthError(error.message);
+    }
+  };
+
+  if (!user) {
+    return (
+      <SignInPrompt
+        title="Please sign in to use Smart Journaling"
+        onGoogleSignIn={handleSignIn}
+      >
+        <form onSubmit={handleEmailAuth} style={{ width: "100%" }}>
+          <TextField
+            label="Email"
+            type="email"
+            value={email}
+            onChange={handleEmailChange}
+            fullWidth
+            margin="normal"
+            required
+          />
+          <TextField
+            label="Password"
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+            fullWidth
+            margin="normal"
+            required
+          />
+          {authError && (
+            <Typography color="error" variant="body2" sx={{ mt: 1 }}>
+              {authError}
+            </Typography>
+          )}
+          <Button
+            type="submit"
+            variant="outlined"
+            fullWidth
+            sx={{ mt: 2, color: "white", borderColor: "white" }}
+          >
+            {isRegister ? "Register" : "Sign in with Email"}
+          </Button>
+          <Button
+            onClick={() => setIsRegister((prev) => !prev)}
+            sx={{ mt: 1, color: "#90caf9" }}
+            fullWidth
+          >
+            {isRegister
+              ? "Already have an account? Sign in"
+              : "Don't have an account? Register"}
+          </Button>
+        </form>
+      </SignInPrompt>
+    );
+  }
+
   return (
     <>
       {/* Background Videos for crossfade */}
@@ -1348,6 +1457,42 @@ const ProjectSmart = () => {
           {/* <Typography variant="h4" align="center" gutterBottom>
             SMART Journaling
           </Typography> */}
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-end",
+              mb: 2,
+            }}
+          >
+            {user && (
+              <>
+                <img
+                  src={user.photoURL}
+                  alt={user.displayName}
+                  style={{
+                    width: 32,
+                    height: 32,
+                    borderRadius: "50%",
+                    marginRight: 8,
+                  }}
+                />
+                <Typography
+                  variant="body1"
+                  sx={{ color: "#fff", marginRight: 2 }}
+                >
+                  {user.displayName}
+                </Typography>
+                <Button
+                  variant="outlined"
+                  onClick={handleSignOut}
+                  sx={{ color: "white", borderColor: "white", ml: 2 }}
+                >
+                  Sign Out
+                </Button>
+              </>
+            )}
+          </Box>
           <ChatContainer ref={chatContainerRef}>
             {conversation.map((msg, index) => (
               <MessageContainer key={index} isUser={msg.isUser}>
