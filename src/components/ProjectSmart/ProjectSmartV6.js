@@ -1480,8 +1480,8 @@ const ProjectSmart = () => {
   const [loading, setLoading] = useState(false);
   const chatContainerRef = useRef(null);
   const [language, setLanguage] = useState(() => {
-    const savedLang = localStorage.getItem("smart-journaling-language");
-    return savedLang && translations[savedLang] ? savedLang : "en";
+    const initialLang = localStorage.getItem("app-language");
+    return initialLang && translations[initialLang] ? initialLang : "en";
   });
   const t = translations[language] || translations["en"];
   const [selectedVideoIdx, setSelectedVideoIdx] = useState(0);
@@ -1497,7 +1497,7 @@ const ProjectSmart = () => {
 
   // Persist language to localStorage when it changes
   useEffect(() => {
-    localStorage.setItem("smart-journaling-language", language);
+    localStorage.setItem("app-language", language);
   }, [language]);
 
   // Listen for auth state changes
@@ -1609,7 +1609,7 @@ const ProjectSmart = () => {
   if (!user) {
     return (
       <SignInPrompt
-        title="Please sign in to use Smart Journaling"
+        title="Please sign in to continue"
         onGoogleSignIn={handleSignIn}
       >
         <form onSubmit={handleEmailAuth} style={{ width: "100%" }}>
