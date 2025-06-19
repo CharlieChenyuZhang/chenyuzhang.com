@@ -17,6 +17,7 @@ import { backendDomain } from "../../utils";
 import fallbackThumb from "../../images/reading.gif";
 import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
 import ModeIcon from "@mui/icons-material/Mode";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { auth, provider } from "../../firebase";
 import {
   signInWithPopup,
@@ -200,8 +201,9 @@ const ButtonGroup = styled.div``;
 const LanguageToggleContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   margin-bottom: 16px;
+  width: 100%;
 `;
 
 const LanguageOption = styled.span`
@@ -465,27 +467,40 @@ const ThumbLabel = styled.div`
 // Update LanguageToggleContainer styles for the new dropdown
 const StyledFormControl = styled(FormControl)`
   min-width: 120px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
   & .MuiOutlinedInput-root {
     color: white;
     & fieldset {
-      border-color: rgba(255, 255, 255, 0.23);
+      border-color: rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
     }
     &:hover fieldset {
-      border-color: white;
+      border-color: rgba(255, 255, 255, 0.3);
     }
     &.Mui-focused fieldset {
-      border-color: white;
+      border-color: rgba(255, 255, 255, 0.5);
     }
   }
   & .MuiInputLabel-root {
     color: rgba(255, 255, 255, 0.7);
   }
   & .MuiSelect-icon {
-    color: white;
+    color: rgba(255, 255, 255, 0.7);
   }
   & .MuiMenuItem-root {
     min-height: 32px;
     font-size: 0.875rem;
+  }
+
+  @media (max-width: 768px) {
+    min-width: 100px;
   }
 `;
 
@@ -1196,60 +1211,266 @@ function iconColor(bg) {
 }
 
 const BackgroundToggleButton = styled.button`
-  position: fixed;
-  top: 12px;
-  right: 12px;
-  z-index: 21;
-  background: rgba(255, 255, 255, 0.18);
-  border: 1.5px solid rgba(255, 255, 255, 0.28);
-  border-radius: 12px;
-  min-width: 120px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   cursor: pointer;
-  backdrop-filter: blur(18px) saturate(180%);
-  -webkit-backdrop-filter: blur(18px) saturate(180%);
-  transition: background 0.2s, transform 0.2s;
+  padding: 0 16px;
   color: white;
-  font-size: 14px;
-  padding: 0 12px;
-  outline: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.25);
-    transform: scale(1.02);
-  }
-
-  @media (max-width: 600px) {
-    min-width: auto;
-    width: 40px;
-    top: 8px;
-    right: 8px;
-    height: 40px;
-    font-size: 16px;
-    border-radius: 50%;
-    padding: 0;
-
-    span {
-      display: none;
-    }
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.25);
   }
 
   ${(props) =>
     props.hasSelectedAmbiance &&
     `
-    border-color: #90caf9;
-    box-shadow: 0 0 0 4px rgba(144, 202, 249, 0.1);
+    background: rgba(144, 202, 249, 0.15);
+    border-color: rgba(144, 202, 249, 0.4);
+    
+    &:hover {
+      background: rgba(144, 202, 249, 0.2);
+      border-color: rgba(144, 202, 249, 0.5);
+    }
   `}
+
+  @media (max-width: 768px) {
+    padding: 0 12px;
+    height: 36px;
+    font-size: 0.85rem;
+
+    span {
+      display: none;
+    }
+  }
 `;
 
-const ModeIconStyled = styled(VideoLibraryIcon)`
-  font-size: 20px !important;
-  @media (max-width: 600px) {
-    font-size: 18px !important;
+const IconStyled = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    font-size: 20px !important;
+    opacity: 0.9;
+    color: white;
+  }
+
+  @media (max-width: 768px) {
+    svg {
+      font-size: 18px !important;
+    }
+  }
+`;
+
+const HeaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: -32px -24px 24px -24px;
+  padding: 16px 24px;
+  width: calc(100% + 48px);
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+  @media (max-width: 768px) {
+    padding: 12px 16px;
+    margin: -32px -24px 20px -24px;
+  }
+`;
+
+const HeaderLeftSection = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  @media (max-width: 768px) {
+    gap: 8px;
+  }
+`;
+
+const HeaderRightSection = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  @media (max-width: 768px) {
+    gap: 12px;
+  }
+`;
+
+const UserSection = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 16px 6px 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+
+  img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+  }
+
+  @media (max-width: 768px) {
+    padding: 4px 12px 4px 4px;
+    gap: 8px;
+
+    img {
+      width: 28px;
+      height: 28px;
+    }
+  }
+`;
+
+const UserName = styled(Typography)`
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.95rem;
+  white-space: nowrap;
+
+  @media (max-width: 768px) {
+    font-size: 0.85rem;
+  }
+`;
+
+const StyledButton = styled(Button)`
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 8px 16px;
+  height: 40px;
+  min-width: 100px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  text-transform: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  box-shadow: 0 4px 12px 0 rgba(31, 38, 135, 0.15);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.28);
+    box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.25);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0px);
+  }
+
+  span {
+    background: linear-gradient(90deg, #fff 30%, rgba(255, 255, 255, 0.8) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  svg {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  }
+
+  @media (max-width: 768px) {
+    padding: 0;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    border-radius: 50%;
+    justify-content: center;
+
+    span {
+      display: none;
+    }
+
+    svg {
+      margin: 0;
+    }
+  }
+`;
+
+const AuthButton = styled(Button)`
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 8px 16px;
+  height: 40px;
+  width: 100%;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  text-transform: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  box-shadow: 0 4px 12px 0 rgba(31, 38, 135, 0.15);
+  margin-top: 16px;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.28);
+    box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.25);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0px);
+  }
+
+  span {
+    background: linear-gradient(90deg, #fff 30%, rgba(255, 255, 255, 0.8) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  svg {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  }
+
+  @media (max-width: 768px) {
+    height: 36px;
+    font-size: 0.85rem;
+  }
+`;
+
+const TextLink = styled(Button)`
+  color: #90caf9;
+  text-transform: none;
+  font-size: 0.9rem;
+  padding: 8px;
+  margin-top: 8px;
+
+  &:hover {
+    background: rgba(144, 202, 249, 0.1);
   }
 `;
 
@@ -1393,7 +1614,7 @@ const ProjectSmart = () => {
       >
         <form onSubmit={handleEmailAuth} style={{ width: "100%" }}>
           <TextField
-            label="Email"
+            label={t.email}
             type="email"
             value={email}
             onChange={handleEmailChange}
@@ -1402,7 +1623,7 @@ const ProjectSmart = () => {
             required
           />
           <TextField
-            label="Password"
+            label={t.password}
             type="password"
             value={password}
             onChange={handlePasswordChange}
@@ -1415,23 +1636,12 @@ const ProjectSmart = () => {
               {authError}
             </Typography>
           )}
-          <Button
-            type="submit"
-            variant="outlined"
-            fullWidth
-            sx={{ mt: 2, color: "white", borderColor: "white" }}
-          >
-            {isRegister ? "Register" : "Sign in with Email"}
-          </Button>
-          <Button
-            onClick={() => setIsRegister((prev) => !prev)}
-            sx={{ mt: 1, color: "#90caf9" }}
-            fullWidth
-          >
-            {isRegister
-              ? "Already have an account? Sign in"
-              : "Don't have an account? Register"}
-          </Button>
+          <AuthButton type="submit" fullWidth>
+            <span>{isRegister ? t.register : t.signInWithEmail}</span>
+          </AuthButton>
+          <TextLink onClick={() => setIsRegister((prev) => !prev)} fullWidth>
+            {isRegister ? t.alreadyHaveAccount : t.dontHaveAccount}
+          </TextLink>
         </form>
       </SignInPrompt>
     );
@@ -1467,19 +1677,6 @@ const ProjectSmart = () => {
           }}
         />
       )}
-      <Tooltip
-        title={isSwitcherHidden ? t.showAmbiance : t.hideAmbiance}
-        arrow
-        placement="left"
-      >
-        <BackgroundToggleButton
-          onClick={() => setIsSwitcherHidden(!isSwitcherHidden)}
-          hasSelectedAmbiance={selectedVideoIdx !== 0}
-        >
-          <ModeIconStyled />
-          <span>{isSwitcherHidden ? t.showAmbiance : t.hideAmbiance}</span>
-        </BackgroundToggleButton>
-      </Tooltip>
       <AppleSwitcherContainer isHidden={isSwitcherHidden}>
         {backgroundVideos.map((video, idx) => (
           <Tooltip key={video.label} title={video.label} arrow>
@@ -1510,64 +1707,51 @@ const ProjectSmart = () => {
       </AppleSwitcherContainer>
       <MainContainer>
         <ContentContainer>
-          {/* Language Selector */}
-          <LanguageToggleContainer>
-            <StyledFormControl variant="outlined" size="small">
-              <InputLabel id="language-select-label" sx={{ color: "white" }}>
-                Language
-              </InputLabel>
-              <Select
-                labelId="language-select-label"
-                value={language}
-                onChange={(e) => setLanguage(e.target.value)}
-                label="Language"
+          <HeaderContainer>
+            <HeaderLeftSection>
+              <StyledFormControl variant="outlined" size="small">
+                <Select
+                  labelId="language-select-label"
+                  value={language}
+                  onChange={(e) => setLanguage(e.target.value)}
+                  label={t.language}
+                >
+                  {Object.keys(translations)
+                    .sort()
+                    .map((langCode) => (
+                      <MenuItem key={langCode} value={langCode}>
+                        {languageNames[langCode]}
+                      </MenuItem>
+                    ))}
+                </Select>
+              </StyledFormControl>
+              <Tooltip
+                title={isSwitcherHidden ? t.showAmbiance : t.hideAmbiance}
+                arrow
+                placement="bottom"
               >
-                {Object.keys(translations)
-                  .sort()
-                  .map((langCode) => (
-                    <MenuItem key={langCode} value={langCode}>
-                      {languageNames[langCode]}
-                    </MenuItem>
-                  ))}
-              </Select>
-            </StyledFormControl>
-          </LanguageToggleContainer>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-end",
-              mb: 2,
-            }}
-          >
-            {user && (
-              <>
-                <img
-                  src={user.photoURL}
-                  alt={user.displayName}
-                  style={{
-                    width: 32,
-                    height: 32,
-                    borderRadius: "50%",
-                    marginRight: 8,
-                  }}
-                />
-                <Typography
-                  variant="body1"
-                  sx={{ color: "#fff", marginRight: 2 }}
+                <BackgroundToggleButton
+                  onClick={() => setIsSwitcherHidden(!isSwitcherHidden)}
+                  hasSelectedAmbiance={selectedVideoIdx !== 0}
                 >
-                  {user.displayName}
-                </Typography>
-                <Button
-                  variant="outlined"
-                  onClick={handleSignOut}
-                  sx={{ color: "white", borderColor: "white", ml: 2 }}
-                >
-                  {t.signOut}
-                </Button>
-              </>
-            )}
-          </Box>
+                  <IconStyled>
+                    <VideoLibraryIcon />
+                  </IconStyled>
+                  <span>
+                    {isSwitcherHidden ? t.showAmbiance : t.hideAmbiance}
+                  </span>
+                </BackgroundToggleButton>
+              </Tooltip>
+            </HeaderLeftSection>
+            <HeaderRightSection>
+              <StyledButton onClick={handleSignOut}>
+                <IconStyled>
+                  <LogoutIcon />
+                </IconStyled>
+                <span>{t.signOut}</span>
+              </StyledButton>
+            </HeaderRightSection>
+          </HeaderContainer>
           <ChatContainer ref={chatContainerRef}>
             {conversation.map((msg, index) => (
               <MessageContainer key={index} isUser={msg.isUser}>
