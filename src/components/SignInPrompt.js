@@ -1,7 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-import { Typography, Box, Button, Divider } from "@mui/material";
+import {
+  Typography,
+  Box,
+  Button,
+  Divider,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
+import PrivacyTipIcon from "@mui/icons-material/PrivacyTip";
+import GavelIcon from "@mui/icons-material/Gavel";
 
 const VIDEO_SRC =
   "https://chenyuzhang-com-assets.s3.us-east-1.amazonaws.com/journaling-videos/855432-hd_1840_1034_25fps.mp4";
@@ -70,6 +79,32 @@ const OrDivider = styled(Divider)`
   }
 `;
 
+const FooterContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+  @media (max-width: 768px) {
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 12px;
+  }
+`;
+
+const FooterIconButton = styled(IconButton)`
+  color: rgba(255, 255, 255, 0.7);
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+  }
+`;
+
 const GoogleButton = styled(Button)`
   && {
     background: #4285f4;
@@ -130,6 +165,28 @@ const SignInPrompt = ({ title, children, onGoogleSignIn }) => (
         </GoogleButton>
         <OrDivider>OR</OrDivider>
         {children}
+        <FooterContainer>
+          <Tooltip title="Privacy Policy" arrow placement="top">
+            <FooterIconButton
+              component="a"
+              href="/privacy"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <PrivacyTipIcon />
+            </FooterIconButton>
+          </Tooltip>
+          <Tooltip title="Terms of Service" arrow placement="top">
+            <FooterIconButton
+              component="a"
+              href="/terms"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <GavelIcon />
+            </FooterIconButton>
+          </Tooltip>
+        </FooterContainer>
       </FrostedContainer>
     </CenteredBox>
   </>

@@ -1313,6 +1313,32 @@ const HeaderRightSection = styled.div`
   }
 `;
 
+const FooterContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+  @media (max-width: 768px) {
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 12px;
+  }
+`;
+
+const FooterIconButton = styled(IconButton)`
+  color: rgba(255, 255, 255, 0.7);
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+  }
+`;
+
 const UserSection = styled.div`
   display: flex;
   align-items: center;
@@ -1748,34 +1774,6 @@ const ProjectSmart = () => {
               </Tooltip>
             </HeaderLeftSection>
             <HeaderRightSection>
-              <Tooltip title="Privacy Policy" arrow placement="bottom">
-                <IconButton
-                  component="a"
-                  href="/privacy"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  sx={{
-                    color: "white",
-                    "&:hover": { background: "rgba(255, 255, 255, 0.1)" },
-                  }}
-                >
-                  <PrivacyTipIcon />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Terms of Service" arrow placement="bottom">
-                <IconButton
-                  component="a"
-                  href="/terms"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  sx={{
-                    color: "white",
-                    "&:hover": { background: "rgba(255, 255, 255, 0.1)" },
-                  }}
-                >
-                  <GavelIcon />
-                </IconButton>
-              </Tooltip>
               <StyledButton onClick={handleSignOut}>
                 <IconStyled>
                   <LogoutIcon />
@@ -1835,6 +1833,29 @@ const ProjectSmart = () => {
               </Button>
             </ButtonGroup>
           </InputContainer>
+
+          <FooterContainer>
+            <Tooltip title="Privacy Policy" arrow placement="top">
+              <FooterIconButton
+                component="a"
+                href="/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <PrivacyTipIcon />
+              </FooterIconButton>
+            </Tooltip>
+            <Tooltip title="Terms of Service" arrow placement="top">
+              <FooterIconButton
+                component="a"
+                href="/terms"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <GavelIcon />
+              </FooterIconButton>
+            </Tooltip>
+          </FooterContainer>
         </ContentContainer>
       </MainContainer>
     </>
