@@ -1895,56 +1895,6 @@ const ProjectSmart = () => {
     }
   };
 
-  const handleLinkedInShare = async (originalText, reframedText) => {
-    try {
-      // Generate the image first
-      const tempContainer = document.createElement("div");
-      tempContainer.style.position = "fixed";
-      tempContainer.style.left = "-9999px";
-      document.body.appendChild(tempContainer);
-
-      const content = document.createElement("div");
-      content.style.width = "600px";
-      content.style.padding = "32px";
-      content.style.background =
-        "linear-gradient(135deg, rgba(30, 30, 40, 0.95), rgba(20, 20, 30, 0.95))";
-      content.style.borderRadius = "16px";
-      content.style.color = "white";
-      content.style.fontFamily = "Arial, sans-serif";
-
-      content.innerHTML = `
-        <div style="margin-bottom: 24px;">
-          <div style="color: white; font-size: 16px; line-height: 1.5;">${originalText}</div>
-        </div>
-        <div>
-          <div style="color: white; font-size: 16px; line-height: 1.5;">${reframedText}</div>
-        </div>
-      `;
-
-      tempContainer.appendChild(content);
-
-      const canvas = await html2canvas(content, {
-        backgroundColor: null,
-        scale: 2,
-      });
-
-      const image = canvas.toDataURL("image/png");
-
-      // Clean up
-      document.body.removeChild(tempContainer);
-
-      // Open LinkedIn sharing dialog
-      const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-        window.location.href
-      )}&title=${encodeURIComponent(
-        "Reframed Perspective"
-      )}&summary=${encodeURIComponent(`${originalText}\n\n${reframedText}`)}`;
-      window.open(linkedInUrl, "_blank", "width=600,height=600");
-    } catch (error) {
-      console.error("Error sharing to LinkedIn:", error);
-    }
-  };
-
   if (!user) {
     return (
       <SignInPrompt
@@ -2112,20 +2062,6 @@ const ProjectSmart = () => {
                           }
                         >
                           <DownloadIcon />
-                        </ActionButton>
-                      </StyledTooltip>
-                      <StyledTooltip
-                        title="Share on LinkedIn"
-                        arrow
-                        placement="top"
-                      >
-                        <ActionButton
-                          onClick={() =>
-                            handleLinkedInShare(msg.text, nextMessage.text)
-                          }
-                          linkedIn
-                        >
-                          <LinkedInIcon />
                         </ActionButton>
                       </StyledTooltip>
                     </ActionButtonsContainer>
