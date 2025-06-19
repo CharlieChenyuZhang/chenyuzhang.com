@@ -5,7 +5,7 @@ const BottomImageTextContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: black;
+  background-color: inherit;
   color: white;
 `;
 
