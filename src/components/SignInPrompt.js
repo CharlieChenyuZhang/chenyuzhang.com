@@ -67,7 +67,6 @@ const OrDivider = styled(Divider)`
     font-weight: 600;
     letter-spacing: 0.08em;
     font-size: 1rem;
-    background: rgba(255, 255, 255, 0.18);
   }
 `;
 
@@ -85,6 +84,15 @@ const GoogleButton = styled(Button)`
     padding: 10px 0;
     text-transform: none;
     transition: background 0.18s;
+
+    &,
+    & span,
+    & .MuiButton-label,
+    & .MuiButton-startIcon,
+    & .MuiButton-endIcon {
+      color: #fff !important;
+    }
+
     &:hover {
       background: #357ae8;
     }
