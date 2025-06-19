@@ -215,7 +215,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 
         <Route
           exact
-          path="/project/learn"
+          path="/project/word-game"
           element={elementConstructor(<AcademicWordGame />)}
         />
       </Routes>

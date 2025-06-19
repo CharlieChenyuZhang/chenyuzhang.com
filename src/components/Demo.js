@@ -11,6 +11,7 @@ const projectRoutes = [
   { label: "Smart V4", path: "/project/smart/v4" },
   { label: "Smart V5", path: "/project/smart/v5" },
   { label: "Smart V6", path: "/project/smart/v6" },
+  { label: "Word Game", path: "/project/word-game" },
   { label: "Relief", path: "/project/relief" },
   { label: "Relief Webcam Test", path: "/project/relief/webcam-test" },
   { label: "Relief Learning Video", path: "/project/relief/learning-video" },
