@@ -696,7 +696,7 @@ const AppleSwitcherContainer = styled(Box)`
   align-items: center;
   backdrop-filter: blur(18px) saturate(180%);
   -webkit-backdrop-filter: blur(18px) saturate(180%);
-  max-width: 98vw;
+  max-width: 80%;
   overflow-x: auto;
   opacity: ${(props) => (props.isHidden ? 0 : 1)};
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
