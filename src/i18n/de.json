@@ -1,0 +1,19 @@
+{
+  "placeholder": "Erzähl mir etwas, das dich belastet oder einen negativen Gedanken...",
+  "send": "Senden",
+  "reframe": "Umformulieren",
+  "mentalModel": "Mentales Modell",
+  "language": "Deutsch",
+  "processing": "Verarbeitung...",
+  "support": "Support",
+  "signInTitle": "Bitte melden Sie sich an, um Smart Journaling zu nutzen",
+  "email": "E-Mail",
+  "password": "Passwort",
+  "register": "Registrieren",
+  "signInWithEmail": "Mit E-Mail anmelden",
+  "alreadyHaveAccount": "Sie haben bereits ein Konto? Anmelden",
+  "dontHaveAccount": "Sie haben noch kein Konto? Registrieren",
+  "signOut": "Abmelden",
+  "showAmbiance": "Ambiente anzeigen",
+  "hideAmbiance": "Ambiente ausblenden"
+}

@@ -1,0 +1,19 @@
+{
+  "placeholder": "Fortæl mig noget, der generer dig eller en negativ tanke...",
+  "send": "Send",
+  "reframe": "Omformuler",
+  "mentalModel": "Mentalt model",
+  "language": "Dansk",
+  "processing": "Behandler...",
+  "support": "Support",
+  "signInTitle": "Log venligst ind for at bruge Smart Journaling",
+  "email": "E-mail",
+  "password": "Adgangskode",
+  "register": "Registrer",
+  "signInWithEmail": "Log ind med e-mail",
+  "alreadyHaveAccount": "Har du allerede en konto? Log ind",
+  "dontHaveAccount": "Har du ikke en konto? Registrer",
+  "signOut": "Log ud",
+  "showAmbiance": "Vis stemning",
+  "hideAmbiance": "Skjul stemning"
+}

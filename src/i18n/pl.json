@@ -1,0 +1,19 @@
+{
+  "placeholder": "Powiedz mi, co cię martwi lub negatywna myśl...",
+  "send": "Wyślij",
+  "reframe": "Przeformułuj",
+  "mentalModel": "Model mentalny",
+  "language": "Polski",
+  "processing": "Przetwarzanie...",
+  "support": "Wsparcie",
+  "signInTitle": "Zaloguj się, aby korzystać z Inteligentnego Dziennika",
+  "email": "E-mail",
+  "password": "Hasło",
+  "register": "Zarejestruj się",
+  "signInWithEmail": "Zaloguj się e-mailem",
+  "alreadyHaveAccount": "Masz już konto? Zaloguj się",
+  "dontHaveAccount": "Nie masz konta? Zarejestruj się",
+  "signOut": "Wyloguj się",
+  "showAmbiance": "Pokaż atmosferę",
+  "hideAmbiance": "Ukryj atmosferę"
+}

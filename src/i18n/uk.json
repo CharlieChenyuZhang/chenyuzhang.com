@@ -1,0 +1,19 @@
+{
+  "placeholder": "Розкажіть, що вас турбує, або негативну думку...",
+  "send": "Відправити",
+  "reframe": "Переформулювати",
+  "mentalModel": "Ментальна модель",
+  "language": "Українська",
+  "processing": "Обробка...",
+  "support": "Підтримка",
+  "signInTitle": "Будь ласка, увійдіть, щоб використовувати Smart Journaling",
+  "email": "Електронна пошта",
+  "password": "Пароль",
+  "register": "Зареєструватися",
+  "signInWithEmail": "Увійти через пошту",
+  "alreadyHaveAccount": "Вже маєте акаунт? Увійти",
+  "dontHaveAccount": "Немає акаунта? Зареєструватися",
+  "signOut": "Вийти",
+  "showAmbiance": "Показати атмосферу",
+  "hideAmbiance": "Сховати атмосферу"
+}

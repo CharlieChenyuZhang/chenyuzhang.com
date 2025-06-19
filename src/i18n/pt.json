@@ -1,0 +1,19 @@
+{
+  "placeholder": "Conte-me algo que está te incomodando ou um pensamento negativo...",
+  "send": "Enviar",
+  "reframe": "Reformular",
+  "mentalModel": "Modelo mental",
+  "language": "Português",
+  "processing": "Processando...",
+  "support": "Suporte",
+  "signInTitle": "Por favor, faça login para usar o Diário Inteligente",
+  "email": "E-mail",
+  "password": "Senha",
+  "register": "Registrar",
+  "signInWithEmail": "Entrar com E-mail",
+  "alreadyHaveAccount": "Já tem uma conta? Entrar",
+  "dontHaveAccount": "Não tem uma conta? Registrar",
+  "signOut": "Sair",
+  "showAmbiance": "Mostrar ambiente",
+  "hideAmbiance": "Ocultar ambiente"
+}

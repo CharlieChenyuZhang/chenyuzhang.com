@@ -1,0 +1,19 @@
+{
+  "placeholder": "Hãy kể cho tôi điều gì đó đang làm bạn bận tâm hoặc một suy nghĩ tiêu cực...",
+  "send": "Gửi",
+  "reframe": "Diễn đạt lại",
+  "mentalModel": "Mô hình tư duy",
+  "language": "Tiếng Việt",
+  "processing": "Đang xử lý...",
+  "support": "Hỗ trợ",
+  "signInTitle": "Vui lòng đăng nhập để sử dụng Nhật ký Thông minh",
+  "email": "Email",
+  "password": "Mật khẩu",
+  "register": "Đăng ký",
+  "signInWithEmail": "Đăng nhập bằng Email",
+  "alreadyHaveAccount": "Bạn đã có tài khoản? Đăng nhập",
+  "dontHaveAccount": "Bạn chưa có tài khoản? Đăng ký",
+  "signOut": "Đăng xuất",
+  "showAmbiance": "Hiển thị không gian",
+  "hideAmbiance": "Ẩn không gian"
+}

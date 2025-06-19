@@ -1,0 +1,19 @@
+{
+  "placeholder": "Spune-mi ceva care te deranjează sau un gând negativ...",
+  "send": "Trimite",
+  "reframe": "Reformulează",
+  "mentalModel": "Model mental",
+  "language": "Română",
+  "processing": "Se procesează...",
+  "support": "Suport",
+  "signInTitle": "Vă rugăm să vă autentificați pentru a folosi Jurnalul Inteligent",
+  "email": "Email",
+  "password": "Parolă",
+  "register": "Înregistrare",
+  "signInWithEmail": "Autentificare cu Email",
+  "alreadyHaveAccount": "Aveți deja un cont? Autentificați-vă",
+  "dontHaveAccount": "Nu aveți un cont? Înregistrați-vă",
+  "signOut": "Deconectare",
+  "showAmbiance": "Afișează ambianța",
+  "hideAmbiance": "Ascunde ambianța"
+}

@@ -1,0 +1,19 @@
+{
+  "placeholder": "Fortell meg noe som plager deg eller en negativ tanke...",
+  "send": "Send",
+  "reframe": "Omformuler",
+  "mentalModel": "Mentalt modell",
+  "language": "Norsk",
+  "processing": "Behandler...",
+  "support": "Støtte",
+  "signInTitle": "Vennligst logg inn for å bruke Smart Journaling",
+  "email": "E-post",
+  "password": "Passord",
+  "register": "Registrer",
+  "signInWithEmail": "Logg inn med e-post",
+  "alreadyHaveAccount": "Har du allerede en konto? Logg inn",
+  "dontHaveAccount": "Har du ikke en konto? Registrer",
+  "signOut": "Logg ut",
+  "showAmbiance": "Vis stemning",
+  "hideAmbiance": "Skjul stemning"
+}

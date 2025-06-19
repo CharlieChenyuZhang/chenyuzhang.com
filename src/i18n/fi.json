@@ -1,0 +1,19 @@
+{
+  "placeholder": "Kerro minulle jokin asia, joka vaivaa sinua tai negatiivinen ajatus...",
+  "send": "Lähetä",
+  "reframe": "Muotoile uudelleen",
+  "mentalModel": "Mielimalli",
+  "language": "Suomi",
+  "processing": "Käsitellään...",
+  "support": "Tuki",
+  "signInTitle": "Kirjaudu sisään käyttääksesi Älykästä Päiväkirjaa",
+  "email": "Sähköposti",
+  "password": "Salasana",
+  "register": "Rekisteröidy",
+  "signInWithEmail": "Kirjaudu sähköpostilla",
+  "alreadyHaveAccount": "Onko sinulla jo tili? Kirjaudu sisään",
+  "dontHaveAccount": "Eikö sinulla ole tiliä? Rekisteröidy",
+  "signOut": "Kirjaudu ulos",
+  "showAmbiance": "Näytä tunnelma",
+  "hideAmbiance": "Piilota tunnelma"
+}

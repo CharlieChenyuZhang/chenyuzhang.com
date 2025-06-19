@@ -1,0 +1,19 @@
+{
+  "placeholder": "Raccontami qualcosa che ti preoccupa o un pensiero negativo...",
+  "send": "Invia",
+  "reframe": "Riformula",
+  "mentalModel": "Modello mentale",
+  "language": "Italiano",
+  "processing": "Elaborazione...",
+  "support": "Supporto",
+  "signInTitle": "Accedi per utilizzare il Diario Intelligente",
+  "email": "Email",
+  "password": "Password",
+  "register": "Registrati",
+  "signInWithEmail": "Accedi con Email",
+  "alreadyHaveAccount": "Hai già un account? Accedi",
+  "dontHaveAccount": "Non hai un account? Registrati",
+  "signOut": "Esci",
+  "showAmbiance": "Mostra atmosfera",
+  "hideAmbiance": "Nascondi atmosfera"
+}

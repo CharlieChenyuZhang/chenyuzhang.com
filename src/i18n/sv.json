@@ -1,0 +1,19 @@
+{
+  "placeholder": "Berätta något som stör dig eller en negativ tanke...",
+  "send": "Skicka",
+  "reframe": "Omformulera",
+  "mentalModel": "Mentalt modell",
+  "language": "Svenska",
+  "processing": "Bearbetar...",
+  "support": "Support",
+  "signInTitle": "Vänligen logga in för att använda Smart Journaling",
+  "email": "E-post",
+  "password": "Lösenord",
+  "register": "Registrera",
+  "signInWithEmail": "Logga in med e-post",
+  "alreadyHaveAccount": "Har du redan ett konto? Logga in",
+  "dontHaveAccount": "Har du inget konto? Registrera",
+  "signOut": "Logga ut",
+  "showAmbiance": "Visa atmosfär",
+  "hideAmbiance": "Dölj atmosfär"
+}

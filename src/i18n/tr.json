@@ -1,0 +1,19 @@
+{
+  "placeholder": "Seni rahatsız eden bir şeyi ya da olumsuz bir düşünceyi anlat...",
+  "send": "Gönder",
+  "reframe": "Yeniden ifade et",
+  "mentalModel": "Zihinsel model",
+  "language": "Türkçe",
+  "processing": "İşleniyor...",
+  "support": "Destek",
+  "signInTitle": "Akıllı Günlük'ü kullanmak için lütfen giriş yapın",
+  "email": "E-posta",
+  "password": "Şifre",
+  "register": "Kayıt ol",
+  "signInWithEmail": "E-posta ile giriş yap",
+  "alreadyHaveAccount": "Zaten bir hesabınız var mı? Giriş yap",
+  "dontHaveAccount": "Hesabınız yok mu? Kayıt ol",
+  "signOut": "Çıkış yap",
+  "showAmbiance": "Ambiyansı Göster",
+  "hideAmbiance": "Ambiyansı Gizle"
+}

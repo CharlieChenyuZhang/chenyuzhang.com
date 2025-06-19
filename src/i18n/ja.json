@@ -1,0 +1,19 @@
+{
+  "placeholder": "悩んでいることやネガティブな考えを教えてください...",
+  "send": "送信",
+  "reframe": "言い換え",
+  "mentalModel": "メンタルモデル",
+  "language": "日本語",
+  "processing": "処理中...",
+  "support": "サポート",
+  "signInTitle": "スマートジャーナリングを利用するにはサインインしてください",
+  "email": "メールアドレス",
+  "password": "パスワード",
+  "register": "登録",
+  "signInWithEmail": "メールでサインイン",
+  "alreadyHaveAccount": "すでにアカウントをお持ちですか？サインイン",
+  "dontHaveAccount": "アカウントをお持ちでないですか？登録",
+  "signOut": "サインアウト",
+  "showAmbiance": "雰囲気を表示",
+  "hideAmbiance": "雰囲気を隠す"
+}

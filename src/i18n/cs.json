@@ -1,0 +1,19 @@
+{
+  "placeholder": "Řekněte mi něco, co vás trápí, nebo negativní myšlenku...",
+  "send": "Odeslat",
+  "reframe": "Přeformulovat",
+  "mentalModel": "Mentální model",
+  "language": "Čeština",
+  "processing": "Zpracovávám...",
+  "support": "Podpora",
+  "signInTitle": "Přihlaste se prosím pro použití Chytrého deníku",
+  "email": "E-mail",
+  "password": "Heslo",
+  "register": "Registrovat",
+  "signInWithEmail": "Přihlásit se e-mailem",
+  "alreadyHaveAccount": "Už máte účet? Přihlásit se",
+  "dontHaveAccount": "Nemáte účet? Registrovat",
+  "signOut": "Odhlásit se",
+  "showAmbiance": "Zobrazit atmosféru",
+  "hideAmbiance": "Skrýt atmosféru"
+}

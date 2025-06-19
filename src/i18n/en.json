@@ -1,0 +1,19 @@
+{
+  "placeholder": "Tell me something that's bothering you or a negative thought...",
+  "send": "Send",
+  "reframe": "Reframe",
+  "mentalModel": "Mental Model",
+  "language": "English",
+  "processing": "Processing...",
+  "support": "Support",
+  "signInTitle": "Please sign in to use Smart Journaling",
+  "email": "Email",
+  "password": "Password",
+  "register": "Register",
+  "signInWithEmail": "Sign in with Email",
+  "alreadyHaveAccount": "Already have an account? Sign in",
+  "dontHaveAccount": "Don't have an account? Register",
+  "signOut": "Sign Out",
+  "showAmbiance": "Show Ambiance",
+  "hideAmbiance": "Hide Ambiance"
+}

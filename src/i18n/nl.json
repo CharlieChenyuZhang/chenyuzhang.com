@@ -1,0 +1,19 @@
+{
+  "placeholder": "Vertel me iets dat je dwarszit of een negatieve gedachte...",
+  "send": "Verzenden",
+  "reframe": "Herschrijven",
+  "mentalModel": "Mentaal model",
+  "language": "Nederlands",
+  "processing": "Bezig met verwerken...",
+  "support": "Ondersteuning",
+  "signInTitle": "Log in om Slim Dagboek te gebruiken",
+  "email": "E-mail",
+  "password": "Wachtwoord",
+  "register": "Registreren",
+  "signInWithEmail": "Inloggen met e-mail",
+  "alreadyHaveAccount": "Heb je al een account? Inloggen",
+  "dontHaveAccount": "Nog geen account? Registreren",
+  "signOut": "Uitloggen",
+  "showAmbiance": "Toon sfeer",
+  "hideAmbiance": "Verberg sfeer"
+}

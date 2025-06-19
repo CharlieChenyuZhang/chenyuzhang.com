@@ -1,0 +1,19 @@
+{
+  "placeholder": "Mondj el valamit, ami zavar vagy egy negatív gondolatot...",
+  "send": "Küldés",
+  "reframe": "Átfogalmazás",
+  "mentalModel": "Mentális modell",
+  "language": "Magyar",
+  "processing": "Feldolgozás...",
+  "support": "Támogatás",
+  "signInTitle": "Kérjük, jelentkezzen be az Okos Napló használatához",
+  "email": "E-mail",
+  "password": "Jelszó",
+  "register": "Regisztráció",
+  "signInWithEmail": "Bejelentkezés e-maillel",
+  "alreadyHaveAccount": "Már van fiókja? Bejelentkezés",
+  "dontHaveAccount": "Nincs fiókja? Regisztráció",
+  "signOut": "Kijelentkezés",
+  "showAmbiance": "Hangulat megjelenítése",
+  "hideAmbiance": "Hangulat elrejtése"
+}

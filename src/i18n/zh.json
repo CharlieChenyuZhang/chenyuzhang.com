@@ -1,0 +1,19 @@
+{
+  "placeholder": "告诉我困扰你的事或消极的想法……",
+  "send": "发送",
+  "reframe": "重新表述",
+  "mentalModel": "心智模型",
+  "language": "中文",
+  "processing": "处理中……",
+  "support": "支持",
+  "signInTitle": "请登录以使用智能日记",
+  "email": "邮箱",
+  "password": "密码",
+  "register": "注册",
+  "signInWithEmail": "邮箱登录",
+  "alreadyHaveAccount": "已有账号？登录",
+  "dontHaveAccount": "没有账号？注册",
+  "signOut": "退出登录",
+  "showAmbiance": "显示氛围",
+  "hideAmbiance": "隐藏氛围"
+}

@@ -1,0 +1,19 @@
+{
+  "placeholder": "Dites-moi ce qui vous dérange ou une pensée négative...",
+  "send": "Envoyer",
+  "reframe": "Reformuler",
+  "mentalModel": "Modèle mental",
+  "language": "Français",
+  "processing": "Traitement...",
+  "support": "Support",
+  "signInTitle": "Veuillez vous connecter pour utiliser le Journal Intelligent",
+  "email": "E-mail",
+  "password": "Mot de passe",
+  "register": "S'inscrire",
+  "signInWithEmail": "Se connecter avec l'e-mail",
+  "alreadyHaveAccount": "Vous avez déjà un compte ? Connectez-vous",
+  "dontHaveAccount": "Vous n'avez pas de compte ? Inscrivez-vous",
+  "signOut": "Déconnexion",
+  "showAmbiance": "Afficher l'ambiance",
+  "hideAmbiance": "Masquer l'ambiance"
+}
