@@ -7,10 +7,12 @@ import {
   Typography,
   CircularProgress,
   Switch,
+  Tooltip,
 } from "@mui/material";
 import { backendDomain } from "../../utils";
 import fallbackThumb from "../../images/reading.gif";
 import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
+import ModeIcon from "@mui/icons-material/Mode";
 import { auth, provider } from "../../firebase";
 import {
   signInWithPopup,
@@ -613,7 +615,8 @@ const AppleSwitcherContainer = styled(Box)`
   position: fixed;
   top: 12px;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%)
+    translateY(${(props) => (props.isHidden ? "-100px" : "0")});
   z-index: 20;
   background: rgba(255, 255, 255, 0.18);
   border-radius: 1.5rem;
@@ -627,7 +630,8 @@ const AppleSwitcherContainer = styled(Box)`
   -webkit-backdrop-filter: blur(18px) saturate(180%);
   max-width: 98vw;
   overflow-x: auto;
-  transition: box-shadow 0.25s, background 0.25s;
+  opacity: ${(props) => (props.isHidden ? 0 : 1)};
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
   @media (max-width: 600px) {
     top: 2px;
     padding: 4px 2vw 4px 2vw;
@@ -735,25 +739,6 @@ const AppleThumbLabel = styled.div`
   @media (max-width: 600px) {
     font-size: 0.68rem;
     margin-top: 0px;
-  }
-`;
-
-// Add a label above the switcher
-const SwitcherLabel = styled.div`
-  width: 100%;
-  text-align: center;
-  font-family: "SF Pro Display", "San Francisco", "Segoe UI", "Roboto", "Arial",
-    sans-serif;
-  font-size: 1.08rem;
-  font-weight: 600;
-  color: #222;
-  letter-spacing: 0.01em;
-  margin-bottom: 8px;
-  opacity: 0.82;
-  text-shadow: 0 2px 8px rgba(255, 255, 255, 0.18);
-  @media (max-width: 600px) {
-    font-size: 0.92rem;
-    margin-bottom: 4px;
   }
 `;
 
@@ -1098,6 +1083,57 @@ function iconColor(bg) {
   return luminance > 0.7 ? "#222" : "#fff";
 }
 
+const BackgroundToggleButton = styled.button`
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 21;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1.5px solid rgba(255, 255, 255, 0.28);
+  border-radius: 12px;
+  min-width: 120px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  transition: background 0.2s, transform 0.2s;
+  color: white;
+  font-size: 14px;
+  padding: 0 12px;
+  outline: none;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.02);
+  }
+
+  @media (max-width: 600px) {
+    min-width: auto;
+    width: 40px;
+    top: 8px;
+    right: 8px;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 50%;
+    padding: 0;
+
+    span {
+      display: none;
+    }
+  }
+`;
+
+const ModeIconStyled = styled(VideoLibraryIcon)`
+  font-size: 20px !important;
+  @media (max-width: 600px) {
+    font-size: 18px !important;
+  }
+`;
+
 const ProjectSmart = () => {
   const [thought, setThought] = useState("");
   const [conversation, setConversation] = useState([]);
@@ -1115,6 +1151,7 @@ const ProjectSmart = () => {
   const [password, setPassword] = useState("");
   const [isRegister, setIsRegister] = useState(false);
   const [authError, setAuthError] = useState("");
+  const [isSwitcherHidden, setIsSwitcherHidden] = useState(false);
 
   const t = translations[language];
 
@@ -1311,7 +1348,21 @@ const ProjectSmart = () => {
           }}
         />
       )}
-      <AppleSwitcherContainer>
+      <Tooltip
+        title={
+          isSwitcherHidden ? "Show Ambiance Selector" : "Hide Ambiance Selector"
+        }
+        arrow
+        placement="left"
+      >
+        <BackgroundToggleButton
+          onClick={() => setIsSwitcherHidden(!isSwitcherHidden)}
+        >
+          <ModeIconStyled />
+          <span>{isSwitcherHidden ? "Show Ambiance" : "Hide Ambiance"}</span>
+        </BackgroundToggleButton>
+      </Tooltip>
+      <AppleSwitcherContainer isHidden={isSwitcherHidden}>
         {backgroundVideos.map((video, idx) => (
           <AppleThumbButton
             key={video.label}
