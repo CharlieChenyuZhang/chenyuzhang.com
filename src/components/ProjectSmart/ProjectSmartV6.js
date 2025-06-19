@@ -1952,28 +1952,30 @@ const ProjectSmart = () => {
       )}
       <AppleSwitcherContainer isHidden={isSwitcherHidden}>
         {backgroundVideos.map((video, idx) => (
-          <AppleThumbButton
-            selected={selectedVideoIdx === idx}
-            onClick={() => handleVideoSwitch(idx)}
-            aria-label={video.label}
-          >
-            <AppleThumbCircle
-              bgcolor={videoColors[idx % videoColors.length]}
+          <Tooltip key={video.label} title={video.label} arrow>
+            <AppleThumbButton
               selected={selectedVideoIdx === idx}
+              onClick={() => handleVideoSwitch(idx)}
+              aria-label={video.label}
             >
-              <span
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
+              <AppleThumbCircle
+                bgcolor={videoColors[idx % videoColors.length]}
+                selected={selectedVideoIdx === idx}
               >
-                {bgIcons[idx % bgIcons.length](
-                  iconColor(videoColors[idx % videoColors.length])
-                )}
-              </span>
-            </AppleThumbCircle>
-          </AppleThumbButton>
+                <span
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  {bgIcons[idx % bgIcons.length](
+                    iconColor(videoColors[idx % videoColors.length])
+                  )}
+                </span>
+              </AppleThumbCircle>
+            </AppleThumbButton>
+          </Tooltip>
         ))}
       </AppleSwitcherContainer>
       <MainContainer>
@@ -1996,23 +1998,17 @@ const ProjectSmart = () => {
                     ))}
                 </Select>
               </StyledFormControl>
-              <Tooltip
-                title={isSwitcherHidden ? t.showAmbiance : t.hideAmbiance}
-                arrow
-                placement="bottom"
+              <BackgroundToggleButton
+                onClick={() => setIsSwitcherHidden(!isSwitcherHidden)}
+                hasSelectedAmbiance={selectedVideoIdx !== 0}
               >
-                <BackgroundToggleButton
-                  onClick={() => setIsSwitcherHidden(!isSwitcherHidden)}
-                  hasSelectedAmbiance={selectedVideoIdx !== 0}
-                >
-                  <IconStyled>
-                    <VideoLibraryIcon />
-                  </IconStyled>
-                  <span>
-                    {isSwitcherHidden ? t.showAmbiance : t.hideAmbiance}
-                  </span>
-                </BackgroundToggleButton>
-              </Tooltip>
+                <IconStyled>
+                  <VideoLibraryIcon />
+                </IconStyled>
+                <span>
+                  {isSwitcherHidden ? t.showAmbiance : t.hideAmbiance}
+                </span>
+              </BackgroundToggleButton>
             </HeaderLeftSection>
             <HeaderRightSection>
               <StyledButton onClick={handleSignOut}>
