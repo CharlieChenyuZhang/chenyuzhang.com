@@ -109,6 +109,27 @@ function FeatureButtonPanel({ word }) {
     setResult({});
   }, [word]);
 
+  // Helper to render word family fields safely
+  function renderFamilyField(field) {
+    if (Array.isArray(field)) {
+      return field.join(", ");
+    } else if (field && typeof field === "object") {
+      return (
+        <ul style={{ margin: 0, paddingLeft: 20 }}>
+          {Object.entries(field).map(([k, v]) => (
+            <li key={k}>
+              <b>{k}:</b> {v}
+            </li>
+          ))}
+        </ul>
+      );
+    } else if (typeof field === "string" || typeof field === "number") {
+      return field;
+    } else {
+      return "N/A";
+    }
+  }
+
   const features = [
     {
       key: "define",
@@ -157,7 +178,7 @@ function FeatureButtonPanel({ word }) {
     },
     {
       key: "translate",
-      label: "🌐 Translate",
+      label: "🌐 Translate to Chinese",
       handler: async () => {
         setLoading("translate");
         // Use OpenAI for translation
@@ -171,21 +192,21 @@ function FeatureButtonPanel({ word }) {
         setLoading("");
       },
     },
-    {
-      key: "quiz",
-      label: "🧠 Quiz Me",
-      handler: async () => {
-        setLoading("quiz");
-        const res = await fetch(`${API_BASE}/quiz`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ word }),
-        });
-        setResult({ quiz: await res.json() });
-        setModal("quiz");
-        setLoading("");
-      },
-    },
+    // {
+    //   key: "quiz",
+    //   label: "🧠 Quiz Me",
+    //   handler: async () => {
+    //     setLoading("quiz");
+    //     const res = await fetch(`${API_BASE}/quiz`, {
+    //       method: "POST",
+    //       headers: { "Content-Type": "application/json" },
+    //       body: JSON.stringify({ word }),
+    //     });
+    //     setResult({ quiz: await res.json() });
+    //     setModal("quiz");
+    //     setLoading("");
+    //   },
+    // },
     {
       key: "fun-fact",
       label: "🎲 Fun Fact or Story",
@@ -201,21 +222,21 @@ function FeatureButtonPanel({ word }) {
         setLoading("");
       },
     },
-    {
-      key: "speak",
-      label: "🪞 My Turn to Speak",
-      handler: async () => {
-        setLoading("speak");
-        const res = await fetch(`${API_BASE}/speak`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ word }),
-        });
-        setResult({ speak: await res.json() });
-        setModal("speak");
-        setLoading("");
-      },
-    },
+    // {
+    //   key: "speak",
+    //   label: "🪞 My Turn to Speak",
+    //   handler: async () => {
+    //     setLoading("speak");
+    //     const res = await fetch(`${API_BASE}/speak`, {
+    //       method: "POST",
+    //       headers: { "Content-Type": "application/json" },
+    //       body: JSON.stringify({ word }),
+    //     });
+    //     setResult({ speak: await res.json() });
+    //     setModal("speak");
+    //     setLoading("");
+    //   },
+    // },
     {
       key: "family",
       label: "🧵 Word Family",
@@ -231,21 +252,21 @@ function FeatureButtonPanel({ word }) {
         setLoading("");
       },
     },
-    {
-      key: "context-challenge",
-      label: "🧩 Context Challenge",
-      handler: async () => {
-        setLoading("context-challenge");
-        const res = await fetch(`${API_BASE}/context-challenge`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ word }),
-        });
-        setResult({ context: await res.json() });
-        setModal("context-challenge");
-        setLoading("");
-      },
-    },
+    // {
+    //   key: "context-challenge",
+    //   label: "🧩 Context Challenge",
+    //   handler: async () => {
+    //     setLoading("context-challenge");
+    //     const res = await fetch(`${API_BASE}/context-challenge`, {
+    //       method: "POST",
+    //       headers: { "Content-Type": "application/json" },
+    //       body: JSON.stringify({ word }),
+    //     });
+    //     setResult({ context: await res.json() });
+    //     setModal("context-challenge");
+    //     setLoading("");
+    //   },
+    // },
   ];
 
   return (
@@ -362,11 +383,12 @@ function FeatureButtonPanel({ word }) {
           )}
           {modal === "family" && (
             <div>
-              <b>Word Family:</b> <div>Root: {result.family?.root}</div>
-              <div>Related: {result.family?.related?.join(", ")}</div>
-              <div>Synonyms: {result.family?.synonyms?.join(", ")}</div>
-              <div>Antonyms: {result.family?.antonyms?.join(", ")}</div>
-              <div>Forms: {result.family?.forms?.join(", ")}</div>
+              <b>Word Family:</b>
+              <div>Root: {renderFamilyField(result.family?.root)}</div>
+              <div>Related: {renderFamilyField(result.family?.related)}</div>
+              <div>Synonyms: {renderFamilyField(result.family?.synonyms)}</div>
+              <div>Antonyms: {renderFamilyField(result.family?.antonyms)}</div>
+              <div>Forms: {renderFamilyField(result.family?.forms)}</div>
             </div>
           )}
           {modal === "context-challenge" && (
