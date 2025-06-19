@@ -1640,8 +1640,14 @@ const ProjectSmart = () => {
     return initialLang && translations[initialLang] ? initialLang : "en";
   });
   const t = translations[language] || translations["en"];
-  const [selectedVideoIdx, setSelectedVideoIdx] = useState(0);
-  const [currentVideoIdx, setCurrentVideoIdx] = useState(0);
+  const [selectedVideoIdx, setSelectedVideoIdx] = useState(() => {
+    const savedIdx = localStorage.getItem("selected-ambient");
+    return savedIdx ? parseInt(savedIdx, 10) : 0;
+  });
+  const [currentVideoIdx, setCurrentVideoIdx] = useState(() => {
+    const savedIdx = localStorage.getItem("selected-ambient");
+    return savedIdx ? parseInt(savedIdx, 10) : 0;
+  });
   const [nextVideoReady, setNextVideoReady] = useState(false);
   const [isSwitching, setIsSwitching] = useState(false);
   const [user, setUser] = useState(null);
@@ -1715,6 +1721,7 @@ const ProjectSmart = () => {
   const handleVideoSwitch = (idx) => {
     if (idx === currentVideoIdx) return;
     setSelectedVideoIdx(idx);
+    localStorage.setItem("selected-ambient", idx.toString());
     setNextVideoReady(false);
     setIsSwitching(true);
   };
