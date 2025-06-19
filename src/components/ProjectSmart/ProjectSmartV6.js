@@ -1468,9 +1468,7 @@ const ProjectSmart = () => {
         />
       )}
       <Tooltip
-        title={
-          isSwitcherHidden ? "Show Ambiance Selector" : "Hide Ambiance Selector"
-        }
+        title={isSwitcherHidden ? t.showAmbiance : t.hideAmbiance}
         arrow
         placement="left"
       >
@@ -1479,7 +1477,7 @@ const ProjectSmart = () => {
           hasSelectedAmbiance={selectedVideoIdx !== 0}
         >
           <ModeIconStyled />
-          <span>{isSwitcherHidden ? "Show Ambiance" : "Hide Ambiance"}</span>
+          <span>{isSwitcherHidden ? t.showAmbiance : t.hideAmbiance}</span>
         </BackgroundToggleButton>
       </Tooltip>
       <AppleSwitcherContainer isHidden={isSwitcherHidden}>
