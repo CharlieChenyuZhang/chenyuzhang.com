@@ -126,15 +126,15 @@ router.post("/reframe", async (req, res) => {
 
   const initial_prompt = `The negative thinking patterns are defined as:
                     "Catastrophizing": giving greater weight to the worst possible outcome.
-                    "Discounting the positive": You unreasonably tell yourself that positive experiences, deeds, or qualities do not count. Example: “I did that project well, but that doesn’t mean I’m competent; I just got lucky.”
+                    "Discounting the positive": You unreasonably tell yourself that positive experiences, deeds, or qualities do not count. Example: "I did that project well, but that doesn't mean I'm competent; I just got lucky."
                     "Overgeneralization": making faulty generalizations from insufficient evidence.
                     "Personalization": assigning a disproportionate amount of personal blame to oneself.
-                    "Black-and-white or polarized thinking / All or nothing thinking": You view a situation in only two categories instead of on a continuum. Example: “If I’m not a total success, I’m a failure.”
-                    "Mental filtering": You pay undue attention to one negative detail instead of seeing the whole picture. Example: “Because I got one low rating on my evaluation [which also contained several high ratings] it means I’m doing a lousy job.”
-                    "Jumping to conclusions: mind reading": You believe you know what others are thinking, failing to consider other, more likely possibilities. Example: “He thinks that I don’t know the first thing about this project.”
-                    "Jumping to conclusions: Fortune-telling": You predict the future negatively without considering other, more likely outcomes. Example: “I’ll be so upset, I won’t be able to function at all.”
+                    "Black-and-white or polarized thinking / All or nothing thinking": You view a situation in only two categories instead of on a continuum. Example: "If I'm not a total success, I'm a failure."
+                    "Mental filtering": You pay undue attention to one negative detail instead of seeing the whole picture. Example: "Because I got one low rating on my evaluation [which also contained several high ratings] it means I'm doing a lousy job."
+                    "Jumping to conclusions: mind reading": You believe you know what others are thinking, failing to consider other, more likely possibilities. Example: "He thinks that I don't know the first thing about this project."
+                    "Jumping to conclusions: Fortune-telling": You predict the future negatively without considering other, more likely outcomes. Example: "I'll be so upset, I won't be able to function at all."
                     "Should statements": a person demands particular behaviors regardless of the realistic circumstances.
-                    "Labeling and mislabeling": You put a fixed, global label on yourself or others without considering that the evidence might more reasonably lead to a less disastrous conclusion. Example: “I’m a loser. He’s no good.”
+                    "Labeling and mislabeling": You put a fixed, global label on yourself or others without considering that the evidence might more reasonably lead to a less disastrous conclusion. Example: "I'm a loser. He's no good."
 
                     The reframing strategies you can use are:
                     "Growth Mindset": Reframe a challenging event as an opportunity to grow instead of dwelling on the setbacks.
@@ -215,12 +215,13 @@ router.post("/reframe", async (req, res) => {
 
     const existingData = await dynamoDb.get(getParams).promise();
 
-    const lastConversation = conversations.slice(-1)[0];
+    // Add the latest user and AI messages to the conversation log
+    const lastConversation = conversations.slice(-1)[0] || {};
     const newConversations = [
       {
         timestamp: new Date().toISOString(),
-        isUser: lastConversation?.isUser,
-        text: lastConversation?.text ?? "",
+        isUser: lastConversation.isUser ?? true,
+        text: lastConversation.text ?? "",
       },
       {
         timestamp: new Date().toISOString(),
@@ -234,7 +235,7 @@ router.post("/reframe", async (req, res) => {
       ...newConversations,
     ];
 
-    // Update the conversation and response in DynamoDB
+    // Store the updated conversation in DynamoDB for this user/event
     const putParams = {
       TableName: "mas630-relief",
       Item: {

@@ -481,9 +481,102 @@ app.post("/t543-tutor", async (req, res) => {
 });
 
 app.post("/reframe", async (req, res) => {
-  const { inputText, language: reqLanguage } = req.body;
+  // Accept both legacy and new payloads
+  const { inputText, language: reqLanguage, conversations, user_id } = req.body;
   const language = reqLanguage || "en";
 
+  // If using new payload, require conversations and user_id
+  if (conversations && user_id) {
+    // Only use the last 5 conversations for context
+    const lastFiveConversations = conversations.slice(-5);
+    try {
+      const apiResponse = await axios.post(
+        "https://api.openai.com/v1/chat/completions",
+        {
+          model: "gpt-4o-mini",
+          messages: [
+            {
+              role: "system",
+              content: `Act as a positive psychologist, your task is to help me reframe the negative thoughts.\n\nAnswer it using the specified language: ${language}\n\nUse the following pattern\n\n"""\n\nReframe:`,
+            },
+            ...lastFiveConversations.map((conversation) => ({
+              role: conversation.isUser ? "user" : "assistant",
+              content: conversation.text ?? "",
+            })),
+          ],
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${OPENAI_API_KEY}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const response = apiResponse.data.choices[0].message.content.trim();
+      console.log("!!! response", response);
+
+      // DynamoDB logic (pattern from relief.js)
+      const AWS = require("aws-sdk");
+      AWS.config.update({
+        region: "us-east-1",
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      });
+      const dynamoDb = new AWS.DynamoDB.DocumentClient();
+
+      // Retrieve existing conversations from DynamoDB
+      const getParams = {
+        TableName: "glowingstar-journaling",
+        Key: { user_id, event: "TRACK_REFRAME_CONVERSATION" },
+      };
+      const existingData = await dynamoDb.get(getParams).promise();
+
+      // Add the latest user and AI messages to the conversation log
+      const lastConversation = conversations.slice(-1)[0] || {};
+      const newConversations = [
+        {
+          timestamp: new Date().toISOString(),
+          isUser: lastConversation.isUser ?? true,
+          text: lastConversation.text ?? "",
+        },
+        {
+          timestamp: new Date().toISOString(),
+          isUser: false,
+          text: response,
+        },
+      ];
+      const updatedConversations = [
+        ...(existingData?.Item?.conversations || []),
+        ...newConversations,
+      ];
+
+      // Store the updated conversation in DynamoDB for this user/event
+      const putParams = {
+        TableName: "glowingstar-journaling",
+        Item: {
+          user_id,
+          event: "TRACK_REFRAME_CONVERSATION",
+          conversations: updatedConversations,
+          aiResponse: response,
+        },
+      };
+      await dynamoDb.put(putParams).promise();
+
+      res.send({
+        response: response,
+      });
+    } catch (error) {
+      console.error(
+        "Error performing reframing and storing conversation: ",
+        error.response?.data || error.message
+      );
+      res.status(500).send({ error: "Error performing reframing" });
+    }
+    return;
+  }
+
+  // Legacy: fallback to old inputText only
   if (!inputText) {
     return res.status(400).send({ error: "No input text provided" });
   }
@@ -497,9 +590,7 @@ app.post("/reframe", async (req, res) => {
         messages: [
           {
             role: "system",
-            content: `
-              Act as a positive psychologist, your task is to help me reframe the negative thoughts.\n\nAnswer it using the specified language: ${language}\n\nUse the following pattern\n\n"""\n\nReframe: 
-            `,
+            content: `\n              Act as a positive psychologist, your task is to help me reframe the negative thoughts.\n\nAnswer it using the specified language: ${language}\n\nUse the following pattern\n\n"""\n\nReframe: \n            `,
           },
           {
             role: "user",

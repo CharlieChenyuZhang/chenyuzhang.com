@@ -1202,26 +1202,29 @@ const ProjectSmart = () => {
   const handleReframeSubmit = async () => {
     if (!thought.trim()) return;
 
-    const inputText = `Thought: ${thought}`;
     setLoading(true);
 
+    // Add the user's new message to the conversation
     const newConversation = [...conversation, { text: thought, isUser: true }];
     setConversation(newConversation);
     setThought("");
 
     try {
-      const tutorResponse = await fetch(`${backendDomain()}/reframe`, {
+      const response = await fetch(`${backendDomain()}/reframe`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ inputText, language }),
+        body: JSON.stringify({
+          conversations: newConversation,
+          user_id: user.uid,
+        }),
       });
 
-      const tutorData = await tutorResponse.json();
+      const data = await response.json();
       setConversation((prev) => [
         ...prev,
-        { text: tutorData.response, isUser: false },
+        { text: data.response, isUser: false },
       ]);
     } catch (error) {
       console.error("Error fetching the tutor data:", error);
