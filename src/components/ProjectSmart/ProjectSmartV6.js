@@ -9,8 +9,6 @@ import {
   Switch,
 } from "@mui/material";
 import { backendDomain } from "../../utils";
-import VolumeUpIcon from "@mui/icons-material/VolumeUp";
-import VolumeOffIcon from "@mui/icons-material/VolumeOff";
 import fallbackThumb from "../../images/reading.gif";
 import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
 import { auth, provider } from "../../firebase";
@@ -399,11 +397,9 @@ const ThumbLabel = styled.div`
 
 const translations = {
   en: {
-    placeholder: "What's on your mind today? Reflect freely...",
+    placeholder:
+      "Tell me something that's bothering you or a negative thought...",
     send: "Send",
-    startRecording: "◉ start Recording",
-    stopRecording: "🔴 stop recording",
-    embody: "Embody",
     reframe: "Reframe",
     mentalModel: "Mental Model",
     language: "English",
@@ -412,11 +408,8 @@ const translations = {
     support: "Support",
   },
   zh: {
-    placeholder: "你今天在想什么？请自由反思……",
+    placeholder: "告诉我困扰你的事或消极的想法……",
     send: "发送",
-    startRecording: "◉ 开始录音",
-    stopRecording: "🔴 停止录音",
-    embody: "具象化",
     reframe: "重新表述",
     mentalModel: "心智模型",
     language: "中文",
@@ -1110,15 +1103,11 @@ const ProjectSmart = () => {
   const [conversation, setConversation] = useState([]);
   const [loading, setLoading] = useState(false);
   const chatContainerRef = useRef(null);
-  const audioRef = useRef(null); // Ref for audio playback
-  const [isRecording, setIsRecording] = useState(false);
-  const mediaRecorderRef = useRef(null);
-  const [loadingTTSIds, setLoadingTTSIds] = useState(new Set());
   const [language, setLanguage] = useState(() => {
     return localStorage.getItem("smart-journaling-language") || "en";
   });
   const [selectedVideoIdx, setSelectedVideoIdx] = useState(0);
-  const [currentVideoIdx, setCurrentVideoIdx] = useState(0); // for crossfade
+  const [currentVideoIdx, setCurrentVideoIdx] = useState(0);
   const [nextVideoReady, setNextVideoReady] = useState(false);
   const [isSwitching, setIsSwitching] = useState(false);
   const [user, setUser] = useState(null);
@@ -1141,59 +1130,6 @@ const ProjectSmart = () => {
     });
     return () => unsubscribe();
   }, []);
-
-  const handleStartRecording = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      mediaRecorderRef.current = new MediaRecorder(stream);
-      mediaRecorderRef.current.start();
-
-      const audioChunks = [];
-      mediaRecorderRef.current.ondataavailable = (event) =>
-        audioChunks.push(event.data);
-
-      mediaRecorderRef.current.onstop = async () => {
-        const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
-        await handleTranscribe(audioBlob);
-        stream.getTracks().forEach((track) => track.stop());
-      };
-
-      setIsRecording(true);
-    } catch (error) {
-      console.error("Error starting audio recording:", error);
-    }
-  };
-
-  const handleStopRecording = () => {
-    if (mediaRecorderRef.current) {
-      mediaRecorderRef.current.stop();
-      setIsRecording(false);
-    }
-  };
-
-  const handleTranscribe = async (audioBlob) => {
-    const formData = new FormData();
-    formData.append("file", audioBlob, "recording.wav");
-    formData.append("model", "whisper-1");
-
-    try {
-      const response = await fetch(
-        "https://api.openai.com/v1/audio/transcriptions",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${process.env.REACT_APP_OPENAI_KEY}`,
-          },
-          body: formData,
-        }
-      );
-
-      const data = await response.json();
-      setThought(data.text ?? "");
-    } catch (error) {
-      console.error("Error transcribing audio:", error);
-    }
-  };
 
   const handleChange = (e) => {
     setThought(e.target.value ?? "");
@@ -1240,43 +1176,6 @@ const ProjectSmart = () => {
         chatContainerRef.current.scrollHeight;
     }
   }, [conversation]);
-
-  const handlePlayTTS = async (what2Speak, messageId) => {
-    if (what2Speak) {
-      setLoadingTTSIds((prev) => new Set([...prev, messageId]));
-      try {
-        const response = await fetch("https://api.openai.com/v1/audio/speech", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${process.env.REACT_APP_OPENAI_KEY}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            model: "gpt-4o-mini-tts",
-            voice: "coral",
-            input: what2Speak,
-            instructions: "Speak in a calm, soothing, and reassuring tone.",
-          }),
-        });
-
-        const audioBlob = await response.blob();
-        const audioUrl = URL.createObjectURL(audioBlob);
-
-        if (audioRef.current) {
-          audioRef.current.src = audioUrl;
-          audioRef.current.play();
-        }
-      } catch (error) {
-        console.error("Error with TTS:", error);
-      } finally {
-        setLoadingTTSIds((prev) => {
-          const newSet = new Set(prev);
-          newSet.delete(messageId);
-          return newSet;
-        });
-      }
-    }
-  };
 
   // When user selects a new video
   const handleVideoSwitch = (idx) => {
@@ -1457,9 +1356,6 @@ const ProjectSmart = () => {
               中文
             </LanguageOption>
           </LanguageToggleContainer>
-          {/* <Typography variant="h4" align="center" gutterBottom>
-            SMART Journaling
-          </Typography> */}
           <Box
             sx={{
               display: "flex",
@@ -1499,20 +1395,10 @@ const ProjectSmart = () => {
           <ChatContainer ref={chatContainerRef}>
             {conversation.map((msg, index) => (
               <MessageContainer key={index} isUser={msg.isUser}>
-                {!msg.isUser && <AiIcon>✧₊⁺</AiIcon>}{" "}
-                {/* AI icon next to message */}
+                {!msg.isUser && <AiIcon>✧₊⁺</AiIcon>}
                 <MessageBubble isUser={msg.isUser}>
                   {msg.text && <span>{msg.text}</span>}
                 </MessageBubble>
-                {!msg.isUser && msg.text && (
-                  <SpeakerIcon onClick={() => handlePlayTTS(msg.text, index)}>
-                    {loadingTTSIds.has(index) ? (
-                      <CircularProgress size={16} color="inherit" />
-                    ) : (
-                      "၊၊||၊"
-                    )}
-                  </SpeakerIcon>
-                )}
               </MessageContainer>
             ))}
 
@@ -1538,24 +1424,6 @@ const ProjectSmart = () => {
             />
 
             <ButtonGroup>
-              {/* record button */}
-              <Button
-                variant="outlined"
-                onClick={
-                  isRecording ? handleStopRecording : handleStartRecording
-                }
-                sx={{
-                  color: "white",
-                  borderColor: "white",
-                  "&:hover": { backgroundColor: "grey" },
-                  "&.Mui-disabled": {
-                    color: "rgba(255, 255, 255, 0.5)",
-                    borderColor: "rgba(255, 255, 255, 0.5)",
-                  },
-                }}
-              >
-                {isRecording ? <>{t.stopRecording}</> : <>{t.startRecording}</>}
-              </Button>
               <Button
                 variant="outlined"
                 onClick={handleReframeSubmit}
@@ -1563,6 +1431,7 @@ const ProjectSmart = () => {
                 sx={{
                   color: "white",
                   borderColor: "white",
+                  marginTop: "16px",
                   "&:hover": { backgroundColor: "grey" },
                   "&.Mui-disabled": {
                     color: "rgba(255, 255, 255, 0.5)",
@@ -1573,8 +1442,6 @@ const ProjectSmart = () => {
                 {t.reframe}
               </Button>
             </ButtonGroup>
-
-            <audio ref={audioRef} />
           </InputContainer>
         </ContentContainer>
       </MainContainer>

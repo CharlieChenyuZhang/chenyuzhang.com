@@ -850,6 +850,28 @@ const AcademicWordGame = () => {
               <span style={{ fontSize: 22 }}>🚦</span> Progress:{" "}
               <b>{current + 1}</b> / {WORDS.length}
             </div>
+            <div style={{ textAlign: "center", marginTop: 24 }}>
+              <a
+                href="https://docs.google.com/document/d/1i5bvKOhK-yh2036nvw3pCUtxaVuCh2Gt-weAWZI1jk8/edit?tab=t.0"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: "#1976d2",
+                  fontWeight: "bold",
+                  fontSize: 18,
+                  textDecoration: "underline",
+                  borderRadius: 8,
+                  padding: "6px 18px",
+                  background: "#e3f2fd",
+                  display: "inline-block",
+                  marginTop: 8,
+                  boxShadow: "0 1px 4px #90caf933",
+                  transition: "background 0.2s",
+                }}
+              >
+                📚 Credits & Word List Source
+              </a>
+            </div>
           </>
         )}
       </ContentContainer>
