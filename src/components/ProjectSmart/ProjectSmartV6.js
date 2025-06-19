@@ -657,29 +657,64 @@ const AppleThumbButton = styled.button`
   justify-content: center;
   position: relative;
   background: transparent;
-  transition: box-shadow 0.18s, border 0.18s, transform 0.18s;
+  transition: transform 0.18s;
   flex-shrink: 0;
-  box-shadow: 0 2px 8px 0 rgba(31, 38, 135, 0.08);
+
   &:hover,
   &:focus {
-    box-shadow: 0 0 0 10px rgba(120, 180, 255, 0.13),
-      0 2px 8px 0 rgba(31, 38, 135, 0.1);
     transform: scale(1.08);
     z-index: 2;
   }
   ${(props) =>
     props.selected &&
     `
-      box-shadow: 0 0 0 16px rgba(120,180,255,0.18), 0 2px 8px 0 rgba(31,38,135,0.10);
-      border: 2.5px solid #1976d2;
+      border: 2.5px solid #90caf9;
       transform: scale(1.13);
       z-index: 3;
+      &::after {
+        content: '✓';
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        width: 22px;
+        height: 22px;
+        background: #90caf9;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 14px;
+        font-weight: bold;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        animation: scaleIn 0.2s ease-out;
+      }
+      
+      @keyframes scaleIn {
+        from {
+          transform: scale(0);
+        }
+        to {
+          transform: scale(1);
+        }
+      }
     `}
   @media (max-width: 600px) {
     width: 38px;
     height: 38px;
     margin: 0 3px;
     border-width: 2px;
+    ${(props) =>
+      props.selected &&
+      `
+        &::after {
+          width: 18px;
+          height: 18px;
+          font-size: 12px;
+          top: -6px;
+          right: -6px;
+        }
+      `}
   }
 `;
 
@@ -693,11 +728,20 @@ const AppleThumbCircle = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.08) inset;
   ${(props) =>
     props.selected &&
     `
-      box-shadow: 0 0 16px 2px rgba(120,180,255,0.18), 0 2px 8px 0 rgba(0,0,0,0.08) inset;
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 50%;
+        background: radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, transparent 70%);
+        pointer-events: none;
+      }
     `}
 `;
 
@@ -1125,6 +1169,13 @@ const BackgroundToggleButton = styled.button`
       display: none;
     }
   }
+
+  ${(props) =>
+    props.hasSelectedAmbiance &&
+    `
+    border-color: #90caf9;
+    box-shadow: 0 0 0 4px rgba(144, 202, 249, 0.1);
+  `}
 `;
 
 const ModeIconStyled = styled(VideoLibraryIcon)`
@@ -1357,6 +1408,7 @@ const ProjectSmart = () => {
       >
         <BackgroundToggleButton
           onClick={() => setIsSwitcherHidden(!isSwitcherHidden)}
+          hasSelectedAmbiance={selectedVideoIdx !== 0}
         >
           <ModeIconStyled />
           <span>{isSwitcherHidden ? "Show Ambiance" : "Hide Ambiance"}</span>
@@ -1364,30 +1416,30 @@ const ProjectSmart = () => {
       </Tooltip>
       <AppleSwitcherContainer isHidden={isSwitcherHidden}>
         {backgroundVideos.map((video, idx) => (
-          <AppleThumbButton
-            key={video.label}
-            selected={selectedVideoIdx === idx}
-            onClick={() => handleVideoSwitch(idx)}
-            aria-label={video.label}
-            title={video.label}
-          >
-            <AppleThumbCircle
-              bgcolor={videoColors[idx % videoColors.length]}
+          <Tooltip key={video.label} title={video.label} arrow>
+            <AppleThumbButton
               selected={selectedVideoIdx === idx}
+              onClick={() => handleVideoSwitch(idx)}
+              aria-label={video.label}
             >
-              <span
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
+              <AppleThumbCircle
+                bgcolor={videoColors[idx % videoColors.length]}
+                selected={selectedVideoIdx === idx}
               >
-                {bgIcons[idx % bgIcons.length](
-                  iconColor(videoColors[idx % videoColors.length])
-                )}
-              </span>
-            </AppleThumbCircle>
-          </AppleThumbButton>
+                <span
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  {bgIcons[idx % bgIcons.length](
+                    iconColor(videoColors[idx % videoColors.length])
+                  )}
+                </span>
+              </AppleThumbCircle>
+            </AppleThumbButton>
+          </Tooltip>
         ))}
       </AppleSwitcherContainer>
       <MainContainer>
