@@ -1952,30 +1952,28 @@ const ProjectSmart = () => {
       )}
       <AppleSwitcherContainer isHidden={isSwitcherHidden}>
         {backgroundVideos.map((video, idx) => (
-          <Tooltip key={video.label} title={video.label} arrow>
-            <AppleThumbButton
+          <AppleThumbButton
+            selected={selectedVideoIdx === idx}
+            onClick={() => handleVideoSwitch(idx)}
+            aria-label={video.label}
+          >
+            <AppleThumbCircle
+              bgcolor={videoColors[idx % videoColors.length]}
               selected={selectedVideoIdx === idx}
-              onClick={() => handleVideoSwitch(idx)}
-              aria-label={video.label}
             >
-              <AppleThumbCircle
-                bgcolor={videoColors[idx % videoColors.length]}
-                selected={selectedVideoIdx === idx}
+              <span
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
               >
-                <span
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  {bgIcons[idx % bgIcons.length](
-                    iconColor(videoColors[idx % videoColors.length])
-                  )}
-                </span>
-              </AppleThumbCircle>
-            </AppleThumbButton>
-          </Tooltip>
+                {bgIcons[idx % bgIcons.length](
+                  iconColor(videoColors[idx % videoColors.length])
+                )}
+              </span>
+            </AppleThumbCircle>
+          </AppleThumbButton>
         ))}
       </AppleSwitcherContainer>
       <MainContainer>
