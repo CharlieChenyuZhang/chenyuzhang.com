@@ -8,6 +8,10 @@ import {
   CircularProgress,
   Switch,
   Tooltip,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
 } from "@mui/material";
 import { backendDomain } from "../../utils";
 import fallbackThumb from "../../images/reading.gif";
@@ -23,6 +27,67 @@ import {
 } from "firebase/auth";
 import SignInPrompt from "../SignInPrompt";
 
+// Import all translations
+const translations = {
+  ar: require("../../i18n/ar.json"),
+  cs: require("../../i18n/cs.json"),
+  da: require("../../i18n/da.json"),
+  de: require("../../i18n/de.json"),
+  el: require("../../i18n/el.json"),
+  en: require("../../i18n/en.json"),
+  es: require("../../i18n/es.json"),
+  fi: require("../../i18n/fi.json"),
+  fr: require("../../i18n/fr.json"),
+  hi: require("../../i18n/hi.json"),
+  hu: require("../../i18n/hu.json"),
+  id: require("../../i18n/id.json"),
+  it: require("../../i18n/it.json"),
+  ja: require("../../i18n/ja.json"),
+  ko: require("../../i18n/ko.json"),
+  nl: require("../../i18n/nl.json"),
+  no: require("../../i18n/no.json"),
+  pl: require("../../i18n/pl.json"),
+  pt: require("../../i18n/pt.json"),
+  ro: require("../../i18n/ro.json"),
+  ru: require("../../i18n/ru.json"),
+  sv: require("../../i18n/sv.json"),
+  tr: require("../../i18n/tr.json"),
+  uk: require("../../i18n/uk.json"),
+  vi: require("../../i18n/vi.json"),
+  zh: require("../../i18n/zh.json"),
+};
+
+// Language names in their native form
+const languageNames = {
+  ar: "العربية",
+  cs: "Čeština",
+  da: "Dansk",
+  de: "Deutsch",
+  el: "Ελληνικά",
+  en: "English",
+  es: "Español",
+  fi: "Suomi",
+  fr: "Français",
+  hi: "हिन्दी",
+  hu: "Magyar",
+  id: "Bahasa Indonesia",
+  it: "Italiano",
+  ja: "日本語",
+  ko: "한국어",
+  nl: "Nederlands",
+  no: "Norsk",
+  pl: "Polski",
+  pt: "Português",
+  ro: "Română",
+  ru: "Русский",
+  sv: "Svenska",
+  tr: "Türkçe",
+  uk: "Українська",
+  vi: "Tiếng Việt",
+  zh: "中文",
+};
+
+// Styled components
 const MainContainer = styled.div`
   height: 100%;
   min-height: 100vh;
@@ -397,29 +462,32 @@ const ThumbLabel = styled.div`
   }
 `;
 
-const translations = {
-  en: {
-    placeholder:
-      "Tell me something that's bothering you or a negative thought...",
-    send: "Send",
-    reframe: "Reframe",
-    mentalModel: "Mental Model",
-    language: "English",
-    languageToggle: "中文",
-    processing: "Processing...",
-    support: "Support",
-  },
-  zh: {
-    placeholder: "告诉我困扰你的事或消极的想法……",
-    send: "发送",
-    reframe: "重新表述",
-    mentalModel: "心智模型",
-    language: "中文",
-    languageToggle: "English",
-    processing: "处理中……",
-    support: "支持",
-  },
-};
+// Update LanguageToggleContainer styles for the new dropdown
+const StyledFormControl = styled(FormControl)`
+  min-width: 120px;
+  & .MuiOutlinedInput-root {
+    color: white;
+    & fieldset {
+      border-color: rgba(255, 255, 255, 0.23);
+    }
+    &:hover fieldset {
+      border-color: white;
+    }
+    &.Mui-focused fieldset {
+      border-color: white;
+    }
+  }
+  & .MuiInputLabel-root {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  & .MuiSelect-icon {
+    color: white;
+  }
+  & .MuiMenuItem-root {
+    min-height: 32px;
+    font-size: 0.875rem;
+  }
+`;
 
 // Add a list of available videos
 const backgroundVideos = [
@@ -1191,8 +1259,10 @@ const ProjectSmart = () => {
   const [loading, setLoading] = useState(false);
   const chatContainerRef = useRef(null);
   const [language, setLanguage] = useState(() => {
-    return localStorage.getItem("smart-journaling-language") || "en";
+    const savedLang = localStorage.getItem("smart-journaling-language");
+    return savedLang && translations[savedLang] ? savedLang : "en";
   });
+  const t = translations[language] || translations["en"];
   const [selectedVideoIdx, setSelectedVideoIdx] = useState(0);
   const [currentVideoIdx, setCurrentVideoIdx] = useState(0);
   const [nextVideoReady, setNextVideoReady] = useState(false);
@@ -1203,8 +1273,6 @@ const ProjectSmart = () => {
   const [isRegister, setIsRegister] = useState(false);
   const [authError, setAuthError] = useState("");
   const [isSwitcherHidden, setIsSwitcherHidden] = useState(false);
-
-  const t = translations[language];
 
   // Persist language to localStorage when it changes
   useEffect(() => {
@@ -1444,20 +1512,27 @@ const ProjectSmart = () => {
       </AppleSwitcherContainer>
       <MainContainer>
         <ContentContainer>
-          {/* Language Toggle */}
+          {/* Language Selector */}
           <LanguageToggleContainer>
-            <LanguageOption
-              selected={language === "en"}
-              onClick={() => setLanguage("en")}
-            >
-              English
-            </LanguageOption>
-            <LanguageOption
-              selected={language === "zh"}
-              onClick={() => setLanguage("zh")}
-            >
-              中文
-            </LanguageOption>
+            <StyledFormControl variant="outlined" size="small">
+              <InputLabel id="language-select-label" sx={{ color: "white" }}>
+                Language
+              </InputLabel>
+              <Select
+                labelId="language-select-label"
+                value={language}
+                onChange={(e) => setLanguage(e.target.value)}
+                label="Language"
+              >
+                {Object.keys(translations)
+                  .sort()
+                  .map((langCode) => (
+                    <MenuItem key={langCode} value={langCode}>
+                      {languageNames[langCode]}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </StyledFormControl>
           </LanguageToggleContainer>
           <Box
             sx={{
@@ -1490,7 +1565,7 @@ const ProjectSmart = () => {
                   onClick={handleSignOut}
                   sx={{ color: "white", borderColor: "white", ml: 2 }}
                 >
-                  Sign Out
+                  {t.signOut}
                 </Button>
               </>
             )}
