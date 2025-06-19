@@ -95,3 +95,7 @@ Journaling button discussion.
 Different LLM models have different effects.
 
 野生的数据。
+
+Feedback on https://www.chenyuzhang.com/project/smart/v6
+
+- Emily said this reminds me a middle school teacher. No matter whatever I messed up, the teacher is encouraging.

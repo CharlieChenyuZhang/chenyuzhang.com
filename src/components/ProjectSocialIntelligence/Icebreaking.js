@@ -158,7 +158,6 @@ export default function IceBreaking() {
     setLoading(true);
     const payload = { profiles: [profile1, profile2] };
 
-    console.log("process.env.REACT_APP_BACKEND", process.env.REACT_APP_BACKEND);
     axios
       .post(
         `${process.env.REACT_APP_BACKEND}/api/generate_icebreaking_questions`,

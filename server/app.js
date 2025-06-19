@@ -514,7 +514,6 @@ app.post("/reframe", async (req, res) => {
       );
 
       const response = apiResponse.data.choices[0].message.content.trim();
-      console.log("!!! response", response);
 
       // DynamoDB logic (pattern from relief.js)
       const AWS = require("aws-sdk");
