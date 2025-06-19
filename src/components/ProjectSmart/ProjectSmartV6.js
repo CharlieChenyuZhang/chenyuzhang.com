@@ -1884,8 +1884,9 @@ const ProjectSmart = () => {
 
       // Convert to high-quality PNG
       const image = canvas.toDataURL("image/png", 1.0);
+      const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
       const link = document.createElement("a");
-      link.download = "reframed-thought.png";
+      link.download = `reframed-thought-${timestamp}.png`;
       link.href = image;
       link.click();
 
