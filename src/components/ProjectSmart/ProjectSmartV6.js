@@ -1531,6 +1531,7 @@ const ProjectSmart = () => {
         body: JSON.stringify({
           conversations: newConversation,
           user_id: user.uid,
+          language,
         }),
       });
 

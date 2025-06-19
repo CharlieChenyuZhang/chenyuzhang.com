@@ -499,7 +499,7 @@ app.post("/reframe", async (req, res) => {
           messages: [
             {
               role: "system",
-              content: `Act as a positive psychologist, your task is to help me reframe the negative thoughts.\n\nAnswer it using the specified language: ${language}\n\nUse the following pattern\n\n"""\n\nReframe:`,
+              content: `Act as a positive psychologist, your task is to help me reframe the negative thoughts.\n\nAnswer it using the specified language: ${language}\n\n`,
             },
             ...lastFiveConversations.map((conversation) => ({
               role: conversation.isUser ? "user" : "assistant",
