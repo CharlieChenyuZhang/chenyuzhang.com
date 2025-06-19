@@ -35,22 +35,27 @@ import Demo from "./components/Demo";
 import AcademicWordGame from "./components/ProjectSmart/AcademicWordGame";
 import PrivacyPolicy from "./components/Legal/PrivacyPolicy";
 import TermsOfService from "./components/Legal/TermsOfService";
+import PerspectiveDebate from "./components/ProjectPerspectiveDebate/PerspectiveDebate";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AppContainer from "./components/AppContainer"; // Import the AppContainer
 
 // NOTE: assumption, no stars, no profile pictures and navigations
-const elementConstructor = (Component, showStars = false) => {
+const elementConstructor = (
+  Component,
+  showStars = false,
+  hideFooter = false
+) => {
   return !showStars ? (
     <>
       {Component}
-      <Footer />
+      {!hideFooter && <Footer />}
     </>
   ) : (
     <AppContainer>
       <ResponsiveAppBar />
       {Component}
-      <Footer />
+      {!hideFooter && <Footer />}
     </AppContainer>
   );
 };
@@ -238,6 +243,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           exact
           path="/terms"
           element={elementConstructor(<TermsOfService />)}
+        />
+
+        {/* Perspective Debate Route */}
+        <Route
+          exact
+          path="/project/perspective-debate"
+          element={elementConstructor(<PerspectiveDebate />, false, true)}
         />
       </Routes>
     </BrowserRouter>

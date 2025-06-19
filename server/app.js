@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
@@ -16,7 +17,6 @@ app.use(
 );
 
 app.use(express.json()); // such that it can process json
-require("dotenv").config(); // such that it can use .env file
 
 app.get("/", (req, res) => {
   res.send({
@@ -29,6 +29,7 @@ const reliefRoutes = require("./api/relief");
 const llmEvalRoute = require("./api/personal-llm-eval");
 const wordGameRoutes = require("./api/word-game");
 const trackDownloadsRoute = require("./api/track-downloads");
+const perspectivesRouter = require("./api/perspectives");
 
 // so that backend can serve images
 // this can be used for FE to serve the media files, not for FE to render the media files in the .md content.
@@ -41,6 +42,7 @@ app.use("/relief", reliefRoutes);
 app.use("/personal-llm-eval", llmEvalRoute);
 app.use("/word-game", wordGameRoutes);
 app.use("/track-downloads", trackDownloadsRoute);
+app.use("/api/perspectives", perspectivesRouter);
 
 app.get("/project/all", (req, res) => {
   const mdDirectory = path.join(__dirname, "projects"); // Adjust the path as necessary
