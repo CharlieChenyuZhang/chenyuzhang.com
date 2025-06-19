@@ -21,6 +21,9 @@ import ModeIcon from "@mui/icons-material/Mode";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PrivacyTipIcon from "@mui/icons-material/PrivacyTip";
 import GavelIcon from "@mui/icons-material/Gavel";
+import ShareIcon from "@mui/icons-material/Share";
+import DownloadIcon from "@mui/icons-material/Download";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { auth, provider } from "../../firebase";
 import {
   signInWithPopup,
@@ -30,6 +33,7 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 import SignInPrompt from "../SignInPrompt";
+import html2canvas from "html2canvas";
 
 // Import all translations
 const translations = {
@@ -138,6 +142,7 @@ const MessageContainer = styled.div`
   align-items: flex-start;
   margin: 8px 0;
   flex-direction: ${(props) => (props.isUser ? "row-reverse" : "row")};
+  position: relative;
 `;
 
 const AiIcon = styled.div`
@@ -1330,12 +1335,16 @@ const FooterContainer = styled.div`
 `;
 
 const FooterIconButton = styled(IconButton)`
-  color: rgba(255, 255, 255, 0.7);
+  color: #ffffff;
   transition: all 0.2s ease;
 
   &:hover {
-    color: white;
+    color: #ffffff;
     background: rgba(255, 255, 255, 0.1);
+  }
+
+  svg {
+    color: #ffffff;
   }
 `;
 
@@ -1503,6 +1512,130 @@ const TextLink = styled(Button)`
   }
 `;
 
+const ShareButton = styled(IconButton)`
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  color: rgba(255, 255, 255, 0.9);
+  transition: all 0.2s ease;
+  background: rgba(144, 202, 249, 0.2);
+  padding: 12px;
+
+  &:hover {
+    color: white;
+    background: rgba(144, 202, 249, 0.3);
+    transform: scale(1.05);
+  }
+
+  svg {
+    font-size: 20px;
+  }
+`;
+
+const ShareableMessageContainer = styled.div`
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(30, 30, 40, 0.95),
+    rgba(20, 20, 30, 0.95)
+  );
+  border-radius: 16px;
+  padding: 32px;
+  margin: 24px 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(144, 202, 249, 0.2);
+
+  @media (max-width: 768px) {
+    padding: 24px;
+    margin: 16px 0;
+  }
+`;
+
+const ShareableContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-right: 48px; // Make space for the share button
+`;
+
+const MessageLabel = styled(Typography)`
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+`;
+
+const MessageText = styled(Typography)`
+  color: white;
+  font-size: 1rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+`;
+
+const ActionButtonsContainer = styled.div`
+  display: flex;
+  gap: 12px;
+  margin-left: 32px;
+  margin-top: 12px;
+
+  @media (max-width: 768px) {
+    margin-left: 24px;
+    margin-top: 10px;
+  }
+`;
+
+const ActionButton = styled(IconButton)`
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.13);
+  padding: 10px;
+  border-radius: 50%;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0px);
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  svg {
+    font-size: 22px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    color: #ffffff;
+  }
+
+  @media (max-width: 768px) {
+    padding: 8px;
+    svg {
+      font-size: 20px;
+    }
+  }
+`;
+
+// Update the tooltips style
+const StyledTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))`
+  & .MuiTooltip-tooltip {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    border-radius: 8px;
+    letter-spacing: 0.3px;
+  }
+`;
+
 const ProjectSmart = () => {
   const [thought, setThought] = useState("");
   const [conversation, setConversation] = useState([]);
@@ -1633,6 +1766,105 @@ const ProjectSmart = () => {
       }
     } catch (error) {
       setAuthError(error.message);
+    }
+  };
+
+  const handleShareImage = async (originalText, reframedText) => {
+    // Create a temporary container for the content to be shared
+    const tempContainer = document.createElement("div");
+    tempContainer.style.position = "fixed";
+    tempContainer.style.left = "-9999px";
+    document.body.appendChild(tempContainer);
+
+    // Create and style the content
+    const content = document.createElement("div");
+    content.style.width = "600px";
+    content.style.padding = "32px";
+    content.style.background =
+      "linear-gradient(135deg, rgba(30, 30, 40, 0.95), rgba(20, 20, 30, 0.95))";
+    content.style.borderRadius = "16px";
+    content.style.color = "white";
+    content.style.fontFamily = "Arial, sans-serif";
+
+    content.innerHTML = `
+      <div style="margin-bottom: 24px;">
+        <div style="color: white; font-size: 16px; line-height: 1.5;">${originalText}</div>
+      </div>
+      <div>
+        <div style="color: white; font-size: 16px; line-height: 1.5;">${reframedText}</div>
+      </div>
+    `;
+
+    tempContainer.appendChild(content);
+
+    try {
+      // Generate the image
+      const canvas = await html2canvas(content, {
+        backgroundColor: null,
+        scale: 2,
+      });
+
+      // Convert to image and download
+      const image = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.download = "reframed-thought.png";
+      link.href = image;
+      link.click();
+    } catch (error) {
+      console.error("Error generating image:", error);
+    } finally {
+      // Clean up
+      document.body.removeChild(tempContainer);
+    }
+  };
+
+  const handleLinkedInShare = async (originalText, reframedText) => {
+    try {
+      // Generate the image first
+      const tempContainer = document.createElement("div");
+      tempContainer.style.position = "fixed";
+      tempContainer.style.left = "-9999px";
+      document.body.appendChild(tempContainer);
+
+      const content = document.createElement("div");
+      content.style.width = "600px";
+      content.style.padding = "32px";
+      content.style.background =
+        "linear-gradient(135deg, rgba(30, 30, 40, 0.95), rgba(20, 20, 30, 0.95))";
+      content.style.borderRadius = "16px";
+      content.style.color = "white";
+      content.style.fontFamily = "Arial, sans-serif";
+
+      content.innerHTML = `
+        <div style="margin-bottom: 24px;">
+          <div style="color: white; font-size: 16px; line-height: 1.5;">${originalText}</div>
+        </div>
+        <div>
+          <div style="color: white; font-size: 16px; line-height: 1.5;">${reframedText}</div>
+        </div>
+      `;
+
+      tempContainer.appendChild(content);
+
+      const canvas = await html2canvas(content, {
+        backgroundColor: null,
+        scale: 2,
+      });
+
+      const image = canvas.toDataURL("image/png");
+
+      // Clean up
+      document.body.removeChild(tempContainer);
+
+      // Open LinkedIn sharing dialog
+      const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+        window.location.href
+      )}&title=${encodeURIComponent(
+        "Reframed Perspective"
+      )}&summary=${encodeURIComponent(`${originalText}\n\n${reframedText}`)}`;
+      window.open(linkedInUrl, "_blank", "width=600,height=600");
+    } catch (error) {
+      console.error("Error sharing to LinkedIn:", error);
     }
   };
 
@@ -1783,14 +2015,55 @@ const ProjectSmart = () => {
             </HeaderRightSection>
           </HeaderContainer>
           <ChatContainer ref={chatContainerRef}>
-            {conversation.map((msg, index) => (
-              <MessageContainer key={index} isUser={msg.isUser}>
-                {!msg.isUser && <AiIcon>✧₊⁺</AiIcon>}
-                <MessageBubble isUser={msg.isUser}>
-                  {msg.text && <span>{msg.text}</span>}
-                </MessageBubble>
-              </MessageContainer>
-            ))}
+            {conversation.map((msg, index, array) => {
+              const isUserMessage = msg.isUser;
+              const nextMessage = array[index + 1];
+              const showActions =
+                isUserMessage && nextMessage && !nextMessage.isUser;
+
+              return (
+                <React.Fragment key={index}>
+                  <MessageContainer isUser={msg.isUser}>
+                    {!msg.isUser && <AiIcon>✧₊⁺</AiIcon>}
+                    <MessageBubble isUser={msg.isUser}>
+                      {msg.text && <span>{msg.text}</span>}
+                    </MessageBubble>
+                  </MessageContainer>
+
+                  {showActions && nextMessage && (
+                    <ActionButtonsContainer>
+                      <StyledTooltip
+                        title="Download as Image"
+                        arrow
+                        placement="top"
+                      >
+                        <ActionButton
+                          onClick={() =>
+                            handleShareImage(msg.text, nextMessage.text)
+                          }
+                        >
+                          <DownloadIcon />
+                        </ActionButton>
+                      </StyledTooltip>
+                      <StyledTooltip
+                        title="Share on LinkedIn"
+                        arrow
+                        placement="top"
+                      >
+                        <ActionButton
+                          onClick={() =>
+                            handleLinkedInShare(msg.text, nextMessage.text)
+                          }
+                          linkedIn
+                        >
+                          <LinkedInIcon />
+                        </ActionButton>
+                      </StyledTooltip>
+                    </ActionButtonsContainer>
+                  )}
+                </React.Fragment>
+              );
+            })}
 
             {loading && (
               <MessageContainer isUser={false}>
