@@ -1493,7 +1493,7 @@ const ProjectSmart = () => {
   const [password, setPassword] = useState("");
   const [isRegister, setIsRegister] = useState(false);
   const [authError, setAuthError] = useState("");
-  const [isSwitcherHidden, setIsSwitcherHidden] = useState(false);
+  const [isSwitcherHidden, setIsSwitcherHidden] = useState(true);
 
   // Persist language to localStorage when it changes
   useEffect(() => {
