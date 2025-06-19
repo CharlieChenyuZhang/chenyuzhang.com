@@ -716,26 +716,29 @@ const AppleSwitcherContainer = styled(Box)`
   border-radius: 1.5rem;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.12);
   border: 1.5px solid rgba(255, 255, 255, 0.28);
-  padding: 8px 16px 8px 16px;
+  padding: 8px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
   backdrop-filter: blur(18px) saturate(180%);
   -webkit-backdrop-filter: blur(18px) saturate(180%);
-  max-width: 80%;
+  width: 90%;
+  max-width: 800px;
   overflow-x: auto;
   opacity: ${(props) => (props.isHidden ? 0 : 1)};
   transition: all 0.3s ease-in-out;
   pointer-events: ${(props) => (props.isHidden ? "none" : "auto")};
   z-index: 20;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
 
   @media (max-width: 600px) {
-    padding: 4px 2vw 4px 2vw;
+    padding: 8px;
     border-radius: 1rem;
-    min-width: 0;
-    transform: translateX(-50%)
-      translateY(${(props) => (props.isHidden ? "-100%" : "8px")});
+    width: 90%;
   }
 `;
 
@@ -798,9 +801,10 @@ const AppleThumbButton = styled.button`
       }
     `}
   @media (max-width: 600px) {
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     margin: 0 3px;
+    flex-shrink: 0;
     border-width: 2px;
     ${(props) =>
       props.selected &&
