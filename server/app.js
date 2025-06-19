@@ -558,7 +558,6 @@ app.post("/reframe", async (req, res) => {
           user_id,
           event: "TRACK_REFRAME_CONVERSATION",
           conversations: updatedConversations,
-          aiResponse: response,
         },
       };
       await dynamoDb.put(putParams).promise();
