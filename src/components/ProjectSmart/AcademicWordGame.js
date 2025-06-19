@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { backendDomain } from "../../utils";
 
 const WORDS = [
   {
@@ -94,6 +95,293 @@ const WORDS = [
   { word: "Theory", definition: "An idea that explains something." },
   { word: "Vary", definition: "To be different or change." },
 ];
+
+const API_BASE = `${backendDomain()}/word-game`;
+
+function FeatureButtonPanel({ word }) {
+  const [loading, setLoading] = useState("");
+  const [result, setResult] = useState({});
+  const [modal, setModal] = useState(null);
+
+  // Reset modal and result when the word changes
+  React.useEffect(() => {
+    setModal(null);
+    setResult({});
+  }, [word]);
+
+  const features = [
+    {
+      key: "define",
+      label: "📖 Define (Kid-Friendly)",
+      handler: async () => {
+        setLoading("define");
+        const res = await fetch(`${API_BASE}/define`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ word }),
+        });
+        setResult({ define: await res.json() });
+        setModal("define");
+        setLoading("");
+      },
+    },
+    {
+      key: "sentence",
+      label: "💬 Use in a Sentence",
+      handler: async () => {
+        setLoading("sentence");
+        const res = await fetch(`${API_BASE}/sentence`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ word }),
+        });
+        setResult({ sentence: await res.json() });
+        setModal("sentence");
+        setLoading("");
+      },
+    },
+    {
+      key: "visualize",
+      label: "🎭 Visualize the Word",
+      handler: async () => {
+        setLoading("visualize");
+        const res = await fetch(`${API_BASE}/visualize`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ word }),
+        });
+        setResult({ visualize: await res.json() });
+        setModal("visualize");
+        setLoading("");
+      },
+    },
+    {
+      key: "translate",
+      label: "🌐 Translate",
+      handler: async () => {
+        setLoading("translate");
+        // Use OpenAI for translation
+        const res = await fetch(`${API_BASE}/translate`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ word, targetLanguage: "Chinese" }),
+        });
+        setResult({ translate: await res.json() });
+        setModal("translate");
+        setLoading("");
+      },
+    },
+    {
+      key: "quiz",
+      label: "🧠 Quiz Me",
+      handler: async () => {
+        setLoading("quiz");
+        const res = await fetch(`${API_BASE}/quiz`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ word }),
+        });
+        setResult({ quiz: await res.json() });
+        setModal("quiz");
+        setLoading("");
+      },
+    },
+    {
+      key: "fun-fact",
+      label: "🎲 Fun Fact or Story",
+      handler: async () => {
+        setLoading("fun-fact");
+        const res = await fetch(`${API_BASE}/fun-fact`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ word }),
+        });
+        setResult({ funFact: await res.json() });
+        setModal("fun-fact");
+        setLoading("");
+      },
+    },
+    {
+      key: "speak",
+      label: "🪞 My Turn to Speak",
+      handler: async () => {
+        setLoading("speak");
+        const res = await fetch(`${API_BASE}/speak`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ word }),
+        });
+        setResult({ speak: await res.json() });
+        setModal("speak");
+        setLoading("");
+      },
+    },
+    {
+      key: "family",
+      label: "🧵 Word Family",
+      handler: async () => {
+        setLoading("family");
+        const res = await fetch(`${API_BASE}/family`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ word }),
+        });
+        setResult({ family: await res.json() });
+        setModal("family");
+        setLoading("");
+      },
+    },
+    {
+      key: "context-challenge",
+      label: "🧩 Context Challenge",
+      handler: async () => {
+        setLoading("context-challenge");
+        const res = await fetch(`${API_BASE}/context-challenge`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ word }),
+        });
+        setResult({ context: await res.json() });
+        setModal("context-challenge");
+        setLoading("");
+      },
+    },
+  ];
+
+  return (
+    <div
+      style={{
+        margin: "32px 0 16px",
+        display: "flex",
+        flexWrap: "wrap",
+        gap: 12,
+        justifyContent: "center",
+      }}
+    >
+      {features.map((f) => (
+        <button
+          key={f.key}
+          onClick={f.handler}
+          disabled={loading === f.key}
+          style={{
+            padding: "10px 18px",
+            borderRadius: 8,
+            border: "1.5px solid #bbb",
+            background: loading === f.key ? "#eee" : "#f8f9fa",
+            color: "#222",
+            fontWeight: 600,
+            fontSize: 15,
+            cursor: loading === f.key ? "wait" : "pointer",
+            boxShadow: "0 1px 4px #0001",
+            transition: "all 0.2s",
+            minWidth: 120,
+          }}
+        >
+          {loading === f.key ? "Loading..." : f.label}
+        </button>
+      ))}
+      {/* Modal/inline result display */}
+      {modal && (
+        <div
+          style={{
+            width: "100%",
+            marginTop: 24,
+            background: "#fffbe7",
+            border: "2.5px solid #ffe066",
+            borderRadius: 16,
+            padding: 24,
+            color: "#333",
+            fontFamily: "'Comic Sans MS', 'Comic Sans', cursive",
+            boxShadow: "0 4px 16px #ffe06655",
+          }}
+        >
+          <button
+            onClick={() => setModal(null)}
+            style={{
+              float: "right",
+              background: "none",
+              border: "none",
+              fontSize: 18,
+              cursor: "pointer",
+              color: "#888",
+            }}
+          >
+            ✕
+          </button>
+          {modal === "define" && (
+            <div>
+              <b>Definition:</b> {result.define?.definition}{" "}
+              {result.define?.rephrased && (
+                <div style={{ color: "#888", marginTop: 8 }}>
+                  Rephrased: {result.define.rephrased}
+                </div>
+              )}
+            </div>
+          )}
+          {modal === "sentence" && (
+            <div>
+              <b>Sentence:</b> {result.sentence?.sentence}
+            </div>
+          )}
+          {modal === "visualize" && (
+            <div>
+              <b>Visual:</b>{" "}
+              <span style={{ fontSize: 32 }}>{result.visualize?.emoji}</span>{" "}
+              <img
+                src={result.visualize?.imageUrl}
+                alt="visual"
+                style={{ height: 60, verticalAlign: "middle", marginLeft: 8 }}
+              />
+            </div>
+          )}
+          {modal === "translate" && (
+            <div>
+              <b>Translation:</b> {result.translate?.translation}
+            </div>
+          )}
+          {modal === "quiz" && (
+            <div>
+              <b>Quiz:</b>{" "}
+              <div style={{ marginTop: 8 }}>{result.quiz?.quiz?.question}</div>
+              <ul>
+                {result.quiz?.quiz?.options?.map((opt, i) => (
+                  <li key={i}>{opt}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {modal === "fun-fact" && (
+            <div>
+              <b>Fun Fact:</b> {result.funFact?.fact}
+            </div>
+          )}
+          {modal === "speak" && (
+            <div>
+              <b>Pronunciation Feedback:</b> {result.speak?.feedback}
+            </div>
+          )}
+          {modal === "family" && (
+            <div>
+              <b>Word Family:</b> <div>Root: {result.family?.root}</div>
+              <div>Related: {result.family?.related?.join(", ")}</div>
+              <div>Synonyms: {result.family?.synonyms?.join(", ")}</div>
+              <div>Antonyms: {result.family?.antonyms?.join(", ")}</div>
+              <div>Forms: {result.family?.forms?.join(", ")}</div>
+            </div>
+          )}
+          {modal === "context-challenge" && (
+            <div>
+              <b>Context Challenge:</b> <div>{result.context?.sentence}</div>
+              <div style={{ color: "#888", marginTop: 8 }}>
+                Hint: {result.context?.hint}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
 
 function shuffle(array) {
   let arr = array.slice();
@@ -289,6 +577,7 @@ const AcademicWordGame = () => {
           </div>
         </div>
       )}
+      <FeatureButtonPanel word={WORDS[current].word} />
       <div style={{ marginTop: 32, textAlign: "center", color: "#888" }}>
         Progress: {current + 1} / {WORDS.length}
       </div>
