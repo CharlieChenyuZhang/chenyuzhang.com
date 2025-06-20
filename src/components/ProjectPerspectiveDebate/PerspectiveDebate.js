@@ -270,7 +270,13 @@ const PerspectiveDebate = () => {
                 <div className="door-window" />
                 <div className="door-knob" />
               </div>
-              <div className="door-label">{selectedDoor.label}</div>
+              <div className="door-label">
+                {{
+                  watch: "Watching Debate",
+                  group: "Group Debate",
+                  "one-on-one": "1-on-1 Debate",
+                }[selectedDoor?.type] || selectedDoor?.label}
+              </div>
             </div>
             <button
               className="leave-room-button"
