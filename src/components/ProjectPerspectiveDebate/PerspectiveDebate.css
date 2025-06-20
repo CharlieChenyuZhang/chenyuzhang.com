@@ -271,6 +271,37 @@
   cursor: default;
 }
 
+.debate-control-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #0071e3;
+  color: white;
+  border: none;
+  padding: 16px 32px;
+  font-size: 1.1rem;
+  border-radius: 980px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  z-index: 10;
+  box-shadow: 0 8px 24px rgba(0, 113, 227, 0.3);
+  white-space: nowrap;
+}
+
+.debate-control-button:hover:not(:disabled) {
+  background-color: #0077ed;
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+.debate-control-button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: translate(-50%, -50%);
+}
+
 /* Circle of Chat Column */
 .debate-circle-column {
   grid-area: circle;
@@ -346,6 +377,41 @@
   margin: 0;
   line-height: 1.4;
   color: #333;
+  min-height: 3em;
+}
+
+.agent-card .thinking-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(0.85rem * 1.4 * 3); /* Match p tag height */
+  margin: 0;
+}
+
+.agent-card .thinking-indicator::after {
+  content: ".";
+  animation: dots 1.4s steps(5, end) infinite;
+  font-size: 3rem;
+  line-height: 0;
+}
+
+@keyframes dots {
+  0%,
+  20% {
+    color: rgba(0, 0, 0, 0);
+    text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
+  }
+  40% {
+    color: #8e8e93;
+    text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
+  }
+  60% {
+    text-shadow: 0.25em 0 0 #8e8e93, 0.5em 0 0 rgba(0, 0, 0, 0);
+  }
+  80%,
+  100% {
+    text-shadow: 0.25em 0 0 #8e8e93, 0.5em 0 0 #8e8e93;
+  }
 }
 
 .user-card {

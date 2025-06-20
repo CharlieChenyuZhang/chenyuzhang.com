@@ -30,6 +30,12 @@ const PerspectiveDebate = () => {
     "This is you. Join the conversation!"
   );
 
+  const [chatHistory, setChatHistory] = useState([]);
+  const [agentResponses, setAgentResponses] = useState({});
+  const [currentTurnIndex, setCurrentTurnIndex] = useState(0);
+  const [isAgentThinking, setIsAgentThinking] = useState(null);
+  const [debateStarted, setDebateStarted] = useState(false);
+
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
     if (inputPassword === CORRECT_PASSWORD) {
@@ -38,6 +44,58 @@ const PerspectiveDebate = () => {
     } else {
       setAuthError("Incorrect password. Please try again.");
     }
+  };
+
+  const getAgentResponse = async (agent, currentHistory) => {
+    setIsAgentThinking(agent.name);
+    try {
+      const response = await fetch(
+        `${backendDomain()}/api/perspectives/debate`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            perspectives,
+            chatHistory: currentHistory,
+            currentPerspectiveName: agent.name,
+            scenario,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to get agent response");
+      }
+
+      const data = await response.json();
+      const newResponse = { author: agent.name, message: data.argument };
+
+      setAgentResponses((prev) => ({ ...prev, [agent.name]: data.argument }));
+      setChatHistory((prev) => [...prev, newResponse]);
+
+      const agents = participants.filter((p) => p.id !== "user");
+      setCurrentTurnIndex((prevIndex) => (prevIndex + 1) % agents.length);
+    } catch (err) {
+      console.error("Error fetching agent response:", err);
+      setAgentResponses((prev) => ({
+        ...prev,
+        [agent.name]: "I'm having trouble thinking right now...",
+      }));
+    } finally {
+      setIsAgentThinking(null);
+    }
+  };
+
+  const handleNextTurn = async () => {
+    if (!debateStarted) {
+      setDebateStarted(true);
+    }
+    const agents = participants.filter((p) => p.id !== "user");
+    if (agents.length === 0) return;
+
+    const agentToAsk = agents[currentTurnIndex];
+    await getAgentResponse(agentToAsk, chatHistory);
   };
 
   const handleSubmit = async (e) => {
@@ -71,6 +129,14 @@ const PerspectiveDebate = () => {
   const handleDoorClick = (option) => {
     setSelectedDoor(option);
     setShowDebateView(true);
+
+    setChatHistory([]);
+    setAgentResponses({});
+    setCurrentTurnIndex(0);
+    setIsAgentThinking(null);
+    setDebateStarted(false);
+    setUserStatement("This is you. Join the conversation!");
+
     // Initialize participants based on the debate type
     const baseParticipants = perspectives.map((p, index) => ({
       id: index,
@@ -106,11 +172,22 @@ const PerspectiveDebate = () => {
     }
   };
 
-  const handleSendMessage = (e) => {
+  const handleSendMessage = async (e) => {
     e.preventDefault();
-    if (!newMessage.trim()) return;
+    if (!newMessage.trim() || selectedDoor?.type === "watch") return;
+
+    const userMessage = { author: "You", message: newMessage };
+    const newHistory = [...chatHistory, userMessage];
+
+    setChatHistory(newHistory);
     setUserStatement(newMessage);
     setNewMessage("");
+
+    const agents = participants.filter((p) => p.id !== "user");
+    if (agents.length > 0) {
+      const nextAgent = agents[currentTurnIndex % agents.length];
+      await getAgentResponse(nextAgent, newHistory);
+    }
   };
 
   const renderChatCircle = () => {
@@ -141,7 +218,11 @@ const PerspectiveDebate = () => {
             }}
           >
             <strong>{agent.name}</strong>
-            <p>{agentSayings[0 % agentSayings.length]}</p>
+            {isAgentThinking === agent.name ? (
+              <div className="thinking-indicator"></div>
+            ) : (
+              <p>{agentResponses[agent.name] || agent.perspective}</p>
+            )}
           </div>
 
           {/* User at the bottom, centered on the circle line */}
@@ -187,7 +268,13 @@ const PerspectiveDebate = () => {
               }}
             >
               <strong>{participant.name}</strong>
-              <p>{agentSayings[index % agentSayings.length]}</p>
+              {isAgentThinking === participant.name ? (
+                <div className="thinking-indicator"></div>
+              ) : (
+                <p>
+                  {agentResponses[participant.name] || participant.perspective}
+                </p>
+              )}
             </div>
           );
         })}
@@ -204,6 +291,30 @@ const PerspectiveDebate = () => {
           >
             <strong>{userParticipant.name}</strong>
             <p>{userStatement}</p>
+          </div>
+        )}
+
+        {selectedDoor?.type !== "watch" && (
+          <div
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              zIndex: 10,
+            }}
+          >
+            <button
+              onClick={handleNextTurn}
+              className="debate-control-button"
+              disabled={isAgentThinking !== null}
+            >
+              {isAgentThinking
+                ? `${isAgentThinking} is thinking...`
+                : debateStarted
+                ? "Next Argument"
+                : "Start Debate"}
+            </button>
           </div>
         )}
       </div>
