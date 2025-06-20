@@ -238,6 +238,28 @@ const PerspectiveDebate = () => {
             <strong>{userParticipant.name}</strong>
             <p>{userStatement}</p>
           </div>
+
+          <div
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              zIndex: 10,
+            }}
+          >
+            <button
+              onClick={handleNextTurn}
+              className="debate-control-button"
+              disabled={isAgentThinking !== null}
+            >
+              {isAgentThinking
+                ? `${isAgentThinking} is thinking...`
+                : debateStarted
+                ? "Next Argument"
+                : "Start Debate"}
+            </button>
+          </div>
         </div>
       );
     }
@@ -294,29 +316,27 @@ const PerspectiveDebate = () => {
           </div>
         )}
 
-        {selectedDoor?.type !== "watch" && (
-          <div
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              zIndex: 10,
-            }}
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            zIndex: 10,
+          }}
+        >
+          <button
+            onClick={handleNextTurn}
+            className="debate-control-button"
+            disabled={isAgentThinking !== null}
           >
-            <button
-              onClick={handleNextTurn}
-              className="debate-control-button"
-              disabled={isAgentThinking !== null}
-            >
-              {isAgentThinking
-                ? `${isAgentThinking} is thinking...`
-                : debateStarted
-                ? "Next Argument"
-                : "Start Debate"}
-            </button>
-          </div>
-        )}
+            {isAgentThinking
+              ? `${isAgentThinking} is thinking...`
+              : debateStarted
+              ? "Next Argument"
+              : "Start Debate"}
+          </button>
+        </div>
       </div>
     );
   };
