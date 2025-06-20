@@ -106,12 +106,59 @@ const PerspectiveDebate = () => {
     const agents = participants.filter((p) => p.id !== "user");
     const userParticipant = participants.find((p) => p.id === "user");
 
+    // 1. One-on-one debate: Vertically align the two participants.
+    if (
+      selectedDoor?.type === "one-on-one" &&
+      userParticipant &&
+      agents.length === 1
+    ) {
+      const agent = agents[0];
+      return (
+        <div className="chat-circle">
+          {/* Agent at the top, centered on the circle line */}
+          <div
+            key={agent.id}
+            className="agent-card"
+            style={{
+              left: `${centerX - 80}px`,
+              top: `${centerY - radius - 50}px`, // Center card on the circle
+              transitionDelay: "0ms",
+            }}
+          >
+            <strong>{agent.name}</strong>
+            <p>{agentSayings[0 % agentSayings.length]}</p>
+          </div>
+
+          {/* User at the bottom, centered on the circle line */}
+          <div
+            key={userParticipant.id}
+            className="agent-card user-card"
+            style={{
+              left: `${centerX - 80}px`,
+              top: `${centerY + radius - 50}px`, // Center card on the circle
+              transitionDelay: "100ms",
+            }}
+          >
+            <strong>{userParticipant.name}</strong>
+            <p>{userStatement}</p>
+          </div>
+        </div>
+      );
+    }
+
+    // 2. Group/Watch debate: Align the "You" card with the circle path.
+    const numAgents = agents.length || 1;
+    const arc = 1.2 * Math.PI;
+    const startAngle = 1.5 * Math.PI - arc / 2;
+
     return (
       <div className="chat-circle">
         {agents.map((participant, index) => {
           const angle =
-            Math.PI + (Math.PI * (index + 0.5)) / (agents.length || 1);
-          const x = centerX + radius * Math.cos(angle) - 75;
+            numAgents > 1
+              ? startAngle + (arc * index) / (numAgents - 1)
+              : 1.5 * Math.PI; // Center single agent at the top
+          const x = centerX + radius * Math.cos(angle) - 80;
           const y = centerY + radius * Math.sin(angle) - 50;
 
           return (
@@ -135,8 +182,8 @@ const PerspectiveDebate = () => {
             key={userParticipant.id}
             className="agent-card user-card"
             style={{
-              left: `${centerX - 75}px`,
-              top: `${centerY + radius - 100}px`, // Bottom center
+              left: `${centerX - 80}px`,
+              top: `${centerY + radius - 50}px`, // Center the card on the circle line
               transitionDelay: `${agents.length * 100}ms`,
             }}
           >
