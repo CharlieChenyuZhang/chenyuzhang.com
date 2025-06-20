@@ -576,7 +576,7 @@ const AcademicWordGame = () => {
           maxWidth: 500,
           margin: "2rem auto",
           textAlign: "center",
-          fontFamily: "'Comic Sans MS', 'Comic Sans', cursive",
+          // fontFamily: "'Comic Sans MS', 'Comic Sans', cursive",
         }}
       >
         <h2 style={{ fontSize: 36, color: "#ff9800", marginBottom: 16 }}>
