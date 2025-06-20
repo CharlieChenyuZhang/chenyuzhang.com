@@ -12,7 +12,12 @@ const agentSayings = [
   "I'm thinking about the long-term strategy.",
 ];
 
+const CORRECT_PASSWORD = "123xyz"; // TODO: Use a more secure method for password handling.
+
 const PerspectiveDebate = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [inputPassword, setInputPassword] = useState("");
+  const [authError, setAuthError] = useState("");
   const [scenario, setScenario] = useState("");
   const [perspectives, setPerspectives] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -24,6 +29,16 @@ const PerspectiveDebate = () => {
   const [userStatement, setUserStatement] = useState(
     "This is you. Join the conversation!"
   );
+
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault();
+    if (inputPassword === CORRECT_PASSWORD) {
+      setIsAuthenticated(true);
+      setAuthError("");
+    } else {
+      setAuthError("Incorrect password. Please try again.");
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -194,6 +209,30 @@ const PerspectiveDebate = () => {
       </div>
     );
   };
+
+  if (!isAuthenticated) {
+    return (
+      <div className="password-overlay">
+        <div className="password-modal">
+          <h1>Perspective Debate</h1>
+          <form onSubmit={handlePasswordSubmit} style={{ marginTop: "2rem" }}>
+            <input
+              type="password"
+              className="password-input"
+              value={inputPassword}
+              onChange={(e) => setInputPassword(e.target.value)}
+              placeholder="Enter code"
+              required
+            />
+            <button type="submit" className="password-button">
+              Unlock
+            </button>
+          </form>
+          {authError && <p className="error-message">{authError}</p>}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="perspective-debate">
